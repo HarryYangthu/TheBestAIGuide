@@ -18,9 +18,10 @@
 
 ## 内容形态
 
-- `knowledge-tree/`：知识地图、主题笔记、系统设计和源码走读。
+- [`knowledge-tree/`](knowledge-tree/README.md)：知识地图、主题笔记、设计模式、案例、实验和源码工程。
 - `knowledge-tree/assets/`：笔记引用的图表与示意图。
-- 后续规划：使用 Notebook 承载实验过程，使用标准源码工程承载可复用实现和测试。
+- `knowledge-tree/50-Labs/`：使用 Notebook 承载可运行实验。
+- `knowledge-tree/60-Code/`：使用标准源码工程承载可复用实现和测试。
 
 ## 使用方式
 

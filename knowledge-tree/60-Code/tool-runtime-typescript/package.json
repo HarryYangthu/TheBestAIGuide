@@ -1,0 +1,8 @@
+{
+  "name": "tool-runtime-typescript",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Minimal Tool Runtime examples for TheBestAIGuide",
+  "type": "module",
+  "scripts": {}
+}
