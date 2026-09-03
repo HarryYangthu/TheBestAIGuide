@@ -1,277 +1,67 @@
 # Context Engineering 资源索引
 
-> 用途：集中保存 Context Engineering 的学习资料、论文、工程实践、开源仓库和学习路径。正文知识沉淀放在 [Context-Engineering.md](../../20-Knowledge/04-context-engineering/Context-Engineering.md)，这里作为资源导航。
+> 状态：draft
+> 最近整理：2026-09-03
+> 用途：记录来源类型、支持的结论和使用边界；正式知识见 [Context Engineering](../../20-Knowledge/04-context-engineering/README.md)。
 
-## 一、核心概念入门
+## 核心一手资料
 
-### 1. The New Skill in AI is Not Prompting, It's Context Engineering
+| 来源 | 类型 | 主要用途 | 使用边界 |
+| --- | --- | --- | --- |
+| [Anthropic: Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) | 官方工程文章，2025-09-29 | 有效上下文、检索、长任务、压缩和子 Agent | 厂商经验，需要在自身模型与任务上验证 |
+| [Anthropic: Building effective agents](https://www.anthropic.com/engineering/building-effective-agents) | 官方工程文章，2024-12-19 | Workflow/Agent 边界、简单组合模式 | 主要描述 Anthropic 实践，不是协议标准 |
+| [LangChain: Context engineering for agents](https://blog.langchain.com/context-engineering-for-agents/) | 框架作者文章 | Write、Select、Compress、Isolate 分类 | 分类可复用，示例 API 可能随框架变化 |
+| [langchain-ai/how_to_fix_your_context](https://github.com/langchain-ai/how_to_fix_your_context) | 官方配套代码 | RAG、工具筛选、隔离、修剪、摘要、卸载示例 | 运行前锁定依赖并检查当前 API |
+| [Lost in the Middle](https://arxiv.org/abs/2307.03172) | 论文 | 长上下文中信息位置与利用问题 | 结论受模型、任务和上下文长度约束 |
+| [A Survey of Context Engineering for Large Language Models](https://arxiv.org/abs/2507.13334) | 综述论文 | 术语、方法分类和研究全景 | 综述覆盖广，具体结论需回到原论文 |
 
-- 作者：Philipp Schmid
-- 链接：https://www.philschmid.de/context-engineering
-- 核心价值：入门必读，适合快速建立术语体系和框架认知。
-- 内容要点：
-  - 上下文工程不是提示工程，而是动态系统。
-  - 六层上下文模型：指令/提示、短期记忆、长期记忆、RAG 检索、工具定义、结构化输出。
-  - 核心公式：正确信息 + 正确工具 + 正确时机 + 正确格式 = 有效 Agent。
+## 一手工程案例
 
-### 2. 上下文工程技术总结（中文叙事版）
+| 来源 | 可提炼内容 | 不直接继承的内容 |
+| --- | --- | --- |
+| [Manus: Lessons from building Manus](https://manus.im/blog/Context-Engineering-for-AI-Agents-Lessons-from-Building-Manus) | 缓存友好前缀、文件系统卸载、工具选择和错误保留 | 未公开数据和环境下的效果数字 |
+| [Anthropic: Multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system) | 子任务上下文隔离、并行研究和协作取舍 | 不假设多 Agent 对所有任务都更好 |
+| [Anthropic: The think tool](https://www.anthropic.com/engineering/claude-think-tool) | 在工具交互过程中显式增加决策步骤 | 不等同于获取或保存隐藏思维链 |
 
-- 论文：https://arxiv.org/pdf/2510.26493
-- 仓库：https://github.com/GAIR-NLP/Context-Engineering-2.0
-- 微信文章：https://mp.weixin.qq.com/s/KbviOJ6q-K4ik_wzsUs2dw
-- 核心价值：适合补充理论深度和演进脉络。
-- 内容要点：
-  - 上下文工程可以从熵减理论理解。
-  - RAG、CoT、多模态都可以看作把高熵信息转成更低熵、更可用表示的过程。
-  - 2.0 策略包括文本处理和选择策略：时间戳、标签、QA 压缩、层级笔记、语义相关性、逻辑依赖、时效性、去重、用户偏好。
+## 社区方法与二手资料
 
-## 二、实战方法论
+这些来源适合发现术语、模式和案例，但正式结论应回到论文、官方文档、源代码或本地实验：
 
-### 3. Context Engineering for Agents
+- [Drew Breunig: How Long Contexts Fail](https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html)：Poisoning、Distraction、Confusion、Clash 的诊断框架。
+- [12 Factor Agents](https://github.com/humanlayer/12-factor-agents)：强调拥有 Context、确定性控制和小型 Agent 组合。
+- [Philipp Schmid: Context Engineering](https://www.philschmid.de/context-engineering)：概念入口和上下文组成。
+- [phodal/build-agent-context-engineering](https://github.com/phodal/build-agent-context-engineering)：中文工程实践导航。
+- [Awesome Context Engineering](https://github.com/Meirtz/Awesome-Context-Engineering)：论文与资料发现入口。
 
-- 作者：Harrison Chase
-- 链接：https://blog.langchain.com/context-engineering-for-agents/
-- 配套仓库：https://github.com/langchain-ai/how_to_fix_your_context
-- 核心价值：实践框架清晰，有完整代码示例。
-- 四大策略：
-  - Write Context：Scratchpads、短期/长期记忆、LangMem。
-  - Select Context：动态检索、工具筛选、RAG 优化。
-  - Compress Context：总结、递归压缩、层级压缩、剪枝。
-  - Isolate Context：多 Agent、沙盒环境、状态对象。
+## 资源使用矩阵
 
-### 4. 12-Factor Agents
+| 主题 | 优先来源 |
+| --- | --- |
+| 定义与系统边界 | Anthropic Effective Context、LangChain 分类 |
+| 长上下文问题 | Lost in the Middle、具体模型评测 |
+| 失败模式 | Drew Breunig 框架 + 本地失败 Trace |
+| Context Builder | 官方工程文章 + 本仓设计与测试 |
+| 压缩与卸载 | Anthropic、LangChain 代码、Manus 案例 |
+| 多 Agent 隔离 | Anthropic Multi-Agent + 单 Agent 基线 |
+| 缓存 | 模型供应商当前缓存文档 + 本地 Token/成本记录 |
+| 安全与注入 | 模型供应商安全文档、威胁模型和本地对抗 Eval |
 
-- 作者：Dex Horthy
-- 链接：https://github.com/humanlayer/12-factor-agents
-- 核心价值：生产级 Agent 方法论。
-- 关键观点：
-  - Factor 3：拥有你的上下文窗口。
-  - Agent 应该是 80% 确定性代码 + 20% LLM 调用。
-  - 不要盲目信任框架，要拥有核心组件。
-  - 成本呈二次增长，必须优化。
+## 已删除或降级的结论
 
-### 5. phodal/build-agent-context-engineering
+旧资源表中的以下写法不再作为正式知识保留：
 
-- 作者：phodal
-- 链接：https://github.com/phodal/build-agent-context-engineering
-- 核心价值：中文开发者友好的系统实战资料。
-- 四大学习路径：
-  - 结构化提示词工程。
-  - 上下文工程与 RAG。
-  - 工具系统设计。
-  - Agent 规划与多 Agent。
-- 相关案例：GitHub Copilot 上下文优先级排序、Cursor Rule 设计。
+- 没有任务、模型、数据和运行记录支撑的固定“性能提升”数字；
+- 没有统一计费与缓存口径支撑的成本节省比例；
+- “固定分钟粒度”“固定 Token 压缩比例”等通用最佳值；
+- 根据 Star、篇幅或主观印象给代码质量打分；
+- 将厂商个案直接写成所有 Agent 的普适规律。
 
-## 三、问题诊断与修复
+这些内容如需恢复，必须记录原始来源、发布日期、实验设置和适用条件。
 
-### 6. How Contexts Fail—and How to Fix Them
+## 维护规则
 
-- 作者：Drew Breunig
-- 链接：https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html
-- 核心价值：反面案例和修复策略。
-- 四种失败模式：
-  - Context Poisoning：幻觉错误被反复引用。
-  - Context Distraction：长上下文导致重复历史动作。
-  - Context Confusion：无关工具或信息干扰响应。
-  - Context Clash：多轮对话中信息矛盾。
-
-### 7. Practical Tips on Building LLM Agents
-
-- 作者：Paras Chopra
-- 链接：https://letters.lossfunk.com/p/practical-tips-on-building-llm-agents
-- 核心价值：一线工程经验和成本考量。
-- 关键洞察：
-  - 任务切分到 10-15 分钟粒度。
-  - 每步明确成功/失败标准，防止错误累积。
-  - 定期重复待办列表，对抗长任务健忘。
-  - 让 LLM 通过工具读写自主构建上下文。
-  - 通过 KV 缓存降低多轮 Agent 成本。
-
-## 四、企业实战案例
-
-### 8. Context Engineering for AI Agents: Lessons from Building Manus
-
-- 作者：季逸超
-- 链接：https://manus.im/zh-cn/blog/Context-Engineering-for-AI-Agents-Lessons-from-Building-Manus
-- 核心价值：长任务 Agent 的企业级优化经验。
-- 核心经验：
-  - KV 缓存优化：只追加不修改，提升缓存命中。
-  - 工具遮蔽：动态显示或隐藏工具，避免上下文混淆。
-  - 文件系统作为上下文：让 Agent 读写 Memory 文件。
-  - 复述操控注意力：把关键信息重复到上下文末尾。
-  - 保留错误信息：让 LLM 利用失败上下文自我纠正。
-  - 避免少样本陷阱：Few-Shot 过多可能偏离当前任务。
-
-### 9. Effective Context Engineering for AI Agents
-
-- 来源：Anthropic 官方
-- 链接：https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents
-- 核心价值：Claude 团队实践经验。
-- 三大维度：
-  - 有效上下文：提示词、工具定义、Few-Shot 示例。
-  - 即时检索：动态工具调用、RAG 增强。
-  - 长任务管理：上下文压缩、笔记系统、子 Agent 隔离。
-
-### 10. Brainwash Your Agent: How We Keep the Memory Clean
-
-- 作者：CAMEL-AI 团队
-- 链接：https://www.camel-ai.org/blogs/brainwash-your-agent-how-we-keep-the-memory-clean
-- 核心价值：记忆清理和长工作流管理。
-- 三大技术：
-  - 上下文总结。
-  - 工作流内存。
-  - 工具输出缓存。
-- 适用场景：长工作流 Agent、开源贡献者、需要减少侧任务干扰的系统。
-
-## 五、学术综述与前沿研究
-
-### 11. A Survey of Context Engineering for Large Language Models
-
-- 论文：https://arxiv.org/pdf/2507.13334
-- 仓库：https://github.com/Meirtz/Awesome-Context-Engineering
-- 核心价值：全景综述，适合研究者和架构师。
-- 内容框架：
-  - 检索增强。
-  - 上下文处理。
-  - 记忆管理。
-  - RAG、长上下文、结构化数据、自生成上下文、Agent 通信、评估。
-
-### 12. Context Engineering 2.0: The Context of Context Engineering
-
-- 论文：https://arxiv.org/pdf/2510.26493
-- 仓库：https://github.com/GAIR-NLP/Context-Engineering-2.0
-- 核心价值：上下文工程 2.0 与熵减理论框架。
-- 核心贡献：
-  - Agent 中心智能。
-  - 将上下文工程定位为熵减过程。
-  - 策略分类：文本处理 + 选择策略。
-
-## 六、开源工具与代码仓库
-
-### 13. davidkimai/Context-Engineering
-
-- 链接：https://github.com/davidkimai/Context-Engineering
-- 核心价值：完整学习路径和上下文协议参考。
-- 内容模块：
-  - 基础学习路径。
-  - RAG 架构。
-  - 记忆设计。
-  - 工具集成。
-  - 上下文修剪。
-  - Agent 系统。
-
-### 14. WakeUp-Jin/Practical-Guide-to-Context-Engineering
-
-- 链接：https://github.com/WakeUp-Jin/Practical-Guide-to-Context-Engineering
-- 核心价值：实践指南和结构化导航。
-- 七类上下文分解：
-  - 系统提示。
-  - 用户输入。
-  - 短期记忆。
-  - 长期记忆。
-  - RAG。
-  - 工具输出。
-  - 结构化输出。
-
-### 15. ginobefun/agentic-design-patterns-cn
-
-- 链接：https://github.com/ginobefun/agentic-design-patterns-cn/tree/main
-- 核心价值：Agentic Design Patterns 中英对照译本。
-- 模式库：
-  - 提示链。
-  - 反思。
-  - 工具使用。
-  - 多 Agent。
-  - 记忆管理。
-  - 协议设计。
-  - 异常处理。
-  - RAG 集成。
-  - 生产模式。
-
-## 七、视频与多媒体资源
-
-### 16. Context Engineering: The Outer Loop
-
-- 作者：Hammad Bashir
-- 平台：YouTube
-- 时长：30 分钟
-- 核心价值：用向量数据库构建外循环动态上下文的可视化演示。
-- 技术栈：Chroma + 向量检索 + 动态上下文构建。
-
-### 17. AI Engineer World's Fair Talk: 12-Factor Agents
-
-- 演讲者：Dex Horthy
-- 链接：https://www.youtube.com/watch?v=8kMaTybvDUw
-- 核心价值：12-Factor Agents 方法论现场讲解。
-
-## 八、电子书与完整指南
-
-### 18. The Context Engineering Guide
-
-- 出版方：Weaviate
-- 链接：https://weaviate.io/ebooks/the-context-engineering-guide
-- 核心价值：完整 eBook，适合系统学习。
-- 章节覆盖：
-  - Agent 架构设计。
-  - 查询增强技术。
-  - 检索策略优化。
-  - 内存系统构建。
-  - 工具集成方案。
-  - 生产级模式。
-
-## 学习路径推荐
-
-### 入门路径（1-2 周）
-
-1. 阅读 Philipp Schmid 的概念文章，建立框架。
-2. 学习 Drew Breunig 的失败模式，先知道坑在哪里。
-3. 浏览 LangChain 的四大策略，建立方法论。
-
-### 进阶路径（2-4 周）
-
-1. 深入 phodal 的中文实战仓库。
-2. 研读 12-Factor Agents。
-3. 学习 Manus / Anthropic 的企业案例。
-
-### 专家路径（1-3 个月）
-
-1. 研读 1400+ 论文综述，建立全景视野。
-2. 实践 davidkimai 的完整学习路径。
-3. 参与或贡献开源项目。
-
-## 核心技术要点速查
-
-### 上下文工程三大支柱
-
-- 信息检索：RAG、混合检索、Agentic 检索。
-- 记忆管理：短期 / 长期记忆、反思机制。
-- 工具编排：MCP 协议、工具路由、并行调用。
-
-### 生产环境最佳实践
-
-- 任务原子化：10-15 分钟粒度。
-- 使用 KV 缓存：只追加不修改。
-- 建立验证系统：每步明确成功 / 失败。
-- 工具单一职责：原子性 + 语义清晰。
-- 上下文压缩与隔离：总结 + 剪枝 + 沙盒。
-- 避免上下文中毒和冲突。
-- 防止过度依赖长上下文。
-
-### 成本优化关键指标
-
-- 多轮 Agent 成本可能呈二次增长。
-- KV 缓存命中可降低大量成本。
-- 上下文总结可减少 60-80% 令牌。
-
-## 资源价值矩阵
-
-| 资源 | 理论深度 | 实践性 | 代码质量 | 适合人群 |
-| --- | --- | --- | --- | --- |
-| Philipp Schmid 文章 | 中 | 高 | - | 所有人 |
-| LangChain 博客 | 中 | 高 | 高 | 开发者 |
-| 12-Factor Agents | 高 | 高 | 高 | 工程师 |
-| phodal 仓库 | 高 | 高 | 高 | 中文开发者 |
-| Drew Breunig 文章 | 高 | 高 | - | 调试者 |
-| 1400+ 论文综述 | 很高 | 中 | - | 研究者 |
-| davidkimai 仓库 | 高 | 高 | 高 | 深度学习者 |
-| Manus 案例 | 中 | 高 | 中 | 企业团队 |
+- 先记录来源，再提炼知识结论；同一结论尽量有论文、官方文档或源代码支撑。
+- 链接到框架代码时保存提交或版本，不只链接 `main`。
+- 厂商性能数字保留原测量对象和限制，不跨模型、任务或价格版本外推。
+- 博客中的模式可进入 `draft`，进入 `reviewed` 前需要交叉核对。
+- 本地实验结果进入 Labs，并记录数据、版本、运行命令和原始输出。

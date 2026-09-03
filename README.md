@@ -13,15 +13,18 @@
 - [知识库建设状态](00-Home/Knowledge-Status.md)
 - [待补充计划](00-Home/待补充计划.md)
 
-## 已有重点内容
+## 当前已有正文
 
-- [Context Engineering](20-Knowledge/04-context-engineering/Context-Engineering.md)
-- [Context Engineering 资料索引](90-Sources/source-notes/Context-Engineering-Resources.md)
-- [Agent Evaluation](20-Knowledge/10-evaluation-observability/Evaluation.md)
-- [Multi-Agent Evaluation Guide](20-Knowledge/10-evaluation-observability/Multi-Agent-Evaluation-Guide.md)
-- [运维领域 RAG 问答系统](40-Cases/rag-systems/运维领域-RAG-问答系统.md)
-- [运维 RAG 双索引检索设计](40-Cases/rag-systems/运维RAG-双索引检索设计.md)
-- [AgentGuide 代码仓走读](40-Cases/external-repositories/AgentGuide/repository-walkthrough.md)
+| 主题 | 内容 | 状态 |
+| --- | --- | --- |
+| Context Engineering | [概念、Builder、失败模式、优化和评测](20-Knowledge/04-context-engineering/README.md) | draft |
+| RAG | [端到端流程、混合检索与重排](20-Knowledge/06-rag-and-knowledge-systems/README.md) | draft |
+| Agent Evaluation | [任务、Trial、Grader、统计、Trace 和发布门禁](20-Knowledge/10-evaluation-observability/README.md) | draft |
+| Multi-Agent Evaluation | [路由、交接、共享状态、协作和成本](20-Knowledge/10-evaluation-observability/Multi-Agent-Evaluation-Guide.md) | draft |
+| 运维 RAG | [系统设计与双索引决策](40-Cases/rag-systems/README.md) | draft / design case |
+| AgentGuide | [固定提交的代码仓走读与知识提炼](40-Cases/external-repositories/AgentGuide/repository-walkthrough.md) | reviewed snapshot |
+
+这里的 `draft` 表示已有结构化正文，但不代表配套实验和实现已运行。
 
 ## 目录分工
 
@@ -38,11 +41,25 @@
 | `99-Inbox/` | 尚未消化、验证或归类的材料 |
 | `assets/` | 文档引用的图片和图表 |
 
+## 内容流转
+
+```text
+Sources / Inbox
+      ↓ 整理与核验
+Knowledge ──> Maps
+      ↓ 提炼      ↓ 导航
+Patterns / Cases
+      ↓ 验证
+Labs / Code
+```
+
+每个知识点只保留一份正式定义。地图负责导航，模式说明可复用取舍，案例保留具体约束，实验与代码负责验证。
+
 ## 状态约定
 
 - `seed`：只有主题边界或占位。
-- `draft`：已有正文，但尚未完成来源与验证检查。
-- `reviewed`：结构和来源已检查。
+- `draft`：已有正文，但尚未完成来源或实验验证。
+- `reviewed`：结构、事实和来源已审查。
 - `verified`：相关代码或实验已实际运行并记录结果。
 
-占位目录、代码片段和设计文档不代表功能已经实现或实验已经验证。
+占位目录、代码片段、架构设计和构建成功都不自动等于功能或效果已经验证。

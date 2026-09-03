@@ -259,8 +259,9 @@ Task
 
 ### 03.6 已有专题
 
-- [Context Engineering](../20-Knowledge/04-context-engineering/Context-Engineering.md)
-- [Context Engineering Resources](../90-Sources/source-notes/Context-Engineering-Resources.md)
+- [Context Engineering 模块](../20-Knowledge/04-context-engineering/README.md)
+- [Context Builder 模式](../30-Patterns/context/context-builder.md)
+- [Context Engineering 来源索引](../90-Sources/source-notes/Context-Engineering-Resources.md)
 
 ---
 
@@ -402,6 +403,8 @@ Task
 
 ### 05.9 已有案例
 
+- [RAG 端到端流程](../20-Knowledge/06-rag-and-knowledge-systems/01-rag-pipeline.md)
+- [混合检索与重排](../20-Knowledge/06-rag-and-knowledge-systems/02-hybrid-retrieval-and-reranking.md)
 - [运维领域 RAG 问答系统](../40-Cases/rag-systems/运维领域-RAG-问答系统.md)
 - [运维 RAG 双索引检索设计](../40-Cases/rag-systems/运维RAG-双索引检索设计.md)
 
@@ -534,7 +537,7 @@ Task
 
 ### 07.7 已有专题
 
-- [Multi-Agent Evaluation Guide](../20-Knowledge/10-evaluation-observability/Multi-Agent-Evaluation-Guide.md)
+- [Multi-Agent 系统评测](../20-Knowledge/10-evaluation-observability/Multi-Agent-Evaluation-Guide.md)
 
 ---
 
@@ -667,8 +670,9 @@ Harness 是模型与真实任务环境之间的运行系统。它不只负责调
 
 ### 09.9 已有专题
 
-- [Evaluation](../20-Knowledge/10-evaluation-observability/Evaluation.md)
-- [Multi-Agent Evaluation Guide](../20-Knowledge/10-evaluation-observability/Multi-Agent-Evaluation-Guide.md)
+- [Evaluation 与 Observability 模块](../20-Knowledge/10-evaluation-observability/README.md)
+- [Agent Evaluation 总览](../20-Knowledge/10-evaluation-observability/Evaluation.md)
+- [Multi-Agent 系统评测](../20-Knowledge/10-evaluation-observability/Multi-Agent-Evaluation-Guide.md)
 
 ---
 
@@ -1060,16 +1064,16 @@ Harness 是模型与真实任务环境之间的运行系统。它不只负责调
 
 ---
 
-## AgentGuide 内容转换规则
+## 外部内容提炼规则
 
-| AgentGuide 原表达 | 本知识库的处理方式 |
+| 源内容形态 | 本知识库的处理方式 |
 | --- | --- |
-| 岗位学习路线 | 改为能力依赖和技术进阶路线 |
+| 主题路线 | 改为前置依赖和技术进阶关系 |
 | 高频问答 | 改为概念检查题和设计讨论题 |
-| 项目包装 | 改为架构说明、ADR 和技术复盘 |
-| 项目亮点 | 改为可验证的技术决策、指标和取舍 |
-| 公司案例 | 只保留有明确技术机制和证据的案例 |
-| 时间承诺 | 改为前置条件、学习目标和验收标准 |
+| 项目说明 | 改为架构、ADR、验证记录和技术复盘 |
+| 效果描述 | 改为可追溯的指标、实验条件和限制 |
+| 系统案例 | 只保留有明确机制和证据边界的部分 |
+| 时间计划 | 改为前置条件、目标和验收标准 |
 | 大量资源链接 | 进入资源索引，不直接进入主教程 |
 
 保留的核心原则：
@@ -1085,7 +1089,7 @@ Harness 是模型与真实任务环境之间的运行系统。它不只负责调
 
 ## 已有文件的归位
 
-已有长文已迁移到目标目录，后续按主题逐步拆分：
+已有长文已迁移到目标目录；Context、RAG 与 Evaluation 已完成第一轮拆分，其余模块继续按主题补充：
 
 | 已有内容 | 当前路径 |
 | --- | --- |

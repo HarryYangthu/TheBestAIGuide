@@ -4,4 +4,4 @@
 
 一篇正式专题应说明问题定义、核心机制、适用边界、失败模式、验证方法和一手来源，并链接到相关模式、实验、代码和案例。
 
-当前已有较完整的 Context Engineering 和 Agent Evaluation 内容；其他模块以 `README.md` 建立边界，逐步补充。
+当前已有结构化正文的模块是 Context Engineering、RAG 和 Evaluation；其他模块以 `README.md` 建立边界，逐步补充。已有正文均为 `draft`，只有配套实验或代码实际运行并留下记录后才升级为 `verified`。

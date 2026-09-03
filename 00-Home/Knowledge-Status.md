@@ -1,25 +1,41 @@
 # 知识库建设状态
 
-> 盘点日期：2026-09-03
+> 盘点日期：2026-09-04
+> 状态只描述仓库内证据，不根据目录数量推断完成度。
 
-| 模块 | 当前状态 | 说明 |
-| --- | --- | --- |
-| AI 基础 | seed | 已建立范围，尚无正式专题和实验 |
-| 基础模型 | seed | 总纲中已有知识点，尚未拆成专题 |
-| Agent Core | seed | 总纲中已有知识点，最小实现尚未完成 |
-| Context Engineering | draft | 已有长篇正文、资源索引和两个 Notebook 占位 |
-| Tools 与协议 | seed | 总纲级覆盖，缺少独立专题和实现 |
-| RAG | draft | 已有两个运维案例，缺少通用知识专题和实验 |
-| Memory 与状态 | seed | Context 文档和总纲中有零散内容 |
-| Workflow 与 Multi-Agent | draft | 评测专题较完整，系统设计专题不足 |
-| Runtime 与 Harness | seed | 有概念说明和工程骨架，尚无可运行实现 |
-| Evaluation 与 Observability | draft | 已有两个长篇专题，仍需拆分和来源复核 |
-| Safety 与 Governance | seed | 只有总纲级内容 |
-| Agent Learning | seed | 只有数据、SFT、偏好优化和 Agentic RL 总纲 |
-| 应用与生产工程 | seed | 只有总纲级内容 |
-| 多模态与具身智能 | seed | 只有少量零散提及 |
-| Research Frontiers | seed | 只有方向清单 |
-| Labs | seed | 现有 Notebook 均未实现或验证 |
-| Code | seed | 两个工程只有配置和空目录 |
+| 模块 | 当前状态 | 已有内容 | 主要缺口 |
+| --- | --- | --- | --- |
+| AI 基础 | seed | 范围与知识地图 | 正式专题、练习和实验 |
+| 基础模型 | seed | Tokenizer、Transformer、训练与推理大纲 | 独立笔记与实验 |
+| Agent Core | seed | 总纲与最小工程入口 | Agent Loop 正文、实现和测试 |
+| Context Engineering | draft | 总览、信息模型、Builder、失败模式、优化、评测、模式和来源索引 | Notebook、框架版本验证和实测结果 |
+| Tools 与协议 | seed | 总纲级覆盖 | Tool Schema、错误协议、权限、MCP 和实现 |
+| RAG | draft | 端到端流程、混合检索、模式和两个运维设计案例 | 样例数据、标注集、Pipeline 和 Eval |
+| Memory 与状态 | seed | 总纲中已有分类和生命周期 | 独立专题、实现、冲突/遗忘和评测 |
+| Workflow 与 Multi-Agent | draft | 适用边界与 Multi-Agent 评测 | 拓扑、路由、交接、共享状态和案例 |
+| Runtime 与 Harness | seed | 七层模型与工程骨架入口 | 可运行 Runtime、恢复、回放和幂等测试 |
+| Evaluation 与 Observability | draft | 系统模型、任务、评分器、统计、Trace、Multi-Agent、运营、模板和来源 | Eval Harness、校准集和运行报告 |
+| Safety 与 Governance | seed | 总纲级威胁与信任边界 | 威胁模型、策略、红队任务和治理流程 |
+| Agent Learning | seed | 数据、SFT、偏好优化和 Agentic RL 大纲 | 正式专题和实验 |
+| 应用与生产工程 | seed | 总纲级覆盖 | UI、API、存储、模型路由和部署实践 |
+| 多模态与具身智能 | seed | 方向清单 | 视觉、语音、文档、Computer Use、VLA 基础 |
+| Research Frontiers | seed | 方向清单 | 来源追踪、论文笔记和验证任务 |
+| Labs | seed | Context 两个 Notebook 文件及各主题入口 | Notebook 内容、依赖、样例数据和执行记录 |
+| Code | seed | 两个工程 Manifest/README 和其他工程入口 | 源码、测试、锁文件和 CI |
 
-状态含义见仓库根目录 [README](../README.md#状态约定)。
+## 本版完成的内容整理
+
+- 将 Context Engineering 的 1319 行长文改为短总览，并拆成 5 篇专题和 1 个模式。
+- 将 Evaluation 与 Multi-Agent 的两篇长文改写为 9 个职责清晰的入口。
+- 从运维 RAG 案例提炼通用 RAG 流程与 Hybrid Retrieval 模式。
+- 重写 AgentGuide 走读，删除求职细节，保留固定提交下的代码和证据边界。
+- 删除虚构团队案例、无来源成本表和未经限定的性能数字。
+- 保留旧主文件名作为入口，避免已有链接失效。
+
+## 当前可验证与不可验证
+
+已验证：仓库结构、内部链接检查结果、固定 AgentGuide 提交的远端 HEAD，以及本次 Markdown 重构本身。
+
+未验证：Context/RAG/Evaluation 策略的实验效果、Notebook 执行、Agent/RAG/Eval 工程运行、任何生产指标。
+
+状态含义见[目录与写作规范](Conventions.md)。

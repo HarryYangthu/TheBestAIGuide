@@ -1,5 +1,5 @@
-# AgentGuide Review
+# AgentGuide 仓库走读
 
-- [仓库走读与内容大纲](repository-walkthrough.md)
+- [仓库走读、技术提炼与证据边界](repository-walkthrough.md)
 
-原仓库中的求职和面试内容只作为源仓结构事实记录，不进入本知识库学习主线。
+原仓库中的求职和面试内容只作为源仓结构事实，不进入本知识库主线。当前走读绑定固定提交；构建验证与内容事实审查是不同证据层。

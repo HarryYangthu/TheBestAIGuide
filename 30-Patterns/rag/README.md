@@ -1,5 +1,9 @@
 # RAG Patterns
 
-计划提炼 Hybrid Retrieval、Parent-child Retrieval、Query Routing、Rerank 和 Citation Grounding 模式。
+本目录保存检索、证据组织与引用的可复用设计模式。
 
-当前素材：[运维 RAG 双索引检索设计](../../40-Cases/rag-systems/运维RAG-双索引检索设计.md)。
+当前模式：
+
+- [Hybrid Retrieval](hybrid-retrieval.md)：组合语义、词法和精确字段通道，再进行融合与重排。
+
+待提炼：Parent-child Retrieval、Query Routing、Citation Grounding、Freshness Filter 和 Abstention。

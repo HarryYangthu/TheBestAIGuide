@@ -1,282 +1,150 @@
 # 运维 RAG 双索引检索设计
 
-## 核心思路
+> 状态：draft / architecture decision
+> 决策：同时使用语义检索与词法/精确字段检索，并在候选层融合。
 
-运维 RAG 的检索可以理解成两条通道：
+## 背景
 
-- 向量索引：负责语义相似召回。
-- BM25 / keyword 索引：负责关键词、型号、故障码、编码的精确匹配。
+运维 Query 往往同时包含两类信息：
 
-例如用户提问：
+- “风扇异常怎么处理”这类自然语言现象；
+- `S5735`、`ALM-12003`、`0x...`、接口名或命令这类精确标识。
 
-```text
-S5735 出现 ALM-12003 风扇告警怎么处理？
-```
+Dense Retrieval 能连接不同说法，Embedding 却可能把相似编号视为相近；BM25 和精确字段能保护标识符，却可能漏掉口语化表达。因此单一通道无法同时覆盖两类需求。
 
-系统需要同时做到：
-
-1. 理解「风扇告警怎么处理」这个自然语言问题。
-2. 精确匹配 `S5735` 这个设备型号。
-3. 精确匹配 `ALM-12003` 这个故障码。
-
-所以在运维场景里，不能只依赖向量检索，也不能只依赖 BM25。更合理的方式是把语义召回和精确匹配结合起来。
-
-## 向量索引
-
-向量索引会把每个文档 Chunk 通过 embedding 模型转换成高维向量，然后写入向量库。
-
-例如一个 Chunk：
+## 决策
 
 ```text
-ALM-12003 表示风扇模块异常。处理时应检查风扇是否在位、风扇状态是否正常，必要时更换风扇模块。
+Query
+  -> Identifier Extractor
+  -> Scope / ACL / Version Filter
+  ├─> Dense Retrieval
+  ├─> BM25 Retrieval
+  └─> Exact Field Lookup
+           │
+           ▼
+   Union + Deduplicate
+           │
+           ▼
+ Fusion / Query-aware Routing
+           │
+           ▼
+        Rerank
+           │
+           ▼
+  Version/Conflict Check
 ```
 
-经过 BGE-large-zh 等 embedding 模型后，会被转换成一个向量：
+这里沿用“双索引”名称，但实现上实际包含三种信号：向量、BM25 文本和 `keyword` 精确字段。BM25 是词法相关性算法，不等同于精确匹配。
 
-```text
-[0.012, -0.231, 0.087, ..., 0.331]
-```
-
-用户问题也会被转换成向量，然后通过相似度计算召回语义最接近的 Chunk。
-
-向量索引适合解决「说法不一致但意思相近」的问题，例如：
-
-- 文档写的是 `FAN_FAIL 告警处理流程`，用户问的是「风扇异常怎么解决」。
-- 文档写的是「链路中断」，用户问的是「网络不通怎么排查」。
-
-它更适合处理：
-
-- 自然语言问题
-- 同义表达
-- 模糊描述
-- 现象类问题
-
-典型问题包括：
-
-- 设备掉线怎么办？
-- 链路不通怎么排查？
-- 风扇异常怎么处理？
-- CPU 占用高是什么原因？
-
-## 向量索引构建流程
-
-向量索引通常分为 5 步：
-
-1. 文档清洗
-2. 领域化 Chunking
-3. Embedding 向量化
-4. 写入向量库
-5. 查询时做向量召回
-
-向量库中不能只保存向量，还需要保存 `chunk_id` 和 metadata。否则召回到某个向量后，系统无法知道它对应哪段文档、哪个版本、哪个型号。
-
-Chunk 示例：
+## 索引字段
 
 ```json
 {
-  "chunk_id": "chunk_001",
-  "doc_id": "manual_s5735_v2",
-  "text": "ALM-12003 表示风扇模块异常，处理步骤为检查风扇模块是否在位...",
-  "metadata": {
-    "model": "S5735",
-    "version": "V2.1",
-    "fault_codes": ["ALM-12003"]
+  "mappings": {
+    "properties": {
+      "chunk_id": {"type": "keyword"},
+      "source_id": {"type": "keyword"},
+      "source_version": {"type": "keyword"},
+      "text": {"type": "text"},
+      "product_models": {"type": "keyword"},
+      "fault_codes": {"type": "keyword"},
+      "commands": {"type": "keyword"},
+      "active": {"type": "boolean"},
+      "valid_from": {"type": "date"},
+      "valid_to": {"type": "date"},
+      "embedding": {"type": "dense_vector"}
+    }
   }
 }
 ```
 
-常见向量库包括：
+这是逻辑 Schema 示例。实际映射取决于搜索引擎版本、语言分析器、向量维度和索引策略。
 
-- FAISS
-- Milvus
-- Qdrant
-- Elasticsearch dense_vector
+## 查询处理
 
-## BM25 / 精确索引
+### 保护精确实体
 
-严格来说，BM25 不是「精确索引」，而是一种关键词相关性打分算法。真正支撑精确匹配的是搜索引擎中的倒排索引和 `keyword` 字段。
-
-工程上通常把 Elasticsearch / BM25 这套能力称为 BM25 精确检索通道，但更准确地说，它包含两类能力：
-
-- BM25 文本检索：适合关键词匹配。
-- keyword 精确匹配：适合型号、故障码、编码。
-
-## BM25 为什么适合运维场景
-
-运维文档中有大量不能靠语义猜测的信息，例如：
-
-- `ALM-12003`
-- `FAN_FAIL`
-- `S5735`
-- `S6730`
-- `0x80070005`
-- `display fan`
-- `eth0`
-- `CPU_USAGE_HIGH`
-
-这些信息必须精确命中。
-
-例如：
-
-```text
-ALM-12003
-ALM-12008
-```
-
-向量模型可能会认为它们很相似，但在运维场景中，它们代表不同故障，排查步骤可能完全不同。因此故障码、型号、命令、错误码更适合使用 BM25 / keyword 通道进行召回。
-
-## ES 字段设计
-
-构建 BM25 / 精确索引时，可以将每个 Chunk 写入 Elasticsearch：
+对故障码、型号和命令使用规则、词典或结构化解析，保存：
 
 ```json
 {
-  "chunk_id": "chunk_001",
-  "doc_id": "manual_s5735_v2",
-  "text": "ALM-12003 表示风扇模块异常，处理步骤为检查风扇模块是否在位...",
-  "model": "S5735",
-  "version": "V2.1",
-  "fault_codes": ["ALM-12003"],
-  "active": true
+  "raw": "alm 12003",
+  "normalized": "ALM-12003",
+  "type": "fault_code",
+  "confidence": 0.96,
+  "method": "regex+dictionary"
 }
 ```
 
-字段设计重点：
+数值只是格式示例。规范化过程必须可审计，并为低置信结果保留原字符串。
 
-```json
-{
-  "chunk_id": { "type": "keyword" },
-  "doc_id": { "type": "keyword" },
-  "text": {
-    "type": "text",
-    "analyzer": "ik_max_word"
-  },
-  "model": { "type": "keyword" },
-  "version": { "type": "keyword" },
-  "fault_codes": { "type": "keyword" },
-  "active": { "type": "boolean" }
-}
-```
+### BM25 与 Exact 的分工
 
-其中 `model`、`version`、`fault_codes` 要使用 `keyword` 类型，因为它们不能被分词。
+- `match`/BM25：匹配“风扇告警 处理步骤”等分词后的术语。
+- `term`/keyword：精确匹配 `ALM-12003`、`S5735` 和版本。
+- filter：执行 ACL、有效状态、产品和时间范围约束。
 
-如果 `ALM-12003` 被当成普通 `text` 字段，可能会被拆成 `ALM` 和 `12003`，这样就无法保证真正的精确匹配。
+精确字段命中可以作为硬过滤或排序加成，取决于任务。例如明确给出故障码时，召回其他代码通常应作为硬负例；型号不明确时，可能需要返回多个适用范围供确认。
 
-## BM25 查询与 keyword 查询
+## 融合选择
 
-BM25 文本查询适合自然关键词：
+### 方案 A：归一化加权
 
 ```text
-风扇告警 处理步骤
+score = alpha * dense_score
+      + beta  * sparse_score
+      + gamma * exact_bonus
 ```
 
-keyword 精确查询适合故障码、型号：
+适合需要表达领域权重的系统，但必须在验证集上校准分数分布。原方案的 `0.3/0.7` 只作为待验证假设。
 
-```text
-fault_codes = ALM-12003
-model = S5735
-```
+### 方案 B：RRF
 
-实际项目中更常用的是加权查询：
+按各通道排名融合，避免直接比较不同量纲的分数。实现稳健，但精确故障码这种硬要求仍需单独规则。
 
-- 文本内容匹配 query，可以加基础分。
-- 故障码精确命中，强烈加分。
-- 型号精确命中，也强烈加分。
-- inactive 文档不参与检索。
+### 方案 C：Query-aware Routing
 
-## 向量索引与 BM25 / keyword 索引对比
+根据 Query 类型选择通道和候选预算。路由器本身需要标注集、回退策略和 Trace。
 
-| 对比项 | 向量索引 | BM25 / keyword 索引 |
+初版可以从“并行召回 + RRF + 精确命中规则”开始，待数据足够后再训练或引入复杂路由。这是实施建议，不是已验证最优方案。
+
+## Rerank
+
+Reranker 输入 Query 与候选 Chunk，对候选集重新排序。应把标题、版本、型号等必要信息一起提供，并记录：
+
+- Reranker 模型和版本；
+- 输入截断方式；
+- 候选数与返回数；
+- 分数是否可跨 Query 比较；
+- 失败和超时的回退顺序。
+
+Rerank 解决候选排序，不解决 ACL、错误版本和来源权威性。
+
+## 备选方案
+
+| 方案 | 结论 | 原因 |
 | --- | --- | --- |
-| 核心能力 | 语义相似 | 关键词匹配、精确匹配 |
-| 适合内容 | 自然语言描述 | 编码、型号、故障码、命令 |
-| 示例 | 「风扇异常」匹配 `FAN_FAIL` | `ALM-12003` 精确命中 |
-| 优点 | 能理解同义表达 | 不容易混淆编码 |
-| 缺点 | 容易混淆相似编号 | 不理解深层语义 |
-| 典型工具 | FAISS、Milvus、Qdrant | Elasticsearch、OpenSearch |
-| 运维场景作用 | 找语义相关知识 | 保证型号、编码、故障码准确 |
+| 仅 Dense | 不采用为默认 | 对相似编号和精确版本风险高 |
+| 仅 BM25/keyword | 不采用为默认 | 难覆盖口语、同义词和现象描述 |
+| 直接让生成模型从全部文档选择 | 不采用 | 成本、窗口、权限和可追溯性不可控 |
+| 单一混合分数且无 Trace | 不采用 | 难以解释和校准通道贡献 |
 
-## 为什么运维场景需要双索引
+## 结果与代价
 
-只用向量索引的问题：
+预期收益：提高语义表达和精确标识的联合覆盖，并能针对 Query 类型调整策略。
 
-```text
-用户问：ALM-12003 怎么处理？
-```
+新增代价：维护多路索引和同步、融合校准、Rerank 延迟、更多 Trace 字段以及更复杂的评测集。
 
-向量索引可能召回：
+## 验证标准
 
-- `ALM-12008` 处理方法
-- `ALM-12030` 处理方法
-- `ALM-12003` 处理方法
+- 标注集覆盖精确编码、口语表达、版本冲突和无答案 Query；
+- Dense only、Sparse/Exact only、Union、Fusion、Rerank 逐层消融；
+- 单独报告精确代码硬负例；
+- 检查 Recall@k、MRR/nDCG、端到端 Groundedness、延迟和成本；
+- 多 Trial 检查 Query Rewrite、路由和生成的波动；
+- 验证文档更新、删除、ACL 与过期版本不会泄露。
 
-因为这些编码在语义空间里可能很接近。但在运维场景中，故障码错误会直接导致排查方向错误。
+当前仓库没有这些实验结果，因此该决策保持 `draft`。
 
-只用 BM25 的问题：
-
-```text
-用户问：风扇灯红了怎么处理？
-```
-
-如果文档里写的是：
-
-```text
-FAN_FAIL 告警处理
-```
-
-BM25 可能无法很好匹配，因为「灯红了」和 `FAN_FAIL` 字面差异很大。
-
-因此更合理的设计是：
-
-- 向量索引解决语义召回。
-- BM25 / keyword 索引解决精确匹配。
-
-## 完整检索链路示例
-
-用户问题：
-
-```text
-S5735 出现 ALM-12003 风扇告警怎么处理？
-```
-
-1. Query 预处理
-   - 识别故障码：`ALM-12003`
-   - 识别设备型号：`S5735`
-   - 保留原始问题用于语义召回
-
-2. 向量检索
-   - 用完整 query 做 embedding。
-   - 召回语义上与「风扇告警处理」相关的 Chunk。
-
-3. BM25 / keyword 检索
-   - 用 BM25 匹配关键词。
-   - 用 keyword 字段精确匹配 `ALM-12003` 和 `S5735`。
-
-4. 分数融合
-   - 将向量分数和 BM25 分数归一化后融合。
-   - 如果 query 中包含型号和故障码，就提高 BM25 / keyword 权重。
-
-示例：
-
-```text
-score = alpha * vector_score + (1 - alpha) * bm25_score
-```
-
-如果问题中包含故障码和型号，可以设置：
-
-```text
-alpha = 0.3
-score = 0.3 * vector_score + 0.7 * bm25_score
-```
-
-含义是：这类问题更相信精确匹配。
-
-## 对外表达版本
-
-向量索引是把每个文档 Chunk 用 embedding 模型编码成高维向量，再存入 FAISS、Milvus 这类向量库。用户问题进来后，也会被编码成向量，然后通过相似度搜索召回语义最接近的 Chunk。它适合解决自然语言表达不一致的问题，比如用户说「风扇异常」，文档写的是 `FAN_FAIL 告警`。
-
-BM25 索引是基于倒排索引的关键词检索，适合处理精确词项。严格来说，BM25 是一种文本相关性打分算法，不等于精确匹配；精确匹配通常依赖 Elasticsearch 的 `keyword` 字段和 `term` 查询。在运维场景中，型号、故障码、错误码必须精确命中，所以我会把 `model`、`fault_codes`、`version` 这些字段建成 `keyword` 类型，用 BM25 文本检索加 keyword 精确匹配共同保证召回质量。
-
-## 一句话总结
-
-我的检索设计是双通道：向量索引负责语义召回，BM25 / keyword 索引负责编码、型号、故障码的精确召回。对于自然语言问题，提高向量权重；对于包含编码或型号的问题，提高 BM25 和精确匹配权重。
+通用原理见[混合检索与重排](../../20-Knowledge/06-rag-and-knowledge-systems/02-hybrid-retrieval-and-reranking.md)，完整案例见[运维领域 RAG 问答系统](运维领域-RAG-问答系统.md)。
