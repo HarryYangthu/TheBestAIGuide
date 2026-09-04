@@ -29,7 +29,7 @@ Code：阅读或实现可测试代码
 4. [Context Engineering](../10-Knowledge/04-context-engineering/README.md)：为每次模型决策选择、压缩和组织信息。
 5. [Tools、Skills 与协议](../10-Knowledge/05-tools-skills-protocols/README.md)：表达、校验和执行动作。
 6. [RAG 与知识系统](../10-Knowledge/06-rag-and-knowledge-systems/README.md)：接入外部知识并保留证据链。
-7. [Memory 与 State](../10-Knowledge/07-memory-and-state/README.md)：区分当前权威状态与跨轮次记忆。
+7. [State 与 Memory](../10-Knowledge/07-state-and-memory/README.md)：先理解当前权威状态与 Checkpoint，再学习跨轮次记忆。
 8. [Planning、Workflow 与 Multi-Agent](../10-Knowledge/08-planning-workflow-multi-agent/README.md)：分解、路由、交接和合并任务。
 9. [Runtime、Harness 与 Environment](../10-Knowledge/09-runtime-harness-environment/README.md)：管理执行、重试、恢复、权限和环境副作用。
 10. [Evaluation 与 Observability](../10-Knowledge/10-evaluation-observability/README.md)：用任务、结果、轨迹、评分器和统计判断系统表现。

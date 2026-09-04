@@ -22,7 +22,7 @@
 ## 与相邻领域的关系
 
 - [RAG](../06-rag-and-knowledge-systems/README.md)提供外部证据候选，Context Builder 决定如何使用。
-- [Memory](../07-memory-and-state/README.md)负责跨轮次保存和读取，Context 负责本轮装载。
+- [Memory](../07-state-and-memory/README.md)负责跨轮次保存和读取，Context 负责本轮装载。
 - [Runtime](../09-runtime-harness-environment/README.md)执行动作并把观察结果送回下一轮。
 
 ## 当前证据边界

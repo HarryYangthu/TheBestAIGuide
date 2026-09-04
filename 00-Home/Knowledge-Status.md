@@ -11,7 +11,7 @@
 | Context Engineering | draft | 领域内已串联总览、信息模型、失败模式、Builder、优化、评测、来源和 Notebook 入口 | Notebook 内容、框架版本验证和实测结果 |
 | Tools 与协议 | seed | 总纲级覆盖 | Tool Schema、错误协议、权限、MCP 和实现 |
 | RAG | draft | 领域内已串联端到端流程、混合检索、模式、两个运维案例、Lab 和代码入口 | 样例数据、标注集、Pipeline 和 Eval |
-| Memory 与状态 | seed | 总纲中已有分类和生命周期 | 独立专题、实现、冲突/遗忘和评测 |
+| State 与 Memory | seed | 概念边界、生命周期、四类模式入口和实验计划 | 独立专题、实现、冲突/遗忘和评测 |
 | Workflow 与 Multi-Agent | draft | 适用边界与 Multi-Agent 评测 | 拓扑、路由、交接、共享状态和案例 |
 | Runtime 与 Harness | seed | 七层模型与工程骨架入口 | 可运行 Runtime、恢复、回放和幂等测试 |
 | Evaluation 与 Observability | draft | 领域内已串联系统模型、任务、评分器、统计、Trace、Multi-Agent、运营、模板、来源和工程入口 | Eval Harness、校准集和运行报告 |

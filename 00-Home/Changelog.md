@@ -2,6 +2,7 @@
 
 ## 2026-09-04
 
+- 将 `07-memory-and-state` 调整为 `07-state-and-memory`，按 State → Checkpoint → Memory → Context 注入重写学习顺序，并补充概念、模式和实验入口。
 - 改为按知识领域聚合内容，形成 `00-Home / 10-Knowledge / 20-Projects / 90-Sources / 99-Inbox` 顶层结构。
 - 合并重复的 Home 与 Maps 导航，新增一份全局连续学习路线，由各领域 README 承担局部导航。
 - 将 Context、RAG、Evaluation 的模式、案例、Notebook、代码骨架和来源移动到对应知识领域。

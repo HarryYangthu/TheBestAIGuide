@@ -8,7 +8,7 @@
 | --- | --- | --- |
 | 基础 | [AI 基础](01-ai-foundations/README.md) → [基础模型](02-foundation-models/README.md) | seed |
 | 最小系统 | [Agent Core](03-agent-core/README.md) | seed |
-| 信息与行动 | [Context](04-context-engineering/README.md) → [Tools](05-tools-skills-protocols/README.md) → [RAG](06-rag-and-knowledge-systems/README.md) → [Memory](07-memory-and-state/README.md) | Context/RAG draft，其余 seed |
+| 信息与行动 | [Context](04-context-engineering/README.md) → [Tools](05-tools-skills-protocols/README.md) → [RAG](06-rag-and-knowledge-systems/README.md) → [State 与 Memory](07-state-and-memory/README.md) | Context/RAG draft，其余 seed |
 | 编排与执行 | [Planning 与 Multi-Agent](08-planning-workflow-multi-agent/README.md) → [Runtime 与 Harness](09-runtime-harness-environment/README.md) | seed/draft |
 | 验证与治理 | [Evaluation](10-evaluation-observability/README.md) → [Safety](11-safety-security-governance/README.md) | Evaluation draft，Safety seed |
 | 改进与产品化 | [Agent Learning](12-agent-learning/README.md) → [应用工程](13-application-engineering/README.md) → [生产工程](14-production-engineering/README.md) | seed |

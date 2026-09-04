@@ -407,15 +407,21 @@ Task
 
 ---
 
-## 06. Memory 与状态管理
+## 06. State 与 Memory 管理
 
-### 06.1 先区分 State 与 Memory
+### 06.1 先学 State，再学 Memory
 
 - State：完成当前任务所需的权威运行状态。
 - Memory：跨步骤或跨会话保留、供未来检索的信息。
 - 对话历史不等于完整状态，也不等于长期记忆。
 
-### 06.2 Memory 分类
+### 06.2 Checkpoint、Session 与恢复边界
+
+- Checkpoint 是 State 在可恢复时间点的持久化快照或事件位置。
+- Session 是交互或运行边界，不自动等于 State 或 Memory。
+- Resume 需要同时校验状态版本、环境、外部副作用和幂等条件。
+
+### 06.3 Memory 分类
 
 - Working Memory。
 - Short-term/Session Memory。
@@ -425,7 +431,7 @@ Task
 - User/Profile Memory。
 - Shared/Team Memory。
 
-### 06.3 Memory 生命周期
+### 06.4 Memory 生命周期
 
 - Capture：从哪里获取候选记忆。
 - Extract：抽取事实、偏好、经验和错误。
@@ -436,7 +442,7 @@ Task
 - Consolidate：聚类、总结和抽象。
 - Forget：过期、撤回和主动删除。
 
-### 06.4 存储设计
+### 06.5 存储设计
 
 - JSONL：简单、可审计。
 - SQLite/PostgreSQL：结构化状态与事务。
@@ -445,7 +451,7 @@ Task
 - Object/File Store：大 Artifact。
 - Checkpoint/Event Log：中断与恢复。
 
-### 06.5 Memory Evaluation
+### 06.6 Memory Evaluation
 
 - 写入准确率和写入必要性。
 - 召回准确率和覆盖率。
@@ -454,7 +460,7 @@ Task
 - 隐私删除是否彻底。
 - Memory 对任务质量、成本和延迟的真实增益。
 
-### 06.6 最小实验
+### 06.7 最小实验
 
 - 实现 Session State + 长期事实记忆。
 - 比较无 Memory、全量历史、检索式 Memory。
@@ -1116,7 +1122,7 @@ Harness 是模型与真实任务环境之间的运行系统。它不只负责调
 
 ### P1：补齐系统工程
 
-1. Memory 与状态管理。
+1. State、Checkpoint 与 Memory 管理。
 2. Workflow 与 Multi-Agent。
 3. Harness、Interrupt/Resume/Replay。
 4. Safety、Sandbox 和审批。
