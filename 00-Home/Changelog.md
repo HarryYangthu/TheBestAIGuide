@@ -2,6 +2,11 @@
 
 ## 2026-09-04
 
+- 改为按知识领域聚合内容，形成 `00-Home / 10-Knowledge / 20-Projects / 90-Sources / 99-Inbox` 顶层结构。
+- 合并重复的 Home 与 Maps 导航，新增一份全局连续学习路线，由各领域 README 承担局部导航。
+- 将 Context、RAG、Evaluation 的模式、案例、Notebook、代码骨架和来源移动到对应知识领域。
+- 将其余 Labs、代码骨架和案例占位归入所属领域；综合项目只保留准入说明，不制造空项目。
+- 清理两份与 Git 历史完全一致的 Finder 重复副本；原内容仍可从提交 `f4cf976` 恢复。
 - 将 Context Engineering 长文重构为总览、上下文模型、Builder、失败模式、优化策略和评测六个入口。
 - 将 Evaluation 与 Multi-Agent 长文重构为系统模型、任务、评分器、统计、Trace、协作评测、运营和模板。
 - 从运维 RAG 案例提炼端到端流程、混合检索知识和 Hybrid Retrieval 模式。

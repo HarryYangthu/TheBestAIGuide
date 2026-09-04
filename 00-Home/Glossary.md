@@ -34,8 +34,8 @@
 
 ## 术语关系入口
 
-- [Agent 系统知识地图](../10-Maps/03-Agent-Systems-Map.md)
-- [Context、RAG 与 Memory 地图](../10-Maps/04-Context-RAG-Memory-Map.md)
-- [Evaluation 与 Observability 地图](../10-Maps/07-Evaluation-Observability-Map.md)
+- [Agent 系统学习路线](Learning-Paths.md)
+- [Context Engineering 主题入口](../10-Knowledge/04-context-engineering/README.md)
+- [Evaluation 与 Observability 主题入口](../10-Knowledge/10-evaluation-observability/README.md)
 
 术语含义随标准或工具版本变化时，应在具体来源笔记中记录版本，而不是静默修改历史结论。
