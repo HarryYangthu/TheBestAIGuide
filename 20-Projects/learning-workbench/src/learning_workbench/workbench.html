@@ -1,7 +1,13 @@
 <!doctype html>
 <html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Agent 学习工作台</title>
-<style>body{font:16px/1.7 system-ui;max-width:980px;margin:40px auto;padding:0 24px;background:#f5f7fa;color:#183044}h1{font-size:28px}section{background:white;padding:24px;margin:20px 0;border:1px solid #dae2ea;border-radius:12px}.row{display:flex;gap:16px;flex-wrap:wrap}input{padding:10px;font:inherit;flex:1;min-width:180px}button{padding:10px 18px;border:0;border-radius:6px;background:#174f78;color:white;cursor:pointer}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:14px/1.6 ui-monospace,monospace}.muted{color:#596b78}label{display:block}</style>
+<style>body{font:16px/1.7 system-ui;max-width:980px;margin:40px auto;padding:0 24px;background:#f5f7fa;color:#183044}h1{font-size:28px}section{background:white;padding:24px;margin:20px 0;border:1px solid #dae2ea;border-radius:12px}.row{display:flex;gap:16px;flex-wrap:wrap}input{padding:10px;font:inherit;flex:1;min-width:180px}button{padding:10px 18px;border:0;border-radius:6px;background:#174f78;color:white;cursor:pointer}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:14px/1.6 ui-monospace,monospace}.muted{color:#596b78}label{display:block}
+*{box-sizing:border-box}
+input:not([type="checkbox"]){display:block;width:100%;min-width:0;margin-top:6px}
+input[type="checkbox"]{width:auto;min-width:0;padding:0;flex:none;margin-right:8px}
+#status{overflow-wrap:anywhere}
+@media(max-width:480px){body{padding:0 16px;margin:24px auto}section{padding:18px}.row{gap:10px}}
+</style>
 <h1>Agent 学习工作台</h1><p class="muted">提交一个资料查询，观察审批、执行、事件与结果。仅使用本地构造资料。</p>
 <section><label>演示身份 <input id="token" value="demo-alice" aria-label="演示身份"></label><p class="muted">demo-alice 与 demo-bob 对应两个独立租户。</p>
 <label>查询 <input id="query" value="FAN-01 inspection" aria-label="查询"></label>

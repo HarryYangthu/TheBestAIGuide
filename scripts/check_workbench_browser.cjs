@@ -30,6 +30,8 @@ const assert = require('node:assert/strict');
     await page.locator('#cancel').click();
     await page.waitForFunction(()=>document.querySelector('#status').textContent.includes('cancelled'));
     await page.setViewportSize({width:390,height:844});
+    // Stress long identifiers as well as the runner's actual Chinese font metrics.
+    await page.addStyleTag({content:'#status{letter-spacing:2px}'});
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth),true);
     assert.deepEqual(errors,[]);
     console.log(JSON.stringify({created:true,approved:true,completed:true,events_visible:true,cancelled:true,mobile_no_horizontal_overflow:true,page_errors:errors}));
