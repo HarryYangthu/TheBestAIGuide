@@ -52,3 +52,5 @@
 ## 第二轮实践扩展
 
 新增学习工作台与 Tiny Transformer，Notebook 总数增至 20。本页上方领域表保留第一轮领域内文件统计；新增项目的 2 本在 Projects 下。38 项对应实现与本轮真实结果见 [Round2-Completion](Round2-Completion.md)，不沿用第一轮的测试数作为当前总数。
+
+第二轮最终代码提交 `d77bedcf4adcad7f73741d3ca897eb1d3995e88c` 的文档、Python、TypeScript/浏览器、标准 Jupyter CI 均通过。全部 20 本 Notebook 的标准内核执行证据见 [远端记录](verification/round2-remote.json)；仓库中保存输出继续保留实际本地后端标注。

@@ -32,7 +32,7 @@
     "local_standard_kernel": "blocked by environment ZeroMQ/IP resolver permissions",
     "new_and_corrected_local_ipython": 3,
     "backend_recorded": true,
-    "remote_standard_kernel": "pending branch push"
+    "remote_standard_kernel": "success; all 20 notebooks, tested code commit d77bedcf4adcad7f73741d3ca897eb1d3995e88c"
   },
   "model_tasks": {
     "free_initial": {
@@ -76,5 +76,6 @@
     "Unknown-license historical PNGs remain archived",
     "No ASR implementation",
     "Skill routing is authored cases, not measured host selection"
-  ]
+  ],
+  "remote_evidence": "round2-remote.json"
 }

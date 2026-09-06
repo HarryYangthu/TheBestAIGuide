@@ -51,7 +51,7 @@
 
 Python 14 组共 83 项测试与 2 个断言算例已通过；见[机器记录](verification/round2-local.json)。TypeScript 工具 Runtime 10 项、MCP 2 项、浏览器工程 3 项通过。新增工作台的浏览器检查实际点击创建、批准、完成、取消，事件可见，390 px 下没有横向溢出。容器未配置中文字库，因此没有把本地截图当作中文字体视觉验收。
 
-本地 Jupyter/ZeroMQ 启动因环境通信限制失败。新增 2 本和修正的搜索 Notebook 已通过明确标记的 IPython fallback 执行，保存实际输出；远端标准 Jupyter 验收在推送后记录。原 18 本对应提交 `5e5a40c` 的[标准 Jupyter CI](https://github.com/HarryYangthu/TheBestAIGuide/actions/runs/34013521515)已成功，不覆盖本轮新增代码。
+本地 Jupyter/ZeroMQ 启动因环境通信限制失败。新增 2 本和修正的搜索 Notebook 已通过明确标记的 IPython fallback 执行，保存实际输出；远端已在标准 Jupyter 内核执行全部 20 本并通过，最终代码提交与链接见下方。原 18 本对应提交 `5e5a40c` 的[标准 Jupyter CI](https://github.com/HarryYangthu/TheBestAIGuide/actions/runs/34013521515)已成功，不覆盖本轮新增代码。
 
 ## 真实模型结果不能被“代码通过”掩盖
 
@@ -85,3 +85,16 @@ Qwen2.5-0.5B-Instruct 固定 revision，CPU 贪心生成。初版自由循环 12
 ## 发布前脱敏
 
 自动发布审查发现一份模型输出含疑似凭据字段，因此第一次树对象上传被拒绝，分支未更新。已对受影响的模型原文和 trace 做脱敏，保留错误状态与评分；没有判定该值是否为真实凭据。位置见[脱敏登记](../20-Projects/learning-workbench/artifacts/redactions.json)。CLI 在评分后清理公开产物中的类似字段；此规则不是通用敏感信息检测系统。
+
+## 最终远端验收
+
+受测代码提交：`d77bedcf4adcad7f73741d3ca897eb1d3995e88c`。该代码快照共有 549 个文件，本轮 201 个新增或修改文件的远端 blob 哈希已逐一与本地交付核对一致，其余 348 个原文件保持。后续提交只补充这些验收记录。
+
+| 工作流 | 结果 | 运行记录 |
+| --- | --- | --- |
+| Documentation checks | success | [查看](https://github.com/HarryYangthu/TheBestAIGuide/actions/runs/34026085289) |
+| TypeScript tools and browser | success | [查看](https://github.com/HarryYangthu/TheBestAIGuide/actions/runs/34026085296) |
+| Python teaching components | success | [查看](https://github.com/HarryYangthu/TheBestAIGuide/actions/runs/34026085275) |
+| Execute learning notebooks | success | [查看](https://github.com/HarryYangthu/TheBestAIGuide/actions/runs/34026085277) |
+
+标准 Jupyter 执行包含全部 20 本实验。浏览器 CI 首次发现安装中文字库后的窄屏溢出，已修正输入框尺寸和长任务 ID 换行；最终流程保留窄屏断言并通过。共享边界 JSON 在最初发布清单遗漏后已补交，最终 Python/Ajv/Notebook 均使用该文件通过。机器证据见 [round2-remote.json](verification/round2-remote.json)。
