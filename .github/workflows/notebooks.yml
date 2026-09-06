@@ -1,9 +1,9 @@
 name: Execute learning notebooks
 on:
   push:
-    paths: ['**/*.ipynb', '**/*.py', 'requirements-dev.lock', '**/fixtures/**', '.github/workflows/notebooks.yml']
+    paths: ['**/*.ipynb', '**/*.py', '**/*.ts', '**/package*.json', '**/tsconfig.json', 'requirements-dev.lock', '**/fixtures/**', '.github/workflows/notebooks.yml']
   pull_request:
-    paths: ['**/*.ipynb', '**/*.py', 'requirements-dev.lock', '**/fixtures/**', '.github/workflows/notebooks.yml']
+    paths: ['**/*.ipynb', '**/*.py', '**/*.ts', '**/package*.json', '**/tsconfig.json', 'requirements-dev.lock', '**/fixtures/**', '.github/workflows/notebooks.yml']
 permissions:
   contents: read
 jobs:
@@ -19,4 +19,13 @@ jobs:
           cache-dependency-path: requirements-dev.lock
       - run: pip install -r requirements-dev.lock
       - run: python -m ipykernel install --sys-prefix --name python3
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: |
+            10-Knowledge/05-tools-skills-protocols/05-code/tool-runtime-typescript/package-lock.json
+            10-Knowledge/05-tools-skills-protocols/05-code/mcp-server-typescript/package-lock.json
+      - run: npm ci --prefix 10-Knowledge/05-tools-skills-protocols/05-code/tool-runtime-typescript
+      - run: npm ci --prefix 10-Knowledge/05-tools-skills-protocols/05-code/mcp-server-typescript
       - run: python scripts/check_notebooks.py --execute

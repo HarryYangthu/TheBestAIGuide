@@ -10,10 +10,14 @@ python -m ipykernel install --sys-prefix --name python3
 python scripts/check_links.py
 python scripts/check_metadata.py
 python scripts/run_python_tests.py
+npm ci --prefix 10-Knowledge/05-tools-skills-protocols/05-code/tool-runtime-typescript
+npm ci --prefix 10-Knowledge/05-tools-skills-protocols/05-code/mcp-server-typescript
 python scripts/check_notebooks.py --execute
 ```
 
 Windows 激活命令是 `.venv\Scripts\activate`。锁文件记录本次实际安装版本，用于复现。
+
+执行全部 Notebook 还需要 Node.js 22 或更高版本：Tools 实验会运行真实 TypeScript Runtime 和 MCP stdio 集成，所以先安装上面两个工程的 npm 依赖。单独执行纯 Python Notebook 时不需要这一步。
 
 如果环境禁止 Jupyter 内核使用本地 socket，可显式运行 `python scripts/check_notebooks.py --execute --backend ipython-fallback`。它为每本 Notebook 启动独立 Python 进程，经 IPython 依次执行全部代码格并保存真实输出；元数据会注明后端。该模式不验证 Jupyter 内核通信和前端交互，CI 仍使用默认 Jupyter 后端。
 
