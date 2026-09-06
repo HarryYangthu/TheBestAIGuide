@@ -1,0 +1,384 @@
+{
+  "protocol": "A2A 0.3.0 text JSON-RPC subset",
+  "trace": [
+    {
+      "endpoint": 0,
+      "request": {
+        "jsonrpc": "2.0",
+        "id": "5849c495-45ea-4d95-b6a6-36b7e8f1e398",
+        "method": "message/send",
+        "params": {
+          "message": {
+            "kind": "message",
+            "role": "user",
+            "messageId": "cabeec33-7298-4c8d-9213-9bc9bd6e789b",
+            "parts": [
+              {
+                "kind": "text",
+                "text": "NEED_INPUT"
+              }
+            ]
+          }
+        }
+      },
+      "response": {
+        "jsonrpc": "2.0",
+        "id": "5849c495-45ea-4d95-b6a6-36b7e8f1e398",
+        "result": {
+          "kind": "task",
+          "id": "655bc31d-8428-463f-8b33-46640e4c03b5",
+          "contextId": "530f75c4-fc86-4b4e-8387-cb40f8e1fe2c",
+          "status": {
+            "state": "input-required"
+          },
+          "history": [
+            {
+              "kind": "message",
+              "role": "user",
+              "messageId": "cabeec33-7298-4c8d-9213-9bc9bd6e789b",
+              "parts": [
+                {
+                  "kind": "text",
+                  "text": "NEED_INPUT"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "endpoint": 0,
+      "request": {
+        "jsonrpc": "2.0",
+        "id": "b3bc7f63-b827-402b-b256-74c3ac0c66c6",
+        "method": "message/send",
+        "params": {
+          "message": {
+            "kind": "message",
+            "role": "user",
+            "messageId": "cabeec33-7298-4c8d-9213-9bc9bd6e789b",
+            "parts": [
+              {
+                "kind": "text",
+                "text": "NEED_INPUT"
+              }
+            ]
+          }
+        }
+      },
+      "response": {
+        "jsonrpc": "2.0",
+        "id": "b3bc7f63-b827-402b-b256-74c3ac0c66c6",
+        "result": {
+          "kind": "task",
+          "id": "655bc31d-8428-463f-8b33-46640e4c03b5",
+          "contextId": "530f75c4-fc86-4b4e-8387-cb40f8e1fe2c",
+          "status": {
+            "state": "input-required"
+          },
+          "history": [
+            {
+              "kind": "message",
+              "role": "user",
+              "messageId": "cabeec33-7298-4c8d-9213-9bc9bd6e789b",
+              "parts": [
+                {
+                  "kind": "text",
+                  "text": "NEED_INPUT"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "endpoint": 0,
+      "request": {
+        "jsonrpc": "2.0",
+        "id": "60336e98-fc3f-41e4-bdc8-aaa20c982b1e",
+        "method": "message/send",
+        "params": {
+          "message": {
+            "kind": "message",
+            "role": "user",
+            "messageId": "8d20a863-4901-43fd-b10a-e406e50f3954",
+            "parts": [
+              {
+                "kind": "text",
+                "text": "Evidence: DEMO-A limit=70 C"
+              }
+            ],
+            "taskId": "655bc31d-8428-463f-8b33-46640e4c03b5",
+            "contextId": "530f75c4-fc86-4b4e-8387-cb40f8e1fe2c"
+          }
+        }
+      },
+      "response": {
+        "jsonrpc": "2.0",
+        "id": "60336e98-fc3f-41e4-bdc8-aaa20c982b1e",
+        "result": {
+          "kind": "task",
+          "id": "655bc31d-8428-463f-8b33-46640e4c03b5",
+          "contextId": "530f75c4-fc86-4b4e-8387-cb40f8e1fe2c",
+          "status": {
+            "state": "completed"
+          },
+          "history": [
+            {
+              "kind": "message",
+              "role": "user",
+              "messageId": "cabeec33-7298-4c8d-9213-9bc9bd6e789b",
+              "parts": [
+                {
+                  "kind": "text",
+                  "text": "NEED_INPUT"
+                }
+              ]
+            },
+            {
+              "kind": "message",
+              "role": "user",
+              "messageId": "8d20a863-4901-43fd-b10a-e406e50f3954",
+              "parts": [
+                {
+                  "kind": "text",
+                  "text": "Evidence: DEMO-A limit=70 C"
+                }
+              ],
+              "taskId": "655bc31d-8428-463f-8b33-46640e4c03b5",
+              "contextId": "530f75c4-fc86-4b4e-8387-cb40f8e1fe2c"
+            }
+          ],
+          "artifacts": [
+            {
+              "artifactId": "222ecdc0-9068-4fcd-840d-ed4ddc8d3821",
+              "name": "researcher-evidence",
+              "parts": [
+                {
+                  "kind": "text",
+                  "text": "researcher: Evidence: DEMO-A limit=70 C"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "endpoint": 0,
+      "request": {
+        "jsonrpc": "2.0",
+        "id": "e856fa2b-e197-432c-9231-7c77228ab2af",
+        "method": "tasks/get",
+        "params": {
+          "id": "655bc31d-8428-463f-8b33-46640e4c03b5"
+        }
+      },
+      "response": {
+        "jsonrpc": "2.0",
+        "id": "e856fa2b-e197-432c-9231-7c77228ab2af",
+        "result": {
+          "kind": "task",
+          "id": "655bc31d-8428-463f-8b33-46640e4c03b5",
+          "contextId": "530f75c4-fc86-4b4e-8387-cb40f8e1fe2c",
+          "status": {
+            "state": "completed"
+          },
+          "history": [
+            {
+              "kind": "message",
+              "role": "user",
+              "messageId": "cabeec33-7298-4c8d-9213-9bc9bd6e789b",
+              "parts": [
+                {
+                  "kind": "text",
+                  "text": "NEED_INPUT"
+                }
+              ]
+            },
+            {
+              "kind": "message",
+              "role": "user",
+              "messageId": "8d20a863-4901-43fd-b10a-e406e50f3954",
+              "parts": [
+                {
+                  "kind": "text",
+                  "text": "Evidence: DEMO-A limit=70 C"
+                }
+              ],
+              "taskId": "655bc31d-8428-463f-8b33-46640e4c03b5",
+              "contextId": "530f75c4-fc86-4b4e-8387-cb40f8e1fe2c"
+            }
+          ],
+          "artifacts": [
+            {
+              "artifactId": "222ecdc0-9068-4fcd-840d-ed4ddc8d3821",
+              "name": "researcher-evidence",
+              "parts": [
+                {
+                  "kind": "text",
+                  "text": "researcher: Evidence: DEMO-A limit=70 C"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "endpoint": 1,
+      "request": {
+        "jsonrpc": "2.0",
+        "id": "44c79b9d-6265-4906-a0d7-09362f236ec6",
+        "method": "message/send",
+        "params": {
+          "message": {
+            "kind": "message",
+            "role": "user",
+            "messageId": "2662eec3-8de3-45f5-80ef-23bd4a57769a",
+            "parts": [
+              {
+                "kind": "text",
+                "text": "researcher: Evidence: DEMO-A limit=70 C"
+              }
+            ]
+          }
+        }
+      },
+      "response": {
+        "jsonrpc": "2.0",
+        "id": "44c79b9d-6265-4906-a0d7-09362f236ec6",
+        "result": {
+          "kind": "task",
+          "id": "5e98bd9f-776b-448d-a738-1e2de125e26e",
+          "contextId": "1e15be95-2691-4d55-bce0-8785968445ff",
+          "status": {
+            "state": "completed"
+          },
+          "history": [
+            {
+              "kind": "message",
+              "role": "user",
+              "messageId": "2662eec3-8de3-45f5-80ef-23bd4a57769a",
+              "parts": [
+                {
+                  "kind": "text",
+                  "text": "researcher: Evidence: DEMO-A limit=70 C"
+                }
+              ]
+            }
+          ],
+          "artifacts": [
+            {
+              "artifactId": "d995c3c0-b3a2-4587-b81d-7d309f6ec69a",
+              "name": "reviewer-evidence",
+              "parts": [
+                {
+                  "kind": "text",
+                  "text": "reviewer: researcher: Evidence: DEMO-A limit=70 C"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "endpoint": 0,
+      "request": {
+        "jsonrpc": "2.0",
+        "id": "9d1522b4-1e1e-462b-b714-b6df028bbc3a",
+        "method": "message/send",
+        "params": {
+          "message": {
+            "kind": "message",
+            "role": "user",
+            "messageId": "569cd28a-2c33-4af4-8a58-921a78ba3e80",
+            "parts": [
+              {
+                "kind": "text",
+                "text": "NEED_INPUT"
+              }
+            ]
+          }
+        }
+      },
+      "response": {
+        "jsonrpc": "2.0",
+        "id": "9d1522b4-1e1e-462b-b714-b6df028bbc3a",
+        "result": {
+          "kind": "task",
+          "id": "cee702d6-709a-4745-b48e-b79dd1b3b590",
+          "contextId": "a89341cb-979b-491a-a256-dc1f3734eed0",
+          "status": {
+            "state": "input-required"
+          },
+          "history": [
+            {
+              "kind": "message",
+              "role": "user",
+              "messageId": "569cd28a-2c33-4af4-8a58-921a78ba3e80",
+              "parts": [
+                {
+                  "kind": "text",
+                  "text": "NEED_INPUT"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "endpoint": 0,
+      "request": {
+        "jsonrpc": "2.0",
+        "id": "62f740c3-1c78-42a2-94e5-b246d8ac63bf",
+        "method": "tasks/cancel",
+        "params": {
+          "id": "cee702d6-709a-4745-b48e-b79dd1b3b590"
+        }
+      },
+      "response": {
+        "jsonrpc": "2.0",
+        "id": "62f740c3-1c78-42a2-94e5-b246d8ac63bf",
+        "result": {
+          "kind": "task",
+          "id": "cee702d6-709a-4745-b48e-b79dd1b3b590",
+          "contextId": "a89341cb-979b-491a-a256-dc1f3734eed0",
+          "status": {
+            "state": "canceled"
+          },
+          "history": [
+            {
+              "kind": "message",
+              "role": "user",
+              "messageId": "569cd28a-2c33-4af4-8a58-921a78ba3e80",
+              "parts": [
+                {
+                  "kind": "text",
+                  "text": "NEED_INPUT"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "handoff_artifact": [
+    {
+      "artifactId": "d995c3c0-b3a2-4587-b81d-7d309f6ec69a",
+      "name": "reviewer-evidence",
+      "parts": [
+        {
+          "kind": "text",
+          "text": "reviewer: researcher: Evidence: DEMO-A limit=70 C"
+        }
+      ]
+    }
+  ],
+  "boundary": "Echo workers, in-memory tasks, local messageId dedup extension. No model reasoning, auth, push, streaming or full conformance claim."
+}

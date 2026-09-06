@@ -65,3 +65,7 @@ QLoRA 在冻结的低比特基座上训练 LoRA，并包含特定量化和内存
 首先在小数据上验证 label shift、loss mask、可训练参数和梯度确实正确。再固定开发集和保留测试集，记录任务成功、格式合法、通用能力、拒答/越权、成本与延迟。增加训练轮次可能强化坏样本和记忆，不应把训练损失越低当作唯一目标。更新后的模型、tokenizer、模板、数据版本和适配器必须一起登记。
 
 [实验：DPO 数值、LoRA 零初始化与矩阵等价](../../04-labs/02-decoding-cache-and-precision.ipynb) · [基础反向传播与训练](../../../01-ai-foundations/04-labs/deep-learning/01-autograd-and-training.ipynb) · [一手来源](../../references.md)。更完整的轨迹训练见 [Agent Learning](../../../12-agent-learning/README.md)。
+
+## 配套项目扩展（2026-09-06）
+
+[完整 decoder、训练、生成与 LoRA](../../../../20-Projects/tiny-transformer/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。

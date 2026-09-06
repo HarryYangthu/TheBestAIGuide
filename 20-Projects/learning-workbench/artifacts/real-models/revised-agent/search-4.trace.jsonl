@@ -1,0 +1,5 @@
+{"run_id": "33be2ed544c84564b5a2f42f5c4bb517", "seq": 0, "kind": "tool_call", "data": {"call_id": "33be2ed544c84564b5a2f42f5c4bb517:1", "name": "search", "arguments": {"query": "FAN-01 inspection instructions"}}}
+{"run_id": "33be2ed544c84564b5a2f42f5c4bb517", "seq": 1, "kind": "tool_result", "data": {"call_id": "33be2ed544c84564b5a2f42f5c4bb517:1", "ok": true, "data": {"documents": [{"id": "fan", "text": "FAN-01: power off before inspecting the cooling fan."}]}}}
+{"run_id": "33be2ed544c84564b5a2f42f5c4bb517", "seq": 2, "kind": "tool_call", "data": {"call_id": "33be2ed544c84564b5a2f42f5c4bb517:2", "name": "search", "arguments": {"query": "FAN-01 inspection instructions"}}}
+{"run_id": "33be2ed544c84564b5a2f42f5c4bb517", "seq": 3, "kind": "tool_result", "data": {"call_id": "33be2ed544c84564b5a2f42f5c4bb517:2", "ok": true, "data": {"documents": [{"id": "fan", "text": "FAN-01: power off before inspecting the cooling fan."}]}}}
+{"run_id": "33be2ed544c84564b5a2f42f5c4bb517", "seq": 4, "kind": "run_finished", "data": {"status": "stopped", "reason": "no_progress", "steps": 2}}

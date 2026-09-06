@@ -24,4 +24,12 @@ class LinkChecks(unittest.TestCase):
             self.assertEqual(result['errors'],[])
             self.assertEqual(result['local_targets_checked'],2)
 
+    def test_unicode_duplicate_and_missing_anchors(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            (root/'a.md').write_text('# 中文标题\n# 中文标题\n# Code `x`\n')
+            (root/'README.md').write_text('[ok](a.md#中文标题)\n[repeat](a.md#中文标题-1)\n[code](a.md#code-x)\n[bad](a.md#不存在)\n')
+            result=check(root)
+            self.assertEqual([e['target'] for e in result['errors']],['a.md#不存在'])
+
 if __name__ == '__main__': unittest.main()

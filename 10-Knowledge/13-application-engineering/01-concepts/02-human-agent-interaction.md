@@ -37,3 +37,7 @@ assert action_digest({"amount":100}) != action_digest({"amount":1000})
 计划应有版本。用户编辑第 2 步时，已经完成的第 1 步作为事实保留，依赖第 2 步的待执行项重新计算。正在进行的动作需要明确取消或等待完成；不能一边运行旧计划，一边在 UI 上显示新计划。恢复后显示上次确认的事实和未决动作，避免让用户重新解释全部背景。
 
 完成状态也需要验收条件。按钮点击完成，只能展示“已点击”；页面出现记录且独立查询确认后，才能展示“已创建记录”。本库[本地浏览器案例](../03-cases/browser-agents/README.md)同时检查 DOM 与截图，截图便于人审，DOM 断言用于自动验收。相关机制参考[Playwright 可操作性](https://playwright.dev/docs/actionability)与[SSE 标准](https://html.spec.whatwg.org/multipage/server-sent-events.html)，上述产品交互是本库工程设计。
+
+## 配套项目扩展（2026-09-06）
+
+[网页工作台与持久 Run 服务](../../../20-Projects/learning-workbench/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。

@@ -1,0 +1,4 @@
+[
+ {"id":"attention","title":"Attention Is All You Need","url":"https://arxiv.org/pdf/1706.03762v7","version":"v7","needle":"scaled dot-product attention","axis":"architecture","summary":"Transformer uses attention to combine sequence representations; this defines an architecture, not a parameter-efficient adaptation recipe."},
+ {"id":"lora","title":"LoRA: Low-Rank Adaptation of Large Language Models","url":"https://arxiv.org/pdf/2106.09685v2","version":"v2","needle":"low-rank","axis":"adaptation","summary":"LoRA learns a low-rank weight update while keeping pretrained weights fixed; it can be applied within a Transformer."}
+]

@@ -1,0 +1,572 @@
+[
+  {
+    "id": "A1",
+    "priority": "P1",
+    "finding": "当前源码第21行仅检查call_id真值，第26行只校验arguments。现场将当前runtime.ts和registry.ts重新转译，结果逐字等于dist。输入{\"call_id\":7,\"name\":\"search\",\"arguments\":{}}返回{\"call_id\":7,\"ok\":true,\"data\":{\"documents\":[]}}且handler执行1次；输入{\"call_id\":\"extra\",\"name\":\"search\",\"arguments\":{},\"admin\":true}同样成功执行1次。与共享ToolCall要求字符串ID、禁止顶层额外字段不一致；不是权限绕过。",
+    "needed": "在执行入口使用共享ToolCall schema验证完整外壳，再校验工具参数；明确畸形call_id如何生成结构化错误关联信息。",
+    "acceptance": "数字/空/缺失ID、未知顶层字段、非对象调用均被拒绝且handler执行0次；合法调用及现有8项测试继续通过。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "10-Knowledge/05-tools-skills-protocols/05-code/tool-runtime-typescript/test/runtime.test.ts",
+        "result": "10 项 TS 测试含异常输入；畸形调用不执行 handler"
+      }
+    ],
+    "title": "完整 ToolCall 外壳校验"
+  },
+  {
+    "id": "A2",
+    "priority": "P1",
+    "finding": "verify_claim 对整个 citation 与 asdict(Cell) 直接比较。合法答案经过 json.dumps/json.loads 后 bbox 从 tuple 变 list，被拒绝。本次定向复现：内存答案 True，JSON 往返 False。",
+    "needed": "统一引用的 JSON 数据类型与规范化比较，加入合法 JSON 往返及篡改后的拒绝测试。",
+    "acceptance": "同一合法证据在 Python 内存、JSON 保存后读取均通过；改数值/单位/位置/版本仍拒绝。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "10-Knowledge/15-multimodal-and-embodied/05-code/test_evidence.py",
+        "result": "JSON 规范化；有效往返通过，篡改拒绝"
+      }
+    ],
+    "title": "引用 JSON 往返"
+  },
+  {
+    "id": "A3",
+    "priority": "P2",
+    "finding": "TypeScript、Python及Notebook工作流的paths均未包含shared-schemas/*.json或shared-schemas/examples/*.json；只改工具契约或正反例时仅运行文档检查，已有Ajv/Python Schema验证不会触发。已核对schemas.test.ts确实读取这些文件。",
+    "needed": "为TypeScript与Notebook工作流增加共享Schema及示例路径；必要时在Python工作流显式调用validate_examples.py并包含对应触发条件。",
+    "acceptance": "仅修改一个Schema JSON的PR会触发对应契约测试；故意破坏已声明合法/非法样本的约束应让CI失败。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": ".github/workflows/python.yml",
+        "result": "Python/TS/Notebook 均监听共享 Schema"
+      }
+    ],
+    "title": "Schema 变更触发 CI"
+  },
+  {
+    "id": "A4",
+    "priority": "P2",
+    "finding": "第2节文字把不一致启发式归因于S→B边，但该边h(S)=4、c=1、h(B)=3，满足4≤1+3；实际S→A和B→A违反一致性。代码及输出的重开结果正确。",
+    "needed": "将违例边改成B→A（或同时展示S→A），逐项代入一致性不等式。",
+    "acceptance": "读者可从给出的h和边成本算出违例；原重开路径S-B-A-G、成本4保持成立。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "10-Knowledge/01-ai-foundations/04-labs/search-and-rl/01-search-and-value-learning.ipynb",
+        "result": "改为 S→A、B→A，并重新执行"
+      }
+    ],
+    "title": "搜索启发式违例边"
+  },
+  {
+    "id": "A5",
+    "priority": "P2",
+    "finding": "文末说 research_checks.py 会运行“资源过滤和简化转移检查”，实际脚本只有资源过滤、概率与标量更新，没有状态、动作、转移或规划函数。",
+    "needed": "更正文案；若要补实践，可增加小型确定性环境中状态转移、短视野规划和模型误差反例。",
+    "acceptance": "文章宣称的每个机制能定位到对应函数；转移实验明确输入状态、动作、预测状态和实际状态。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "10-Knowledge/16-research-frontiers/01-concepts/03-world-models-and-neuro-symbolic.md",
+        "result": "更正为资源过滤；不再声称已有状态转移代码"
+      }
+    ],
+    "title": "世界模型实现表述"
+  },
+  {
+    "id": "B1",
+    "priority": "P1",
+    "finding": "Dense和Reranker只有可调用接口，测试用固定向量验证形状；当前hybrid实际只有BM25+Exact。正文讲了真实语义召回，但读者还不能直接运行这一层。",
+    "needed": "增加一个锁定模型及依赖版本的可选embedding/cross-encoder适配器和Notebook，保留默认离线入口；明确query/document编码区别。",
+    "acceptance": "提供安装和一条运行命令、模型版本与设备记录；同一标注集可比较BM25、Dense、Hybrid、加Reranker逐查询结果，保留失败和无提升情况。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "20-Projects/learning-workbench/artifacts/real-models/retrieval.json",
+        "result": "固定 2 个模型；6 题×4 模式；另附 Notebook"
+      }
+    ],
+    "title": "真实语义检索与重排"
+  },
+  {
+    "id": "B2",
+    "priority": "P1",
+    "finding": "answer仅拼接检索原文，abstained只检查无候选；正文讲的上下文打包、生成、主张支持和有候选但证据不足的拒答没有配套可运行链路。",
+    "needed": "补最小生成式RAG样例，将片段带来源送入模型，再逐主张关联引用；加入条件不全、相关但不支持、冲突版本和无答案样本。",
+    "acceptance": "读者能从提问得到带来源答案或拒答；结果区分引用字符串真实、主张支持和关键条件覆盖，保留逐题输出与人工标签。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "20-Projects/learning-workbench/artifacts/real-models/generation-review.json",
+        "result": "真实输出、拒答、引用身份与语义支持分开；本次小模型质量未通过"
+      }
+    ],
+    "title": "生成式 RAG 与审阅"
+  },
+  {
+    "id": "B3",
+    "priority": "P1",
+    "finding": "工程只接收调用方已经结构化的subject/key/value/source；retrieve仅做key/value子串匹配。学习者尚看不到对话如何变成记忆以及下一次任务如何实际使用。",
+    "needed": "补两次会话的完整记忆案例：候选提取→是否写入→主体/作用域/来源核验→召回→Context注入→回答。先给规则或模型适配器并明确边界。",
+    "acceptance": "同一组任务覆盖长期偏好、一次性要求、当前指令覆盖旧偏好、他人记录、过期与错误记忆；可以比较无记忆和有记忆最终输出。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "20-Projects/learning-workbench/artifacts/offline/memory.json",
+        "result": "8 个独立任务；固定概念回答的格式偏好，不是通用聊天"
+      }
+    ],
+    "title": "跨会话记忆闭环"
+  },
+  {
+    "id": "B4",
+    "priority": "P1",
+    "finding": "应用域四篇概念讲 Run API/SSE、批准、存储多租户、网关，但实践只有浏览器执行器和五个短函数。没有可运行的 Run 后端、事件补发、持久数据库和模型适配链路。文中已如实写“设计说明”，属于学习到系统实践的缺环，不是空文件。",
+    "needed": "在 Project 增加或扩展一个本地完整教学服务，串起 Run 状态、SSE、取消批准、持久状态和可替换模型接口；从四篇文章回链。",
+    "acceptance": "一条命令启动；创建任务、断线重连补事件、取消、待批准恢复、跨租户拒绝均可操作并有验收。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "20-Projects/learning-workbench/src/learning_workbench/server.py",
+        "result": "HTTP 与浏览器流程实测；持久状态、租户隔离、可替换 provider"
+      }
+    ],
+    "title": "Run API/SSE/审批与模型接口"
+  },
+  {
+    "id": "B5",
+    "priority": "P1",
+    "finding": "Project目录当前只列一个综合项目；大量可运行教学工程留在Knowledge各领域的05-code。读者按用户设想从Project找全部虚拟项目，会漏掉这些已有实现。当前目录划分遵循仓库旧约定，本身不是空文件问题。",
+    "needed": "新增统一虚拟项目目录，列出每个工程的任务类型、对应知识、运行入口、输入输出、验收结果与局限；可先用链接汇总，避免直接搬目录打断Notebook导入。",
+    "acceptance": "从Project首页可以找到全仓每个独立可运行工程，并能清楚区分机制实验、组件工程与综合项目。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "20-Projects/README.md",
+        "result": "12 个独立工程，加章节局部算例导航"
+      }
+    ],
+    "title": "统一虚拟项目入口"
+  },
+  {
+    "id": "B6",
+    "priority": "P1",
+    "finding": "唯一综合项目使用EvidencePolicy固定执行lookup后finish，回答为原文抽取；README仅提示读者自己实现decide(state)，没有交付可直接运行的真实LLM适配。离线执行机制已完整，但学完后到真实模型Agent仍缺一段示例。",
+    "needed": "保留离线模式，增加一个可选真实模型适配及配置示例，展示结构化动作解析、工具返回后的再次决策、失败处理、用量记录；给出小型人工标注问题集并与离线基线对照。",
+    "acceptance": "无密钥仍能复现现有测试；配置模型后可完整运行一项多步任务，保留实际trace、答案引用与评分，明确模型版本和费用。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "20-Projects/learning-workbench/src/learning_workbench/providers.py",
+        "result": "自由循环/格式示例/受限单工具流程分开；保留真实用量与失败"
+      }
+    ],
+    "title": "真实 Agent 模型接口"
+  },
+  {
+    "id": "B7",
+    "priority": "P2",
+    "finding": "后续实践扩展：现有Attention为无batch单头；多头、FFN、Norm、残差只有正文说明，未形成从token ID到下一token logits/生成的完整小型Transformer。现有Notebook承诺的数值实验已完成。",
+    "needed": "增加CPU可运行的小型decoder项目，连接token/embedding、多头因果Attention、位置、FFN/Norm、词表头、训练及逐token生成。",
+    "acceptance": "固定小语料训练loss可下降；可保存/重载模型并生成文本；缓存与全前缀计算在容差内一致。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "20-Projects/tiny-transformer/artifacts/report.json",
+        "result": "真实 CPU 训练、生成、缓存与保存重载"
+      }
+    ],
+    "title": "完整小 Transformer"
+  },
+  {
+    "id": "B8",
+    "priority": "P2",
+    "finding": "后续实践扩展：训练章给出SFT loss mask和LoRA/DPO公式，配套仅检查标量损失方向、矩阵合并与零梯度；没有label shift、loss mask和适配器参数更新的可运行训练案例。",
+    "needed": "在小模型上添加一组可检查的SFT/LoRA训练样例，保存训练前后预测和可训练参数清单；真实LLM/GPU作为可选路径。",
+    "acceptance": "自动检查prompt不计入loss、目标错一位、冻结权重不更新、适配器参数更新、重载后输出一致。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "20-Projects/tiny-transformer/src/tiny_transformer/experiment.py",
+        "result": "移位、mask、冻结、可训练参数与前后预测；真实更新"
+      }
+    ],
+    "title": "SFT/LoRA 更新"
+  },
+  {
+    "id": "B9",
+    "priority": "P2",
+    "finding": "后续实践扩展：字符BPE返回字符串片段，正文中的token ID、Embedding查表、特殊token和聊天模板尚未接成可运行链路；未影响现有BPE合并实验完整性。",
+    "needed": "补一个固定词表/特殊标记的token→ID→Embedding演示，并用一个明确版本的实际分词器做中文/代码/emoji与模板长度对照。",
+    "acceptance": "可查看字符串、片段、ID、embedding形状和长度预算；明确未知字符、空白和特殊标记处理。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "20-Projects/learning-workbench/artifacts/real-models/tokenizer.json",
+        "result": "固定真实分词器；中文、代码、emoji、聊天模板"
+      }
+    ],
+    "title": "token→ID→Embedding"
+  },
+  {
+    "id": "B10",
+    "priority": "P2",
+    "finding": "已有完整机制说明和frontmatter片段，但仓库本域没有完整SKILL.md目录、附属脚本/模板或应触发与不触发任务样例。文档明确称示例未安装，不属于承诺未兑现；属于从知识到实践的缺口。",
+    "needed": "增加一个证据比较Skill教学包，附主说明、模板/脚本、四类触发与执行任务，并说明安装或宿主加载方法。",
+    "acceptance": "读者可按README加载该Skill；至少可重放应触发、不应触发、易混淆、证据不足四类任务，并验收比较表与来源。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "20-Projects/learning-workbench/artifacts/offline/skill-cases.json",
+        "result": "主说明、脚本、模板、四类案例；宿主自动路由未冒称实测"
+      }
+    ],
+    "title": "完整证据比较 Skill"
+  },
+  {
+    "id": "B11",
+    "priority": "P2",
+    "finding": "两本实验只覆盖字节预算打包和人工结构化事件抽取；未实现文中Context Builder的去重、过期/版本冲突、完整消息模板开销，也没有八类失败模式的可重放任务集。正文已明确这是确定性子集。",
+    "needed": "增加有明确输入输出的故障练习集，逐步加入真实tokenizer、版本冲突/失效、否定与来源保真检查；模型位置效应作为独立可选实验。",
+    "acceptance": "每项新增练习有错误基线、修复代码、预期与实际输出；机制指标和真实模型结果分别报告，避免把字节数当计费token。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "20-Projects/learning-workbench/fixtures/context-faults.jsonl",
+        "result": "8 类索引；真实模板计数、冲突/过期/去重；位置探针单列"
+      }
+    ],
+    "title": "Context 故障练习"
+  },
+  {
+    "id": "B12",
+    "priority": "P2",
+    "finding": "A2A只说明任务/状态/产物及内部示例对象；无协议适配器或可运行端点，文中已明确未实现。",
+    "needed": "若希望学习者能直接接独立Agent，可选增加固定协议版本的两个本地Agent端点及交接实验。",
+    "acceptance": "可演示创建任务、状态查询、补充输入/取消、产物返回及重复投递处理，结果与选定版本规范对应。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "20-Projects/learning-workbench/artifacts/offline/a2a.json",
+        "result": "两个 HTTP 端点，固定 0.3.0 text 子集，非完整协议认证"
+      }
+    ],
+    "title": "A2A 本地交接"
+  },
+  {
+    "id": "B13",
+    "priority": "P2",
+    "finding": "12个正反例中，6个反例都仅在合法对象上增加unexpected_field；未覆盖六类契约的缺字段、错类型、枚举越界及ToolResult成功失败互斥。现有TS Runtime测试另有部分工具参数反例，但没有覆盖整个共享契约矩阵。",
+    "needed": "补充跨语言共用的关键边界反例，尤其ToolCall ID类型、ToolResult互斥及TrialResult分数范围。",
+    "acceptance": "Python与TS对同一新增矩阵一致接受/拒绝，并保证真实Runtime对象也按对应Schema验证。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/examples/boundaries.json",
+        "result": "Python/Ajv 读取同一缺字段、错类型、范围、互斥样本"
+      }
+    ],
+    "title": "跨语言边界矩阵"
+  },
+  {
+    "id": "B14",
+    "priority": "P2",
+    "finding": "代码按空行及字符长度切块，未保留Markdown AST、表格/代码不可拆单元、父子块回读或页码/bbox；这些机制已在知识文档解释但没有实验。",
+    "needed": "先补一个含标题、表格、围栏代码和跨段条件的结构化Markdown切块/父块回读实验；PDF/OCR作为可选扩展，不必强制部署整套服务。",
+    "acceptance": "对照定长和结构化切块，展示条件是否完整、表格/代码是否断裂、原文位置能否回读；若加OCR，另报关键字段错误。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "20-Projects/learning-workbench/artifacts/offline/documents.json",
+        "result": "原文偏移、完整代码/表格、父段落、原始 PDF 解析"
+      }
+    ],
+    "title": "结构切分与 PDF"
+  },
+  {
+    "id": "B15",
+    "priority": "P2",
+    "finding": "查询改写/分解/路由/迭代检索与GraphRAG有解释，但配套代码只有编号正则及单次检索，没有可运行多步例子。",
+    "needed": "补一个两版本比较或两跳依赖查询的最小实践，保存子问题、约束、证据和停止原因；完整GraphRAG复现可另列进阶。",
+    "acceptance": "能观察每一步查询、返回证据和停止原因；缺一侧版本或某跳证据时明确指出缺口而非补造结论。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "20-Projects/learning-workbench/artifacts/offline/versions.json",
+        "result": "逐版本查询；缺少一侧时停止比较"
+      }
+    ],
+    "title": "多版本证据查询"
+  },
+  {
+    "id": "B16",
+    "priority": "P2",
+    "finding": "fixture文件只有subjects/checks等描述，实际3条任务写在Notebook；当前评测验证字段过滤，没有独立的写入、召回与最终使用样本。",
+    "needed": "整理为可加载的多轮对话/任务JSONL和标注指南，增加同义表达、临时约束、更新、错误记忆与删除后的任务，分层输出错误类型。",
+    "acceptance": "数据、runner与报告分离；每条任务有目标记忆/应拒写项/预期行为，修改策略后能回放并定位具体失败。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "20-Projects/learning-workbench/fixtures/memory-tasks.jsonl",
+        "result": "JSONL 输入/标签与执行器分离；有/无记忆对照"
+      }
+    ],
+    "title": "独立记忆评测集"
+  },
+  {
+    "id": "B17",
+    "priority": "P2",
+    "finding": "文章讲 DAG 前驱与计划版本、局部重规划，但配套 Supervisor 只运行预先给定的独立任务；正文已明确此边界。",
+    "needed": "加一个无需 LLM 的小型动态 DAG 实验：证据过期触发重测，只使依赖该证据的下游失效。",
+    "acceptance": "能打印计划 v1/v2 和依赖变化；无关任务不重跑；环依赖、缺前驱和预算耗尽均有可观察处理。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "20-Projects/learning-workbench/artifacts/offline/planning.json",
+        "result": "证据更新仅重算受影响节点；输入输出与版本可查"
+      }
+    ],
+    "title": "动态 DAG"
+  },
+  {
+    "id": "B18",
+    "priority": "P2",
+    "finding": "SFT/DPO/PPO/GRPO 的文字与数值目标齐全，但全部输入概率和奖励手工给定；没有一次真实参数更新，PPO 裁剪也未在代码复现。",
+    "needed": "保留现有算例，再补可在 CPU 跑的小策略参数更新实验，展示样本→loss→梯度→更新→独立验收，并补正负优势 PPO 算例。",
+    "acceptance": "可复现一轮更新前后参数与动作概率；mask 位置不参与 loss；展示训练 loss 改善与独立任务验收不是同一个指标。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "20-Projects/tiny-transformer/artifacts/report.json",
+        "result": "实际 DPO 与两动作梯度更新；正负优势算例；不是完整 PPO 训练器"
+      }
+    ],
+    "title": "CPU 学习与 PPO clipping"
+  },
+  {
+    "id": "B19",
+    "priority": "P2",
+    "finding": "已有 LLM Judge rubric 和校准清单，但工程只有确定性字段与字面串评分；没有已填样本和可执行校准过程。",
+    "needed": "补一套明确标记为教学数据的开放文本评分实例，包含人工参考标签、正反边界/insufficient、混淆矩阵；真实 Judge 调用设为可选。",
+    "acceptance": "能从同一组答案得到评分、证据和误判统计；正例、反例、不足判断与位置交换均可检查；不把合成标签称为专家校准。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "20-Projects/learning-workbench/artifacts/real-models/judge.json",
+        "result": "6 个教学标签、混淆矩阵、独立 A/B 对调结果；质量不足保留"
+      }
+    ],
+    "title": "Judge 评分与位置交换"
+  },
+  {
+    "id": "B20",
+    "priority": "P2",
+    "finding": "Wilson 与 pass@k 已有代码；按任务配对比较和样本量只讲方法，缺少展示任务异质性/重复相关的可运行算例。",
+    "needed": "补一组有多个任务族和随机 Trial 的合成数据，用按 Task 配对 bootstrap 演示效果量和区间，与错误的 Trial 全打散对照。",
+    "acceptance": "固定随机种子；明确抽样单位；输出任务数、每题 Trial 数、配对差值及区间；不得将示例区间解释成真实业务收益。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "20-Projects/learning-workbench/artifacts/offline/statistics.json",
+        "result": "固定种子；Task 区间对照错误的 Trial iid 区间"
+      }
+    ],
+    "title": "Task 配对统计"
+  },
+  {
+    "id": "B21",
+    "priority": "P2",
+    "finding": "注入 fixture 携带攻击文本，但运行循环不把文本交给模型，直接执行人工写好的 Proposal；目前只能验证执行策略。",
+    "needed": "若要学习完整注入过程，增加可选模型适配实验，贯通外部材料→模型候选→策略→最终状态，沿用正常样本。",
+    "acceptance": "记录模型版本、实际材料、候选动作、策略判定和状态；分别报告模型受诱导与非法效果执行；无密钥时明确跳过。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "20-Projects/learning-workbench/artifacts/real-models/injection.json",
+        "result": "外部文本→真实候选→策略→本地状态；畸形输出不算成功防御"
+      }
+    ],
+    "title": "真实模型注入链路"
+  },
+  {
+    "id": "B22",
+    "priority": "P2",
+    "finding": "Coding Agent 案例实际只给出已经修好的价格函数；“定位、修复、交付”没有 Agent 工具循环、待修仓库或真实补丁产物。",
+    "needed": "补一个隔离小仓库和读文件→提交补丁→运行验收→输出 diff 的教学循环，固定策略先跑通，模型适配可选；或在目录名称明确它是错误修复算例。",
+    "acceptance": "保留失败基线、执行轨迹、产生的补丁及原始验收测试结果，不能只验证手写最终函数。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "20-Projects/learning-workbench/artifacts/repair/report.json",
+        "result": "临时 Git 仓库、失败基线、哈希检查、补丁与重测；固定策略"
+      }
+    ],
+    "title": "Coding 修复闭环"
+  },
+  {
+    "id": "B23",
+    "priority": "P2",
+    "finding": "企业、运维、科研案例共用约五个小函数，分别验证权限过滤、单条诊断规则和人工目标穷举，尚没有各自可运行的项目。",
+    "needed": "项目总表注明“局部算例”；按学习优先级选一项扩展为含输入数据、工具、运行状态、报告和评测的完整虚拟项目。其余不必都扩成生产服务。",
+    "acceptance": "读者能区分完整项目与章节算例；扩展项目有任务输入、实际执行记录、产物和失败样例。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "20-Projects/README.md",
+        "result": "旧企业/运维算例标清；科研扩为完整 CPU 数据/训练/报告任务"
+      }
+    ],
+    "title": "局部案例与综合任务区分"
+  },
+  {
+    "id": "B24",
+    "priority": "P2",
+    "finding": "生产域有容量/成本/幂等算例，但没有队列等待、突发与重试的实际运行或本地部署练习。公式结果不能让读者观察真实积压曲线。",
+    "needed": "增加本地队列与 Worker 负载实验，含限并发、错误注入、重试预算和延迟分位数；可使用合成任务，无需真实生产环境。",
+    "acceptance": "相同到达负载下给出过载与治理两组队列长度、完成时延、拒绝率和重试次数。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "20-Projects/learning-workbench/artifacts/offline/queue.json",
+        "result": "相同到达流，实际 worker；无限/有界队列、重试、等待与 p95"
+      }
+    ],
+    "title": "真实队列负载"
+  },
+  {
+    "id": "B25",
+    "priority": "P2",
+    "finding": "唯一多模态实验从人工填好的 Cell 列表开始，没有任何图像/PDF/音频输入；音视频只有数行采样反例，VLA 借用固定 DOM 浏览器。实做覆盖“结构证据”，未覆盖视觉理解和语音机制。",
+    "needed": "优先补一个有许可的小 PDF/图片、页面解析或 OCR、区域引用回链的可运行实验；语音再补短音频转写与 WER/CER 对齐练习。模型与依赖标成可选。",
+    "acceptance": "从原始媒体生成结构证据，能回看页码/区域或音频时间；有解析失败、错行错单位和拒答样例。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "20-Projects/learning-workbench/artifacts/media/report.json",
+        "result": "原创 PDF、页码/文字起点；错行/单位拒答，无文字页转 OCR 待办；未实现 ASR"
+      }
+    ],
+    "title": "原始媒体到证据"
+  },
+  {
+    "id": "B26",
+    "priority": "P2",
+    "finding": "科研案例描述文献→假设→实验→结论证据链，代码仍只穷举人工 loss；没有实验注册、实际训练、日志归档或基线比较。方法概述完整，工程练习较浅。",
+    "needed": "与 Project 的研究项目对齐，至少补一个小 CPU 实验及基线/候选、固定数据划分、配置与报告来源映射；不要求复现全部论文。",
+    "acceptance": "从输入任务产出有引用依据的计划和真实运行指标，报告中的每个数值能回到运行文件。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "20-Projects/learning-workbench/artifacts/science/report.json",
+        "result": "固定训练/验证划分、基线、候选、配置、数据哈希和训练日志"
+      }
+    ],
+    "title": "CPU 科研实验"
+  },
+  {
+    "id": "B27",
+    "priority": "P2",
+    "finding": "综合项目只串联单Agent检索、状态和恢复；尚无把规划/多Agent章节组合成完整学习任务的Project入口。现有组件实验不应被误标为完整研究型多Agent项目。",
+    "needed": "补一个范围小的多Agent资料比较项目，复用已有协作与评测组件，包含任务拆解、证据分工、冲突合并和单Agent基线；将现有浏览器工程与代码修复案例以项目目录统一导航。",
+    "acceptance": "同一组输入能分别运行单Agent和多Agent方案，比较正确性、调用次数与失败案例；每个子Agent的输入输出和最终合并证据可检查。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "20-Projects/learning-workbench/artifacts/real-models/research-multi.json",
+        "result": "单流程/多角色同输入；真实模型读取与合并，固定拆解；未声称多角色更优"
+      }
+    ],
+    "title": "多角色研究比较"
+  },
+  {
+    "id": "B28",
+    "priority": "P2",
+    "finding": "链接检查显式跳过标题锚点，只验证相对路径对应文件存在；跨文章跳转到不存在的小节仍会显示检查通过。当前未据此断言已有坏锚点。",
+    "needed": "补本仓实际Markdown标题规则的锚点校验，至少覆盖文章间的片段链接；保持代码围栏和模板示例排除。",
+    "acceptance": "不存在的小节链接可被检查识别，中文标题与重复标题有明确支持范围，现有有效链接不误报。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "scripts/check_links.py",
+        "result": "中文、重复标题、跨文档缺失标题测试"
+      }
+    ],
+    "title": "标题锚点检查"
+  },
+  {
+    "id": "C1",
+    "priority": "P1",
+    "finding": "完成记录和多个Labs README仍只描述本地fallback，后续标准Jupyter CI已成功；各Notebook保存的输出仍来自原本地后端。",
+    "needed": "保留原输出来源，追加提交5e5a40c的远端验证链接；同步Knowledge-Status、待补充计划与受影响Labs。",
+    "acceptance": "读者能区分本地输出来源、标准内核已验证与前端交互尚未验收。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "00-Home/Knowledge-Status.md",
+        "result": "追加原提交标准 Jupyter CI 成功链接；保留本地输出来源"
+      }
+    ],
+    "title": "标准 Jupyter 证据同步"
+  },
+  {
+    "id": "C2",
+    "priority": "P1",
+    "finding": "总纲仍只列四类Context失效，正文总表已扩展；draft在总纲写为未完成来源/实验检查，在Conventions写为未人工复核；历史AgentGuide映射仍写部分已成文主题“待补”。",
+    "needed": "统一到Conventions与当前专题，标清简图/四类列表是子集还是历史版本；旧走读保留日期，当前映射更新。",
+    "acceptance": "导航、状态、正文和图注不会给出互相矛盾的当前覆盖范围。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "00-Home/Knowledge-Map.md",
+        "result": "八类模式、draft 定义、旧映射同步"
+      }
+    ],
+    "title": "状态与 Context 分类"
+  },
+  {
+    "id": "C3",
+    "priority": "P2",
+    "finding": "8张历史PNG的作者、原始来源和复用条件仍未核验；目前没有在新正文中引用。",
+    "needed": "补来源登记；无法确认的继续归档或以有依据的新图替代，不把此项当代码漏实现。",
+    "acceptance": "每张恢复引用的图有原始出处、图号/版本及复用说明。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "assets/README.md",
+        "result": "8 张来源未明 PNG 继续归档，不恢复引用、不虚构许可"
+      }
+    ],
+    "title": "历史图片处置"
+  },
+  {
+    "id": "C4",
+    "priority": "P1",
+    "finding": "Lab 0蓝图写两个工具、10–20条固定Eval Case；现有Loop只有搜索工具，9项单测验证运行边界，不等同于蓝图的任务评测集。",
+    "needed": "补一个用途不同的低风险工具，并将10–20条任务及预期行为独立成可加载数据；与真实模型适配一起验收。",
+    "acceptance": "从项目入口能运行同一任务集，查看成功/失败、工具选择和Trace；单测与任务评测分开计数。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "20-Projects/learning-workbench/fixtures/agent-tasks.jsonl",
+        "result": "12 条任务；加法/搜索，规则基线与真实模型 trace 分开"
+      }
+    ],
+    "title": "Lab 0 两工具与任务集"
+  },
+  {
+    "id": "C5",
+    "priority": "P1",
+    "finding": "Lab 2的多源检索、PDF解析、Evidence Store和多文档审阅尚未实现。现有综合项目仅本地固定语料与单次lookup，不能当作完整Deep Research项目。",
+    "needed": "扩展为一个小范围文献对比项目：固定2–3份公开材料、解析、主张证据表、对照和审阅；再提供可选在线检索入口。",
+    "acceptance": "从任务输入生成有逐条证据的比较报告，缺资料明确留缺；每条引用与运行轨迹可回溯。",
+    "status": "implemented_with_stated_boundaries",
+    "evidence": [
+      {
+        "path": "20-Projects/learning-workbench/artifacts/research/multi.json",
+        "result": "2 份固定公开论文 PDF；哈希/页码/短引文、比较与审阅，可联网下载"
+      }
+    ],
+    "title": "Lab 2 多源文献比较"
+  }
+]

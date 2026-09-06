@@ -14,3 +14,7 @@
 按任务阅读：[Coding Agent](03-cases/coding-agents/README.md)、[Browser Agent](03-cases/browser-agents/README.md)、[企业知识](03-cases/domain-agents/enterprise/README.md)、[运维](03-cases/domain-agents/operations/README.md)、[科研](03-cases/domain-agents/science/README.md)。[领域案例导航](03-cases/domain-agents/README.md)比较它们的验收差异。
 
 [代码目录](05-code/README.md)提供本地运行命令；浏览器工程真实执行 Chromium E2E，Python 案例使用标准库教学数据。所有案例区分公开方法与本库模拟，没有连接真实业务账号。[来源索引](references.md)给出标准与官方文档。
+
+## 配套项目扩展（2026-09-06）
+
+[网页工作台与持久 Run 服务](../../20-Projects/learning-workbench/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。

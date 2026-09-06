@@ -1,0 +1,572 @@
+{
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "prompt_revision": "bounded one-tool workflow; free-loop baselines retained",
+  "trials": [
+    {
+      "id": "add-0",
+      "state": {
+        "task": "Use add to calculate 2 + 3, then give the result.",
+        "run_id": "8616377662364bf49e4e258619a9d7ab",
+        "status": "completed",
+        "steps": 2,
+        "observations": [
+          {
+            "call_id": "8616377662364bf49e4e258619a9d7ab:1",
+            "ok": true,
+            "data": {
+              "sum": 5
+            }
+          }
+        ],
+        "answer": "The sum of 2 and 3 is 5.",
+        "stop_reason": "model_finished"
+      },
+      "usage": [
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"add\",\"arguments\":{\"a\":2,\"b\":3}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 261,
+          "output_tokens": 20,
+          "elapsed_seconds": 5.452539837999211,
+          "backend": "local-transformers"
+        },
+        {
+          "text": "The sum of 2 and 3 is 5.",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 129,
+          "output_tokens": 13,
+          "elapsed_seconds": 3.214809080996929,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "add",
+      "called_tools": [
+        "add"
+      ],
+      "tool_selection_correct": true,
+      "answer_match": true,
+      "completed": true,
+      "workflow": "one-tool-then-answer"
+    },
+    {
+      "id": "add-1",
+      "state": {
+        "task": "Use add to calculate 4 + 7, then give the result.",
+        "run_id": "3473037d94074b359e42cc529b634aae",
+        "status": "completed",
+        "steps": 2,
+        "observations": [
+          {
+            "call_id": "3473037d94074b359e42cc529b634aae:1",
+            "ok": true,
+            "data": {
+              "sum": 11
+            }
+          }
+        ],
+        "answer": "The sum of 4 and 7 is 11.",
+        "stop_reason": "model_finished"
+      },
+      "usage": [
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"add\",\"arguments\":{\"a\":4,\"b\":7}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 261,
+          "output_tokens": 20,
+          "elapsed_seconds": 5.362000307999551,
+          "backend": "local-transformers"
+        },
+        {
+          "text": "The sum of 4 and 7 is 11.",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 130,
+          "output_tokens": 14,
+          "elapsed_seconds": 3.420920708002086,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "add",
+      "called_tools": [
+        "add"
+      ],
+      "tool_selection_correct": true,
+      "answer_match": true,
+      "completed": true,
+      "workflow": "one-tool-then-answer"
+    },
+    {
+      "id": "add-2",
+      "state": {
+        "task": "Use add to calculate 10 + 5, then give the result.",
+        "run_id": "056d707f1c244133bbf65c61bdc946c4",
+        "status": "completed",
+        "steps": 2,
+        "observations": [
+          {
+            "call_id": "056d707f1c244133bbf65c61bdc946c4:1",
+            "ok": true,
+            "data": {
+              "sum": 15
+            }
+          }
+        ],
+        "answer": "The sum of 10 and 5 is 15.",
+        "stop_reason": "model_finished"
+      },
+      "usage": [
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"add\",\"arguments\":{\"a\":10,\"b\":5}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 262,
+          "output_tokens": 21,
+          "elapsed_seconds": 5.824006956998346,
+          "backend": "local-transformers"
+        },
+        {
+          "text": "The sum of 10 and 5 is 15.",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 131,
+          "output_tokens": 15,
+          "elapsed_seconds": 4.191994886998145,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "add",
+      "called_tools": [
+        "add"
+      ],
+      "tool_selection_correct": true,
+      "answer_match": true,
+      "completed": true,
+      "workflow": "one-tool-then-answer"
+    },
+    {
+      "id": "add-3",
+      "state": {
+        "task": "Use add to calculate 1 + 8, then give the result.",
+        "run_id": "9606d1a80d1e426b8c404d54f694a11c",
+        "status": "completed",
+        "steps": 2,
+        "observations": [
+          {
+            "call_id": "9606d1a80d1e426b8c404d54f694a11c:1",
+            "ok": true,
+            "data": {
+              "sum": 9
+            }
+          }
+        ],
+        "answer": "The sum of 1 and 8 is 9.",
+        "stop_reason": "model_finished"
+      },
+      "usage": [
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"add\",\"arguments\":{\"a\":1,\"b\":8}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 261,
+          "output_tokens": 20,
+          "elapsed_seconds": 5.808533471001283,
+          "backend": "local-transformers"
+        },
+        {
+          "text": "The sum of 1 and 8 is 9.",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 131,
+          "output_tokens": 13,
+          "elapsed_seconds": 3.2579301220030175,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "add",
+      "called_tools": [
+        "add"
+      ],
+      "tool_selection_correct": true,
+      "answer_match": true,
+      "completed": true,
+      "workflow": "one-tool-then-answer"
+    },
+    {
+      "id": "add-4",
+      "state": {
+        "task": "Use add to calculate 11 + 12, then give the result.",
+        "run_id": "d4d9b1c877c64a7a85f14667591bb9a9",
+        "status": "completed",
+        "steps": 2,
+        "observations": [
+          {
+            "call_id": "d4d9b1c877c64a7a85f14667591bb9a9:1",
+            "ok": true,
+            "data": {
+              "sum": 23
+            }
+          }
+        ],
+        "answer": "To calculate 11 + 12:\n\n11 + 12 = 23\n\nThe sum of 11 and 12 is 23.",
+        "stop_reason": "model_finished"
+      },
+      "usage": [
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"add\",\"arguments\":{\"a\":11,\"b\":12}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 263,
+          "output_tokens": 22,
+          "elapsed_seconds": 5.801730207997025,
+          "backend": "local-transformers"
+        },
+        {
+          "text": "To calculate 11 + 12:\n\n11 + 12 = 23\n\nThe sum of 11 and 12 is 23.",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 133,
+          "output_tokens": 37,
+          "elapsed_seconds": 7.5450020520002,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "add",
+      "called_tools": [
+        "add"
+      ],
+      "tool_selection_correct": true,
+      "answer_match": true,
+      "completed": true,
+      "workflow": "one-tool-then-answer"
+    },
+    {
+      "id": "add-5",
+      "state": {
+        "task": "Use add to calculate 20 + 1, then give the result.",
+        "run_id": "d1afd8e552974b90badbd3784e0c4827",
+        "status": "completed",
+        "steps": 2,
+        "observations": [
+          {
+            "call_id": "d1afd8e552974b90badbd3784e0c4827:1",
+            "ok": true,
+            "data": {
+              "sum": 21
+            }
+          }
+        ],
+        "answer": "The sum of 20 and 1 is 21.",
+        "stop_reason": "model_finished"
+      },
+      "usage": [
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"add\",\"arguments\":{\"a\":20,\"b\":1}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 262,
+          "output_tokens": 21,
+          "elapsed_seconds": 5.688567509998393,
+          "backend": "local-transformers"
+        },
+        {
+          "text": "The sum of 20 and 1 is 21.",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 128,
+          "output_tokens": 15,
+          "elapsed_seconds": 3.3099831959989388,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "add",
+      "called_tools": [
+        "add"
+      ],
+      "tool_selection_correct": true,
+      "answer_match": true,
+      "completed": true,
+      "workflow": "one-tool-then-answer"
+    },
+    {
+      "id": "search-0",
+      "state": {
+        "task": "Search FAN-01 and tell me what to do before inspection.",
+        "run_id": "effbd83409294980bb9843c238861e88",
+        "status": "failed",
+        "steps": 2,
+        "observations": [
+          {
+            "call_id": "effbd83409294980bb9843c238861e88:1",
+            "ok": false,
+            "error": {
+              "code": "invalid_arguments",
+              "retryable": false
+            }
+          }
+        ],
+        "answer": "",
+        "stop_reason": "invalid_model_output"
+      },
+      "usage": [
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"search\",\"arguments\":{\"tool_name\":\"FAN-01\",\"query\":\"before inspection\"}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 261,
+          "output_tokens": 26,
+          "elapsed_seconds": 6.279428907000693,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "search",
+      "called_tools": [
+        "search"
+      ],
+      "tool_selection_correct": true,
+      "answer_match": false,
+      "completed": false,
+      "workflow": "one-tool-then-answer"
+    },
+    {
+      "id": "search-1",
+      "state": {
+        "task": "Read the fan manual. Must I disconnect power before inspection?",
+        "run_id": "9198b357fce74bb8af6db446304f8fb4",
+        "status": "completed",
+        "steps": 2,
+        "observations": [
+          {
+            "call_id": "9198b357fce74bb8af6db446304f8fb4:1",
+            "ok": true,
+            "data": {
+              "documents": []
+            }
+          }
+        ],
+        "answer": "Yes, you must disconnect power before inspecting the fan manually.",
+        "stop_reason": "model_finished"
+      },
+      "usage": [
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"search\",\"arguments\":{\"query\":\"must I disconnect power before inspection?\"}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 258,
+          "output_tokens": 22,
+          "elapsed_seconds": 5.6428336329991,
+          "backend": "local-transformers"
+        },
+        {
+          "text": "Yes, you must disconnect power before inspecting the fan manually.",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 121,
+          "output_tokens": 14,
+          "elapsed_seconds": 3.237849514000118,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "search",
+      "called_tools": [
+        "search"
+      ],
+      "tool_selection_correct": true,
+      "answer_match": true,
+      "completed": true,
+      "workflow": "one-tool-then-answer"
+    },
+    {
+      "id": "search-2",
+      "state": {
+        "task": "Use search for FAN-01 safety advice.",
+        "run_id": "1df5687508974607b7860c9372be86a6",
+        "status": "completed",
+        "steps": 2,
+        "observations": [
+          {
+            "call_id": "1df5687508974607b7860c9372be86a6:1",
+            "ok": true,
+            "data": {
+              "documents": [
+                {
+                  "id": "fan",
+                  "text": "FAN-01: power off before inspecting the cooling fan."
+                }
+              ]
+            }
+          }
+        ],
+        "answer": "The search term for FAN-01 safety advice was found in the document titled \"Fan-01: Power Off Before Inspecting the Cooling Fan.\"",
+        "stop_reason": "model_finished"
+      },
+      "usage": [
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"search\",\"arguments\":{\"query\":\"FAN-01 safety advice\"}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 257,
+          "output_tokens": 22,
+          "elapsed_seconds": 5.287262441997882,
+          "backend": "local-transformers"
+        },
+        {
+          "text": "The search term for FAN-01 safety advice was found in the document titled \"Fan-01: Power Off Before Inspecting the Cooling Fan.\"",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 149,
+          "output_tokens": 33,
+          "elapsed_seconds": 6.437644777000969,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "search",
+      "called_tools": [
+        "search"
+      ],
+      "tool_selection_correct": true,
+      "answer_match": true,
+      "completed": true,
+      "workflow": "one-tool-then-answer"
+    },
+    {
+      "id": "search-3",
+      "state": {
+        "task": "Look up the cooling fan inspection prerequisite.",
+        "run_id": "3a62e23c30f0479588c5ba2b9b169ed4",
+        "status": "completed",
+        "steps": 2,
+        "observations": [
+          {
+            "call_id": "3a62e23c30f0479588c5ba2b9b169ed4:1",
+            "ok": true,
+            "data": {
+              "documents": [
+                {
+                  "id": "fan",
+                  "text": "FAN-01: power off before inspecting the cooling fan."
+                }
+              ]
+            }
+          }
+        ],
+        "answer": "The prerequisite for checking the cooling fan is to power it off before performing any inspection.",
+        "stop_reason": "model_finished"
+      },
+      "usage": [
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"search\",\"arguments\":{\"query\":\"cooling fan inspection prerequisite\"}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 254,
+          "output_tokens": 20,
+          "elapsed_seconds": 5.06301842099856,
+          "backend": "local-transformers"
+        },
+        {
+          "text": "The prerequisite for checking the cooling fan is to power it off before performing any inspection.",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 146,
+          "output_tokens": 18,
+          "elapsed_seconds": 3.9589376879994234,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "search",
+      "called_tools": [
+        "search"
+      ],
+      "tool_selection_correct": true,
+      "answer_match": true,
+      "completed": true,
+      "workflow": "one-tool-then-answer"
+    },
+    {
+      "id": "search-4",
+      "state": {
+        "task": "Find FAN-01 inspection instructions.",
+        "run_id": "2ec23a2c947d4bb0b099e9005b1e82cf",
+        "status": "completed",
+        "steps": 2,
+        "observations": [
+          {
+            "call_id": "2ec23a2c947d4bb0b099e9005b1e82cf:1",
+            "ok": true,
+            "data": {
+              "documents": [
+                {
+                  "id": "fan",
+                  "text": "FAN-01: power off before inspecting the cooling fan."
+                }
+              ]
+            }
+          }
+        ],
+        "answer": "The FAN-01 inspection instructions are to power off the equipment before checking the cooling fan.",
+        "stop_reason": "model_finished"
+      },
+      "usage": [
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"search\",\"arguments\":{\"query\":\"FAN-01 inspection instructions\"}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 255,
+          "output_tokens": 22,
+          "elapsed_seconds": 5.713909419002448,
+          "backend": "local-transformers"
+        },
+        {
+          "text": "The FAN-01 inspection instructions are to power off the equipment before checking the cooling fan.",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 146,
+          "output_tokens": 21,
+          "elapsed_seconds": 5.294195404003403,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "search",
+      "called_tools": [
+        "search"
+      ],
+      "tool_selection_correct": true,
+      "answer_match": true,
+      "completed": true,
+      "workflow": "one-tool-then-answer"
+    },
+    {
+      "id": "search-5",
+      "state": {
+        "task": "Search the fan manual and summarize its prerequisite.",
+        "run_id": "7f8449c9c84848c88ac1f44b7edfd6b0",
+        "status": "completed",
+        "steps": 2,
+        "observations": [
+          {
+            "call_id": "7f8449c9c84848c88ac1f44b7edfd6b0:1",
+            "ok": true,
+            "data": {
+              "documents": [
+                {
+                  "id": "fan",
+                  "text": "FAN-01: power off before inspecting the cooling fan."
+                }
+              ]
+            }
+          }
+        ],
+        "answer": "The prerequisite for checking the fan manual is to turn it off first.",
+        "stop_reason": "model_finished"
+      },
+      "usage": [
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"search\",\"arguments\":{\"query\":\"fan manual prerequisite\"}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 255,
+          "output_tokens": 18,
+          "elapsed_seconds": 4.9357677010011685,
+          "backend": "local-transformers"
+        },
+        {
+          "text": "The prerequisite for checking the fan manual is to turn it off first.",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 146,
+          "output_tokens": 15,
+          "elapsed_seconds": 3.528509063002275,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "search",
+      "called_tools": [
+        "search"
+      ],
+      "tool_selection_correct": true,
+      "answer_match": false,
+      "completed": true,
+      "workflow": "one-tool-then-answer"
+    }
+  ]
+}

@@ -13,3 +13,7 @@
 | [Research Agent](03-cases/01-research-and-science-agents.md) | 想法、资料、实验、评审与结论 | [研究案例导航](03-cases/README.md) |
 
 [来源表](references.md)记录代表论文版本、日期、支持范围与未复现事项。[代码说明](05-code/README.md)记录本库真正执行的数值与规则检查，避免把数学算例包装成真实 AI 科研成绩。
+
+## 配套项目扩展（2026-09-06）
+
+[固定数据划分的 CPU 对照实验与多源文献记录](../../20-Projects/learning-workbench/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。

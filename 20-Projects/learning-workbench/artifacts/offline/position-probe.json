@@ -1,0 +1,73 @@
+{
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "trials": [
+    {
+      "position": 0,
+      "messages": [
+        {
+          "role": "system",
+          "content": "Answer the question from supplied data. Return only the inspection code."
+        },
+        {
+          "role": "user",
+          "content": "The inspection code is DEMO-4729.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nWhat is the inspection code?"
+        }
+      ],
+      "completion": {
+        "text": "DEMOS",
+        "model": "Qwen/Qwen2.5-0.5B-Instruct",
+        "input_tokens": 224,
+        "output_tokens": 3,
+        "elapsed_seconds": 2.5255689920013538,
+        "backend": "local-transformers"
+      },
+      "correct": false
+    },
+    {
+      "position": 10,
+      "messages": [
+        {
+          "role": "system",
+          "content": "Answer the question from supplied data. Return only the inspection code."
+        },
+        {
+          "role": "user",
+          "content": "Unrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nThe inspection code is DEMO-4729.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nWhat is the inspection code?"
+        }
+      ],
+      "completion": {
+        "text": "DEMO-4729",
+        "model": "Qwen/Qwen2.5-0.5B-Instruct",
+        "input_tokens": 224,
+        "output_tokens": 8,
+        "elapsed_seconds": 3.500472918000014,
+        "backend": "local-transformers"
+      },
+      "correct": true
+    },
+    {
+      "position": 20,
+      "messages": [
+        {
+          "role": "system",
+          "content": "Answer the question from supplied data. Return only the inspection code."
+        },
+        {
+          "role": "user",
+          "content": "Unrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nUnrelated note: the box is blue.\nThe inspection code is DEMO-4729.\nWhat is the inspection code?"
+        }
+      ],
+      "completion": {
+        "text": "DEMO-4729",
+        "model": "Qwen/Qwen2.5-0.5B-Instruct",
+        "input_tokens": 224,
+        "output_tokens": 8,
+        "elapsed_seconds": 3.3101473950009677,
+        "backend": "local-transformers"
+      },
+      "correct": true
+    }
+  ],
+  "boundary": "3 constructed prompts with greedy decoding; not a long-context quality benchmark"
+}

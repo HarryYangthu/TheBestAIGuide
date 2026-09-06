@@ -1,0 +1,50 @@
+{
+  "policy": "fixed read-patch-test policy, not model-generated code",
+  "baseline_failed": true,
+  "repaired": true,
+  "trace": [
+    {
+      "argv": [
+        "git",
+        "init",
+        "--quiet"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "event": "read_file",
+      "path": "price.py",
+      "sha256": "0e8bfd55df378410c64d35e73bbe7a5c93bc8f02be4907bb107a37291f5744de",
+      "content": "def discounted(price, discount):\n    return price * discount\n"
+    },
+    {
+      "event": "test_before",
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "acceptance.py"
+      ],
+      "returncode": 1,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"/tmp/tmpq3fi0fs2/acceptance.py\", line 2, in <module>\n    assert discounted(100,.2)==80\n           ^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    },
+    {
+      "event": "apply_patch",
+      "path": "price.py",
+      "expected_sha256": "0e8bfd55df378410c64d35e73bbe7a5c93bc8f02be4907bb107a37291f5744de"
+    },
+    {
+      "event": "test_after",
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "acceptance.py"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "diff": "--- a/price.py\n+++ b/price.py\n@@ -1,2 +1,2 @@\n def discounted(price, discount):\n-    return price * discount\n+    return price * (1 - discount)\n",
+  "boundary": "Temporary directory is isolation of files, not a sandbox for arbitrary generated code."
+}

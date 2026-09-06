@@ -1,0 +1,26 @@
+[
+  {
+    "id": "trigger",
+    "expected_route": "use",
+    "routing_evaluation": "authored routing cases; not automated host selection",
+    "output": "# 证据比较表\n\n| 比较维度 | 材料与版本 | 结论 | 原文证据 | 适用条件与缺口 |\n| --- | --- | --- | --- | --- |\n| 温度 | v1@1 | 版本1为70 C | 70 C | 仍需人工检查语义支持 |\n| 温度 | v2@2 | 版本2为68 C | 68 C | 仍需人工检查语义支持 |\n"
+  },
+  {
+    "id": "negative",
+    "expected_route": "skip",
+    "routing_evaluation": "authored routing cases; not automated host selection",
+    "output": null
+  },
+  {
+    "id": "ambiguous",
+    "expected_route": "use-with-gap",
+    "routing_evaluation": "authored routing cases; not automated host selection",
+    "output": "# 证据比较表\n\n| 比较维度 | 材料与版本 | 结论 | 原文证据 | 适用条件与缺口 |\n| --- | --- | --- | --- | --- |\n| 速度 | a@1 | 仅知A在CPU-X的结果，不作跨硬件排名 | 40 ms on CPU-X. | 仍需人工检查语义支持 |\n"
+  },
+  {
+    "id": "insufficient",
+    "expected_route": "use-with-gap",
+    "routing_evaluation": "authored routing cases; not automated host selection",
+    "output": "# 证据比较表\n\n| 比较维度 | 材料与版本 | 结论 | 原文证据 | 适用条件与缺口 |\n| --- | --- | --- | --- | --- |\n| CSV | a@1 | A支持CSV | supports CSV | 仍需人工检查语义支持 |\n| CSV | b | 证据不足 |  | 缺少来源 |\n"
+  }
+]

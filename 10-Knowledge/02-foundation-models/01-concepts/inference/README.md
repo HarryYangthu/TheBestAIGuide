@@ -62,3 +62,7 @@ output_error = np.max(abs(inputs @ restored - inputs @ weights))
 权重误差小不保证最终答案不变：若两个 token 的 logit 很接近，微小误差就可能改变 argmax，后续前缀随之变化。配套实验同时看权重误差、线性输出误差和近乎平局的解码变化，不给出“所有模型损失不超过某值”的承诺。
 
 [运行解码、缓存与精度实验](../../04-labs/02-decoding-cache-and-precision.ipynb) · [完整实现](../../05-code/model_mechanics.py) · [来源](../../references.md)。决定部署方案前，先按[模型选择](../model-selection/README.md)做同任务、同预算对照。
+
+## 配套项目扩展（2026-09-06）
+
+[完整 decoder、训练、生成与 LoRA](../../../../20-Projects/tiny-transformer/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。

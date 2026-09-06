@@ -1,0 +1,355 @@
+[
+  {
+    "id": "m0",
+    "events": [
+      {
+        "accepted": true,
+        "memory": {
+          "subject": "alice",
+          "key": "answer_format",
+          "value": "table",
+          "source": "chat:0:1",
+          "updated_at": 1,
+          "expires_at": null,
+          "version": 1
+        },
+        "replaced": false
+      }
+    ],
+    "answers": {
+      "without_memory": {
+        "format": "paragraph",
+        "text": "State是当前任务事实；Memory是供以后任务检索的信息。",
+        "context": {
+          "task": "解释State和Memory",
+          "selected_memory": null,
+          "current_instruction_wins": false
+        },
+        "policy": "rule-based format rendering; not a general conversational model"
+      },
+      "with_memory": {
+        "format": "table",
+        "text": "| 概念 | 含义 |\n| --- | --- |\n| State | 当前任务事实 |\n| Memory | 供以后任务检索的信息 |",
+        "context": {
+          "task": "解释State和Memory",
+          "selected_memory": {
+            "subject": "alice",
+            "key": "answer_format",
+            "value": "table",
+            "source": "chat:0:1",
+            "updated_at": 1.0,
+            "expires_at": null,
+            "version": 1
+          },
+          "current_instruction_wins": false
+        },
+        "policy": "rule-based format rendering; not a general conversational model"
+      }
+    },
+    "expected": "table",
+    "correct": true,
+    "baseline_correct": false
+  },
+  {
+    "id": "m1",
+    "events": [
+      {
+        "accepted": false,
+        "reason": "not an explicit durable self-preference"
+      }
+    ],
+    "answers": {
+      "without_memory": {
+        "format": "paragraph",
+        "text": "State是当前任务事实；Memory是供以后任务检索的信息。",
+        "context": {
+          "task": "解释State和Memory",
+          "selected_memory": null,
+          "current_instruction_wins": false
+        },
+        "policy": "rule-based format rendering; not a general conversational model"
+      },
+      "with_memory": {
+        "format": "paragraph",
+        "text": "State是当前任务事实；Memory是供以后任务检索的信息。",
+        "context": {
+          "task": "解释State和Memory",
+          "selected_memory": null,
+          "current_instruction_wins": false
+        },
+        "policy": "rule-based format rendering; not a general conversational model"
+      }
+    },
+    "expected": "paragraph",
+    "correct": true,
+    "baseline_correct": true
+  },
+  {
+    "id": "m2",
+    "events": [
+      {
+        "accepted": true,
+        "memory": {
+          "subject": "bob",
+          "key": "answer_format",
+          "value": "table",
+          "source": "chat:2:1",
+          "updated_at": 1,
+          "expires_at": null,
+          "version": 1
+        },
+        "replaced": false
+      }
+    ],
+    "answers": {
+      "without_memory": {
+        "format": "paragraph",
+        "text": "State是当前任务事实；Memory是供以后任务检索的信息。",
+        "context": {
+          "task": "解释State和Memory",
+          "selected_memory": null,
+          "current_instruction_wins": false
+        },
+        "policy": "rule-based format rendering; not a general conversational model"
+      },
+      "with_memory": {
+        "format": "paragraph",
+        "text": "State是当前任务事实；Memory是供以后任务检索的信息。",
+        "context": {
+          "task": "解释State和Memory",
+          "selected_memory": null,
+          "current_instruction_wins": false
+        },
+        "policy": "rule-based format rendering; not a general conversational model"
+      }
+    },
+    "expected": "paragraph",
+    "correct": true,
+    "baseline_correct": true
+  },
+  {
+    "id": "m3",
+    "events": [
+      {
+        "accepted": true,
+        "memory": {
+          "subject": "alice",
+          "key": "answer_format",
+          "value": "table",
+          "source": "chat:3:1",
+          "updated_at": 1,
+          "expires_at": null,
+          "version": 1
+        },
+        "replaced": false
+      }
+    ],
+    "answers": {
+      "without_memory": {
+        "format": "paragraph",
+        "text": "State是当前任务事实；Memory是供以后任务检索的信息。",
+        "context": {
+          "task": "这次用段落解释State和Memory",
+          "selected_memory": null,
+          "current_instruction_wins": true
+        },
+        "policy": "rule-based format rendering; not a general conversational model"
+      },
+      "with_memory": {
+        "format": "paragraph",
+        "text": "State是当前任务事实；Memory是供以后任务检索的信息。",
+        "context": {
+          "task": "这次用段落解释State和Memory",
+          "selected_memory": {
+            "subject": "alice",
+            "key": "answer_format",
+            "value": "table",
+            "source": "chat:3:1",
+            "updated_at": 1.0,
+            "expires_at": null,
+            "version": 1
+          },
+          "current_instruction_wins": true
+        },
+        "policy": "rule-based format rendering; not a general conversational model"
+      }
+    },
+    "expected": "paragraph",
+    "correct": true,
+    "baseline_correct": true
+  },
+  {
+    "id": "m4",
+    "events": [
+      {
+        "accepted": true,
+        "memory": {
+          "subject": "alice",
+          "key": "answer_format",
+          "value": "table",
+          "source": "chat:4:1",
+          "updated_at": 1,
+          "expires_at": 2,
+          "version": 1
+        },
+        "replaced": false
+      }
+    ],
+    "answers": {
+      "without_memory": {
+        "format": "paragraph",
+        "text": "State是当前任务事实；Memory是供以后任务检索的信息。",
+        "context": {
+          "task": "解释State和Memory",
+          "selected_memory": null,
+          "current_instruction_wins": false
+        },
+        "policy": "rule-based format rendering; not a general conversational model"
+      },
+      "with_memory": {
+        "format": "paragraph",
+        "text": "State是当前任务事实；Memory是供以后任务检索的信息。",
+        "context": {
+          "task": "解释State和Memory",
+          "selected_memory": null,
+          "current_instruction_wins": false
+        },
+        "policy": "rule-based format rendering; not a general conversational model"
+      }
+    },
+    "expected": "paragraph",
+    "correct": true,
+    "baseline_correct": true
+  },
+  {
+    "id": "m5",
+    "events": [
+      {
+        "accepted": true,
+        "memory": {
+          "subject": "alice",
+          "key": "answer_format",
+          "value": "table",
+          "source": "chat:5:1",
+          "updated_at": 1,
+          "expires_at": null,
+          "version": 1
+        },
+        "replaced": false
+      },
+      {
+        "forgotten": true
+      }
+    ],
+    "answers": {
+      "without_memory": {
+        "format": "paragraph",
+        "text": "State是当前任务事实；Memory是供以后任务检索的信息。",
+        "context": {
+          "task": "解释State和Memory",
+          "selected_memory": null,
+          "current_instruction_wins": false
+        },
+        "policy": "rule-based format rendering; not a general conversational model"
+      },
+      "with_memory": {
+        "format": "paragraph",
+        "text": "State是当前任务事实；Memory是供以后任务检索的信息。",
+        "context": {
+          "task": "解释State和Memory",
+          "selected_memory": null,
+          "current_instruction_wins": false
+        },
+        "policy": "rule-based format rendering; not a general conversational model"
+      }
+    },
+    "expected": "paragraph",
+    "correct": true,
+    "baseline_correct": true
+  },
+  {
+    "id": "m6",
+    "events": [
+      {
+        "accepted": false,
+        "reason": "not an explicit durable self-preference"
+      }
+    ],
+    "answers": {
+      "without_memory": {
+        "format": "paragraph",
+        "text": "State是当前任务事实；Memory是供以后任务检索的信息。",
+        "context": {
+          "task": "解释State和Memory",
+          "selected_memory": null,
+          "current_instruction_wins": false
+        },
+        "policy": "rule-based format rendering; not a general conversational model"
+      },
+      "with_memory": {
+        "format": "paragraph",
+        "text": "State是当前任务事实；Memory是供以后任务检索的信息。",
+        "context": {
+          "task": "解释State和Memory",
+          "selected_memory": null,
+          "current_instruction_wins": false
+        },
+        "policy": "rule-based format rendering; not a general conversational model"
+      }
+    },
+    "expected": "paragraph",
+    "correct": true,
+    "baseline_correct": true
+  },
+  {
+    "id": "m7",
+    "events": [
+      {
+        "accepted": true,
+        "memory": {
+          "subject": "alice",
+          "key": "answer_format",
+          "value": "bullets",
+          "source": "chat:7:1",
+          "updated_at": 1,
+          "expires_at": null,
+          "version": 1
+        },
+        "replaced": false
+      }
+    ],
+    "answers": {
+      "without_memory": {
+        "format": "paragraph",
+        "text": "State是当前任务事实；Memory是供以后任务检索的信息。",
+        "context": {
+          "task": "解释State和Memory",
+          "selected_memory": null,
+          "current_instruction_wins": false
+        },
+        "policy": "rule-based format rendering; not a general conversational model"
+      },
+      "with_memory": {
+        "format": "bullets",
+        "text": "- State：当前任务事实\n- Memory：供以后任务检索的信息",
+        "context": {
+          "task": "解释State和Memory",
+          "selected_memory": {
+            "subject": "alice",
+            "key": "answer_format",
+            "value": "bullets",
+            "source": "chat:7:1",
+            "updated_at": 1.0,
+            "expires_at": null,
+            "version": 1
+          },
+          "current_instruction_wins": false
+        },
+        "policy": "rule-based format rendering; not a general conversational model"
+      }
+    },
+    "expected": "bullets",
+    "correct": true,
+    "baseline_correct": false
+  }
+]

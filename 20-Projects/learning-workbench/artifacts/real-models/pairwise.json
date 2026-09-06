@@ -1,0 +1,88 @@
+{
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "result": [
+    {
+      "id": "negation-order",
+      "runs": [
+        {
+          "input": {
+            "question": "Should I restart?",
+            "evidence": "Do not restart at 70 C.",
+            "A": "Do not restart at 70 C.",
+            "B": "Restart at 70 C."
+          },
+          "completion": {
+            "text": "A: Do not restart at 70 C.",
+            "model": "Qwen/Qwen2.5-0.5B-Instruct",
+            "input_tokens": 90,
+            "output_tokens": 12,
+            "elapsed_seconds": 2.975009753001359,
+            "backend": "local-transformers"
+          },
+          "selected_original_index": null
+        },
+        {
+          "input": {
+            "question": "Should I restart?",
+            "evidence": "Do not restart at 70 C.",
+            "A": "Restart at 70 C.",
+            "B": "Do not restart at 70 C."
+          },
+          "completion": {
+            "text": "A: Restart at 70 C.",
+            "model": "Qwen/Qwen2.5-0.5B-Instruct",
+            "input_tokens": 90,
+            "output_tokens": 10,
+            "elapsed_seconds": 2.4168977310000628,
+            "backend": "local-transformers"
+          },
+          "selected_original_index": null
+        }
+      ],
+      "position_consistent": false,
+      "both_correct": false
+    },
+    {
+      "id": "unit-order",
+      "runs": [
+        {
+          "input": {
+            "question": "What is the limit?",
+            "evidence": "The limit is 70 C.",
+            "A": "70 C.",
+            "B": "70 F."
+          },
+          "completion": {
+            "text": "A",
+            "model": "Qwen/Qwen2.5-0.5B-Instruct",
+            "input_tokens": 82,
+            "output_tokens": 2,
+            "elapsed_seconds": 1.0652836190020025,
+            "backend": "local-transformers"
+          },
+          "selected_original_index": null
+        },
+        {
+          "input": {
+            "question": "What is the limit?",
+            "evidence": "The limit is 70 C.",
+            "A": "70 F.",
+            "B": "70 C."
+          },
+          "completion": {
+            "text": "A",
+            "model": "Qwen/Qwen2.5-0.5B-Instruct",
+            "input_tokens": 82,
+            "output_tokens": 2,
+            "elapsed_seconds": 0.8683422309986781,
+            "backend": "local-transformers"
+          },
+          "selected_original_index": null
+        }
+      ],
+      "position_consistent": false,
+      "both_correct": false
+    }
+  ]
+}

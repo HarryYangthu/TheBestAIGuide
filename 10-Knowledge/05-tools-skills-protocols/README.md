@@ -14,3 +14,7 @@
 | [执行层模式](02-patterns/01-tool-runtime.md) | 参数错、超时、取消和重复如何处理 | [TS Runtime](05-code/tool-runtime-typescript/README.md) |
 
 [实验Notebook](04-labs/01-tool-contracts-and-errors.ipynb)串起Schema验证与TS故障测试。MCP当前规范为2026-07-28；可运行示例固定SDK 1.29.0，明确演示旧协议兼容路线，升级差异在正文单独说明。[来源表](references.md)记录核验入口。
+
+## 配套项目扩展（2026-09-06）
+
+[完整 Skill 教学包与 A2A 本地交接](../../20-Projects/learning-workbench/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。

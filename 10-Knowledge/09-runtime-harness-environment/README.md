@@ -13,3 +13,7 @@
 | 如何处理未知结果和已提交动作 | [重试、幂等与补偿](02-patterns/01-retry-idempotency-compensation.md) | [恢复测试](05-code/recoverable-runtime-python/tests/test_recovery.py) |
 
 [工程说明](05-code/recoverable-runtime-python/README.md) · [实验说明](04-labs/README.md) · [来源索引](references.md) · [State / Memory](../07-state-and-memory/README.md)
+
+## 配套项目扩展（2026-09-06）
+
+[持久 Run API、审批、取消与事件补发](../../20-Projects/learning-workbench/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。

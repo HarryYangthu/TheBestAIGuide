@@ -1,9 +1,9 @@
 name: Python teaching components
 on:
   push:
-    paths: ['**/*.py', '**/pyproject.toml', 'requirements-dev.lock', '**/fixtures/**', '.github/workflows/python.yml']
+    paths: ['10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/**', '**/*.py', '**/pyproject.toml', 'requirements-dev.lock', 'requirements-learning.txt', '**/*.html', '**/fixtures/**', '.github/workflows/python.yml']
   pull_request:
-    paths: ['**/*.py', '**/pyproject.toml', 'requirements-dev.lock', '**/fixtures/**', '.github/workflows/python.yml']
+    paths: ['10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/**', '**/*.py', '**/pyproject.toml', 'requirements-dev.lock', 'requirements-learning.txt', '**/*.html', '**/fixtures/**', '.github/workflows/python.yml']
 permissions:
   contents: read
 jobs:
@@ -17,5 +17,8 @@ jobs:
           cache: pip
           cache-dependency-path: requirements-dev.lock
       - run: pip install -r requirements-dev.lock
+      - run: pip install torch==2.8.0 --index-url https://download.pytorch.org/whl/cpu
+      - run: pip install pypdf==6.1.0 reportlab==4.4.3
+      - run: python 10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/validate_examples.py
       - run: python scripts/run_python_tests.py
       - run: python scripts/run_python.py 20-Projects/domain-research-agent/evaluation/run_eval.py --output .runs/evaluation

@@ -34,4 +34,4 @@ assert [x['width'] for x in feasible] == [8]
 | 程序生成 + 执行 | 生成代码 | 解释器、测试、求解器 | 测试覆盖决定结论范围 |
 | 学习模型 + 搜索 | 预测后果与价值 | 比较行动序列 | 模型误差可能被搜索放大 |
 
-[研究算例](../05-code/research_checks.py)运行资源过滤和简化转移检查。它没有训练神经世界模型，也没有实现 MuZero。想把这些思想用到科研 Agent，先阅读[研究案例](../03-cases/01-research-and-science-agents.md)，明确提案、实验与证据之间的边界。
+[研究算例](../05-code/research_checks.py)运行资源约束过滤；其中尚无状态转移模型，不能据此验证规划。它没有训练神经世界模型，也没有实现 MuZero。想把这些思想用到科研 Agent，先阅读[研究案例](../03-cases/01-research-and-science-agents.md)，明确提案、实验与证据之间的边界。

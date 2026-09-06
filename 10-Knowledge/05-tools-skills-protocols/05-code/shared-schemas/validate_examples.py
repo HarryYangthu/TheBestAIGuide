@@ -16,3 +16,8 @@ for path in sorted(root.glob("*.schema.json")):
         assert valid == (kind == "valid"), (name, kind)
         count += 1
 print(f"Python JSON Schema checks passed: {count}")
+
+for case in json.loads((root/'examples/boundaries.json').read_text()):
+    schema=json.loads((root/(case['schema']+'.schema.json')).read_text())
+    assert Draft202012Validator(schema).is_valid(case['value']) == case['valid'], case['id']
+print(f"Boundary matrix passed: {len(json.loads((root/'examples/boundaries.json').read_text()))}")

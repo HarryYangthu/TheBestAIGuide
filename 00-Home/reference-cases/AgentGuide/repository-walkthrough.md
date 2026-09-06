@@ -104,13 +104,13 @@ external/InterviewGuide/    ──> Astro 静态构建 ──> /interview/
 | --- | --- | --- |
 | Agent 原理与 ReAct | [Agent Core](../../../10-Knowledge/03-agent-core/README.md) | 保留技术概念，待独立成文 |
 | Context Engineering | [Context Engineering](../../../10-Knowledge/04-context-engineering/README.md) | 已重构为短专题 |
-| Tool、MCP、Sandbox | [Tools 与协议](../../../10-Knowledge/05-tools-skills-protocols/README.md) | 保留，待补协议与安全边界 |
+| Tool、MCP、Sandbox | [Tools 与协议](../../../10-Knowledge/05-tools-skills-protocols/README.md) | 已补协议与安全边界；完整 Skill/A2A 示例见 Projects |
 | RAG 与知识系统 | [RAG](../../../10-Knowledge/06-rag-and-knowledge-systems/README.md) | 已提炼流程和混合检索 |
 | State 与 Memory | [State 与 Memory](../../../10-Knowledge/07-state-and-memory/README.md) | 先区分当前权威状态、Checkpoint 和长期记忆 |
 | Workflow 与 Multi-Agent | [Planning 与 Multi-Agent](../../../10-Knowledge/08-planning-workflow-multi-agent/README.md) | 保留系统设计，不默认多 Agent |
 | Runtime 与 Harness | [Runtime 与 Harness](../../../10-Knowledge/09-runtime-harness-environment/README.md) | 补齐恢复、幂等和环境 |
 | Evaluation 与 Trace | [Evaluation](../../../10-Knowledge/10-evaluation-observability/README.md) | 已按评测对象拆分 |
-| Safety 与权限 | [Safety](../../../10-Knowledge/11-safety-security-governance/README.md) | 待补威胁模型和治理 |
+| Safety 与权限 | [Safety](../../../10-Knowledge/11-safety-security-governance/README.md) | 已补威胁模型、授权与注入实验 |
 | 项目蓝图 | [Cases](../../README.md) | 只当设计输入，不当运行证据 |
 
 ## 最值得复用的仓库模式
@@ -125,7 +125,7 @@ Markdown 可继续作为可审阅、可迁移的事实源；网站、搜索索�
 
 ### 3. 案例必须标注证据等级
 
-项目设计、代码骨架、构建成功、线上可达和实际业务效果是不同证据层。本知识库采用 `seed → draft → reviewed → verified` 状态，避免把“有文件”误认为“已实现”。
+项目设计、代码骨架、构建成功、线上可达和实际业务效果是不同证据层。本知识库采用 `seed`、`draft`、`reviewed`、`verified` 状态（正文审阅与代码运行是不同维度，并非必须线性晋级），避免把“有文件”误认为“已实现”。
 
 ### 4. 自动化检查目录漂移
 

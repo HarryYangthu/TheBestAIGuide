@@ -13,3 +13,7 @@ python scripts/check_notebooks.py --execute --backend ipython-fallback 10-Knowle
 ```
 
 已验证：泄露被拒绝、mask 保持上下文位置不计损失、偏好目标变化、奖励伪造反例、等分组优势为零。未验证：真实模型训练收敛、跨任务泛化或任何生产指标。
+
+## 标准内核验证更新（2026-09-06）
+
+提交 `5e5a40c09e00028c7887fd3bf3bd559d96fc972f` 的 [GitHub Actions 标准 Jupyter 执行](https://github.com/HarryYangthu/TheBestAIGuide/actions/runs/34013521515)已成功。原 Notebook 保存输出的本地 IPython 来源保留；这条更新补充标准内核证据，不代表交互控件或所有前端已验收。本轮新项目与后续结果见仓库 `00-Home/Round2-Completion.md`。

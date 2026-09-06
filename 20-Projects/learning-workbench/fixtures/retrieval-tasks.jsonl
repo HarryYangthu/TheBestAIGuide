@@ -1,0 +1,6 @@
+{"id": "q1", "query": "What should I do before opening the fan?", "tenant": "alpha", "relevant": ["fan-v1", "fan-v2"]}
+{"id": "q2", "query": "How can I recover an erased document?", "tenant": "alpha", "relevant": ["backup"]}
+{"id": "q3", "query": "The internet connection stopped working.", "tenant": "alpha", "relevant": ["network"]}
+{"id": "q4", "query": "Is heat safe for the rechargeable cell?", "tenant": "alpha", "relevant": ["battery"]}
+{"id": "q5", "query": "How much precipitation fell?", "tenant": "alpha", "relevant": ["rain"]}
+{"id": "q6", "query": "What persists across future tasks?", "tenant": "alpha", "relevant": ["memory"]}

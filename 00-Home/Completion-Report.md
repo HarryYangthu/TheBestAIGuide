@@ -434,3 +434,7 @@
 ## 后续维护
 
 本轮之外的真实模型评测、GPU 复现、人工审稿和历史图片来源核验，见[完成与后续计划](待补充计划.md)。月度链接任务只汇报检查结果，不自动修改仓库。
+
+## 标准内核验证更新（2026-09-06）
+
+提交 `5e5a40c09e00028c7887fd3bf3bd559d96fc972f` 的 [GitHub Actions 标准 Jupyter 执行](https://github.com/HarryYangthu/TheBestAIGuide/actions/runs/34013521515)已成功。原 Notebook 保存输出的本地 IPython 来源保留；这条更新补充标准内核证据，不代表交互控件或所有前端已验收。本轮新项目与后续结果见仓库 `00-Home/Round2-Completion.md`。

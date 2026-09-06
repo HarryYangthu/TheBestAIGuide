@@ -1,4 +1,5 @@
 import unittest
+import json
 from copy import deepcopy
 from evidence import CELLS, structured_answer, verify_claim, demo
 
@@ -17,6 +18,12 @@ class EvidenceTests(unittest.TestCase):
     def test_missing_and_ambiguous(self):
         with self.assertRaises(ValueError): structured_answer(CELLS,**{**self.q,'row':'C'})
         with self.assertRaises(ValueError): structured_answer(CELLS+CELLS,**self.q)
+    def test_json_roundtrip_and_tampering(self):
+        restored=json.loads(json.dumps(self.a))
+        self.assertTrue(verify_claim(CELLS,restored,self.q))
+        for field,value in [('page',2),('version',99),('bbox',[0,0,1,1])]:
+            changed=deepcopy(restored);changed['citation'][field]=value
+            self.assertFalse(verify_claim(CELLS,changed,self.q))
     def test_demo(self):
         result=demo()
         self.assertEqual(result['baseline_correct'],2)

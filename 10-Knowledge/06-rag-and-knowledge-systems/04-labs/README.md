@@ -10,3 +10,7 @@
 实验包参考版本：nbformat 5.11.1、IPython 9.17.1；Jupyter nbclient 0.11.0、ipykernel 7.3.0 可用于有内核通信能力的环境。核心 Pipeline 无第三方依赖。
 
 数据为人工教学语料，5 个可回答查询中 4 个成功召回；BM25/Hybrid 的平均 Recall@3 均为 0.8，Exact 为 0.4。3 个空答案边界均正确返回空。真实向量、Reranker、生成和业务指标未运行，详见[运行报告](../05-code/rag-pipeline-python/run-report.json)。
+
+## 标准内核验证更新（2026-09-06）
+
+提交 `5e5a40c09e00028c7887fd3bf3bd559d96fc972f` 的 [GitHub Actions 标准 Jupyter 执行](https://github.com/HarryYangthu/TheBestAIGuide/actions/runs/34013521515)已成功。原 Notebook 保存输出的本地 IPython 来源保留；这条更新补充标准内核证据，不代表交互控件或所有前端已验收。本轮新项目与后续结果见仓库 `00-Home/Round2-Completion.md`。

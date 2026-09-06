@@ -40,3 +40,7 @@ key = (tenant_id, acl_version, model_version, document_version, prompt_hash)
 ```
 
 这是键结构示意，需要根据业务把权限主体纳入，且命中后仍检查当前授权。[企业案例](../03-cases/domain-agents/enterprise/README.md)提供可运行的跨租户反例；正式规范见[PostgreSQL 行安全文档](https://www.postgresql.org/docs/current/ddl-rowsecurity.html)，所有系统设计还需按[来源索引](../references.md)中的范围理解。
+
+## 配套项目扩展（2026-09-06）
+
+[网页工作台与持久 Run 服务](../../../20-Projects/learning-workbench/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。

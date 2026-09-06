@@ -59,3 +59,7 @@ assert verified == ['17', '34/2']
 推理模型也不能保证解决训练外的任意新算法问题，更长输出还会增加时延和资源。评测需固定题集、预算、采样配置与选择器，并报告最终交付正确率、成本分布和失败分类。
 
 [运行候选池与验证器小实验](../../04-labs/02-decoding-cache-and-precision.ipynb) · [系统评测](../../../10-evaluation-observability/README.md) · [一手来源](../../references.md)。
+
+## 配套项目扩展（2026-09-06）
+
+[完整 decoder、训练、生成与 LoRA](../../../../20-Projects/tiny-transformer/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。

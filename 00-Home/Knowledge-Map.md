@@ -229,12 +229,18 @@ Task
 - 为子 Agent 构造独立上下文。
 - 记录每次上下文构建的版本和摘要。
 
-### 03.3 四类常见失效
+### 03.3 八类常见失效
 
 - Context Poisoning：错误信息持续污染后续决策。
 - Context Distraction：无关信息抢占注意力。
 - Context Confusion：指令、证据和历史混在一起。
-- Context Conflict：不同来源相互冲突。
+- Context Clash：不同来源相互冲突。
+- Context Rot：内容未超窗但关键信息的可用性下降。
+- Context Overflow：超过输入预算，发生拒绝或截断。
+- Context Leakage：越权信息进入上下文或日志。
+- Context Injection：不可信资料被当成指令。
+
+定义和排障顺序以[失败模式总表](../10-Knowledge/04-context-engineering/01-concepts/02-failure-modes.md)为准。
 
 ### 03.4 主要优化策略
 
@@ -1022,7 +1028,7 @@ Harness 是模型与真实任务环境之间的运行系统。它不只负责调
 | 状态 | 含义 |
 | --- | --- |
 | `seed` | 只有素材或初步想法，尚未形成正文 |
-| `draft` | 已有正文，但未完成来源与实验检查 |
+| `draft` | 已有正文；可已完成来源或自动检查，尚未完成人工复核 |
 | `reviewed` | 结构和事实经过人工复核 |
 | `verified` | 关键代码、实验或运行路径已重新验证 |
 

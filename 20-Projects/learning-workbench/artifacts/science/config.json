@@ -1,0 +1,12 @@
+{
+  "seed": 7,
+  "n": 120,
+  "train_n": 80,
+  "steps": 400,
+  "learning_rate": 0.05,
+  "question": "Can a linear model recover a linear signal on unseen samples?",
+  "data_rule": "y=2*x+1+Normal(0,0.1); x~Uniform(-1,1)",
+  "baseline": "training-set mean",
+  "candidate": "linear least-squares trained by gradient descent",
+  "selection": "fixed before evaluation; no validation-based tuning"
+}

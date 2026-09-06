@@ -1,9 +1,9 @@
 name: Execute learning notebooks
 on:
   push:
-    paths: ['**/*.ipynb', '**/*.py', '**/*.ts', '**/package*.json', '**/tsconfig.json', 'requirements-dev.lock', '**/fixtures/**', '.github/workflows/notebooks.yml']
+    paths: ['10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/**', '**/*.ipynb', '**/*.py', '**/*.ts', '**/package*.json', '**/tsconfig.json', 'requirements-dev.lock', 'requirements-learning.txt', '**/*.html', '**/fixtures/**', '.github/workflows/notebooks.yml']
   pull_request:
-    paths: ['**/*.ipynb', '**/*.py', '**/*.ts', '**/package*.json', '**/tsconfig.json', 'requirements-dev.lock', '**/fixtures/**', '.github/workflows/notebooks.yml']
+    paths: ['10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/**', '**/*.ipynb', '**/*.py', '**/*.ts', '**/package*.json', '**/tsconfig.json', 'requirements-dev.lock', 'requirements-learning.txt', '**/*.html', '**/fixtures/**', '.github/workflows/notebooks.yml']
 permissions:
   contents: read
 jobs:
@@ -18,6 +18,8 @@ jobs:
           cache: pip
           cache-dependency-path: requirements-dev.lock
       - run: pip install -r requirements-dev.lock
+      - run: pip install torch==2.8.0 --index-url https://download.pytorch.org/whl/cpu
+      - run: pip install pypdf==6.1.0 reportlab==4.4.3
       - run: python -m ipykernel install --sys-prefix --name python3
       - uses: actions/setup-node@v4
         with:

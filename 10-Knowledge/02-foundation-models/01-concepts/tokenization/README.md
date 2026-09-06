@@ -54,3 +54,7 @@ Padding 需要正确的 attention mask 与 loss mask。把 PAD 当普通目标�
 保存 tokenizer 版本、词表、合并规则和聊天模板，与模型一起版本化。用中文、代码、emoji、数字、空白符构造输入回归；检查编码后的长度以及解码是否符合预期。截断尽量在结构边界执行，避免切掉指令、JSON 尾部或跨 token 的多字节字符。模型 token 预算与人类语义完整性需要分别检查。
 
 [运行 BPE 与 Attention 实验](../../04-labs/01-tokenization-and-attention.ipynb) · [BPE 源码](../../05-code/model_mechanics.py) · [来源](../../references.md)。继续：[Transformer](../transformer/README.md)。
+
+## 配套项目扩展（2026-09-06）
+
+[完整 decoder、训练、生成与 LoRA](../../../../20-Projects/tiny-transformer/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。

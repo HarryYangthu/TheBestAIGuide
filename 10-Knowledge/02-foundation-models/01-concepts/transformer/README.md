@@ -95,3 +95,7 @@ Encoder 通常使用双向 self-attention，适合构建输入表示；decoder-o
 标准注意力显式存储分数需要 $O(T^2)$ 空间，长序列会昂贵。FlashAttention 用分块与融合减少高带宽内存读写，并保持同一注意力数学目标；它不是把所有成对交互都变成线性复杂度，也不保证不同内核逐位相等。
 
 [动手：矩阵算例、缩放方差、Mask 与 RoPE](../../04-labs/01-tokenization-and-attention.ipynb) · [源码](../../05-code/model_mechanics.py) · [继续：解码与缓存](../inference/README.md) · [来源及各主张范围](../../references.md)。
+
+## 配套项目扩展（2026-09-06）
+
+[完整 decoder、训练、生成与 LoRA](../../../../20-Projects/tiny-transformer/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。

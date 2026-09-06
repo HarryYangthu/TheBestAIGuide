@@ -1,0 +1,138 @@
+{
+  "seed": 7,
+  "device": "cpu",
+  "torch": "2.8.0+cpu",
+  "parameters": 31464,
+  "pretraining_loss": [
+    3.253199338912964,
+    0.0011818257626146078
+  ],
+  "sft_loss": [
+    3.995360851287842,
+    0.0035903609823435545
+  ],
+  "sft_trainable_parameters": [
+    {
+      "name": "head.a",
+      "shape": [
+        4,
+        32
+      ],
+      "numel": 128
+    },
+    {
+      "name": "head.b",
+      "shape": [
+        26,
+        4
+      ],
+      "numel": 104
+    }
+  ],
+  "sft_prediction_ids_before": [
+    [
+      22,
+      15,
+      18,
+      23,
+      15,
+      14,
+      5,
+      4,
+      22,
+      15,
+      5,
+      24,
+      24,
+      15,
+      6,
+      6,
+      5,
+      22
+    ],
+    [
+      22,
+      15,
+      18,
+      23,
+      18,
+      15,
+      11,
+      19,
+      23,
+      5,
+      23,
+      24,
+      5,
+      18,
+      6,
+      21,
+      5,
+      22
+    ]
+  ],
+  "sft_prediction_ids_after": [
+    [
+      2,
+      16,
+      5,
+      5,
+      6,
+      6,
+      4,
+      4,
+      20,
+      6,
+      5,
+      23,
+      24,
+      20,
+      21,
+      6,
+      4,
+      2
+    ],
+    [
+      2,
+      16,
+      5,
+      5,
+      20,
+      6,
+      11,
+      6,
+      23,
+      5,
+      20,
+      23,
+      5,
+      16,
+      20,
+      6,
+      4,
+      2
+    ]
+  ],
+  "dpo_loss": [
+    0.6931471824645996,
+    0.003037099726498127
+  ],
+  "cache_max_error": 1.6689300537109375e-06,
+  "lora_merge_max_error": 3.814697265625e-06,
+  "frozen_weights_unchanged": true,
+  "checkpoint_reload_equal": true,
+  "sample": "red means stop.\ngreen means",
+  "policy_probabilities_before": [
+    0.5,
+    0.5
+  ],
+  "policy_probabilities_after": [
+    0.5498339533805847,
+    0.4501659870147705
+  ],
+  "positive_negative_clipped_terms": [
+    1.2000000476837158,
+    -0.800000011920929
+  ],
+  "evidence_boundary": "tiny constructed corpus and toy preference; no general language or heldout benchmark claim"
+}

@@ -27,12 +27,19 @@ CELLS = [
 ]
 
 
+def json_citation(cell):
+    """JSON arrays are the public coordinate representation, including in memory."""
+    result = asdict(cell)
+    result['bbox'] = list(cell.bbox)
+    return result
+
+
 def structured_answer(cells, *, doc_id, version, row, column):
     matches = [c for c in cells if (c.doc_id,c.version,c.row,c.column)==(doc_id,version,row,column)]
     if len(matches) != 1:
         raise ValueError('missing or ambiguous evidence')
     c = matches[0]
-    return {'value':c.value,'unit':c.unit,'citation':asdict(c)}
+    return {'value':c.value,'unit':c.unit,'citation':json_citation(c)}
 
 
 def flattened_baseline(cells, *, doc_id, version, row, column):
@@ -50,7 +57,7 @@ def verify_claim(cells, answer, query):
     expected = (query['doc_id'],query['version'],query['row'],query['column'])
     if (c.doc_id,c.version,c.row,c.column) != expected: return False
     # Require the cited location to match the source record, not just a formatted ID.
-    if cite != asdict(c): return False
+    if cite != json_citation(c): return False
     if answer.get('unit') != c.unit or not isinstance(answer.get('value'), (int,float)): return False
     if not math.isfinite(answer['value']) or not math.isclose(answer['value'],c.value,rel_tol=0,abs_tol=1e-9): return False
     x0,y0,x1,y1 = c.bbox

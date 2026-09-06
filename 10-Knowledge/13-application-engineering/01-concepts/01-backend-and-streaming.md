@@ -37,3 +37,7 @@ data: {"run_id":"r1","call_id":"c3","artifact_id":"a8"}
 取消接口先把取消意图写入持久状态，Worker 在可中断边界检查。模型流可以中断，但已经提交给外部系统的写动作需要查询结果或补偿，不能把“停止读取响应”等同于“外部动作未发生”。一个 Run 的两个 Worker 同时工作会造成重复副作用，因此领取任务需要租约、版本条件更新或等价协调机制。
 
 可执行的本地示例见[浏览器工程](../05-code/browser-agent-typescript/README.md)：动作有唯一 ID，执行前写 checkpoint，执行后根据页面标记确认结果。这里的 checkpoint 是单进程教学文件，不替代分布式事务。流协议依据[WHATWG SSE](https://html.spec.whatwg.org/multipage/server-sent-events.html)，更多来源见[索引](../references.md)。
+
+## 配套项目扩展（2026-09-06）
+
+[网页工作台与持久 Run 服务](../../../20-Projects/learning-workbench/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。

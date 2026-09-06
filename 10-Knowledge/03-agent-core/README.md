@@ -15,3 +15,7 @@
 先照[工程README](05-code/agent-loop-python/README.md)运行一次，再打开[实验Notebook](04-labs/01-agent-loop.ipynb)比较成功、重复与预算耗尽。教学策略是确定性的，不把它称作模型推理效果。
 
 来源见[参考资料](references.md)。下一站：[上下文工程](../04-context-engineering/README.md)与[工具契约](../05-tools-skills-protocols/README.md)。
+
+## 配套项目扩展（2026-09-06）
+
+[真实模型适配、两工具和 12 条任务评测](../../20-Projects/learning-workbench/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。

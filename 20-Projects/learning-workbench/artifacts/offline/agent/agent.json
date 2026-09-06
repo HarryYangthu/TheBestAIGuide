@@ -1,0 +1,380 @@
+[
+  {
+    "id": "add-0",
+    "state": {
+      "task": "Use add to calculate 2 + 3, then give the result.",
+      "run_id": "337f6036691e48618e56b255fb5af774",
+      "status": "completed",
+      "steps": 2,
+      "observations": [
+        {
+          "call_id": "337f6036691e48618e56b255fb5af774:1",
+          "ok": true,
+          "data": {
+            "sum": 5
+          }
+        }
+      ],
+      "answer": "5",
+      "stop_reason": "model_finished"
+    },
+    "usage": [],
+    "expected_tool": "add",
+    "called_tools": [
+      "add"
+    ],
+    "tool_selection_correct": true,
+    "answer_match": true,
+    "completed": true,
+    "workflow": "deterministic"
+  },
+  {
+    "id": "add-1",
+    "state": {
+      "task": "Use add to calculate 4 + 7, then give the result.",
+      "run_id": "e830b789ac72438cb9d9a5e04ff598da",
+      "status": "completed",
+      "steps": 2,
+      "observations": [
+        {
+          "call_id": "e830b789ac72438cb9d9a5e04ff598da:1",
+          "ok": true,
+          "data": {
+            "sum": 11
+          }
+        }
+      ],
+      "answer": "11",
+      "stop_reason": "model_finished"
+    },
+    "usage": [],
+    "expected_tool": "add",
+    "called_tools": [
+      "add"
+    ],
+    "tool_selection_correct": true,
+    "answer_match": true,
+    "completed": true,
+    "workflow": "deterministic"
+  },
+  {
+    "id": "add-2",
+    "state": {
+      "task": "Use add to calculate 10 + 5, then give the result.",
+      "run_id": "94fb2279f25d428080a8a4ea644d4f94",
+      "status": "completed",
+      "steps": 2,
+      "observations": [
+        {
+          "call_id": "94fb2279f25d428080a8a4ea644d4f94:1",
+          "ok": true,
+          "data": {
+            "sum": 15
+          }
+        }
+      ],
+      "answer": "15",
+      "stop_reason": "model_finished"
+    },
+    "usage": [],
+    "expected_tool": "add",
+    "called_tools": [
+      "add"
+    ],
+    "tool_selection_correct": true,
+    "answer_match": true,
+    "completed": true,
+    "workflow": "deterministic"
+  },
+  {
+    "id": "add-3",
+    "state": {
+      "task": "Use add to calculate 1 + 8, then give the result.",
+      "run_id": "4e6513742f5d4ed48223bd7208291d25",
+      "status": "completed",
+      "steps": 2,
+      "observations": [
+        {
+          "call_id": "4e6513742f5d4ed48223bd7208291d25:1",
+          "ok": true,
+          "data": {
+            "sum": 9
+          }
+        }
+      ],
+      "answer": "9",
+      "stop_reason": "model_finished"
+    },
+    "usage": [],
+    "expected_tool": "add",
+    "called_tools": [
+      "add"
+    ],
+    "tool_selection_correct": true,
+    "answer_match": true,
+    "completed": true,
+    "workflow": "deterministic"
+  },
+  {
+    "id": "add-4",
+    "state": {
+      "task": "Use add to calculate 11 + 12, then give the result.",
+      "run_id": "f8a7b8abee574418a7c6098ba3ded5e6",
+      "status": "completed",
+      "steps": 2,
+      "observations": [
+        {
+          "call_id": "f8a7b8abee574418a7c6098ba3ded5e6:1",
+          "ok": true,
+          "data": {
+            "sum": 23
+          }
+        }
+      ],
+      "answer": "23",
+      "stop_reason": "model_finished"
+    },
+    "usage": [],
+    "expected_tool": "add",
+    "called_tools": [
+      "add"
+    ],
+    "tool_selection_correct": true,
+    "answer_match": true,
+    "completed": true,
+    "workflow": "deterministic"
+  },
+  {
+    "id": "add-5",
+    "state": {
+      "task": "Use add to calculate 20 + 1, then give the result.",
+      "run_id": "5e1ab36dc24d4c379a77a994d5d2351f",
+      "status": "completed",
+      "steps": 2,
+      "observations": [
+        {
+          "call_id": "5e1ab36dc24d4c379a77a994d5d2351f:1",
+          "ok": true,
+          "data": {
+            "sum": 21
+          }
+        }
+      ],
+      "answer": "21",
+      "stop_reason": "model_finished"
+    },
+    "usage": [],
+    "expected_tool": "add",
+    "called_tools": [
+      "add"
+    ],
+    "tool_selection_correct": true,
+    "answer_match": true,
+    "completed": true,
+    "workflow": "deterministic"
+  },
+  {
+    "id": "search-0",
+    "state": {
+      "task": "Search FAN-01 and tell me what to do before inspection.",
+      "run_id": "59537a0a5cd045ad8f0f414c5d70cfd7",
+      "status": "completed",
+      "steps": 2,
+      "observations": [
+        {
+          "call_id": "59537a0a5cd045ad8f0f414c5d70cfd7:1",
+          "ok": true,
+          "data": {
+            "documents": [
+              {
+                "id": "fan",
+                "text": "FAN-01: power off before inspecting the cooling fan."
+              }
+            ]
+          }
+        }
+      ],
+      "answer": "FAN-01: power off before inspecting the cooling fan.",
+      "stop_reason": "model_finished"
+    },
+    "usage": [],
+    "expected_tool": "search",
+    "called_tools": [
+      "search"
+    ],
+    "tool_selection_correct": true,
+    "answer_match": true,
+    "completed": true,
+    "workflow": "deterministic"
+  },
+  {
+    "id": "search-1",
+    "state": {
+      "task": "Read the fan manual. Must I disconnect power before inspection?",
+      "run_id": "64e2e330708141d18d463671af3a4867",
+      "status": "completed",
+      "steps": 2,
+      "observations": [
+        {
+          "call_id": "64e2e330708141d18d463671af3a4867:1",
+          "ok": true,
+          "data": {
+            "documents": [
+              {
+                "id": "fan",
+                "text": "FAN-01: power off before inspecting the cooling fan."
+              }
+            ]
+          }
+        }
+      ],
+      "answer": "FAN-01: power off before inspecting the cooling fan.",
+      "stop_reason": "model_finished"
+    },
+    "usage": [],
+    "expected_tool": "search",
+    "called_tools": [
+      "search"
+    ],
+    "tool_selection_correct": true,
+    "answer_match": true,
+    "completed": true,
+    "workflow": "deterministic"
+  },
+  {
+    "id": "search-2",
+    "state": {
+      "task": "Use search for FAN-01 safety advice.",
+      "run_id": "c91609dc9f2e4a11b9949b6760428156",
+      "status": "completed",
+      "steps": 2,
+      "observations": [
+        {
+          "call_id": "c91609dc9f2e4a11b9949b6760428156:1",
+          "ok": true,
+          "data": {
+            "documents": [
+              {
+                "id": "fan",
+                "text": "FAN-01: power off before inspecting the cooling fan."
+              }
+            ]
+          }
+        }
+      ],
+      "answer": "FAN-01: power off before inspecting the cooling fan.",
+      "stop_reason": "model_finished"
+    },
+    "usage": [],
+    "expected_tool": "search",
+    "called_tools": [
+      "search"
+    ],
+    "tool_selection_correct": true,
+    "answer_match": true,
+    "completed": true,
+    "workflow": "deterministic"
+  },
+  {
+    "id": "search-3",
+    "state": {
+      "task": "Look up the cooling fan inspection prerequisite.",
+      "run_id": "d50696180bb146fbaf5f6d4df95762ee",
+      "status": "completed",
+      "steps": 2,
+      "observations": [
+        {
+          "call_id": "d50696180bb146fbaf5f6d4df95762ee:1",
+          "ok": true,
+          "data": {
+            "documents": [
+              {
+                "id": "fan",
+                "text": "FAN-01: power off before inspecting the cooling fan."
+              }
+            ]
+          }
+        }
+      ],
+      "answer": "FAN-01: power off before inspecting the cooling fan.",
+      "stop_reason": "model_finished"
+    },
+    "usage": [],
+    "expected_tool": "search",
+    "called_tools": [
+      "search"
+    ],
+    "tool_selection_correct": true,
+    "answer_match": true,
+    "completed": true,
+    "workflow": "deterministic"
+  },
+  {
+    "id": "search-4",
+    "state": {
+      "task": "Find FAN-01 inspection instructions.",
+      "run_id": "6cc48d9c2aea4c87b6da9dfc08ca4d5f",
+      "status": "completed",
+      "steps": 2,
+      "observations": [
+        {
+          "call_id": "6cc48d9c2aea4c87b6da9dfc08ca4d5f:1",
+          "ok": true,
+          "data": {
+            "documents": [
+              {
+                "id": "fan",
+                "text": "FAN-01: power off before inspecting the cooling fan."
+              }
+            ]
+          }
+        }
+      ],
+      "answer": "FAN-01: power off before inspecting the cooling fan.",
+      "stop_reason": "model_finished"
+    },
+    "usage": [],
+    "expected_tool": "search",
+    "called_tools": [
+      "search"
+    ],
+    "tool_selection_correct": true,
+    "answer_match": true,
+    "completed": true,
+    "workflow": "deterministic"
+  },
+  {
+    "id": "search-5",
+    "state": {
+      "task": "Search the fan manual and summarize its prerequisite.",
+      "run_id": "7099dd1396bb4128b21bac5b52e714e4",
+      "status": "completed",
+      "steps": 2,
+      "observations": [
+        {
+          "call_id": "7099dd1396bb4128b21bac5b52e714e4:1",
+          "ok": true,
+          "data": {
+            "documents": [
+              {
+                "id": "fan",
+                "text": "FAN-01: power off before inspecting the cooling fan."
+              }
+            ]
+          }
+        }
+      ],
+      "answer": "FAN-01: power off before inspecting the cooling fan.",
+      "stop_reason": "model_finished"
+    },
+    "usage": [],
+    "expected_tool": "search",
+    "called_tools": [
+      "search"
+    ],
+    "tool_selection_correct": true,
+    "answer_match": true,
+    "completed": true,
+    "workflow": "deterministic"
+  }
+]

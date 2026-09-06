@@ -20,3 +20,13 @@ test("the same six contracts accept/reject the same 12 fixtures in TypeScript", 
   }
   assert.equal(count, 12);
 });
+
+test("shared boundary matrix agrees across languages", () => {
+  const root = new URL("../../../shared-schemas/", import.meta.url);
+  const ajv = new Ajv2020({ strict: true });
+  const cases = JSON.parse(readFileSync(new URL("examples/boundaries.json", root), "utf8"));
+  for (const c of cases) {
+    const schema = JSON.parse(readFileSync(new URL(`${c.schema}.schema.json`, root), "utf8"));
+    assert.equal(ajv.validate(schema, c.value), c.valid, c.id);
+  }
+});

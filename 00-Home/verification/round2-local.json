@@ -1,0 +1,80 @@
+{
+  "date": "2026-09-06",
+  "python": {
+    "suites": 14,
+    "tests": 83,
+    "assertion_examples": 2,
+    "failed_groups": 0,
+    "note": "Full run plus final targeted workbench suite (12 tests)."
+  },
+  "typescript": {
+    "tool_runtime": 10,
+    "mcp": 2,
+    "browser_component": 3,
+    "failures": 0
+  },
+  "shared_schema": {
+    "original_examples": 12,
+    "additional_boundaries": 47,
+    "python_and_ajv_agree": true
+  },
+  "workbench_browser": {
+    "created": true,
+    "approved": true,
+    "completed": true,
+    "events_visible": true,
+    "cancelled": true,
+    "mobile_no_horizontal_overflow": true,
+    "page_errors": []
+  },
+  "notebooks": {
+    "total": 20,
+    "local_standard_kernel": "blocked by environment ZeroMQ/IP resolver permissions",
+    "new_and_corrected_local_ipython": 3,
+    "backend_recorded": true,
+    "remote_standard_kernel": "pending branch push"
+  },
+  "model_tasks": {
+    "free_initial": {
+      "tasks": 12,
+      "completed": 0,
+      "tool_selected": 0,
+      "answer_match": 0,
+      "complete_and_answer_match": 0
+    },
+    "free_format_examples": {
+      "tasks": 12,
+      "completed": 0,
+      "tool_selected": 12,
+      "answer_match": 0,
+      "complete_and_answer_match": 0
+    },
+    "bounded_one_tool": {
+      "tasks": 12,
+      "completed": 11,
+      "tool_selected": 12,
+      "answer_match": 10,
+      "complete_and_answer_match": 10
+    },
+    "deterministic": {
+      "tasks": 12,
+      "completed": 12,
+      "tool_selected": 12,
+      "answer_match": 12,
+      "complete_and_answer_match": 12
+    },
+    "metric_boundary": "Answer match is a narrow task label, not an independent general-quality judge. Bounded workflow is not autonomous free-loop ability."
+  },
+  "model_identity": {
+    "name": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "device": "cpu"
+  },
+  "external_api": "not called; transport contract checked on local HTTP fixture",
+  "limits": [
+    "No production deployment",
+    "Unknown-license historical PNGs remain archived",
+    "No ASR implementation",
+    "Skill routing is authored cases, not measured host selection"
+  ]
+}

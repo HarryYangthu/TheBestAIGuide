@@ -12,3 +12,7 @@
 | [Computer Use 与 VLA](01-concepts/04-computer-use-vla-and-embodied.md) | 目标定位、动作契约与恢复边界 | [本地浏览器工程](../13-application-engineering/05-code/browser-agent-typescript/README.md) |
 
 [来源索引](references.md)对应 ViT、CLIP、Whisper、ColPali、OpenVLA 等一手资料。[实验说明](04-labs/README.md)明确本库只实跑人工结构化文档证据，没有运行这些大型模型或机器人。
+
+## 配套项目扩展（2026-09-06）
+
+[原创 PDF→文字/页码/位置证据及无文字页拒答](../../20-Projects/learning-workbench/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。

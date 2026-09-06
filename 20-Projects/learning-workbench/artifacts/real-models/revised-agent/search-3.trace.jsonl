@@ -1,0 +1,5 @@
+{"run_id": "ac6299bf24e14641b125cf9127dbce8e", "seq": 0, "kind": "tool_call", "data": {"call_id": "ac6299bf24e14641b125cf9127dbce8e:1", "name": "search", "arguments": {"query": "cooling fan inspection prerequisite"}}}
+{"run_id": "ac6299bf24e14641b125cf9127dbce8e", "seq": 1, "kind": "tool_result", "data": {"call_id": "ac6299bf24e14641b125cf9127dbce8e:1", "ok": true, "data": {"documents": [{"id": "fan", "text": "FAN-01: power off before inspecting the cooling fan."}]}}}
+{"run_id": "ac6299bf24e14641b125cf9127dbce8e", "seq": 2, "kind": "tool_call", "data": {"call_id": "ac6299bf24e14641b125cf9127dbce8e:2", "name": "search", "arguments": {"query": "cooling fan inspection prerequisite"}}}
+{"run_id": "ac6299bf24e14641b125cf9127dbce8e", "seq": 3, "kind": "tool_result", "data": {"call_id": "ac6299bf24e14641b125cf9127dbce8e:2", "ok": true, "data": {"documents": [{"id": "fan", "text": "FAN-01: power off before inspecting the cooling fan."}]}}}
+{"run_id": "ac6299bf24e14641b125cf9127dbce8e", "seq": 4, "kind": "run_finished", "data": {"status": "stopped", "reason": "no_progress", "steps": 2}}

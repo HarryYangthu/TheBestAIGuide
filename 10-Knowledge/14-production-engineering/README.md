@@ -11,3 +11,7 @@
 | [发布与恢复](01-concepts/03-release-and-recovery.md) | 版本、灰度、回滚与副作用恢复 | [重复写入复盘](03-cases/failure-postmortems/README.md) |
 
 [代码说明](05-code/README.md)记录实跑范围；[来源索引](references.md)连接 Google SRE 与 Kubernetes 官方文档。本库没有部署生产服务，也没有把本地算例当作容量压测或真实事故。
+
+## 配套项目扩展（2026-09-06）
+
+[实际本地队列、错误重试、p95 与拒绝率](../../20-Projects/learning-workbench/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。

@@ -30,3 +30,7 @@
 ## 完整实践
 
 [从任务数据到回归门禁](03-cases/01-from-task-dataset-to-regression.md)：一套带真实输出的教学案例，把数据构造、状态评分、失败定位、修复和回归接起来。
+
+## 配套项目扩展（2026-09-06）
+
+[开放文本 Judge、位置交换与 Task 配对 bootstrap](../../20-Projects/learning-workbench/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。

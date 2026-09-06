@@ -1,0 +1,17 @@
+{
+  "single": {
+    "model_calls": 3,
+    "reader_citation_identity_correct": 1,
+    "reader_count": 2,
+    "writer_parseable": false,
+    "quality_pass": false
+  },
+  "multi": {
+    "model_calls": 3,
+    "reader_citation_identity_correct": 1,
+    "reader_count": 2,
+    "writer_parseable": false,
+    "quality_pass": false
+  },
+  "review": "Authored review of exact outputs: both LoRA reader outputs and writers fail JSON contract. Both workflows make 3 calls; no observed role-workflow quality improvement. Citation identity does not validate extra model-invented fields."
+}

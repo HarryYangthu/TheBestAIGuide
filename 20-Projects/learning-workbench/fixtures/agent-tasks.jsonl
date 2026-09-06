@@ -1,0 +1,12 @@
+{"id": "add-0", "query": "Use add to calculate 2 + 3, then give the result.", "expected_tool": "add", "answer_contains": ["5"]}
+{"id": "add-1", "query": "Use add to calculate 4 + 7, then give the result.", "expected_tool": "add", "answer_contains": ["11"]}
+{"id": "add-2", "query": "Use add to calculate 10 + 5, then give the result.", "expected_tool": "add", "answer_contains": ["15"]}
+{"id": "add-3", "query": "Use add to calculate 1 + 8, then give the result.", "expected_tool": "add", "answer_contains": ["9"]}
+{"id": "add-4", "query": "Use add to calculate 11 + 12, then give the result.", "expected_tool": "add", "answer_contains": ["23"]}
+{"id": "add-5", "query": "Use add to calculate 20 + 1, then give the result.", "expected_tool": "add", "answer_contains": ["21"]}
+{"id": "search-0", "query": "Search FAN-01 and tell me what to do before inspection.", "expected_tool": "search", "answer_contains": ["power"]}
+{"id": "search-1", "query": "Read the fan manual. Must I disconnect power before inspection?", "expected_tool": "search", "answer_contains": ["power"]}
+{"id": "search-2", "query": "Use search for FAN-01 safety advice.", "expected_tool": "search", "answer_contains": ["power"]}
+{"id": "search-3", "query": "Look up the cooling fan inspection prerequisite.", "expected_tool": "search", "answer_contains": ["power"]}
+{"id": "search-4", "query": "Find FAN-01 inspection instructions.", "expected_tool": "search", "answer_contains": ["power"]}
+{"id": "search-5", "query": "Search the fan manual and summarize its prerequisite.", "expected_tool": "search", "answer_contains": ["power"]}

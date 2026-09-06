@@ -1,0 +1,31 @@
+{
+  "free_initial": {
+    "tasks": 12,
+    "completed": 0,
+    "tool_selected": 0,
+    "answer_match": 0,
+    "complete_and_answer_match": 0
+  },
+  "free_format_examples": {
+    "tasks": 12,
+    "completed": 0,
+    "tool_selected": 12,
+    "answer_match": 0,
+    "complete_and_answer_match": 0
+  },
+  "bounded_one_tool": {
+    "tasks": 12,
+    "completed": 11,
+    "tool_selected": 12,
+    "answer_match": 10,
+    "complete_and_answer_match": 10
+  },
+  "deterministic": {
+    "tasks": 12,
+    "completed": 12,
+    "tool_selected": 12,
+    "answer_match": 12,
+    "complete_and_answer_match": 12
+  },
+  "metric_boundary": "Answer match is a narrow task label, not an independent general-quality judge. Bounded workflow is not autonomous free-loop ability."
+}

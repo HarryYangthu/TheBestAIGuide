@@ -13,3 +13,7 @@
 | [评分到改进](02-patterns/01-feedback-to-improvement.md) | 按故障证据选择改动层 | [浏览器恢复案例](../13-application-engineering/03-cases/browser-agents/README.md) |
 
 [来源索引](references.md)固定 DPO、PPO、GRPO 等原论文版本。[代码说明](05-code/README.md)包含运行方法与结果。Notebook 的 CPU 计算已实际运行，但本库没有进行语言模型 SFT、DPO 或 RL 训练；文章保持 draft 等待内容终审。
+
+## 配套项目扩展（2026-09-06）
+
+[真实 SFT/LoRA/DPO 更新与正负优势 clipping](../../20-Projects/tiny-transformer/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。

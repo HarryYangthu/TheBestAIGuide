@@ -14,3 +14,7 @@
 | 加入协作是否值得 | [完整案例](03-cases/01-single-vs-multi-agent.md) | [运行 Notebook](04-labs/01-single-vs-multi-agent.ipynb) |
 
 [工程运行说明](05-code/multi-agent-runtime-python/README.md) · [实验入口](04-labs/README.md) · [来源](references.md) · [多 Agent 评测](../10-evaluation-observability/01-concepts/06-multi-agent-evaluation.md)
+
+## 配套项目扩展（2026-09-06）
+
+[动态 DAG 失效重算及多源角色比较](../../20-Projects/learning-workbench/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。

@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aiguide-learning-workbench"
+version = "0.2.0"
+requires-python = ">=3.11"
+description = "Readable end-to-end learning tasks with explicit evidence boundaries"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+learning_workbench = ["*.html"]

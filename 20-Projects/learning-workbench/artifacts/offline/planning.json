@@ -1,0 +1,608 @@
+{
+  "single": {
+    "policy": "deterministic role workers, not independent model agents",
+    "first": {
+      "planner": {
+        "question": "Compare A/B latency under the same fixture",
+        "sources": [
+          "a",
+          "b"
+        ]
+      },
+      "research-a": {
+        "version": 1,
+        "latency_ms": 40
+      },
+      "research-b": {
+        "version": 1,
+        "latency_ms": 60
+      },
+      "writer": {
+        "difference_ms": 20,
+        "evidence": {
+          "research-a": {
+            "version": 1,
+            "latency_ms": 40
+          },
+          "research-b": {
+            "version": 1,
+            "latency_ms": 60
+          }
+        }
+      },
+      "reviewer": {
+        "valid": true
+      }
+    },
+    "second": {
+      "planner": {
+        "question": "Compare A/B latency under the same fixture",
+        "sources": [
+          "a",
+          "b"
+        ]
+      },
+      "research-b": {
+        "version": 1,
+        "latency_ms": 60
+      },
+      "research-a": {
+        "version": 2,
+        "latency_ms": 45
+      },
+      "writer": {
+        "difference_ms": 15,
+        "evidence": {
+          "research-a": {
+            "version": 2,
+            "latency_ms": 45
+          },
+          "research-b": {
+            "version": 1,
+            "latency_ms": 60
+          }
+        }
+      },
+      "reviewer": {
+        "valid": true
+      }
+    },
+    "invalidated": [
+      "research-a",
+      "reviewer",
+      "writer"
+    ],
+    "executions": 8,
+    "trace": [
+      {
+        "event": "start",
+        "task": "planner",
+        "version": 1,
+        "inputs": {}
+      },
+      {
+        "event": "completed",
+        "task": "planner",
+        "version": 1,
+        "output": {
+          "question": "Compare A/B latency under the same fixture",
+          "sources": [
+            "a",
+            "b"
+          ]
+        },
+        "elapsed_seconds": 1.1217001883778721e-05
+      },
+      {
+        "event": "start",
+        "task": "research-a",
+        "version": 1,
+        "inputs": {
+          "planner": {
+            "question": "Compare A/B latency under the same fixture",
+            "sources": [
+              "a",
+              "b"
+            ]
+          }
+        }
+      },
+      {
+        "event": "completed",
+        "task": "research-a",
+        "version": 1,
+        "output": {
+          "version": 1,
+          "latency_ms": 40
+        },
+        "elapsed_seconds": 0.010179659999266732
+      },
+      {
+        "event": "start",
+        "task": "research-b",
+        "version": 1,
+        "inputs": {
+          "planner": {
+            "question": "Compare A/B latency under the same fixture",
+            "sources": [
+              "a",
+              "b"
+            ]
+          }
+        }
+      },
+      {
+        "event": "completed",
+        "task": "research-b",
+        "version": 1,
+        "output": {
+          "version": 1,
+          "latency_ms": 60
+        },
+        "elapsed_seconds": 0.01018994599871803
+      },
+      {
+        "event": "start",
+        "task": "writer",
+        "version": 1,
+        "inputs": {
+          "research-a": {
+            "version": 1,
+            "latency_ms": 40
+          },
+          "research-b": {
+            "version": 1,
+            "latency_ms": 60
+          }
+        }
+      },
+      {
+        "event": "completed",
+        "task": "writer",
+        "version": 1,
+        "output": {
+          "difference_ms": 20,
+          "evidence": {
+            "research-a": {
+              "version": 1,
+              "latency_ms": 40
+            },
+            "research-b": {
+              "version": 1,
+              "latency_ms": 60
+            }
+          }
+        },
+        "elapsed_seconds": 1.3250002666609362e-05
+      },
+      {
+        "event": "start",
+        "task": "reviewer",
+        "version": 1,
+        "inputs": {
+          "writer": {
+            "difference_ms": 20,
+            "evidence": {
+              "research-a": {
+                "version": 1,
+                "latency_ms": 40
+              },
+              "research-b": {
+                "version": 1,
+                "latency_ms": 60
+              }
+            }
+          }
+        }
+      },
+      {
+        "event": "completed",
+        "task": "reviewer",
+        "version": 1,
+        "output": {
+          "valid": true
+        },
+        "elapsed_seconds": 4.517001798376441e-06
+      },
+      {
+        "event": "replan",
+        "version": 2,
+        "invalidated": [
+          "research-a",
+          "reviewer",
+          "writer"
+        ]
+      },
+      {
+        "event": "start",
+        "task": "research-a",
+        "version": 2,
+        "inputs": {
+          "planner": {
+            "question": "Compare A/B latency under the same fixture",
+            "sources": [
+              "a",
+              "b"
+            ]
+          }
+        }
+      },
+      {
+        "event": "completed",
+        "task": "research-a",
+        "version": 2,
+        "output": {
+          "version": 2,
+          "latency_ms": 45
+        },
+        "elapsed_seconds": 0.010172439000598388
+      },
+      {
+        "event": "start",
+        "task": "writer",
+        "version": 2,
+        "inputs": {
+          "research-a": {
+            "version": 2,
+            "latency_ms": 45
+          },
+          "research-b": {
+            "version": 1,
+            "latency_ms": 60
+          }
+        }
+      },
+      {
+        "event": "completed",
+        "task": "writer",
+        "version": 2,
+        "output": {
+          "difference_ms": 15,
+          "evidence": {
+            "research-a": {
+              "version": 2,
+              "latency_ms": 45
+            },
+            "research-b": {
+              "version": 1,
+              "latency_ms": 60
+            }
+          }
+        },
+        "elapsed_seconds": 1.3108998246025294e-05
+      },
+      {
+        "event": "start",
+        "task": "reviewer",
+        "version": 2,
+        "inputs": {
+          "writer": {
+            "difference_ms": 15,
+            "evidence": {
+              "research-a": {
+                "version": 2,
+                "latency_ms": 45
+              },
+              "research-b": {
+                "version": 1,
+                "latency_ms": 60
+              }
+            }
+          }
+        }
+      },
+      {
+        "event": "completed",
+        "task": "reviewer",
+        "version": 2,
+        "output": {
+          "valid": true
+        },
+        "elapsed_seconds": 4.126999556319788e-06
+      }
+    ]
+  },
+  "parallel": {
+    "policy": "deterministic role workers, not independent model agents",
+    "first": {
+      "planner": {
+        "question": "Compare A/B latency under the same fixture",
+        "sources": [
+          "a",
+          "b"
+        ]
+      },
+      "research-a": {
+        "version": 1,
+        "latency_ms": 40
+      },
+      "research-b": {
+        "version": 1,
+        "latency_ms": 60
+      },
+      "writer": {
+        "difference_ms": 20,
+        "evidence": {
+          "research-a": {
+            "version": 1,
+            "latency_ms": 40
+          },
+          "research-b": {
+            "version": 1,
+            "latency_ms": 60
+          }
+        }
+      },
+      "reviewer": {
+        "valid": true
+      }
+    },
+    "second": {
+      "planner": {
+        "question": "Compare A/B latency under the same fixture",
+        "sources": [
+          "a",
+          "b"
+        ]
+      },
+      "research-b": {
+        "version": 1,
+        "latency_ms": 60
+      },
+      "research-a": {
+        "version": 2,
+        "latency_ms": 45
+      },
+      "writer": {
+        "difference_ms": 15,
+        "evidence": {
+          "research-a": {
+            "version": 2,
+            "latency_ms": 45
+          },
+          "research-b": {
+            "version": 1,
+            "latency_ms": 60
+          }
+        }
+      },
+      "reviewer": {
+        "valid": true
+      }
+    },
+    "invalidated": [
+      "research-a",
+      "reviewer",
+      "writer"
+    ],
+    "executions": 8,
+    "trace": [
+      {
+        "event": "start",
+        "task": "planner",
+        "version": 1,
+        "inputs": {}
+      },
+      {
+        "event": "completed",
+        "task": "planner",
+        "version": 1,
+        "output": {
+          "question": "Compare A/B latency under the same fixture",
+          "sources": [
+            "a",
+            "b"
+          ]
+        },
+        "elapsed_seconds": 7.891998393461108e-06
+      },
+      {
+        "event": "start",
+        "task": "research-a",
+        "version": 1,
+        "inputs": {
+          "planner": {
+            "question": "Compare A/B latency under the same fixture",
+            "sources": [
+              "a",
+              "b"
+            ]
+          }
+        }
+      },
+      {
+        "event": "start",
+        "task": "research-b",
+        "version": 1,
+        "inputs": {
+          "planner": {
+            "question": "Compare A/B latency under the same fixture",
+            "sources": [
+              "a",
+              "b"
+            ]
+          }
+        }
+      },
+      {
+        "event": "completed",
+        "task": "research-a",
+        "version": 1,
+        "output": {
+          "version": 1,
+          "latency_ms": 40
+        },
+        "elapsed_seconds": 0.010228933999314904
+      },
+      {
+        "event": "completed",
+        "task": "research-b",
+        "version": 1,
+        "output": {
+          "version": 1,
+          "latency_ms": 60
+        },
+        "elapsed_seconds": 0.01023211899882881
+      },
+      {
+        "event": "start",
+        "task": "writer",
+        "version": 1,
+        "inputs": {
+          "research-a": {
+            "version": 1,
+            "latency_ms": 40
+          },
+          "research-b": {
+            "version": 1,
+            "latency_ms": 60
+          }
+        }
+      },
+      {
+        "event": "completed",
+        "task": "writer",
+        "version": 1,
+        "output": {
+          "difference_ms": 20,
+          "evidence": {
+            "research-a": {
+              "version": 1,
+              "latency_ms": 40
+            },
+            "research-b": {
+              "version": 1,
+              "latency_ms": 60
+            }
+          }
+        },
+        "elapsed_seconds": 1.2889999197795987e-05
+      },
+      {
+        "event": "start",
+        "task": "reviewer",
+        "version": 1,
+        "inputs": {
+          "writer": {
+            "difference_ms": 20,
+            "evidence": {
+              "research-a": {
+                "version": 1,
+                "latency_ms": 40
+              },
+              "research-b": {
+                "version": 1,
+                "latency_ms": 60
+              }
+            }
+          }
+        }
+      },
+      {
+        "event": "completed",
+        "task": "reviewer",
+        "version": 1,
+        "output": {
+          "valid": true
+        },
+        "elapsed_seconds": 4.0760023694019765e-06
+      },
+      {
+        "event": "replan",
+        "version": 2,
+        "invalidated": [
+          "research-a",
+          "reviewer",
+          "writer"
+        ]
+      },
+      {
+        "event": "start",
+        "task": "research-a",
+        "version": 2,
+        "inputs": {
+          "planner": {
+            "question": "Compare A/B latency under the same fixture",
+            "sources": [
+              "a",
+              "b"
+            ]
+          }
+        }
+      },
+      {
+        "event": "completed",
+        "task": "research-a",
+        "version": 2,
+        "output": {
+          "version": 2,
+          "latency_ms": 45
+        },
+        "elapsed_seconds": 0.010209144002146786
+      },
+      {
+        "event": "start",
+        "task": "writer",
+        "version": 2,
+        "inputs": {
+          "research-a": {
+            "version": 2,
+            "latency_ms": 45
+          },
+          "research-b": {
+            "version": 1,
+            "latency_ms": 60
+          }
+        }
+      },
+      {
+        "event": "completed",
+        "task": "writer",
+        "version": 2,
+        "output": {
+          "difference_ms": 15,
+          "evidence": {
+            "research-a": {
+              "version": 2,
+              "latency_ms": 45
+            },
+            "research-b": {
+              "version": 1,
+              "latency_ms": 60
+            }
+          }
+        },
+        "elapsed_seconds": 1.2117998267058283e-05
+      },
+      {
+        "event": "start",
+        "task": "reviewer",
+        "version": 2,
+        "inputs": {
+          "writer": {
+            "difference_ms": 15,
+            "evidence": {
+              "research-a": {
+                "version": 2,
+                "latency_ms": 45
+              },
+              "research-b": {
+                "version": 1,
+                "latency_ms": 60
+              }
+            }
+          }
+        }
+      },
+      {
+        "event": "completed",
+        "task": "reviewer",
+        "version": 2,
+        "output": {
+          "valid": true
+        },
+        "elapsed_seconds": 4.536999767879024e-06
+      }
+    ]
+  }
+}

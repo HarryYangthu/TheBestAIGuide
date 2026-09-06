@@ -1,0 +1,330 @@
+{
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "trials": [
+    {
+      "id": "add-0",
+      "state": {
+        "task": "Use add to calculate 2 + 3, then give the result.",
+        "run_id": "10acb7b62aed4801bebc2d28f582a9ec",
+        "status": "failed",
+        "steps": 1,
+        "observations": [],
+        "answer": "",
+        "stop_reason": "invalid_model_output"
+      },
+      "usage": [
+        {
+          "text": "{\"next-action\": {\"tool-action\": {\"action\": \"add\", \"arguments\": {\"a\": 2, \"b\": 3}}, \"result\": 5}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 130,
+          "output_tokens": 36,
+          "elapsed_seconds": 6.783643145001406,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "add",
+      "called_tools": [],
+      "tool_selection_correct": false,
+      "answer_match": false,
+      "completed": false
+    },
+    {
+      "id": "add-1",
+      "state": {
+        "task": "Use add to calculate 4 + 7, then give the result.",
+        "run_id": "14ba7498c3f741d698c21cafe961f3d4",
+        "status": "failed",
+        "steps": 1,
+        "observations": [],
+        "answer": "",
+        "stop_reason": "invalid_model_output"
+      },
+      "usage": [
+        {
+          "text": "{\"next-action\": {\"tool-action\": {\"action\": \"add\", \"arguments\": {\"a\": 4, \"b\": 7}}, \"result\": 11}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 130,
+          "output_tokens": 37,
+          "elapsed_seconds": 6.887835499001085,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "add",
+      "called_tools": [],
+      "tool_selection_correct": false,
+      "answer_match": false,
+      "completed": false
+    },
+    {
+      "id": "add-2",
+      "state": {
+        "task": "Use add to calculate 10 + 5, then give the result.",
+        "run_id": "87977b7a6974463c952d760329093528",
+        "status": "failed",
+        "steps": 1,
+        "observations": [],
+        "answer": "",
+        "stop_reason": "invalid_model_output"
+      },
+      "usage": [
+        {
+          "text": "{\"next_action\": {\"tool_action\": {\"tool_name\": \"add\", \"arguments\": {\"a\": 10, \"b\": 5}}, \"result\": \"15\"}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 131,
+          "output_tokens": 39,
+          "elapsed_seconds": 7.2037875850001,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "add",
+      "called_tools": [],
+      "tool_selection_correct": false,
+      "answer_match": false,
+      "completed": false
+    },
+    {
+      "id": "add-3",
+      "state": {
+        "task": "Use add to calculate 1 + 8, then give the result.",
+        "run_id": "50a348c93fa141529f9a9c4a03928c1a",
+        "status": "failed",
+        "steps": 1,
+        "observations": [],
+        "answer": "",
+        "stop_reason": "invalid_model_output"
+      },
+      "usage": [
+        {
+          "text": "{\"next-action\": {\"tool-action\": {\"action\": \"add\", \"arguments\": {\"a\": 1, \"b\": 8}}, \"result\": 9}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 130,
+          "output_tokens": 36,
+          "elapsed_seconds": 6.890131497002585,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "add",
+      "called_tools": [],
+      "tool_selection_correct": false,
+      "answer_match": false,
+      "completed": false
+    },
+    {
+      "id": "add-4",
+      "state": {
+        "task": "Use add to calculate 11 + 12, then give the result.",
+        "run_id": "532b50b6d6924156b77835516507c866",
+        "status": "failed",
+        "steps": 1,
+        "observations": [],
+        "answer": "",
+        "stop_reason": "invalid_model_output"
+      },
+      "usage": [
+        {
+          "text": "{\"next-action\": {\"tool-action\": {\"action\": \"add\", \"arguments\": {\"a\": 11, \"b\": 12}}, \"result\": 23}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 132,
+          "output_tokens": 39,
+          "elapsed_seconds": 7.978903074999835,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "add",
+      "called_tools": [],
+      "tool_selection_correct": false,
+      "answer_match": false,
+      "completed": false
+    },
+    {
+      "id": "add-5",
+      "state": {
+        "task": "Use add to calculate 20 + 1, then give the result.",
+        "run_id": "37130f8cb89247809e7c0297a0987ad7",
+        "status": "failed",
+        "steps": 1,
+        "observations": [],
+        "answer": "",
+        "stop_reason": "invalid_model_output"
+      },
+      "usage": [
+        {
+          "text": "{\"next_action\": {\"tool_action\": {\"tool_name\": \"add\", \"arguments\": {\"a\": 20, \"b\": 1}}, \"answer\": \"21\"}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 131,
+          "output_tokens": 39,
+          "elapsed_seconds": 7.714749665003183,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "add",
+      "called_tools": [],
+      "tool_selection_correct": false,
+      "answer_match": false,
+      "completed": false
+    },
+    {
+      "id": "search-0",
+      "state": {
+        "task": "Search FAN-01 and tell me what to do before inspection.",
+        "run_id": "b8658655bd094fdda3c51578a270bf35",
+        "status": "failed",
+        "steps": 1,
+        "observations": [],
+        "answer": "",
+        "stop_reason": "invalid_model_output"
+      },
+      "usage": [
+        {
+          "text": "{\n  \"tool_action\": {\n    \"name\": \"search\",\n    \"arguments\": {\n      \"query\": \"FAN-01\"\n    }\n  },\n  \"next_action\": {\n    \"name\": \"add\",\n    \"arguments\": {\n      \"a\": 2,\n      \"b\": 3\n    }\n  }\n}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 130,
+          "output_tokens": 72,
+          "elapsed_seconds": 13.027384463999624,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "search",
+      "called_tools": [],
+      "tool_selection_correct": false,
+      "answer_match": false,
+      "completed": false
+    },
+    {
+      "id": "search-1",
+      "state": {
+        "task": "Read the fan manual. Must I disconnect power before inspection?",
+        "run_id": "1c2bac505c454a95837b8ae75b8ca0fd",
+        "status": "failed",
+        "steps": 1,
+        "observations": [],
+        "answer": "",
+        "stop_reason": "invalid_model_output"
+      },
+      "usage": [
+        {
+          "text": "{\n  \"tool_action\": {\n    \"name\": \"search\",\n    \"arguments\": {\n      \"query\": \"must i disconnect power before inspection?\"\n    }\n  },\n  \"next_action\": {\n    \"name\": \"add\",\n    \"arguments\": {\n      \"a\": 2,\n      \"b\": 3\n    }\n  }\n}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 127,
+          "output_tokens": 73,
+          "elapsed_seconds": 13.666796549998253,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "search",
+      "called_tools": [],
+      "tool_selection_correct": false,
+      "answer_match": false,
+      "completed": false
+    },
+    {
+      "id": "search-2",
+      "state": {
+        "task": "Use search for FAN-01 safety advice.",
+        "run_id": "b75bd44b12c74e7cb128586737bf981d",
+        "status": "failed",
+        "steps": 1,
+        "observations": [],
+        "answer": "",
+        "stop_reason": "invalid_model_output"
+      },
+      "usage": [
+        {
+          "text": "{\n  \"tool_action\": {\n    \"name\": \"search\",\n    \"arguments\": {\n      \"query\": \"FAN-01 safety advice\"\n    }\n  },\n  \"next_action\": {\n    \"name\": \"add\",\n    \"arguments\": {\n      \"a\": 2,\n      \"b\": 3\n    }\n  }\n}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 126,
+          "output_tokens": 74,
+          "elapsed_seconds": 15.35785831499743,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "search",
+      "called_tools": [],
+      "tool_selection_correct": false,
+      "answer_match": false,
+      "completed": false
+    },
+    {
+      "id": "search-3",
+      "state": {
+        "task": "Look up the cooling fan inspection prerequisite.",
+        "run_id": "6b48fe9f5b0b4e87a0adabb6a8e3dcc0",
+        "status": "failed",
+        "steps": 1,
+        "observations": [],
+        "answer": "",
+        "stop_reason": "invalid_model_output"
+      },
+      "usage": [
+        {
+          "text": "{\n  \"tool_action\": {\n    \"name\": \"search\",\n    \"arguments\": {\n      \"query\": \"cooling fan inspection prerequisite\"\n    }\n  },\n  \"next_action\": {\n    \"name\": \"add\",\n    \"arguments\": {\n      \"number\": 2,\n      \"value\": \"cooling fan inspection prerequisite\"\n    }\n  }\n}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 123,
+          "output_tokens": 76,
+          "elapsed_seconds": 14.63601686200127,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "search",
+      "called_tools": [],
+      "tool_selection_correct": false,
+      "answer_match": false,
+      "completed": false
+    },
+    {
+      "id": "search-4",
+      "state": {
+        "task": "Find FAN-01 inspection instructions.",
+        "run_id": "528dc4c3cc9648a0808ad0a1c25e871b",
+        "status": "failed",
+        "steps": 1,
+        "observations": [],
+        "answer": "",
+        "stop_reason": "invalid_model_output"
+      },
+      "usage": [
+        {
+          "text": "{\n  \"tool_action\": {\n    \"name\": \"search\",\n    \"arguments\": {\n      \"query\": \"FAN-01 inspection instructions\"\n    }\n  },\n  \"next_action\": {\n    \"name\": \"add\",\n    \"arguments\": {\n      \"fan_name\": \"FAN-01\",\n      \"instructions\": \"Inspect and maintain the FAN-01 system.\"\n    }\n  }\n}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 124,
+          "output_tokens": 88,
+          "elapsed_seconds": 16.129830288999074,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "search",
+      "called_tools": [],
+      "tool_selection_correct": false,
+      "answer_match": false,
+      "completed": false
+    },
+    {
+      "id": "search-5",
+      "state": {
+        "task": "Search the fan manual and summarize its prerequisite.",
+        "run_id": "3016afd913814e79b4dcd4807cc2043b",
+        "status": "failed",
+        "steps": 1,
+        "observations": [],
+        "answer": "",
+        "stop_reason": "invalid_model_output"
+      },
+      "usage": [
+        {
+          "text": "{\n  \"tool_action\": {\n    \"action\": \"search\",\n    \"arguments\": {}\n  },\n  \"next_action\": {\n    \"action\": \"add\",\n    \"arguments\": {\n      \"query\": \"fan manual\"\n    }\n  }\n}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 124,
+          "output_tokens": 53,
+          "elapsed_seconds": 9.651057836999826,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "search",
+      "called_tools": [],
+      "tool_selection_correct": false,
+      "answer_match": false,
+      "completed": false
+    }
+  ]
+}

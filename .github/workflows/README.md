@@ -10,3 +10,5 @@
 权限为 `contents: read`，CI 不自动改文章、提交文件或发布网站。外部链接由已创建的月度定时任务独立汇报；远端临时限流不能直接判成链接失效。
 
 本地重现命令见 [scripts](../../scripts/README.md)。工作流文件存在不等于远端已成功运行；具体 Actions 状态以对应提交记录为准。
+
+第二轮新增：共享 Schema/边界 JSON 改动会触发 Python、TypeScript 与 Notebook 工作流；Python/Notebook 安装 CPU PyTorch 与 PDF 依赖，避免新增测试仅以 skip 通过。浏览器矩阵同时验收学习工作台的审批/取消网页流程。预训练模型下载与长模型评测不在每次 PR 强制执行，已固定版本的本地真实结果保存在项目 artifacts。

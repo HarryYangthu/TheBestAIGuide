@@ -14,3 +14,7 @@
 [运行 Notebook](04-labs/01-policy-and-injection.ipynb) · [完整代码](05-code/README.md) · [来源索引](references.md)
 
 本实验没有调用模型，也不声称解决全部提示注入；它验证的是模型提出越权动作以后，确定性执行边界仍能拒绝。模型可靠性、校准和可解释性继续参考 [AI 基础](../01-ai-foundations/README.md)。
+
+## 配套项目扩展（2026-09-06）
+
+[真实外部文本→模型候选→策略→效果的注入实验](../../20-Projects/learning-workbench/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。

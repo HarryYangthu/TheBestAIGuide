@@ -14,3 +14,7 @@
 | 6 | [模型选择](01-concepts/model-selection/README.md) | 同任务配对比较、成本、硬约束、Pareto与路由 | [虚构配置的可行集与前沿](04-labs/02-decoding-cache-and-precision.ipynb) |
 
 [实验运行方法](04-labs/README.md) · [完整源码](05-code/README.md) · [一手来源与版本](references.md)。下一域：[Agent Core](../03-agent-core/README.md)。
+
+## 配套项目扩展（2026-09-06）
+
+[完整 decoder、训练、生成与 LoRA](../../20-Projects/tiny-transformer/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。

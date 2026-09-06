@@ -1,0 +1,6 @@
+[
+ {"id":"trigger","request":"比较下面两个版本的温度上限，给出证据表","expected_route":"use","data":{"sources":[{"id":"v1","version":"1","text":"DEMO-A limit: 70 C."},{"id":"v2","version":"2","text":"DEMO-A limit: 68 C."}],"claims":[{"axis":"温度","source_id":"v1","text":"版本1为70 C","quote":"70 C"},{"axis":"温度","source_id":"v2","text":"版本2为68 C","quote":"68 C"}]}},
+ {"id":"negative","request":"把这段文字改得通顺一些","expected_route":"skip"},
+ {"id":"ambiguous","request":"这两个系统哪个更快？只有不同硬件的结果","expected_route":"use-with-gap","data":{"sources":[{"id":"a","version":"1","text":"A: 40 ms on CPU-X."}],"claims":[{"axis":"速度","source_id":"a","text":"仅知A在CPU-X的结果，不作跨硬件排名","quote":"40 ms on CPU-X."}]}},
+ {"id":"insufficient","request":"比较A和B，但只提供A的资料","expected_route":"use-with-gap","data":{"sources":[{"id":"a","version":"1","text":"A supports CSV."}],"claims":[{"axis":"CSV","source_id":"a","text":"A支持CSV","quote":"supports CSV"},{"axis":"CSV","source_id":"b","text":"待查","quote":""}]}}
+]

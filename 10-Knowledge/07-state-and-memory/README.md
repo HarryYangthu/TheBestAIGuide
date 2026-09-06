@@ -13,3 +13,7 @@ State保存当前任务继续执行所需的权威事实，Memory保留未来可
 | 5 | [Memory评测](01-concepts/03-memory-evaluation.md) | 无记忆/全量/过滤对照及错误分类 |
 
 [概念速查](01-concepts/README.md)保留State、Session、Checkpoint、Memory、Context边界；[模式导航](02-patterns/README.md)便于按故障找方案。[工程](05-code/state-memory-python/README.md)与[Notebook](04-labs/01-state-memory-and-conflicts.ipynb)共用源码，全部为本地教学数据。来源见[参考资料](references.md)。
+
+## 配套项目扩展（2026-09-06）
+
+[跨会话提取、写入、召回与最终回答对照](../../20-Projects/learning-workbench/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。

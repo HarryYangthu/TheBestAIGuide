@@ -1,0 +1,793 @@
+{
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "prompt_revision": "two fixed format demonstrations; baseline retained one directory above",
+  "trials": [
+    {
+      "id": "add-0",
+      "state": {
+        "task": "Use add to calculate 2 + 3, then give the result.",
+        "run_id": "225047adc5034f819ef9520796094711",
+        "status": "stopped",
+        "steps": 2,
+        "observations": [
+          {
+            "call_id": "225047adc5034f819ef9520796094711:1",
+            "ok": true,
+            "data": {
+              "sum": 5
+            }
+          },
+          {
+            "call_id": "225047adc5034f819ef9520796094711:2",
+            "ok": true,
+            "data": {
+              "sum": 5
+            }
+          }
+        ],
+        "answer": "",
+        "stop_reason": "no_progress"
+      },
+      "usage": [
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"add\",\"arguments\":{\"a\":2,\"b\":3}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 261,
+          "output_tokens": 20,
+          "elapsed_seconds": 5.139890987997205,
+          "backend": "local-transformers"
+        },
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"add\",\"arguments\":{\"a\":2,\"b\":3}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 312,
+          "output_tokens": 20,
+          "elapsed_seconds": 5.731417021997913,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "add",
+      "called_tools": [
+        "add",
+        "add"
+      ],
+      "tool_selection_correct": true,
+      "answer_match": false,
+      "completed": false
+    },
+    {
+      "id": "add-1",
+      "state": {
+        "task": "Use add to calculate 4 + 7, then give the result.",
+        "run_id": "70058ddb0b784849a319e6064ef9bf4a",
+        "status": "stopped",
+        "steps": 2,
+        "observations": [
+          {
+            "call_id": "70058ddb0b784849a319e6064ef9bf4a:1",
+            "ok": true,
+            "data": {
+              "sum": 11
+            }
+          },
+          {
+            "call_id": "70058ddb0b784849a319e6064ef9bf4a:2",
+            "ok": true,
+            "data": {
+              "sum": 11
+            }
+          }
+        ],
+        "answer": "",
+        "stop_reason": "no_progress"
+      },
+      "usage": [
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"add\",\"arguments\":{\"a\":4,\"b\":7}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 261,
+          "output_tokens": 20,
+          "elapsed_seconds": 5.5392458160022215,
+          "backend": "local-transformers"
+        },
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"add\",\"arguments\":{\"a\":4,\"b\":7}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 312,
+          "output_tokens": 20,
+          "elapsed_seconds": 5.465795567000896,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "add",
+      "called_tools": [
+        "add",
+        "add"
+      ],
+      "tool_selection_correct": true,
+      "answer_match": false,
+      "completed": false
+    },
+    {
+      "id": "add-2",
+      "state": {
+        "task": "Use add to calculate 10 + 5, then give the result.",
+        "run_id": "2dcb7508a39645f78af40cebd04fa662",
+        "status": "stopped",
+        "steps": 2,
+        "observations": [
+          {
+            "call_id": "2dcb7508a39645f78af40cebd04fa662:1",
+            "ok": true,
+            "data": {
+              "sum": 15
+            }
+          },
+          {
+            "call_id": "2dcb7508a39645f78af40cebd04fa662:2",
+            "ok": true,
+            "data": {
+              "sum": 15
+            }
+          }
+        ],
+        "answer": "",
+        "stop_reason": "no_progress"
+      },
+      "usage": [
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"add\",\"arguments\":{\"a\":10,\"b\":5}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 262,
+          "output_tokens": 21,
+          "elapsed_seconds": 5.455442521997611,
+          "backend": "local-transformers"
+        },
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"add\",\"arguments\":{\"a\":10,\"b\":5}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 312,
+          "output_tokens": 21,
+          "elapsed_seconds": 5.525693253999634,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "add",
+      "called_tools": [
+        "add",
+        "add"
+      ],
+      "tool_selection_correct": true,
+      "answer_match": false,
+      "completed": false
+    },
+    {
+      "id": "add-3",
+      "state": {
+        "task": "Use add to calculate 1 + 8, then give the result.",
+        "run_id": "14485488f8b74a30999becbb6c91574a",
+        "status": "stopped",
+        "steps": 2,
+        "observations": [
+          {
+            "call_id": "14485488f8b74a30999becbb6c91574a:1",
+            "ok": true,
+            "data": {
+              "sum": 9
+            }
+          },
+          {
+            "call_id": "14485488f8b74a30999becbb6c91574a:2",
+            "ok": true,
+            "data": {
+              "sum": 9
+            }
+          }
+        ],
+        "answer": "",
+        "stop_reason": "no_progress"
+      },
+      "usage": [
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"add\",\"arguments\":{\"a\":1,\"b\":8}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 261,
+          "output_tokens": 20,
+          "elapsed_seconds": 5.126010332001897,
+          "backend": "local-transformers"
+        },
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"add\",\"arguments\":{\"a\":1,\"b\":8}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 312,
+          "output_tokens": 20,
+          "elapsed_seconds": 5.2345932249991165,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "add",
+      "called_tools": [
+        "add",
+        "add"
+      ],
+      "tool_selection_correct": true,
+      "answer_match": false,
+      "completed": false
+    },
+    {
+      "id": "add-4",
+      "state": {
+        "task": "Use add to calculate 11 + 12, then give the result.",
+        "run_id": "7a41d22701c04394945b798910a55c3b",
+        "status": "stopped",
+        "steps": 2,
+        "observations": [
+          {
+            "call_id": "7a41d22701c04394945b798910a55c3b:1",
+            "ok": true,
+            "data": {
+              "sum": 23
+            }
+          },
+          {
+            "call_id": "7a41d22701c04394945b798910a55c3b:2",
+            "ok": true,
+            "data": {
+              "sum": 23
+            }
+          }
+        ],
+        "answer": "",
+        "stop_reason": "no_progress"
+      },
+      "usage": [
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"add\",\"arguments\":{\"a\":11,\"b\":12}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 263,
+          "output_tokens": 22,
+          "elapsed_seconds": 6.114894768998056,
+          "backend": "local-transformers"
+        },
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"add\",\"arguments\":{\"a\":11,\"b\":12}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 318,
+          "output_tokens": 22,
+          "elapsed_seconds": 6.658611427999858,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "add",
+      "called_tools": [
+        "add",
+        "add"
+      ],
+      "tool_selection_correct": true,
+      "answer_match": false,
+      "completed": false
+    },
+    {
+      "id": "add-5",
+      "state": {
+        "task": "Use add to calculate 20 + 1, then give the result.",
+        "run_id": "231d3295ca3c4b0f866542b79db63d09",
+        "status": "stopped",
+        "steps": 2,
+        "observations": [
+          {
+            "call_id": "231d3295ca3c4b0f866542b79db63d09:1",
+            "ok": true,
+            "data": {
+              "sum": 21
+            }
+          },
+          {
+            "call_id": "231d3295ca3c4b0f866542b79db63d09:2",
+            "ok": true,
+            "data": {
+              "sum": 21
+            }
+          }
+        ],
+        "answer": "",
+        "stop_reason": "no_progress"
+      },
+      "usage": [
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"add\",\"arguments\":{\"a\":20,\"b\":1}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 262,
+          "output_tokens": 21,
+          "elapsed_seconds": 5.299520169999596,
+          "backend": "local-transformers"
+        },
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"add\",\"arguments\":{\"a\":20,\"b\":1}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 315,
+          "output_tokens": 21,
+          "elapsed_seconds": 5.680445694997616,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "add",
+      "called_tools": [
+        "add",
+        "add"
+      ],
+      "tool_selection_correct": true,
+      "answer_match": false,
+      "completed": false
+    },
+    {
+      "id": "search-0",
+      "state": {
+        "task": "Search FAN-01 and tell me what to do before inspection.",
+        "run_id": "b44ece314023419b84fc949a2df9d91a",
+        "status": "stopped",
+        "steps": 4,
+        "observations": [
+          {
+            "call_id": "b44ece314023419b84fc949a2df9d91a:1",
+            "ok": false,
+            "error": {
+              "code": "invalid_arguments",
+              "retryable": false
+            }
+          },
+          {
+            "call_id": "b44ece314023419b84fc949a2df9d91a:2",
+            "ok": false,
+            "error": {
+              "code": "invalid_arguments",
+              "retryable": false
+            }
+          },
+          {
+            "call_id": "b44ece314023419b84fc949a2df9d91a:3",
+            "ok": false,
+            "error": {
+              "code": "invalid_arguments",
+              "retryable": false
+            }
+          },
+          {
+            "call_id": "b44ece314023419b84fc949a2df9d91a:4",
+            "ok": true,
+            "data": {
+              "documents": [
+                {
+                  "id": "fan",
+                  "text": "FAN-01: power off before inspecting the cooling fan."
+                }
+              ]
+            }
+          }
+        ],
+        "answer": "",
+        "stop_reason": "max_steps"
+      },
+      "usage": [
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"search\",\"arguments\":{\"tool_name\":\"FAN-01\",\"query\":\"before inspection\"}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 261,
+          "output_tokens": 26,
+          "elapsed_seconds": 6.352578621001157,
+          "backend": "local-transformers"
+        },
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"search\",\"arguments\":{\"tool_name\":\"FAN-01\",\"query\":\"inspect\"}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 318,
+          "output_tokens": 25,
+          "elapsed_seconds": 6.480667738000193,
+          "backend": "local-transformers"
+        },
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"search\",\"arguments\":{\"tool_name\":\"FAN-01\"}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 375,
+          "output_tokens": 21,
+          "elapsed_seconds": 6.763327759999811,
+          "backend": "local-transformers"
+        },
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"search\",\"arguments\":{\"query\":\"FAN-01\"}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 432,
+          "output_tokens": 20,
+          "elapsed_seconds": 7.576423055001214,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "search",
+      "called_tools": [
+        "search",
+        "search",
+        "search",
+        "search"
+      ],
+      "tool_selection_correct": true,
+      "answer_match": false,
+      "completed": false
+    },
+    {
+      "id": "search-1",
+      "state": {
+        "task": "Read the fan manual. Must I disconnect power before inspection?",
+        "run_id": "b23e79675523452297a7610ac3a4189b",
+        "status": "stopped",
+        "steps": 4,
+        "observations": [
+          {
+            "call_id": "b23e79675523452297a7610ac3a4189b:1",
+            "ok": true,
+            "data": {
+              "documents": []
+            }
+          },
+          {
+            "call_id": "b23e79675523452297a7610ac3a4189b:2",
+            "ok": true,
+            "data": {
+              "documents": []
+            }
+          },
+          {
+            "call_id": "b23e79675523452297a7610ac3a4189b:3",
+            "ok": true,
+            "data": {
+              "documents": []
+            }
+          },
+          {
+            "call_id": "b23e79675523452297a7610ac3a4189b:4",
+            "ok": true,
+            "data": {
+              "documents": []
+            }
+          }
+        ],
+        "answer": "",
+        "stop_reason": "no_progress"
+      },
+      "usage": [
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"search\",\"arguments\":{\"query\":\"must I disconnect power before inspection?\"}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 258,
+          "output_tokens": 22,
+          "elapsed_seconds": 6.199572139001248,
+          "backend": "local-transformers"
+        },
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"search\",\"arguments\":{\"query\":\"must i disconnect power before inspection?\"}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 310,
+          "output_tokens": 22,
+          "elapsed_seconds": 6.353064153998275,
+          "backend": "local-transformers"
+        },
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"search\",\"arguments\":{\"query\":\"manual\"}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 362,
+          "output_tokens": 16,
+          "elapsed_seconds": 5.7146172169996134,
+          "backend": "local-transformers"
+        },
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"search\",\"arguments\":{\"query\":\"manual\"}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 414,
+          "output_tokens": 16,
+          "elapsed_seconds": 6.066953260000446,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "search",
+      "called_tools": [
+        "search",
+        "search",
+        "search",
+        "search"
+      ],
+      "tool_selection_correct": true,
+      "answer_match": false,
+      "completed": false
+    },
+    {
+      "id": "search-2",
+      "state": {
+        "task": "Use search for FAN-01 safety advice.",
+        "run_id": "6b59d1c204e7486da6bf25393d59b285",
+        "status": "stopped",
+        "steps": 2,
+        "observations": [
+          {
+            "call_id": "6b59d1c204e7486da6bf25393d59b285:1",
+            "ok": true,
+            "data": {
+              "documents": [
+                {
+                  "id": "fan",
+                  "text": "FAN-01: power off before inspecting the cooling fan."
+                }
+              ]
+            }
+          },
+          {
+            "call_id": "6b59d1c204e7486da6bf25393d59b285:2",
+            "ok": true,
+            "data": {
+              "documents": [
+                {
+                  "id": "fan",
+                  "text": "FAN-01: power off before inspecting the cooling fan."
+                }
+              ]
+            }
+          }
+        ],
+        "answer": "",
+        "stop_reason": "no_progress"
+      },
+      "usage": [
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"search\",\"arguments\":{\"query\":\"FAN-01 safety advice\"}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 257,
+          "output_tokens": 22,
+          "elapsed_seconds": 5.500465510001959,
+          "backend": "local-transformers"
+        },
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"search\",\"arguments\":{\"query\":\"FAN-01 safety advice\"}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 333,
+          "output_tokens": 22,
+          "elapsed_seconds": 6.44894542000111,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "search",
+      "called_tools": [
+        "search",
+        "search"
+      ],
+      "tool_selection_correct": true,
+      "answer_match": false,
+      "completed": false
+    },
+    {
+      "id": "search-3",
+      "state": {
+        "task": "Look up the cooling fan inspection prerequisite.",
+        "run_id": "ac6299bf24e14641b125cf9127dbce8e",
+        "status": "stopped",
+        "steps": 2,
+        "observations": [
+          {
+            "call_id": "ac6299bf24e14641b125cf9127dbce8e:1",
+            "ok": true,
+            "data": {
+              "documents": [
+                {
+                  "id": "fan",
+                  "text": "FAN-01: power off before inspecting the cooling fan."
+                }
+              ]
+            }
+          },
+          {
+            "call_id": "ac6299bf24e14641b125cf9127dbce8e:2",
+            "ok": true,
+            "data": {
+              "documents": [
+                {
+                  "id": "fan",
+                  "text": "FAN-01: power off before inspecting the cooling fan."
+                }
+              ]
+            }
+          }
+        ],
+        "answer": "",
+        "stop_reason": "no_progress"
+      },
+      "usage": [
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"search\",\"arguments\":{\"query\":\"cooling fan inspection prerequisite\"}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 254,
+          "output_tokens": 20,
+          "elapsed_seconds": 5.728330611000274,
+          "backend": "local-transformers"
+        },
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"search\",\"arguments\":{\"query\":\"cooling fan inspection prerequisite\"}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 327,
+          "output_tokens": 20,
+          "elapsed_seconds": 5.478458165998745,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "search",
+      "called_tools": [
+        "search",
+        "search"
+      ],
+      "tool_selection_correct": true,
+      "answer_match": false,
+      "completed": false
+    },
+    {
+      "id": "search-4",
+      "state": {
+        "task": "Find FAN-01 inspection instructions.",
+        "run_id": "33be2ed544c84564b5a2f42f5c4bb517",
+        "status": "stopped",
+        "steps": 2,
+        "observations": [
+          {
+            "call_id": "33be2ed544c84564b5a2f42f5c4bb517:1",
+            "ok": true,
+            "data": {
+              "documents": [
+                {
+                  "id": "fan",
+                  "text": "FAN-01: power off before inspecting the cooling fan."
+                }
+              ]
+            }
+          },
+          {
+            "call_id": "33be2ed544c84564b5a2f42f5c4bb517:2",
+            "ok": true,
+            "data": {
+              "documents": [
+                {
+                  "id": "fan",
+                  "text": "FAN-01: power off before inspecting the cooling fan."
+                }
+              ]
+            }
+          }
+        ],
+        "answer": "",
+        "stop_reason": "no_progress"
+      },
+      "usage": [
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"search\",\"arguments\":{\"query\":\"FAN-01 inspection instructions\"}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 255,
+          "output_tokens": 22,
+          "elapsed_seconds": 6.037428371000715,
+          "backend": "local-transformers"
+        },
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"search\",\"arguments\":{\"query\":\"FAN-01 inspection instructions\"}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 330,
+          "output_tokens": 22,
+          "elapsed_seconds": 6.205479304000619,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "search",
+      "called_tools": [
+        "search",
+        "search"
+      ],
+      "tool_selection_correct": true,
+      "answer_match": false,
+      "completed": false
+    },
+    {
+      "id": "search-5",
+      "state": {
+        "task": "Search the fan manual and summarize its prerequisite.",
+        "run_id": "8306edfc1fed4873bdaa9689f434bdc7",
+        "status": "stopped",
+        "steps": 4,
+        "observations": [
+          {
+            "call_id": "8306edfc1fed4873bdaa9689f434bdc7:1",
+            "ok": true,
+            "data": {
+              "documents": [
+                {
+                  "id": "fan",
+                  "text": "FAN-01: power off before inspecting the cooling fan."
+                }
+              ]
+            }
+          },
+          {
+            "call_id": "8306edfc1fed4873bdaa9689f434bdc7:2",
+            "ok": false,
+            "error": {
+              "code": "invalid_arguments",
+              "retryable": false
+            }
+          },
+          {
+            "call_id": "8306edfc1fed4873bdaa9689f434bdc7:3",
+            "ok": true,
+            "data": {
+              "documents": [
+                {
+                  "id": "fan",
+                  "text": "FAN-01: power off before inspecting the cooling fan."
+                }
+              ]
+            }
+          },
+          {
+            "call_id": "8306edfc1fed4873bdaa9689f434bdc7:4",
+            "ok": true,
+            "data": {
+              "documents": [
+                {
+                  "id": "fan",
+                  "text": "FAN-01: power off before inspecting the cooling fan."
+                }
+              ]
+            }
+          }
+        ],
+        "answer": "",
+        "stop_reason": "max_steps"
+      },
+      "usage": [
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"search\",\"arguments\":{\"query\":\"fan manual prerequisite\"}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 255,
+          "output_tokens": 18,
+          "elapsed_seconds": 4.954107387999102,
+          "backend": "local-transformers"
+        },
+        {
+          "text": "[REDACTED model text containing a credential-like field; original text excluded from publication]",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 327,
+          "output_tokens": 61,
+          "elapsed_seconds": 13.054463338998175,
+          "backend": "local-transformers"
+        },
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"search\",\"arguments\":{\"query\":\"fan pre-requisite\"}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 383,
+          "output_tokens": 19,
+          "elapsed_seconds": 5.798618479002471,
+          "backend": "local-transformers"
+        },
+        {
+          "text": "{\"kind\":\"tool\",\"name\":\"search\",\"arguments\":{\"query\":\"fan prereq\"}}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 455,
+          "output_tokens": 18,
+          "elapsed_seconds": 6.530610372999945,
+          "backend": "local-transformers"
+        }
+      ],
+      "expected_tool": "search",
+      "called_tools": [
+        "search",
+        "search",
+        "search",
+        "search"
+      ],
+      "tool_selection_correct": true,
+      "answer_match": false,
+      "completed": false
+    }
+  ]
+}

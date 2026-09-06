@@ -6,6 +6,8 @@
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements-dev.lock
+pip install torch==2.8.0 --index-url https://download.pytorch.org/whl/cpu
+pip install pypdf==6.1.0 reportlab==4.4.3
 python -m ipykernel install --sys-prefix --name python3
 python scripts/check_links.py
 python scripts/check_metadata.py
@@ -23,7 +25,7 @@ Windows 激活命令是 `.venv\Scripts\activate`。锁文件记录本次实际�
 
 | 脚本 | 检查或执行内容 | 边界 |
 | --- | --- | --- |
-| [check_links.py](check_links.py) | Markdown、Notebook Markdown 中的相对文件和目录链接；跳过代码围栏 | 不发外网请求，不验证标题锚点或远端内容 |
+| [check_links.py](check_links.py) | Markdown、Notebook Markdown 中的相对文件和目录链接；跳过代码围栏 | 不发外网请求；检查本仓 Markdown 的中文、重复标题锚点，支持范围见 heading_anchors；不验证远端内容 |
 | [check_metadata.py](check_metadata.py) | 一级标题；概念、模式、案例的状态字段 | 不把格式通过当成事实审查 |
 | [check_notebooks.py](check_notebooks.py) | Notebook 结构、非空代码、错误输出；`--execute` 从干净内核执行并更新输出 | 工作目录是 Notebook 所在目录，默认每格 180 秒 |
 | [run_python_tests.py](run_python_tests.py) | 加入本库源码路径，分别运行各工程 `tests/test_*.py` 的 unittest | 失败返回非零；不运行外部服务或 GPU 训练 |

@@ -76,3 +76,18 @@ test("cancellation before handler scheduling prevents execution", async () => {
   assert.equal(!result.ok && result.error.code, "cancelled");
   assert.equal(called, false);
 });
+
+test("the full ToolCall envelope is checked before any handler executes", async () => {
+  let calls = 0;
+  const runtime = setup(async () => ({ count: ++calls }));
+  const good = {call_id: "valid", name: "search", arguments: {query: "x"}};
+  for (const invalid of [null, undefined, [], 7, {...good, call_id: 7}, {...good, call_id: ""},
+                         {name: "search", arguments: {}}, {...good, admin: true}]) {
+    const result = await runtime.execute(invalid, identity);
+    assert.equal(!result.ok && result.error.code, "invalid_request");
+    assert.equal(typeof result.call_id, "string");
+  }
+  assert.equal(calls, 0);
+  assert.equal((await runtime.execute(good, identity)).ok, true);
+  assert.equal(calls, 1);
+});

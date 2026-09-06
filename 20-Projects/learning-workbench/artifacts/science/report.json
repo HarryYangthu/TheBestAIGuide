@@ -1,0 +1,15 @@
+{
+  "config": "config.json",
+  "data": "data.json",
+  "data_sha256": "d5088ace8c27fd50c0a9b8c90591b58b9fdd5627f1abb6dc7427268303740298",
+  "history": "training.json",
+  "baseline_validation_mse": 1.366377025343429,
+  "candidate_validation_mse": 0.007136846429291669,
+  "weights": {
+    "w": 2.01370471670435,
+    "b": 0.9788348443258922
+  },
+  "n_validation": 40,
+  "hypothesis_supported_on_this_split": true,
+  "boundary": "One constructed linear dataset and one split; not a paper reproduction or evidence of real-world superiority."
+}
