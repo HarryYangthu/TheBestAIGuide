@@ -19,10 +19,14 @@
 7. [Multi-Agent 系统评测](01-concepts/06-multi-agent-evaluation.md)
 8. [评测运营与发布门禁](02-patterns/01-evaluation-operations.md)
 9. [模板与检查清单](02-patterns/02-templates-and-checklists.md)
-10. [实验入口](04-labs/README.md)、[Eval Harness 骨架](05-code/eval-harness-python/README.md)与[来源索引](references.md)
+10. [实验入口](04-labs/README.md)、[Eval Harness 实现](05-code/eval-harness-python/README.md)与[来源索引](references.md)
 
 ## 当前证据边界
 
 - 正文已经区分 Task、Trial、Trajectory、Outcome、Grader 与 Harness。
 - Schema、阈值和门禁是设计模板，不是运行结果。
-- Lab 与 Eval Harness 仍为占位，因此状态保持 `draft`。
+- Lab 与 Eval Harness 已实现四任务教学实验；正文保持 `draft`，真实 Agent 与独立专家校准尚未完成。
+
+## 完整实践
+
+[从任务数据到回归门禁](03-cases/01-from-task-dataset-to-regression.md)：一套带真实输出的教学案例，把数据构造、状态评分、失败定位、修复和回归接起来。

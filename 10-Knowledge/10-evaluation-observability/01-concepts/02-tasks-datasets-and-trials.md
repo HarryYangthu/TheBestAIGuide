@@ -118,3 +118,9 @@ created_at + source_window
 任务、评分器或 Fixture 变化后，不应与旧结果直接拼成同一时间序列；需要重新跑基线或明确标注断点。
 
 下一步：[评分器与组合计分](03-graders-and-scoring.md)。
+
+## 一条数据应该长什么样
+
+配套[任务文件](../05-code/eval-harness-python/fixtures/tasks.jsonl)同时保存 `input`、`fixture`、`expected`、`tags`、`critical` 和 `version`。例如请求 tenant=beta，但 fixture 的记录属于 alpha，gold 是拒答；这不是“答案尽量谨慎”的偏好，而是可以判定的权限边界。
+
+每次 Trial 深拷贝 fixture，执行后检查 `lookups == 1`。同一个任务跑两遍，第二遍若得到 2，说明环境被上一遍污染。完整过程在[具体案例](../03-cases/01-from-task-dataset-to-regression.md)。四条任务均为公开的人工构造教学 fixture，没有称为真实数据集或隐藏测试集；不能拿它们估计线上分布。

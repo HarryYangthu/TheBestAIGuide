@@ -1,0 +1,8 @@
+{
+  "call_id": "call-1",
+  "ok": true,
+  "data": {
+    "documents": []
+  },
+  "unexpected_field": true
+}

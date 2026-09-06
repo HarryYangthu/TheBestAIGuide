@@ -1,15 +1,17 @@
 # Agent Core
 
-> 状态：seed
+> 状态：draft | 配套工程与Notebook的离线控制流程已运行验证；真实LLM效果未评测
 
-本领域建立最小 Agent 模型：系统如何围绕目标持续观察、决策、行动、更新状态并终止。
+从“检索资料并带证据回答”理解Agent。先掌握动作与状态如何变化，再增加计划、验证和恢复。
 
-## 建议顺序
+| 阅读顺序 | 解决的问题 | 对应实践 |
+| --- | --- | --- |
+| [边界与组成](01-concepts/01-agent-boundaries.md) | 什么时候需要Agent，哪些控制仍应写成程序 | 目标、状态、动作字段 |
+| [Agent Loop](01-concepts/02-agent-loop.md) | 循环如何推进，怎么防止不停执行 | [Loop源码](05-code/agent-loop-python/src/agent_loop/loop.py) |
+| [模型适配器](01-concepts/03-model-adapters.md) | 如何把API输出接入执行器 | [动作与模型接口](05-code/agent-loop-python/src/agent_loop/models.py) |
+| [ReAct与计划执行](02-patterns/01-react-and-plan-execute.md) | 逐步探索与预先分解怎样选 | 同工具、同Loop组合子任务 |
+| [反思与验证](02-patterns/02-reflection-verification-human-loop.md) | 完成后如何检查，失败后怎么修 | 引用检查与有界修订 |
 
-1. 区分 Chatbot、Workflow 与 Agent。
-2. 理解 Goal、Constraint、Observation、State、Action 和 Termination。
-3. 建立 `observe → decide → act → observe` 最小循环。
-4. 再学习 ReAct、Plan-and-Execute 与 Reflection，避免先把复杂框架当成 Agent 定义。
-5. 通过[Agent Loop 实验入口](04-labs/README.md)和[Python 工程骨架](05-code/agent-loop-python/README.md)连接概念与实现。
+先照[工程README](05-code/agent-loop-python/README.md)运行一次，再打开[实验Notebook](04-labs/01-agent-loop.ipynb)比较成功、重复与预算耗尽。教学策略是确定性的，不把它称作模型推理效果。
 
-当前只有范围和未实现代码骨架，不能视为已验证实现。下一步进入[Context Engineering](../04-context-engineering/README.md)。
+来源见[参考资料](references.md)。下一站：[上下文工程](../04-context-engineering/README.md)与[工具契约](../05-tools-skills-protocols/README.md)。

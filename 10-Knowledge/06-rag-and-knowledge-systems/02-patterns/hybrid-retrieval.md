@@ -49,3 +49,9 @@
 比较单通道、简单 Union、融合和 Rerank 的 Recall@k、硬负例、端到端成功、延迟与单次成功成本。按编码类、自然语言类、版本类和歧义类 Query 分切片报告。
 
 详细机制见：[混合检索与重排](../01-concepts/02-hybrid-retrieval-and-reranking.md)。
+
+## 最小实现与扩展顺序
+
+从[工程](../05-code/rag-pipeline-python/README.md)运行三条基线：`mode="bm25"`、`"exact"`、`"hybrid"`。本仓 hybrid 先融合已经实际实现的 BM25 与 Exact；只有显式配置 embedder 才增加 dense 通道。没有配置时 `mode="dense"` 报错，不会偷偷生成随机向量。
+
+实验保留 `airflow obstruction` 对中文“风道堵塞”的失败。修复可以选择领域术语映射或真实跨语言模型，但应在独立查询上检验，避免只给这一道题硬编码答案。优化时同时查看噪声片段：Recall 提高但上下文填入大量不相关内容，也可能让最终答案更差。

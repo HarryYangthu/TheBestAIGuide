@@ -70,7 +70,7 @@ Context Engineering 是为每一次模型调用选择、转换、排序和组织
   -> 将确认有效的策略固化为回归测试
 ```
 
-当前两个 Notebook 仍是占位：[Context Engineering Labs](../04-labs/README.md)。因此本文只表示知识结构已经整理，不表示相关策略已在本仓库完成实验验证。
+两个配套 Notebook 已实现预算打包和结构化压缩并保存实际输出，见 [Context Engineering Labs](../04-labs/README.md)。实验未调用模型，不能据此声称已验证模型层注意力退化或真实任务成功率。
 
 ## 主要来源
 

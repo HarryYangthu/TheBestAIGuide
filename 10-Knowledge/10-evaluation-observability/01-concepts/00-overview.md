@@ -59,7 +59,7 @@ Model + Agent Harness + Tools + Environment
 
 ## 证据边界
 
-本模块整理了评测设计方法，但 [Evaluation Labs](../04-labs/README.md) 和 [Eval Harness 工程](../05-code/eval-harness-python/README.md) 仍是占位。文中的任务、阈值和数字均为结构示例，不代表本仓库已经完成基准测试。
+本模块已有 [Evaluation Labs](../04-labs/README.md) 和 [Eval Harness 工程](../05-code/eval-harness-python/README.md) 的实际教学运行。原文全量配置与阈值仍是设计示例；新实验明确采用人工构造任务和确定性被测函数，不代表真实 Agent 基准或专家校准结果。
 
 ## 主要来源
 

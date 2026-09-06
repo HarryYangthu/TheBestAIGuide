@@ -1,17 +1,16 @@
 # Planning、Workflow 与 Multi-Agent
 
-> 状态：seed；Multi-Agent 评测正文为 draft
+> 状态：draft；正文已补全；配套 Python 实现、故障实验为本地 verified 范围。来源核验：2026-09-06。
 
-本领域解释任务如何被分解、编排、路由、交接和合并，并明确何时确定性 Workflow 比多 Agent 更合适。
+本域从“如何在约束内选择一个候选模型”讲清任务分解、控制权、结果交接和冲突。先判断确定性程序能否完成，再决定是否需要动态规划或多个 Agent。
 
-## 建议顺序
+| 学习问题 | 正文 | 对应实现 / 实验 |
+|---|---|---|
+| 怎么把目标变成能验收的子任务 | [规划与重规划](01-concepts/01-planning-and-replanning.md) | [任务契约](05-code/multi-agent-runtime-python/src/multi_agent/contracts.py) |
+| 下一步什么时候允许发生 | [状态机与 DAG](01-concepts/02-workflow-state-machines.md) | [协调器](05-code/multi-agent-runtime-python/src/multi_agent/supervisor.py) |
+| 谁决定下一步、为何要多 Agent | [协作拓扑](01-concepts/03-multi-agent-topologies.md) | [路由器](05-code/multi-agent-runtime-python/src/multi_agent/router.py) |
+| 子任务输入输出如何约定 | [交接契约](02-patterns/01-task-contract-and-handoff.md) | [测试](05-code/multi-agent-runtime-python/tests/test_runtime.py) |
+| 结果不一致或部分失败怎么办 | [共享状态与合并](02-patterns/02-shared-state-and-merge.md) | [合并器](05-code/multi-agent-runtime-python/src/multi_agent/merge.py) |
+| 加入协作是否值得 | [完整案例](03-cases/01-single-vs-multi-agent.md) | [运行 Notebook](04-labs/01-single-vs-multi-agent.ipynb) |
 
-1. Task Decomposition、Planning 与 Replanning。
-2. 状态机、DAG 和确定性 Workflow。
-3. 单 Agent 基线与引入多 Agent 的必要条件。
-4. 拓扑、角色边界、路由、委派、通信和共享状态。
-5. 冲突、重复工作、上下文隔离与失败恢复。
-6. [Multi-Agent 系统评测](../10-evaluation-observability/01-concepts/06-multi-agent-evaluation.md)。
-7. [案例入口](03-cases/README.md)、[实验入口](04-labs/README.md)和[运行时骨架](05-code/multi-agent-runtime-python/README.md)。
-
-当前系统设计正文仍待补充，已有重点是评测方法而不是可运行协作系统。
+[工程运行说明](05-code/multi-agent-runtime-python/README.md) · [实验入口](04-labs/README.md) · [来源](references.md) · [多 Agent 评测](../10-evaluation-observability/01-concepts/06-multi-agent-evaluation.md)

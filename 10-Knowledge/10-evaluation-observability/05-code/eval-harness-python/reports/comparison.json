@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "regressed_tasks": [],
+  "improved_tasks": [
+    "missing-version",
+    "old-version",
+    "wrong-tenant"
+  ],
+  "critical_failures": [],
+  "success_rate_delta": 0.75,
+  "policy": "strict paired regression; not a statistical non-inferiority test"
+}

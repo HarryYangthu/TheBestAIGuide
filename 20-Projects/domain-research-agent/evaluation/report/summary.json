@@ -1,0 +1,33 @@
+{
+  "tasks": 4,
+  "trials": 8,
+  "successes": 8,
+  "trial_success_rate": 1.0,
+  "macro_task_success_rate": 1.0,
+  "system_errors": 0,
+  "per_task": {
+    "private": {
+      "successes": 2,
+      "trials": 2
+    },
+    "resume": {
+      "successes": 2,
+      "trials": 2
+    },
+    "supported": {
+      "successes": 2,
+      "trials": 2
+    },
+    "unknown": {
+      "successes": 2,
+      "trials": 2
+    }
+  },
+  "slices": {
+    "abstention": 1.0,
+    "authorization": 1.0,
+    "evidence": 1.0,
+    "recovery": 1.0
+  },
+  "uncertainty": "Not inferred: repeated deterministic fixtures are not independent population samples."
+}

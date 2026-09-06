@@ -1,31 +1,23 @@
 # 知识库首页
 
-这里是 TheBestAIGuide 的控制中心，只保存全局导航和维护规则；具体技术内容放在对应的知识领域中。
+建议从一个问题开始：模型怎样计算注意力？为什么检索到了文档却答错了？工具超时以后能不能重试？沿着领域入口进入正文，再运行配套实验，最后回到源码找对应机制。
 
-## 学习入口
+| 入口 | 用途 |
+| --- | --- |
+| [连续学习路线](Learning-Paths.md) | 按前置知识安排阅读，并选择适合自己的起点 |
+| [知识领域](../10-Knowledge/README.md) | 16 个领域的局部导航 |
+| [完整知识地图](Knowledge-Map.md) | 对照理论范围，了解还可以深入哪些方向 |
+| [核心术语表](Glossary.md) | 分清 Context、State、Memory、Runtime、Harness 等边界 |
+| [综合项目](../20-Projects/domain-research-agent/README.md) | 看知识如何组合成可运行系统 |
+| [知识库建设状态](Knowledge-Status.md) | 查看实际补全和验证范围 |
 
-- [连续学习路线](Learning-Paths.md)：按前置依赖安排学习顺序，并给出当前可直接阅读的专题。
-- [完整知识地图](Knowledge-Map.md)：查看 AI 与 Agent 的完整知识范围和主题关系。
-- [核心术语表](Glossary.md)：统一 Agent、Context、Memory、Runtime、Evaluation 等术语边界。
-- [知识库建设状态](Knowledge-Status.md)：区分已有正文、占位、实验和已验证内容。
+## 内容维护
 
-## 维护入口
+- [学习型写作规范](Learning-Writing-Guide.md)：机制、公式、数值例子、失败模式与代码怎样组织。
+- [目录与写作约定](Conventions.md)、[目录说明](Repository-Structure.md)：命名、链接、状态和证据规则。
+- [范围与边界](Scope.md)：知识库的收录范围。
+- [内容模板](templates/README.md)：创建概念、模式、案例、实验和来源卡。
+- [建设路线](Roadmap.md)、[完成与后续计划](待补充计划.md)、[更新记录](Changelog.md)：记录本次交付及持续维护任务。
+- [维护脚本](../scripts/README.md)：在修改后验证链接、Notebook 与源码。
 
-- [范围与边界](Scope.md)：说明收录和不收录的内容。
-- [仓库目录说明](Repository-Structure.md)：说明每个目录以及主题内部各层的职责。
-- [目录与写作规范](Conventions.md)：命名、链接、状态和证据规则。
-- [建设路线](Roadmap.md)与[待补充计划](待补充计划.md)：记录阶段目标和具体任务。
-- [内容模板](templates/README.md)：新增主题、知识、模式、案例和实验时使用。
-- [更新记录](Changelog.md)：记录重要结构和内容变化。
-
-## 最短使用路径
-
-```text
-Learning-Paths
-      ↓
-知识领域 README
-      ↓
-Concepts → Patterns → Cases → Labs → Code
-```
-
-每次学习一个领域时，先阅读该领域的 `README.md`。它是该领域唯一的局部导航入口，不再另设一套专题地图。
+每个领域以自己的 README 为唯一局部导航。无需记住每个子目录：进入文章后，应能直接找到来源、实验与实现。

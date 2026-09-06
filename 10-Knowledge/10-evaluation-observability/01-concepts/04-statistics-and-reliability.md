@@ -134,3 +134,27 @@ exclusions:
 - [OpenAI HumanEval reference implementation](https://github.com/openai/human-eval)
 
 下一步：[Trace 与失败归因](05-traces-and-failure-analysis.md)。
+
+## 手算 Wilson：8/10 不意味着可靠性已经是 80%
+
+令观测比例 \(\hat p=c/n\)，标准正态分位数 \(z\) 在 95% 双侧区间下约为 1.96。Wilson 区间为：
+
+\[
+\frac{\hat p+z^2/(2n)\;\pm\;z\sqrt{\hat p(1-\hat p)/n+z^2/(4n^2)}}{1+z^2/n}.
+\]
+
+把 \(c=8,n=10\) 代入，中心约 0.7167、半宽约 0.2266，得到约 `[0.4902, 0.9433]`。它比一句“成功率 80%”更能表达小样本不确定性。[NIST 说明](https://www.itl.nist.gov/div898/handbook/prc/section2/prc241.htm)提供公式背景。频率学区间描述的是构造方法在重复采样下的覆盖率，不是“固定真值有95%概率落在这一次区间内”。
+
+这里假设独立同分布的二项试验；多个 Task 各重复几次通常有组内相关。不能把 4 道确定性题重复 100 次当 400 个独立业务样本。配套报告因此只给教学集经验比例，未自动附一个误导性的总体置信区间。
+
+## 手算 pass@k：至少一次与每次都成功差很多
+
+设某题抽了 \(n=10\) 个候选，其中 \(c=2\) 个通过，随机取 \(k=3\) 个，则至少一个通过的估计为：
+
+\[
+1-\frac{\binom{8}{3}}{\binom{10}{3}}=1-\frac{56}{120}\approx0.5333.
+\]
+
+分子统计“三个全失败”的组合数，所以用 1 减它。若已知单次成功率 \(p=0.8\) 且各次独立，三次至少一次通过是 0.992，三次全部通过只有 0.512。这两个数字回答不同问题，不能用前者包装单次可靠性。
+
+可执行公式：[statistics.py](../05-code/eval-harness-python/src/eval_harness/statistics.py)，计算输出：[Notebook](../04-labs/01-evaluation-and-regression.ipynb)。生产比较仍需预先确定配对、任务族、样本量和停止规则；本仓严格逐任务回归门禁不冒充统计非劣检验。

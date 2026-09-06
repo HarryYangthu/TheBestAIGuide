@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "agent-state",
+  "$comment": "TheBestAIGuide local contract v1; not an MCP or A2A wire format.",
+  "type": "object",
+  "properties": {
+    "task": {
+      "type": "string",
+      "minLength": 1
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "running",
+        "completed",
+        "failed",
+        "stopped"
+      ]
+    },
+    "steps": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "observations": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "answer": {
+      "type": "string"
+    },
+    "stop_reason": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "task",
+    "run_id",
+    "status",
+    "steps",
+    "observations",
+    "answer",
+    "stop_reason"
+  ],
+  "additionalProperties": false
+}

@@ -241,3 +241,9 @@ grader_results: []
 
 - [Anthropic: Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)
 - [Anthropic: How we built our multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system)
+
+## 用任务契约评分，不按 Agent 自评分汇总
+
+假设研究者返回两条证据，执行者返回一个产物，Reviewer 说“通过”。最终 Grader 仍应读取产物、证据引用和约束结果；三个子 Agent 的肯定自评不能替代端到端验收。对一个子 Agent 注入故障后，比较首次失败节点、交接内容和合并结果，才能区分局部失败与错误传播。
+
+本域 [Eval Harness](../05-code/eval-harness-python/README.md)提供共同任务/状态/结果评分接口，具体拓扑代码见[多 Agent 专题](../../08-planning-workflow-multi-agent/README.md)。此处未把四个字段查询教学任务冒充多 Agent 性能实验；实际并行收益需在共同预算、同一任务集下另行比较。

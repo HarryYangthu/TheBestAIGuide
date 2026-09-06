@@ -132,3 +132,9 @@ release_gate:
 阈值应基于业务风险、样本量和历史波动制定，不能从示例直接复制。
 
 相关内容：[Evaluation 与 Observability](../../10-evaluation-observability/README.md)。
+
+## 先区分证据进窗和证据被使用
+
+设某任务需要证据集合 \(E=\{e_1,e_2,e_3\}\)，实际选入 \(S=\{e_1,e_2,n_1,n_2\}\)，则 evidence recall 为 \(2/3\)，precision 为 \(2/4\)。这里按片段个数计数，不按 token；换口径需要说明。即使 recall 达到 1，模型仍可能忽略禁止条件，所以还必须检查最终动作。
+
+[预算实验](../04-labs/01-token-budget.ipynb)测“约束/证据是否保留”；[压缩实验](../04-labs/02-context-compaction.ipynb)测“预先标注的三个事实是否保真”。二者没有运行模型，不能由结果推出任务成功率。接真实模型时先冻结这些中间检查，再增加相同任务的动作/答案 Grader，才能发现信息已齐全但使用失败的问题。

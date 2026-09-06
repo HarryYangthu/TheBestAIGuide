@@ -157,3 +157,37 @@ S5735 出现 ALM-12003 风扇告警怎么处理？
 - [Elasticsearch: Hybrid search](https://www.elastic.co/docs/solutions/search/hybrid-search)
 
 相关模式：[Hybrid Retrieval](../02-patterns/hybrid-retrieval.md)。
+
+## BM25 到底在算什么
+
+BM25 把查询中的词逐个打分后相加：稀有词区分力更强，重复出现的词有帮助但收益逐渐饱和，长文档则避免只因字数多而占便宜。本仓采用正值 IDF 的常见形式：
+
+\[
+\mathrm{BM25}(q,d)=\sum_{t\in q}\log\left(1+\frac{N-df_t+0.5}{df_t+0.5}\right)
+\frac{tf_{t,d}(k_1+1)}{tf_{t,d}+k_1(1-b+b|d|/\overline{dl})}.
+\]
+
+\(N\) 为参与检索的文档数，\(df_t\) 为含词 \(t\) 的文档数，\(tf_{t,d}\) 为词频，\(|d|\) 与 \(\overline{dl}\) 为本篇和平均文档长度，均按同一分词器计数。\(k_1>0\) 控制词频饱和，\(b\in[0,1]\) 控制长度归一化。不同实现的 IDF 变体可能不同，不应期待所有搜索引擎输出完全相同的分数。[BM25 原论文综述](https://www.staff.city.ac.uk/~sbrp622/papers/foundations_bm25_review.pdf)给出其概率检索背景。
+
+手算一个词：设 \(N=3,df=1,tf=2,|d|=\overline{dl},k_1=1.2,b=0.75\)。IDF 为 \(\ln(1+2.5/1.5)\approx0.9808\)，词频项为 \(2\times2.2/(2+1.2)=1.375\)，贡献约 \(1.3486\)。词频从 2 增到 4，贡献不会翻倍，因为分母也在增加。完整函数见 [bm25](../05-code/rag-pipeline-python/src/rag_pipeline/retrieval.py)。
+
+本仓英文按词/完整编码、中文按单字分词，这是方便阅读的基线。中文同字但不同义的片段会造成噪声，不能据此评价生产搜索引擎的中文分析器。
+
+## RRF 为什么能融合不同分数
+
+把两个通道排名写成 A=`[a,b]`、B=`[b,c]`，平滑常数设 60。a 只在 A 第 1 位，得 \(1/61\approx0.01639\)；b 在 A 第 2 位、B 第 1 位，得 \(1/62+1/61\approx0.03252\)；c 得 \(1/62\approx0.01613\)。因此 b 排第一。它综合的是排名支持度，没有把 BM25 2.3 和 cosine 0.8 当同一种分数相加。
+
+缺席的文档贡献为 0；同一通道重复返回同一块只能算一次。常数越大，同一路前后名次差距越平缓；它不是 top-k。实现：[ranking.py](../05-code/rag-pipeline-python/src/rag_pipeline/ranking.py)。这不能覆盖精确编号的硬要求，所以本仓先过滤编号再融合。
+
+## Recall、MRR、nDCG 各看一件事
+
+假设 gold 有两篇：good 的等级 2，okay 的等级 1；返回 `[bad, good, okay]`。Recall@3 为 2/2=1，MRR@3 为第一个相关项排名的倒数 1/2。定义增益 \(g(rel)=2^{rel}-1\)，则：
+
+\[
+DCG@k=\sum_{r=1}^{k}\frac{2^{rel_r}-1}{\log_2(r+1)},\qquad
+nDCG@k=\frac{DCG@k}{IDCG@k}.
+\]
+
+当前 DCG 为 \(3/\log_2 3+1/\log_2 4\approx2.3928\)，理想顺序 `[good,okay,bad]` 的 IDCG 为 \(3+1/\log_2 3\approx3.6309\)，nDCG 为约 0.6590。它指出“都找到了，但重要证据没排在最前”。无相关证据的查询分母为零，单独计拒答，不能强设 nDCG=1。
+
+公式与数值都在 [Notebook](../04-labs/01-hybrid-retrieval-evaluation.ipynb)实际运行。实验按文档 ID 去重，5 条可回答查询中跨语言查询失败，BM25 与 hybrid 的平均 Recall@3 都为 0.8；这不构成 hybrid 优于 BM25 的证据。

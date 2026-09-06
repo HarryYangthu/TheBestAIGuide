@@ -36,3 +36,9 @@
 - 任何 Benchmark 分数必须同时记录模型、Harness、数据集、环境和日期。
 - 链接、API 或标准状态变化后，更新复核日期并说明迁移影响。
 - 二手解读可以进入 Inbox，但不能单独支撑 `reviewed` 结论。
+
+## 2026-09-06 本轮增补核验
+
+本轮打开核对 Anthropic Agent Evals 正文、[HumanEval 论文](https://arxiv.org/abs/2107.03374)、[NIST Wilson 区间说明](https://www.itl.nist.gov/div898/handbook/prc/section2/prc241.htm)和 [OpenTelemetry GenAI 迁移入口](https://opentelemetry.io/docs/specs/semconv/gen-ai/)。Wilson 用于满足采样假设的比例区间；本仓确定性重复任务不套总体区间。GenAI 字段仍按具体版本使用，本地事件没有自称符合稳定标准。
+
+[教学案例](03-cases/01-from-task-dataset-to-regression.md)中的数据与结果为原创构造，不是上述来源中的真实性能；未运行 LLM Judge，也没有独立专家校准标签。表中既有 OpenAI API 链接保留供阅读，本轮没有依赖或新实现其 API。

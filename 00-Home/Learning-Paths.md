@@ -5,21 +5,9 @@
 
 ## 如何阅读一个知识领域
 
-```text
-领域 README
-    ↓
-Concepts：理解概念和机制
-    ↓
-Patterns：学习可复用设计方法
-    ↓
-Cases：观察真实约束下的选择
-    ↓
-Labs：运行实验验证关键结论
-    ↓
-Code：阅读或实现可测试代码
-```
+先读领域 README，再进入概念和模式。用案例理解取舍，在 Notebook 中修改输入，最后去源码查执行过程。
 
-如果某一阶段尚无内容，领域 README 会明确标记缺口，不用进入空目录寻找。
+每次学习至少回答三个问题：它实际做了什么？在什么条件下会错？对应代码在哪里？
 
 ## 完整主线
 
@@ -38,7 +26,15 @@ Code：阅读或实现可测试代码
 13. [应用工程](../10-Knowledge/13-application-engineering/README.md)与[生产工程](../10-Knowledge/14-production-engineering/README.md)：把能力接入产品并可靠运行。
 14. [多模态与具身智能](../10-Knowledge/15-multimodal-and-embodied/README.md)及[研究前沿](../10-Knowledge/16-research-frontiers/README.md)：在核心闭环之后扩展。
 
-前两层目前主要是范围和占位，适合用于确认前置知识，但还不是完整教材。
+前两层已补齐原入口的 13 篇基础教程。数学基础薄弱时从 AI 基础开始；已有模型基础时可以直接进入 Agent Loop。
+
+## 三种起点
+
+| 起点 | 推荐阅读和实验 | 学完应能做什么 |
+| --- | --- | --- |
+| 数学与模型 | AI 基础 → Attention → 解码/缓存实验 | 解释核心公式并读懂中间张量 |
+| 系统设计 | Agent Loop → Context/RAG → Tools/Memory → Runtime | 做出有限步数、可拒答、可恢复的程序 |
+| 已有项目 | Evaluation → Safety → 生产工程 → 综合案例 | 找出失败位置，并用回归任务验证修改 |
 
 ## 当前可直接阅读：Context Engineering
 
@@ -70,8 +66,12 @@ Code：阅读或实现可测试代码
 7. [Multi-Agent 系统评测](../10-Knowledge/10-evaluation-observability/01-concepts/06-multi-agent-evaluation.md)
 8. [评测运营](../10-Knowledge/10-evaluation-observability/02-patterns/01-evaluation-operations.md)和[模板清单](../10-Knowledge/10-evaluation-observability/02-patterns/02-templates-and-checklists.md)
 
-## 当前证据边界
+## 如何使用配套实验
 
-- Context、RAG 和 Evaluation 已有可阅读正文。
-- Context Notebook、RAG Pipeline、Agent Loop 和 Eval Harness 仍是未验证骨架。
-- 只有实际运行并记录环境、输入、输出和结果后，实验或代码才能标记为 `verified`。
+先阅读 Notebook 的问题和预期现象，再执行代码，最后改变一个参数：例如 Attention 的维度、Context 预算、检索查询或记忆有效期。不要一次改多个条件，否则很难解释结果为什么变了。
+
+[统一运行说明](../scripts/README.md)提供依赖安装、Python/TypeScript 测试和 Notebook 执行命令。[综合项目](../20-Projects/domain-research-agent/README.md)把多个领域的真实源码连起来，可以作为第二轮阅读的入口。
+
+## 证据边界
+
+正文、源码测试、Notebook 和外部系统复现分别记状态。本地小实验可检验机制和边界，不能直接推出真实 LLM、真实用户流量或生产环境的效果。具体已执行范围见[建设状态](Knowledge-Status.md)。

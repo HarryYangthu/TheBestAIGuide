@@ -1,18 +1,17 @@
 # AI 基础
 
-> 状态：seed
+> 状态：draft · 7篇概念正文；4个教学Notebook已实跑，具体范围见[运行记录](04-labs/run-report.md)。
 
-本领域只覆盖理解现代基础模型和 Agent 所需的理论底座，不扩展成完整 AI 百科。
+这一域为理解基础模型和Agent提供理论底座。先读机制与算例，再运行对应实验，最后到源码查看完整实现。教程保留推导、错误条件与实践边界，来源核验不等于人工审稿。
 
-## 建议顺序
+| 顺序 | 学习主题 | 最值得掌握的内容 | 对应实践 |
+|---|---|---|---|
+| 1 | [数学与统计](01-concepts/math-and-statistics/README.md) | 张量轴、点积、后验、交叉熵、梯度和实验单位 | [矩阵与优化](04-labs/01-math-and-optimization.ipynb) |
+| 2 | [机器学习](01-concepts/machine-learning/README.md) | 目标与指标、数据划分、泄漏、泛化与分布偏移 | [泛化对照](04-labs/02-generalization-and-calibration.ipynb) |
+| 3 | [深度学习](01-concepts/deep-learning/README.md) | 非线性、计算图、梯度累加、训练循环与优化器 | [标量Autograd与XOR](04-labs/deep-learning/01-autograd-and-training.ipynb) |
+| 4 | [经典AI](01-concepts/classical-ai/README.md) | 状态空间、搜索最优性、启发式、MCTS与约束 | [BFS/UCS/A*](04-labs/search-and-rl/01-search-and-value-learning.ipynb) |
+| 5 | [强化学习](01-concepts/reinforcement-learning/README.md) | MDP/POMDP、回报、Bellman、Q学习与探索 | [价值迭代与Q-learning](04-labs/search-and-rl/01-search-and-value-learning.ipynb) |
+| 6 | [可信AI](01-concepts/trustworthy-ai/README.md) | 校准、OOD、鲁棒、公平、解释和隐私的分开评测 | [温度缩放与覆盖率](04-labs/02-generalization-and-calibration.ipynb) |
+| 7 | [计算基础](01-concepts/compute-foundations/README.md) | 显存组成、算力/带宽、精度、性能测量 | [缓存容量与量化](../02-foundation-models/04-labs/02-decoding-cache-and-precision.ipynb) |
 
-1. [数学与统计](01-concepts/math-and-statistics/README.md)：向量、矩阵、概率、统计、信息论、梯度与优化。
-2. [机器学习](01-concepts/machine-learning/README.md)：任务、损失、指标、数据划分、泛化与分布偏移。
-3. [深度学习](01-concepts/deep-learning/README.md)：计算图、自动微分、反向传播、优化器与表示学习。
-4. [经典 AI](01-concepts/classical-ai/README.md)：状态空间、搜索、启发式、约束满足与规划。
-5. [强化学习](01-concepts/reinforcement-learning/README.md)：MDP、Policy、Value、Q、Bellman 与探索利用。
-6. [可信 AI](01-concepts/trustworthy-ai/README.md)：不确定性、校准、鲁棒性、公平、隐私与模型安全。
-7. [计算基础](01-concepts/compute-foundations/README.md)：CPU/GPU、显存、带宽、精度及资源约束。
-8. [实验入口](04-labs/README.md)：基础练习、深度学习实验及搜索/强化学习实验。
-
-当前各子主题仍是范围占位，正式笔记与实验尚待补充。下一步进入[基础模型](../02-foundation-models/README.md)。
+[实验与运行方法](04-labs/README.md) · [可复用源码](05-code/README.md) · [一手来源与主张范围](references.md)。下一域：[基础模型](../02-foundation-models/README.md)。

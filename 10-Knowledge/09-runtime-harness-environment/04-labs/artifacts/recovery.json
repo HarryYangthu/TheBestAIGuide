@@ -1,0 +1,160 @@
+{
+  "data": "synthetic local ledger",
+  "crashes": [
+    {
+      "crash_at": "before_effect",
+      "effect_count_at_crash": 0,
+      "effect_count_after_resume_and_repeat": 1,
+      "status": "completed"
+    },
+    {
+      "crash_at": "after_effect",
+      "effect_count_at_crash": 1,
+      "effect_count_after_resume_and_repeat": 1,
+      "status": "completed"
+    },
+    {
+      "crash_at": "after_checkpoint",
+      "effect_count_at_crash": 1,
+      "effect_count_after_resume_and_repeat": 1,
+      "status": "completed"
+    }
+  ],
+  "traces_before_compensation": {
+    "before_effect": [
+      {
+        "seq": 1,
+        "step_id": "charge",
+        "event": "prepared",
+        "payload": {
+          "amount": 10
+        }
+      },
+      {
+        "seq": 2,
+        "step_id": "charge",
+        "event": "attempt",
+        "payload": {}
+      },
+      {
+        "seq": 3,
+        "step_id": "charge",
+        "event": "attempt",
+        "payload": {}
+      },
+      {
+        "seq": 4,
+        "step_id": "charge",
+        "event": "completed",
+        "payload": {
+          "amount": 10,
+          "key": "[\"before_effect\",\"charge\"]"
+        }
+      }
+    ],
+    "after_effect": [
+      {
+        "seq": 5,
+        "step_id": "charge",
+        "event": "prepared",
+        "payload": {
+          "amount": 10
+        }
+      },
+      {
+        "seq": 6,
+        "step_id": "charge",
+        "event": "attempt",
+        "payload": {}
+      },
+      {
+        "seq": 7,
+        "step_id": "charge",
+        "event": "attempt",
+        "payload": {}
+      },
+      {
+        "seq": 8,
+        "step_id": "charge",
+        "event": "completed",
+        "payload": {
+          "amount": 10,
+          "key": "[\"after_effect\",\"charge\"]"
+        }
+      }
+    ],
+    "after_checkpoint": [
+      {
+        "seq": 9,
+        "step_id": "charge",
+        "event": "prepared",
+        "payload": {
+          "amount": 10
+        }
+      },
+      {
+        "seq": 10,
+        "step_id": "charge",
+        "event": "attempt",
+        "payload": {}
+      },
+      {
+        "seq": 11,
+        "step_id": "charge",
+        "event": "completed",
+        "payload": {
+          "amount": 10,
+          "key": "[\"after_checkpoint\",\"charge\"]"
+        }
+      }
+    ]
+  },
+  "compensated_trace": [
+    {
+      "seq": 5,
+      "step_id": "charge",
+      "event": "prepared",
+      "payload": {
+        "amount": 10
+      }
+    },
+    {
+      "seq": 6,
+      "step_id": "charge",
+      "event": "attempt",
+      "payload": {}
+    },
+    {
+      "seq": 7,
+      "step_id": "charge",
+      "event": "attempt",
+      "payload": {}
+    },
+    {
+      "seq": 8,
+      "step_id": "charge",
+      "event": "completed",
+      "payload": {
+        "amount": 10,
+        "key": "[\"after_effect\",\"charge\"]"
+      }
+    },
+    {
+      "seq": 12,
+      "step_id": "charge",
+      "event": "compensated",
+      "payload": {
+        "key": "[\"after_effect\",\"charge\"]",
+        "refunded": 10
+      }
+    }
+  ],
+  "final_ledger": {
+    "charged": 30,
+    "charge_count": 3,
+    "refunded": 10,
+    "refund_count": 1,
+    "net": 20
+  },
+  "replay_had_no_effect": true
+}

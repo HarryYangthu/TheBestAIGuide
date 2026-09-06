@@ -119,3 +119,19 @@ Prompt Injection 首先是信任与授权问题，不只是文本过滤问题。
 
 - [Drew Breunig: How Long Contexts Fail](https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html)
 - [Anthropic: Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
+
+## 用同一个故障把诊断和修复对应起来
+
+以下是教学案例：Agent 要查 DEMO-A 的 `ALM-12003` 当前处理步骤，不能重启设备。
+
+| 可观察错误 | 对应机制 | 先改哪一层 | 怎么证明修对了 |
+| --- | --- | --- | --- |
+| 一直说“已确认要重启”，源头其实是早期猜测 | Poisoning | 记忆写入区分事实/假设，并保留来源 | 撤销错误事实后，后续读取不再返回它 |
+| 反复总结之前几十次日志 | Distraction | 当前状态独立，旧日志卸载 | 相同证据下检查下一步动作与重复调用数 |
+| 引用 `ALM-12030` 的步骤 | Confusion | 编号硬过滤、候选精排 | 相似编号硬负例不可进入证据集合 |
+| v1 说重启，v2 说禁止重启 | Clash | 产品、有效版本和替换关系 | 明确取 v2；版本未知则报告缺口 |
+| 输入没超限，但中间的“不得重启”没被遵守 | Rot 的候选症状 | 固定内容做位置/长度对照 | 多次试验控制模型与任务，不靠单例归因 |
+| 网关截掉了末尾的最新失败结果 | Overflow | 输出预留、完整预算、超限报错 | 断言最终输入预算与关键字段均满足 |
+| 检索返回另一个租户手册或恶意指令 | Leakage/Injection | 读取前授权、动作侧独立校验 | 非法访问失败且合法路径仍然通过 |
+
+总表列出八种可区分的现象，正文为阅读方便合并成六节；不是“学界统一规定六种”。分类允许重叠，例如旧版本冲突若被错误摘要成事实，也会发展为中毒。当前两本实验只验证打包和结构化压缩，不声称复现模型层 Context Rot。

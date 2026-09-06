@@ -1,0 +1,98 @@
+{
+  "data": "hand-authored synthetic teaching fixtures v1",
+  "mode": "BM25 + exact RRF",
+  "embedding_executed": false,
+  "reranker_executed": false,
+  "rows": [
+    {
+      "query_id": "q-code",
+      "slice": "identifier",
+      "ranking": [
+        "fan-guide"
+      ],
+      "abstained": false,
+      "recall": 1.0,
+      "mrr": 1.0,
+      "ndcg": 1.0,
+      "empty": false
+    },
+    {
+      "query_id": "q-near-code",
+      "slice": "identifier",
+      "ranking": [
+        "voltage-guide"
+      ],
+      "abstained": false,
+      "recall": 1.0,
+      "mrr": 1.0,
+      "ndcg": 1.0,
+      "empty": false
+    },
+    {
+      "query_id": "q-cooling",
+      "slice": "keyword",
+      "ranking": [
+        "cooling",
+        "voltage-guide",
+        "release-notes"
+      ],
+      "abstained": false,
+      "recall": 1.0,
+      "mrr": 1.0,
+      "ndcg": 1.0,
+      "empty": false
+    },
+    {
+      "query_id": "q-timeout",
+      "slice": "keyword",
+      "ranking": [
+        "timeout"
+      ],
+      "abstained": false,
+      "recall": 1.0,
+      "mrr": 1.0,
+      "ndcg": 1.0,
+      "empty": false
+    },
+    {
+      "query_id": "q-no-answer",
+      "slice": "unanswerable",
+      "ranking": [],
+      "abstained": true,
+      "recall": null,
+      "mrr": null,
+      "ndcg": null,
+      "empty": true
+    },
+    {
+      "query_id": "q-old-version",
+      "slice": "version",
+      "ranking": [],
+      "abstained": true,
+      "recall": null,
+      "mrr": null,
+      "ndcg": null,
+      "empty": true
+    },
+    {
+      "query_id": "q-tenant",
+      "slice": "permission",
+      "ranking": [],
+      "abstained": true,
+      "recall": null,
+      "mrr": null,
+      "ndcg": null,
+      "empty": true
+    },
+    {
+      "query_id": "q-synonym",
+      "slice": "paraphrase",
+      "ranking": [],
+      "abstained": true,
+      "recall": 0.0,
+      "mrr": 0.0,
+      "ndcg": 0.0,
+      "empty": true
+    }
+  ]
+}

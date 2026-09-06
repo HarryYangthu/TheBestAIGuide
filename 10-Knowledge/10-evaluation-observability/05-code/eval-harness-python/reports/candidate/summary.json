@@ -1,0 +1,32 @@
+{
+  "tasks": 4,
+  "trials": 8,
+  "successes": 8,
+  "trial_success_rate": 1.0,
+  "macro_task_success_rate": 1.0,
+  "system_errors": 0,
+  "per_task": {
+    "missing-version": {
+      "successes": 2,
+      "trials": 2
+    },
+    "old-version": {
+      "successes": 2,
+      "trials": 2
+    },
+    "valid": {
+      "successes": 2,
+      "trials": 2
+    },
+    "wrong-tenant": {
+      "successes": 2,
+      "trials": 2
+    }
+  },
+  "slices": {
+    "normal": 1.0,
+    "permission": 1.0,
+    "version": 1.0
+  },
+  "uncertainty": "Not inferred: repeated deterministic fixtures are not independent population samples."
+}

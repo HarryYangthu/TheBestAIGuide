@@ -145,6 +145,10 @@ Rerank 解决候选排序，不解决 ACL、错误版本和来源权威性。
 - 多 Trial 检查 Query Rewrite、路由和生成的波动；
 - 验证文档更新、删除、ACL 与过期版本不会泄露。
 
-当前仓库没有这些实验结果，因此该决策保持 `draft`。
+真实 Dense/生成模型及业务数据的实验尚未完成，因此该决策保持 `draft`；下方列出已完成的确定性教学验证。
 
 通用原理见[混合检索与重排](../01-concepts/02-hybrid-retrieval-and-reranking.md)，完整案例见[运维领域 RAG 问答系统](运维领域-RAG-问答系统.md)。
+
+## 复现进展
+
+[教学实现](../05-code/rag-pipeline-python/README.md)现已验证词法/精确字段两类信号、过滤和引用更新；[消融实验](../04-labs/01-hybrid-retrieval-evaluation.ipynb)显示，当前小语料中 BM25 与融合的 Recall 相同。真实 Dense/Reranker 仍未运行，所以双索引收益仍须用目标语料验证，不应据此把本决策改为“已验证最优”。

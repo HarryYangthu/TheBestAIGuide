@@ -111,3 +111,11 @@ remaining_risk: "..."
 - [OpenTelemetry Semantic Conventions](https://opentelemetry.io/docs/specs/semconv/)
 - [OpenTelemetry GenAI conventions migration notice](https://opentelemetry.io/docs/specs/semconv/gen-ai/)
 - [Anthropic: Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)
+
+## 一条最小可用的失败轨迹
+
+[教学案例](../03-cases/01-from-task-dataset-to-regression.md)的越权任务记录：`trial_start → lookup(scope_checked=False) → trial_end(success=False)`。与候选版对比，首次差异是缺少 `filter(authorized=False)`，因此先修授权过滤；改回答文风解决不了已经读错范围的问题。
+
+这里事件由被测教学函数主动 emit，不能当独立审计事实。生产工具权限与副作用记录应由 Runtime 产生，防止被测 Agent 漏报。当前工程保留任务/Trial 的顺序事件，不自称完整 OpenTelemetry 导出器。
+
+2026-09-06 核验发现 GenAI 约定文档已迁移到独立维护位置；应跟随[迁移入口](https://opentelemetry.io/docs/specs/semconv/gen-ai/)固定实际采用的仓库提交和 schema。实验使用自己的 `type/sequence/attributes` 字段，不声称这些是已稳定的 `gen_ai.*` 标准。

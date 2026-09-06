@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "trial-result",
+  "$comment": "TheBestAIGuide local contract v1; not an MCP or A2A wire format.",
+  "type": "object",
+  "properties": {
+    "task_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "trial_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "completed",
+        "failed",
+        "timeout",
+        "cancelled"
+      ]
+    },
+    "score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "output": {},
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "task_id",
+    "trial_id",
+    "status",
+    "score",
+    "output",
+    "errors"
+  ],
+  "additionalProperties": false
+}

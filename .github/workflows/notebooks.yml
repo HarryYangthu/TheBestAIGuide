@@ -1,0 +1,22 @@
+name: Execute learning notebooks
+on:
+  push:
+    paths: ['**/*.ipynb', '**/*.py', 'requirements-dev.lock', '**/fixtures/**', '.github/workflows/notebooks.yml']
+  pull_request:
+    paths: ['**/*.ipynb', '**/*.py', 'requirements-dev.lock', '**/fixtures/**', '.github/workflows/notebooks.yml']
+permissions:
+  contents: read
+jobs:
+  notebooks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-dev.lock
+      - run: pip install -r requirements-dev.lock
+      - run: python -m ipykernel install --sys-prefix --name python3
+      - run: python scripts/check_notebooks.py --execute

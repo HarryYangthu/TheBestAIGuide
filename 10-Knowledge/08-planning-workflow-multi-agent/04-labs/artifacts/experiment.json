@@ -1,0 +1,184 @@
+{
+  "data": "synthetic teaching fixture",
+  "rows": [
+    {
+      "mode": "single_worker_serial",
+      "selected": "A",
+      "calls": 2,
+      "max_active": 1,
+      "elapsed_ms": 40.717
+    },
+    {
+      "mode": "two_workers_parallel",
+      "selected": "A",
+      "calls": 2,
+      "max_active": 2,
+      "elapsed_ms": 20.4
+    },
+    {
+      "mode": "deterministic_baseline",
+      "selected": "A",
+      "calls": 0,
+      "max_active": 0
+    }
+  ],
+  "traces": {
+    "single_worker_serial": [
+      {
+        "seq": 0,
+        "task_id": "quality",
+        "event": "queued",
+        "elapsed_ms": 0.056
+      },
+      {
+        "seq": 1,
+        "task_id": "quality",
+        "event": "started",
+        "elapsed_ms": 0.083,
+        "kind": "quality"
+      },
+      {
+        "seq": 2,
+        "task_id": "constraints",
+        "event": "queued",
+        "elapsed_ms": 0.132
+      },
+      {
+        "seq": 3,
+        "task_id": "quality",
+        "event": "completed",
+        "elapsed_ms": 20.375,
+        "keys": [
+          "quality"
+        ]
+      },
+      {
+        "seq": 4,
+        "task_id": "constraints",
+        "event": "started",
+        "elapsed_ms": 20.418,
+        "kind": "constraints"
+      },
+      {
+        "seq": 5,
+        "task_id": "constraints",
+        "event": "completed",
+        "elapsed_ms": 40.717,
+        "keys": [
+          "feasible"
+        ]
+      }
+    ],
+    "two_workers_parallel": [
+      {
+        "seq": 0,
+        "task_id": "quality",
+        "event": "queued",
+        "elapsed_ms": 0.057
+      },
+      {
+        "seq": 1,
+        "task_id": "quality",
+        "event": "started",
+        "elapsed_ms": 0.079,
+        "kind": "quality"
+      },
+      {
+        "seq": 2,
+        "task_id": "constraints",
+        "event": "queued",
+        "elapsed_ms": 0.147
+      },
+      {
+        "seq": 3,
+        "task_id": "constraints",
+        "event": "started",
+        "elapsed_ms": 0.155,
+        "kind": "constraints"
+      },
+      {
+        "seq": 4,
+        "task_id": "quality",
+        "event": "completed",
+        "elapsed_ms": 20.366,
+        "keys": [
+          "quality"
+        ]
+      },
+      {
+        "seq": 5,
+        "task_id": "constraints",
+        "event": "completed",
+        "elapsed_ms": 20.4,
+        "keys": [
+          "feasible"
+        ]
+      }
+    ]
+  },
+  "partial_failure_trace": [
+    {
+      "seq": 0,
+      "task_id": "q",
+      "event": "queued",
+      "elapsed_ms": 0.05
+    },
+    {
+      "seq": 1,
+      "task_id": "q",
+      "event": "started",
+      "elapsed_ms": 0.075,
+      "kind": "good"
+    },
+    {
+      "seq": 2,
+      "task_id": "q",
+      "event": "completed",
+      "elapsed_ms": 0.102,
+      "keys": [
+        "quality"
+      ]
+    },
+    {
+      "seq": 3,
+      "task_id": "c",
+      "event": "queued",
+      "elapsed_ms": 0.113
+    },
+    {
+      "seq": 4,
+      "task_id": "c",
+      "event": "started",
+      "elapsed_ms": 0.12,
+      "kind": "slow"
+    },
+    {
+      "seq": 5,
+      "task_id": "c",
+      "event": "timeout",
+      "elapsed_ms": 20.592
+    }
+  ],
+  "conflict": "decision: ['review-A'] conflicts with review-B",
+  "cancel_trace": [
+    {
+      "seq": 0,
+      "task_id": "cancel-me",
+      "event": "queued",
+      "elapsed_ms": 0.027
+    },
+    {
+      "seq": 1,
+      "task_id": "cancel-me",
+      "event": "started",
+      "elapsed_ms": 0.05,
+      "kind": "slow"
+    },
+    {
+      "seq": 2,
+      "task_id": "cancel-me",
+      "event": "cancelled",
+      "elapsed_ms": 0.174
+    }
+  ]
+}

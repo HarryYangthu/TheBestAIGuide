@@ -171,3 +171,7 @@ failure:
 - [ ] 重复工作、并行等待和单次成功成本可见。
 
 完整说明见 [Agent Evaluation](../01-concepts/00-overview.md) 与 [Multi-Agent 评测](../01-concepts/06-multi-agent-evaluation.md)。
+
+## 模板怎样接到本仓实现
+
+[EvalTask](../05-code/eval-harness-python/src/eval_harness/tasks.py)把公开 `input`、初始 `fixture` 与私有 `expected` 分离；[任务 fixture](../05-code/eval-harness-python/fixtures/tasks.jsonl)给出已填完整的四条教学样例。上面的全量 YAML 是生产设计参考，本地 Python 工程未实现其中所有限时、费用、镜像和模型配置字段，不应把模板字段的存在等同于能力已实现。

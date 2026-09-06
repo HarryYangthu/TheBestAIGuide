@@ -162,3 +162,9 @@ Chunk 长度没有普适最优值，需要针对语料、查询和模型评测�
 - [Elasticsearch: Reciprocal rank fusion](https://www.elastic.co/docs/reference/elasticsearch/rest-apis/reciprocal-rank-fusion)
 
 下一步：[混合检索与重排](02-hybrid-retrieval-and-reranking.md)。
+
+## 先跑通一个不依赖模型的证据链
+
+配套 [RAG Pipeline](../05-code/rag-pipeline-python/README.md)已实现：本地 UTF-8/JSONL 接入、段落切块、租户/版本/产品/编号过滤、BM25 与 Exact 融合、原文摘录与引用验证。按顺序读取 `ingest.py → chunking.py → retrieval.py → citations.py`，再运行 [Notebook](../04-labs/01-hybrid-retrieval-evaluation.ipynb)。
+
+先用抽取式输出，是为了把“搜没搜到、有没有读错版本、引用有没有失效”与“模型有没有正确组织答案”拆开。真实 Dense/Reranker 和生成模型尚未运行；跨语言查询保留零召回失败，不能把此工程描述为已经完成所有 RAG 组件的效果验证。

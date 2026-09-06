@@ -1,0 +1,2490 @@
+{
+  "baseline": "f9729ba319a5cf0911b009c863a4796a888d8306",
+  "date": "2026-09-06",
+  "counts": {
+    "保留": 21,
+    "更新": 113,
+    "移除标记": 4,
+    "新增": 275
+  },
+  "files": [
+    {
+      "path": ".editorconfig",
+      "baseline": "基础配置可用",
+      "action": "保留现有内容；不制造无必要修改",
+      "new": false
+    },
+    {
+      "path": ".github/workflows/README.md",
+      "baseline": "CI 占位",
+      "action": "补全或更新；导航、规范或记录",
+      "new": false
+    },
+    {
+      "path": ".gitignore",
+      "baseline": "基础配置可用",
+      "action": "补全或更新；维护配置",
+      "new": false
+    },
+    {
+      "path": "00-Home/Changelog.md",
+      "baseline": "维护记录可用",
+      "action": "补全或更新；导航、规范或记录",
+      "new": false
+    },
+    {
+      "path": "00-Home/Conventions.md",
+      "baseline": "规范可用·需对齐",
+      "action": "补全或更新；导航、规范或记录",
+      "new": false
+    },
+    {
+      "path": "00-Home/Glossary.md",
+      "baseline": "已有正文·待核验",
+      "action": "保留现有内容；不制造无必要修改",
+      "new": false
+    },
+    {
+      "path": "00-Home/Knowledge-Map.md",
+      "baseline": "总纲可用·待落地",
+      "action": "补全或更新；导航、规范或记录",
+      "new": false
+    },
+    {
+      "path": "00-Home/Knowledge-Status.md",
+      "baseline": "状态表可用·需更新",
+      "action": "补全或更新；导航、规范或记录",
+      "new": false
+    },
+    {
+      "path": "00-Home/Learning-Paths.md",
+      "baseline": "学习路线可用·待同步",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "00-Home/README.md",
+      "baseline": "导航可用·待同步",
+      "action": "补全或更新；导航、规范或记录",
+      "new": false
+    },
+    {
+      "path": "00-Home/Repository-Structure.md",
+      "baseline": "规范可用",
+      "action": "保留现有内容；不制造无必要修改",
+      "new": false
+    },
+    {
+      "path": "00-Home/Roadmap.md",
+      "baseline": "高层计划可用·待细化",
+      "action": "补全或更新；导航、规范或记录",
+      "new": false
+    },
+    {
+      "path": "00-Home/Scope.md",
+      "baseline": "规范可用",
+      "action": "保留现有内容；不制造无必要修改",
+      "new": false
+    },
+    {
+      "path": "00-Home/reference-cases/AgentGuide/README.md",
+      "baseline": "导航可用",
+      "action": "保留现有内容；不制造无必要修改",
+      "new": false
+    },
+    {
+      "path": "00-Home/reference-cases/AgentGuide/repository-walkthrough.md",
+      "baseline": "历史成稿·保留证据边界",
+      "action": "保留现有内容；不制造无必要修改",
+      "new": false
+    },
+    {
+      "path": "00-Home/templates/README.md",
+      "baseline": "模板说明可用·待增强",
+      "action": "补全或更新；导航、规范或记录",
+      "new": false
+    },
+    {
+      "path": "00-Home/待补充计划.md",
+      "baseline": "任务清单可用·待细化",
+      "action": "补全或更新；导航、规范或记录",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/01-ai-foundations/01-concepts/classical-ai/README.md",
+      "baseline": "概念主题占位",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/01-ai-foundations/01-concepts/compute-foundations/README.md",
+      "baseline": "概念主题占位",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/01-ai-foundations/01-concepts/deep-learning/README.md",
+      "baseline": "概念主题占位",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/01-ai-foundations/01-concepts/machine-learning/README.md",
+      "baseline": "概念主题占位",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/01-ai-foundations/01-concepts/math-and-statistics/README.md",
+      "baseline": "概念主题占位",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/01-ai-foundations/01-concepts/reinforcement-learning/README.md",
+      "baseline": "概念主题占位",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/01-ai-foundations/01-concepts/trustworthy-ai/README.md",
+      "baseline": "概念主题占位",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/01-ai-foundations/04-labs/README.md",
+      "baseline": "实验入口占位",
+      "action": "补全或更新；verified",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/01-ai-foundations/04-labs/deep-learning/README.md",
+      "baseline": "实验入口占位",
+      "action": "补全或更新；verified",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/01-ai-foundations/04-labs/search-and-rl/README.md",
+      "baseline": "实验入口占位",
+      "action": "补全或更新；verified",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/01-ai-foundations/README.md",
+      "baseline": "领域提纲·待补全",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/02-foundation-models/01-concepts/inference/README.md",
+      "baseline": "概念主题占位",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/02-foundation-models/01-concepts/model-selection/README.md",
+      "baseline": "概念主题占位",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/02-foundation-models/01-concepts/reasoning/README.md",
+      "baseline": "概念主题占位",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/02-foundation-models/01-concepts/tokenization/README.md",
+      "baseline": "概念主题占位",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/02-foundation-models/01-concepts/training/README.md",
+      "baseline": "概念主题占位",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/02-foundation-models/01-concepts/transformer/README.md",
+      "baseline": "概念主题占位",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/02-foundation-models/04-labs/README.md",
+      "baseline": "实验入口占位",
+      "action": "补全或更新；verified",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/02-foundation-models/README.md",
+      "baseline": "领域提纲·待补全",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/03-agent-core/04-labs/README.md",
+      "baseline": "实验入口占位",
+      "action": "补全或更新；verified",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/03-agent-core/05-code/agent-loop-python/README.md",
+      "baseline": "工程说明占位",
+      "action": "补全或更新；verified",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/03-agent-core/05-code/agent-loop-python/pyproject.toml",
+      "baseline": "工程配置初稿",
+      "action": "补全或更新；实现、配置、样例或运行证据",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/03-agent-core/05-code/agent-loop-python/src/.gitkeep",
+      "baseline": "源码/测试目录占位",
+      "action": "移除空目录标记；同目录已由源码/测试替代",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/03-agent-core/05-code/agent-loop-python/tests/.gitkeep",
+      "baseline": "源码/测试目录占位",
+      "action": "移除空目录标记；同目录已由源码/测试替代",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/03-agent-core/README.md",
+      "baseline": "领域提纲·待补全",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/04-context-engineering/01-concepts/00-overview.md",
+      "baseline": "技术正文已有·待核验补强",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/04-context-engineering/01-concepts/01-context-model.md",
+      "baseline": "技术正文已有·待核验补强",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/04-context-engineering/01-concepts/02-failure-modes.md",
+      "baseline": "技术正文已有·待核验补强",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/04-context-engineering/01-concepts/03-context-evaluation.md",
+      "baseline": "技术正文已有·待核验补强",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/04-context-engineering/02-patterns/01-context-builder.md",
+      "baseline": "技术正文已有·待核验补强",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/04-context-engineering/02-patterns/02-optimization-strategies.md",
+      "baseline": "技术正文已有·待核验补强",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/04-context-engineering/04-labs/01-token-budget.ipynb",
+      "baseline": "Notebook 空代码占位",
+      "action": "补全或更新；已实际执行 4 个代码单元",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/04-context-engineering/04-labs/02-context-compaction.ipynb",
+      "baseline": "Notebook 空代码占位",
+      "action": "补全或更新；已实际执行 3 个代码单元",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/04-context-engineering/04-labs/README.md",
+      "baseline": "实验入口占位",
+      "action": "补全或更新；verified",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/04-context-engineering/README.md",
+      "baseline": "领域导航已有·待同步",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/04-context-engineering/references.md",
+      "baseline": "来源表已有·待复核",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/04-labs/README.md",
+      "baseline": "实验入口占位",
+      "action": "补全或更新；verified",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/mcp-server-typescript/README.md",
+      "baseline": "工程说明占位",
+      "action": "补全或更新；verified",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/README.md",
+      "baseline": "工程说明占位",
+      "action": "补全或更新；verified",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/tool-runtime-typescript/README.md",
+      "baseline": "工程说明占位",
+      "action": "补全或更新；verified",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/tool-runtime-typescript/package.json",
+      "baseline": "工程配置初稿",
+      "action": "补全或更新；实现、配置、样例或运行证据",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/tool-runtime-typescript/src/.gitkeep",
+      "baseline": "源码/测试目录占位",
+      "action": "移除空目录标记；同目录已由源码/测试替代",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/tool-runtime-typescript/test/.gitkeep",
+      "baseline": "源码/测试目录占位",
+      "action": "移除空目录标记；同目录已由源码/测试替代",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/README.md",
+      "baseline": "领域提纲·待补全",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/01-rag-pipeline.md",
+      "baseline": "技术正文已有·待核验补强",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/02-hybrid-retrieval-and-reranking.md",
+      "baseline": "技术正文已有·待核验补强",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/06-rag-and-knowledge-systems/02-patterns/hybrid-retrieval.md",
+      "baseline": "技术正文已有·待核验补强",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/06-rag-and-knowledge-systems/03-cases/运维RAG-双索引检索设计.md",
+      "baseline": "技术正文已有·待核验补强",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/06-rag-and-knowledge-systems/03-cases/运维领域-RAG-问答系统.md",
+      "baseline": "技术正文已有·待核验补强",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/06-rag-and-knowledge-systems/04-labs/README.md",
+      "baseline": "实验入口占位",
+      "action": "补全或更新；verified",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/06-rag-and-knowledge-systems/05-code/rag-pipeline-python/README.md",
+      "baseline": "工程说明占位",
+      "action": "补全或更新；verified",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/06-rag-and-knowledge-systems/README.md",
+      "baseline": "领域导航已有·待同步",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/07-state-and-memory/01-concepts/README.md",
+      "baseline": "已有种子短稿·待扩写",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/07-state-and-memory/02-patterns/README.md",
+      "baseline": "已有种子短稿·待扩写",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/07-state-and-memory/04-labs/README.md",
+      "baseline": "实验入口占位",
+      "action": "补全或更新；verified",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/07-state-and-memory/README.md",
+      "baseline": "领域提纲·待补全",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/08-planning-workflow-multi-agent/03-cases/README.md",
+      "baseline": "案例入口占位",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/08-planning-workflow-multi-agent/04-labs/README.md",
+      "baseline": "实验入口占位",
+      "action": "补全或更新；verified",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/08-planning-workflow-multi-agent/05-code/multi-agent-runtime-python/README.md",
+      "baseline": "工程说明占位",
+      "action": "补全或更新；verified",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/08-planning-workflow-multi-agent/README.md",
+      "baseline": "领域提纲·待补全",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/09-runtime-harness-environment/04-labs/README.md",
+      "baseline": "实验入口占位",
+      "action": "补全或更新；verified",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/09-runtime-harness-environment/README.md",
+      "baseline": "领域提纲·待补全",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/10-evaluation-observability/01-concepts/00-overview.md",
+      "baseline": "技术正文已有·待核验补强",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/10-evaluation-observability/01-concepts/01-evaluation-model.md",
+      "baseline": "技术正文已有·待核验补强",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/10-evaluation-observability/01-concepts/02-tasks-datasets-and-trials.md",
+      "baseline": "技术正文已有·待核验补强",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/10-evaluation-observability/01-concepts/03-graders-and-scoring.md",
+      "baseline": "技术正文已有·待核验补强",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/10-evaluation-observability/01-concepts/04-statistics-and-reliability.md",
+      "baseline": "技术正文已有·待核验补强",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/10-evaluation-observability/01-concepts/05-traces-and-failure-analysis.md",
+      "baseline": "技术正文已有·待核验补强",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/10-evaluation-observability/01-concepts/06-multi-agent-evaluation.md",
+      "baseline": "技术正文已有·待核验补强",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/10-evaluation-observability/02-patterns/01-evaluation-operations.md",
+      "baseline": "技术正文已有·待核验补强",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/10-evaluation-observability/02-patterns/02-templates-and-checklists.md",
+      "baseline": "技术正文已有·待核验补强",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/10-evaluation-observability/04-labs/README.md",
+      "baseline": "实验入口占位",
+      "action": "补全或更新；verified",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/README.md",
+      "baseline": "工程说明占位",
+      "action": "补全或更新；verified",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/10-evaluation-observability/README.md",
+      "baseline": "领域导航已有·待同步",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/10-evaluation-observability/references.md",
+      "baseline": "来源表已有·待复核",
+      "action": "补全或更新；reviewed",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/11-safety-security-governance/04-labs/README.md",
+      "baseline": "实验入口占位",
+      "action": "补全或更新；verified",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/11-safety-security-governance/README.md",
+      "baseline": "领域提纲·待补全",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/12-agent-learning/README.md",
+      "baseline": "领域提纲·待补全",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/03-cases/browser-agents/README.md",
+      "baseline": "案例入口占位",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/03-cases/coding-agents/README.md",
+      "baseline": "案例入口占位",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/03-cases/domain-agents/README.md",
+      "baseline": "案例入口占位",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/03-cases/domain-agents/enterprise/README.md",
+      "baseline": "案例入口占位",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/03-cases/domain-agents/operations/README.md",
+      "baseline": "案例入口占位",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/03-cases/domain-agents/science/README.md",
+      "baseline": "案例入口占位",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/05-code/browser-agent-typescript/README.md",
+      "baseline": "工程说明占位",
+      "action": "补全或更新；verified",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/README.md",
+      "baseline": "领域提纲·待补全",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/14-production-engineering/03-cases/failure-postmortems/README.md",
+      "baseline": "案例入口占位",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/14-production-engineering/03-cases/production-systems/README.md",
+      "baseline": "案例入口占位",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/14-production-engineering/README.md",
+      "baseline": "领域提纲·待补全",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/15-multimodal-and-embodied/04-labs/README.md",
+      "baseline": "实验入口占位",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/15-multimodal-and-embodied/README.md",
+      "baseline": "领域提纲·待补全",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/16-research-frontiers/03-cases/README.md",
+      "baseline": "案例入口占位",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/16-research-frontiers/README.md",
+      "baseline": "领域提纲·待补全",
+      "action": "补全或更新；draft",
+      "new": false
+    },
+    {
+      "path": "10-Knowledge/README.md",
+      "baseline": "导航可用·待同步",
+      "action": "补全或更新；导航、规范或记录",
+      "new": false
+    },
+    {
+      "path": "20-Projects/README.md",
+      "baseline": "项目准入说明可用·项目为空",
+      "action": "补全或更新；导航、规范或记录",
+      "new": false
+    },
+    {
+      "path": "90-Sources/README.md",
+      "baseline": "来源导航可用·待完善",
+      "action": "补全或更新；导航、规范或记录",
+      "new": false
+    },
+    {
+      "path": "90-Sources/books-and-courses/README.md",
+      "baseline": "来源索引占位",
+      "action": "补全或更新；导航、规范或记录",
+      "new": false
+    },
+    {
+      "path": "90-Sources/datasets-and-benchmarks/README.md",
+      "baseline": "来源索引占位",
+      "action": "补全或更新；导航、规范或记录",
+      "new": false
+    },
+    {
+      "path": "90-Sources/official-docs/README.md",
+      "baseline": "来源索引占位",
+      "action": "补全或更新；导航、规范或记录",
+      "new": false
+    },
+    {
+      "path": "90-Sources/papers/README.md",
+      "baseline": "来源索引占位",
+      "action": "补全或更新；导航、规范或记录",
+      "new": false
+    },
+    {
+      "path": "90-Sources/repositories/README.md",
+      "baseline": "来源索引占位",
+      "action": "补全或更新；导航、规范或记录",
+      "new": false
+    },
+    {
+      "path": "90-Sources/source-notes/README.md",
+      "baseline": "导航可用·待同步",
+      "action": "补全或更新；导航、规范或记录",
+      "new": false
+    },
+    {
+      "path": "90-Sources/standards/README.md",
+      "baseline": "来源索引占位",
+      "action": "补全或更新；导航、规范或记录",
+      "new": false
+    },
+    {
+      "path": "99-Inbox/README.md",
+      "baseline": "收件箱说明可用",
+      "action": "保留现有内容；不制造无必要修改",
+      "new": false
+    },
+    {
+      "path": "99-Inbox/experiment-ideas/README.md",
+      "baseline": "队列说明可用·无待办正文",
+      "action": "保留现有内容；不制造无必要修改",
+      "new": false
+    },
+    {
+      "path": "99-Inbox/quick-notes/素材收集箱.md",
+      "baseline": "模板与历史归档可用",
+      "action": "保留现有内容；不制造无必要修改",
+      "new": false
+    },
+    {
+      "path": "99-Inbox/reading-queue/README.md",
+      "baseline": "队列说明可用·无待办正文",
+      "action": "保留现有内容；不制造无必要修改",
+      "new": false
+    },
+    {
+      "path": "99-Inbox/repository-queue/README.md",
+      "baseline": "队列说明可用·无待办正文",
+      "action": "保留现有内容；不制造无必要修改",
+      "new": false
+    },
+    {
+      "path": "99-Inbox/to-classify/README.md",
+      "baseline": "队列说明可用·无待办正文",
+      "action": "保留现有内容；不制造无必要修改",
+      "new": false
+    },
+    {
+      "path": "README.md",
+      "baseline": "导航可用·待同步",
+      "action": "补全或更新；导航、规范或记录",
+      "new": false
+    },
+    {
+      "path": "assets/README.md",
+      "baseline": "素材清单可用·历史来源待查",
+      "action": "补全或更新；导航、规范或记录",
+      "new": false
+    },
+    {
+      "path": "assets/context-clash-sharded-instruction.png",
+      "baseline": "历史位图·未引用/待核验",
+      "action": "保留历史图片；来源未确认，见素材登记",
+      "new": false
+    },
+    {
+      "path": "assets/context-engineering-core.png",
+      "baseline": "历史位图·未引用/待核验",
+      "action": "保留历史图片；来源未确认，见素材登记",
+      "new": false
+    },
+    {
+      "path": "assets/context-engineering-core.svg",
+      "baseline": "已引用图示·源文件可解析",
+      "action": "保留现有内容；不制造无必要修改",
+      "new": false
+    },
+    {
+      "path": "assets/evaluation-code-based-graders.png",
+      "baseline": "历史位图·未引用/待核验",
+      "action": "保留历史图片；来源未确认，见素材登记",
+      "new": false
+    },
+    {
+      "path": "assets/evaluation-components-for-agents.png",
+      "baseline": "历史位图·未引用/待核验",
+      "action": "保留历史图片；来源未确认，见素材登记",
+      "new": false
+    },
+    {
+      "path": "assets/evaluation-human-graders.png",
+      "baseline": "历史位图·未引用/待核验",
+      "action": "保留历史图片；来源未确认，见素材登记",
+      "new": false
+    },
+    {
+      "path": "assets/evaluation-model-based-graders.png",
+      "baseline": "历史位图·未引用/待核验",
+      "action": "保留历史图片；来源未确认，见素材登记",
+      "new": false
+    },
+    {
+      "path": "assets/evaluation-single-turn-vs-agent.png",
+      "baseline": "历史位图·未引用/待核验",
+      "action": "保留历史图片；来源未确认，见素材登记",
+      "new": false
+    },
+    {
+      "path": "assets/tool-calling-irrelevance-score-gemma.png",
+      "baseline": "历史位图·未引用/待核验",
+      "action": "保留历史图片；来源未确认，见素材登记",
+      "new": false
+    },
+    {
+      "path": "scripts/README.md",
+      "baseline": "维护工具占位",
+      "action": "补全或更新；导航、规范或记录",
+      "new": false
+    },
+    {
+      "path": ".github/workflows/docs.yml",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": ".github/workflows/notebooks.yml",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": ".github/workflows/python.yml",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": ".github/workflows/typescript.yml",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "00-Home/Completion-Report.md",
+      "baseline": "不存在",
+      "action": "新增；导航、规范或记录",
+      "new": true
+    },
+    {
+      "path": "00-Home/Learning-Writing-Guide.md",
+      "baseline": "不存在",
+      "action": "新增；导航、规范或记录",
+      "new": true
+    },
+    {
+      "path": "00-Home/Verification-Report.md",
+      "baseline": "不存在",
+      "action": "新增；导航、规范或记录",
+      "new": true
+    },
+    {
+      "path": "00-Home/templates/case.md",
+      "baseline": "不存在",
+      "action": "新增；导航、规范或记录",
+      "new": true
+    },
+    {
+      "path": "00-Home/templates/concept.md",
+      "baseline": "不存在",
+      "action": "新增；导航、规范或记录",
+      "new": true
+    },
+    {
+      "path": "00-Home/templates/lab.md",
+      "baseline": "不存在",
+      "action": "新增；导航、规范或记录",
+      "new": true
+    },
+    {
+      "path": "00-Home/templates/pattern.md",
+      "baseline": "不存在",
+      "action": "新增；导航、规范或记录",
+      "new": true
+    },
+    {
+      "path": "00-Home/templates/source.md",
+      "baseline": "不存在",
+      "action": "新增；导航、规范或记录",
+      "new": true
+    },
+    {
+      "path": "00-Home/verification/browser-tests.txt",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "00-Home/verification/inventory.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "00-Home/verification/links.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "00-Home/verification/mcp-tests.txt",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "00-Home/verification/metadata.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "00-Home/verification/notebooks.jsonl",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "00-Home/verification/python-tests.txt",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "00-Home/verification/tool-runtime-tests.txt",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/01-ai-foundations/04-labs/01-math-and-optimization.ipynb",
+      "baseline": "不存在",
+      "action": "新增；已实际执行 5 个代码单元",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/01-ai-foundations/04-labs/02-generalization-and-calibration.ipynb",
+      "baseline": "不存在",
+      "action": "新增；已实际执行 4 个代码单元",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/01-ai-foundations/04-labs/deep-learning/01-autograd-and-training.ipynb",
+      "baseline": "不存在",
+      "action": "新增；已实际执行 5 个代码单元",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/01-ai-foundations/04-labs/run-report.md",
+      "baseline": "不存在",
+      "action": "新增；verified",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/01-ai-foundations/04-labs/search-and-rl/01-search-and-value-learning.ipynb",
+      "baseline": "不存在",
+      "action": "新增；已实际执行 5 个代码单元",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/01-ai-foundations/05-code/README.md",
+      "baseline": "不存在",
+      "action": "新增；verified",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/01-ai-foundations/05-code/foundations_core.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/01-ai-foundations/05-code/requirements.txt",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/01-ai-foundations/references.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/02-foundation-models/04-labs/01-tokenization-and-attention.ipynb",
+      "baseline": "不存在",
+      "action": "新增；已实际执行 6 个代码单元",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/02-foundation-models/04-labs/02-decoding-cache-and-precision.ipynb",
+      "baseline": "不存在",
+      "action": "新增；已实际执行 7 个代码单元",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/02-foundation-models/04-labs/run-report.md",
+      "baseline": "不存在",
+      "action": "新增；verified",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/02-foundation-models/05-code/README.md",
+      "baseline": "不存在",
+      "action": "新增；verified",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/02-foundation-models/05-code/model_mechanics.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/02-foundation-models/05-code/requirements.txt",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/02-foundation-models/references.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/03-agent-core/01-concepts/01-agent-boundaries.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/03-agent-core/01-concepts/02-agent-loop.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/03-agent-core/01-concepts/03-model-adapters.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/03-agent-core/02-patterns/01-react-and-plan-execute.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/03-agent-core/02-patterns/02-reflection-verification-human-loop.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/03-agent-core/04-labs/01-agent-loop.ipynb",
+      "baseline": "不存在",
+      "action": "新增；已实际执行 5 个代码单元",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/03-agent-core/05-code/agent-loop-python/fixtures/teaching-tasks.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/03-agent-core/05-code/agent-loop-python/requirements.lock",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/03-agent-core/05-code/agent-loop-python/src/agent_loop/__init__.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/03-agent-core/05-code/agent-loop-python/src/agent_loop/cli.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/03-agent-core/05-code/agent-loop-python/src/agent_loop/loop.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/03-agent-core/05-code/agent-loop-python/src/agent_loop/models.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/03-agent-core/05-code/agent-loop-python/src/agent_loop/tools.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/03-agent-core/05-code/agent-loop-python/src/agent_loop/trace.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/03-agent-core/05-code/agent-loop-python/tests/test_loop.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/03-agent-core/references.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/04-context-engineering/04-labs/context_lab.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/01-concepts/01-structured-output-and-tool-contracts.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/01-concepts/02-skills-and-progressive-disclosure.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/01-concepts/03-mcp.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/01-concepts/04-agent-communication-protocols.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/01-concepts/05-delegated-authorization.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/02-patterns/01-tool-runtime.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/04-labs/01-tool-contracts-and-errors.ipynb",
+      "baseline": "不存在",
+      "action": "新增；已实际执行 5 个代码单元",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/mcp-server-typescript/package-lock.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/mcp-server-typescript/package.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/mcp-server-typescript/src/client.ts",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/mcp-server-typescript/src/server.ts",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/mcp-server-typescript/test/integration.test.ts",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/mcp-server-typescript/tsconfig.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/agent-state.schema.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/eval-task.schema.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/examples/agent-state.invalid.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/examples/agent-state.valid.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/examples/eval-task.invalid.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/examples/eval-task.valid.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/examples/tool-call.invalid.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/examples/tool-call.valid.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/examples/tool-result.invalid.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/examples/tool-result.valid.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/examples/trace-event.invalid.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/examples/trace-event.valid.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/examples/trial-result.invalid.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/examples/trial-result.valid.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/tool-call.schema.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/tool-result.schema.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/trace-event.schema.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/trial-result.schema.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/validate_examples.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/tool-runtime-typescript/package-lock.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/tool-runtime-typescript/src/contracts.ts",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/tool-runtime-typescript/src/registry.ts",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/tool-runtime-typescript/src/runtime.ts",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/tool-runtime-typescript/test/runtime.test.ts",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/tool-runtime-typescript/test/schemas.test.ts",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/05-code/tool-runtime-typescript/tsconfig.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/05-tools-skills-protocols/references.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/03-ingestion-and-parsing.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/04-chunking-and-metadata.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/05-index-lifecycle.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/06-query-planning-and-graph-retrieval.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/07-citations-and-grounding.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/06-rag-and-knowledge-systems/04-labs/01-hybrid-retrieval-evaluation.ipynb",
+      "baseline": "不存在",
+      "action": "新增；已实际执行 5 个代码单元",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/06-rag-and-knowledge-systems/05-code/rag-pipeline-python/fixtures/README.md",
+      "baseline": "不存在",
+      "action": "新增；verified",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/06-rag-and-knowledge-systems/05-code/rag-pipeline-python/fixtures/corpus.jsonl",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/06-rag-and-knowledge-systems/05-code/rag-pipeline-python/fixtures/queries.jsonl",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/06-rag-and-knowledge-systems/05-code/rag-pipeline-python/pyproject.toml",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/06-rag-and-knowledge-systems/05-code/rag-pipeline-python/requirements.lock",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/06-rag-and-knowledge-systems/05-code/rag-pipeline-python/run-report.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/06-rag-and-knowledge-systems/05-code/rag-pipeline-python/src/rag_pipeline/__init__.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/06-rag-and-knowledge-systems/05-code/rag-pipeline-python/src/rag_pipeline/chunking.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/06-rag-and-knowledge-systems/05-code/rag-pipeline-python/src/rag_pipeline/citations.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/06-rag-and-knowledge-systems/05-code/rag-pipeline-python/src/rag_pipeline/cli.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/06-rag-and-knowledge-systems/05-code/rag-pipeline-python/src/rag_pipeline/ingest.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/06-rag-and-knowledge-systems/05-code/rag-pipeline-python/src/rag_pipeline/ranking.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/06-rag-and-knowledge-systems/05-code/rag-pipeline-python/src/rag_pipeline/retrieval.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/06-rag-and-knowledge-systems/05-code/rag-pipeline-python/tests/test_pipeline.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/06-rag-and-knowledge-systems/references.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/07-state-and-memory/01-concepts/01-state-and-checkpoints.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/07-state-and-memory/01-concepts/02-memory-lifecycle.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/07-state-and-memory/01-concepts/03-memory-evaluation.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/07-state-and-memory/02-patterns/01-memory-write-and-retrieval.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/07-state-and-memory/02-patterns/02-conflict-and-forgetting.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/07-state-and-memory/04-labs/01-state-memory-and-conflicts.ipynb",
+      "baseline": "不存在",
+      "action": "新增；已实际执行 4 个代码单元",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/07-state-and-memory/05-code/state-memory-python/README.md",
+      "baseline": "不存在",
+      "action": "新增；verified",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/07-state-and-memory/05-code/state-memory-python/fixtures/teaching-tasks.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/07-state-and-memory/05-code/state-memory-python/pyproject.toml",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/07-state-and-memory/05-code/state-memory-python/requirements.lock",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/07-state-and-memory/05-code/state-memory-python/src/state_memory/__init__.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/07-state-and-memory/05-code/state-memory-python/src/state_memory/checkpoint.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/07-state-and-memory/05-code/state-memory-python/src/state_memory/memory.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/07-state-and-memory/05-code/state-memory-python/src/state_memory/state.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/07-state-and-memory/05-code/state-memory-python/tests/test_memory.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/07-state-and-memory/references.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/08-planning-workflow-multi-agent/01-concepts/01-planning-and-replanning.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/08-planning-workflow-multi-agent/01-concepts/02-workflow-state-machines.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/08-planning-workflow-multi-agent/01-concepts/03-multi-agent-topologies.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/08-planning-workflow-multi-agent/02-patterns/01-task-contract-and-handoff.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/08-planning-workflow-multi-agent/02-patterns/02-shared-state-and-merge.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/08-planning-workflow-multi-agent/03-cases/01-single-vs-multi-agent.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/08-planning-workflow-multi-agent/04-labs/01-single-vs-multi-agent.ipynb",
+      "baseline": "不存在",
+      "action": "新增；已实际执行 5 个代码单元",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/08-planning-workflow-multi-agent/04-labs/artifacts/experiment.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/08-planning-workflow-multi-agent/04-labs/run-report.md",
+      "baseline": "不存在",
+      "action": "新增；verified",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/08-planning-workflow-multi-agent/05-code/multi-agent-runtime-python/examples/run_comparison.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/08-planning-workflow-multi-agent/05-code/multi-agent-runtime-python/pyproject.toml",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/08-planning-workflow-multi-agent/05-code/multi-agent-runtime-python/src/multi_agent/__init__.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/08-planning-workflow-multi-agent/05-code/multi-agent-runtime-python/src/multi_agent/contracts.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/08-planning-workflow-multi-agent/05-code/multi-agent-runtime-python/src/multi_agent/fixture.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/08-planning-workflow-multi-agent/05-code/multi-agent-runtime-python/src/multi_agent/merge.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/08-planning-workflow-multi-agent/05-code/multi-agent-runtime-python/src/multi_agent/router.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/08-planning-workflow-multi-agent/05-code/multi-agent-runtime-python/src/multi_agent/supervisor.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/08-planning-workflow-multi-agent/05-code/multi-agent-runtime-python/tests/test_runtime.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/08-planning-workflow-multi-agent/references.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/09-runtime-harness-environment/01-concepts/01-runtime-and-harness.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/09-runtime-harness-environment/01-concepts/02-durable-execution.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/09-runtime-harness-environment/01-concepts/03-concurrency-and-budgets.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/09-runtime-harness-environment/01-concepts/04-workspaces-sandboxes-and-artifacts.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/09-runtime-harness-environment/02-patterns/01-retry-idempotency-compensation.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/09-runtime-harness-environment/04-labs/01-recovery-and-idempotency.ipynb",
+      "baseline": "不存在",
+      "action": "新增；已实际执行 4 个代码单元",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/09-runtime-harness-environment/04-labs/artifacts/recovery.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/09-runtime-harness-environment/04-labs/run-report.md",
+      "baseline": "不存在",
+      "action": "新增；verified",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/09-runtime-harness-environment/05-code/recoverable-runtime-python/README.md",
+      "baseline": "不存在",
+      "action": "新增；verified",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/09-runtime-harness-environment/05-code/recoverable-runtime-python/pyproject.toml",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/09-runtime-harness-environment/05-code/recoverable-runtime-python/src/recoverable_runtime/__init__.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/09-runtime-harness-environment/05-code/recoverable-runtime-python/src/recoverable_runtime/events.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/09-runtime-harness-environment/05-code/recoverable-runtime-python/src/recoverable_runtime/recovery.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/09-runtime-harness-environment/05-code/recoverable-runtime-python/src/recoverable_runtime/runner.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/09-runtime-harness-environment/05-code/recoverable-runtime-python/tests/test_recovery.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/09-runtime-harness-environment/references.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/10-evaluation-observability/03-cases/01-from-task-dataset-to-regression.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/10-evaluation-observability/04-labs/01-evaluation-and-regression.ipynb",
+      "baseline": "不存在",
+      "action": "新增；已实际执行 4 个代码单元",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/fixtures/README.md",
+      "baseline": "不存在",
+      "action": "新增；verified",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/fixtures/tasks.jsonl",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/pyproject.toml",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/reports/baseline/summary.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/reports/baseline/trials.jsonl",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/reports/candidate/summary.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/reports/candidate/trials.jsonl",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/reports/comparison.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/requirements.lock",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/src/eval_harness/__init__.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/src/eval_harness/cli.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/src/eval_harness/graders.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/src/eval_harness/reports.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/src/eval_harness/runner.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/src/eval_harness/statistics.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/src/eval_harness/tasks.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/tests/test_harness.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/11-safety-security-governance/01-concepts/01-threat-model-and-injection.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/11-safety-security-governance/01-concepts/02-identity-and-permissions.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/11-safety-security-governance/01-concepts/03-data-secrets-and-audit.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/11-safety-security-governance/01-concepts/04-supply-chain-and-response.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/11-safety-security-governance/04-labs/01-policy-and-injection.ipynb",
+      "baseline": "不存在",
+      "action": "新增；已实际执行 4 个代码单元",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/11-safety-security-governance/04-labs/artifacts/policy.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/11-safety-security-governance/04-labs/run-report.md",
+      "baseline": "不存在",
+      "action": "新增；verified",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/11-safety-security-governance/05-code/README.md",
+      "baseline": "不存在",
+      "action": "新增；verified",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/11-safety-security-governance/05-code/policy_lab.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/11-safety-security-governance/05-code/test_policy.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/11-safety-security-governance/references.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/12-agent-learning/01-concepts/01-trajectory-data.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/12-agent-learning/01-concepts/02-sft-and-preference-optimization.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/12-agent-learning/01-concepts/03-agentic-reinforcement-learning.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/12-agent-learning/01-concepts/04-verifiers-and-reward-hacking.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/12-agent-learning/02-patterns/01-feedback-to-improvement.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/12-agent-learning/04-labs/01-trajectories-and-rewards.ipynb",
+      "baseline": "不存在",
+      "action": "新增；已实际执行 6 个代码单元",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/12-agent-learning/04-labs/README.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/12-agent-learning/05-code/README.md",
+      "baseline": "不存在",
+      "action": "新增；verified",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/12-agent-learning/05-code/learning.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/12-agent-learning/05-code/test_learning.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/12-agent-learning/references.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/01-concepts/01-backend-and-streaming.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/01-concepts/02-human-agent-interaction.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/01-concepts/03-storage-and-multitenancy.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/01-concepts/04-model-gateways.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/05-code/README.md",
+      "baseline": "不存在",
+      "action": "新增；verified",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/05-code/application_cases.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/05-code/browser-agent-typescript/.gitignore",
+      "baseline": "不存在",
+      "action": "新增；维护配置",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/05-code/browser-agent-typescript/artifacts/recovery/fill-1.png",
+      "baseline": "不存在",
+      "action": "新增；本地构造页面截图",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/05-code/browser-agent-typescript/artifacts/recovery/state.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/05-code/browser-agent-typescript/artifacts/recovery/submit-1.png",
+      "baseline": "不存在",
+      "action": "新增；本地构造页面截图",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/05-code/browser-agent-typescript/artifacts/success/denied-state.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/05-code/browser-agent-typescript/artifacts/success/fill-1.png",
+      "baseline": "不存在",
+      "action": "新增；本地构造页面截图",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/05-code/browser-agent-typescript/artifacts/success/state.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/05-code/browser-agent-typescript/artifacts/success/submit-1.png",
+      "baseline": "不存在",
+      "action": "新增；本地构造页面截图",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/05-code/browser-agent-typescript/artifacts/test-report.txt",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/05-code/browser-agent-typescript/artifacts/timeout/fill-1.png",
+      "baseline": "不存在",
+      "action": "新增；本地构造页面截图",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/05-code/browser-agent-typescript/artifacts/timeout/state.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/05-code/browser-agent-typescript/fixtures/index.html",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/05-code/browser-agent-typescript/package-lock.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/05-code/browser-agent-typescript/package.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/05-code/browser-agent-typescript/src/actions.ts",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/05-code/browser-agent-typescript/src/policy.ts",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/05-code/browser-agent-typescript/src/state.ts",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/05-code/browser-agent-typescript/test/browser.test.ts",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/05-code/browser-agent-typescript/tsconfig.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/05-code/test_application_cases.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/13-application-engineering/references.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/14-production-engineering/01-concepts/01-deployment-and-capacity.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/14-production-engineering/01-concepts/02-slos-reliability-and-cost.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/14-production-engineering/01-concepts/03-release-and-recovery.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/14-production-engineering/05-code/README.md",
+      "baseline": "不存在",
+      "action": "新增；verified",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/14-production-engineering/05-code/production_checks.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/14-production-engineering/references.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/15-multimodal-and-embodied/01-concepts/01-vision-and-document-ai.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/15-multimodal-and-embodied/01-concepts/02-speech-audio-and-video.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/15-multimodal-and-embodied/01-concepts/03-multimodal-context-and-rag.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/15-multimodal-and-embodied/01-concepts/04-computer-use-vla-and-embodied.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/15-multimodal-and-embodied/04-labs/01-document-evidence.ipynb",
+      "baseline": "不存在",
+      "action": "新增；已实际执行 5 个代码单元",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/15-multimodal-and-embodied/05-code/README.md",
+      "baseline": "不存在",
+      "action": "新增；verified",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/15-multimodal-and-embodied/05-code/evidence.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/15-multimodal-and-embodied/05-code/test_evidence.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/15-multimodal-and-embodied/references.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/16-research-frontiers/01-concepts/01-long-horizon-agents.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/16-research-frontiers/01-concepts/02-self-improvement-and-agent-swarms.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/16-research-frontiers/01-concepts/03-world-models-and-neuro-symbolic.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/16-research-frontiers/01-concepts/04-test-time-learning-and-oversight.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/16-research-frontiers/03-cases/01-research-and-science-agents.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/16-research-frontiers/05-code/README.md",
+      "baseline": "不存在",
+      "action": "新增；verified",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/16-research-frontiers/05-code/research_checks.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "10-Knowledge/16-research-frontiers/references.md",
+      "baseline": "不存在",
+      "action": "新增；draft",
+      "new": true
+    },
+    {
+      "path": "20-Projects/domain-research-agent/README.md",
+      "baseline": "不存在",
+      "action": "新增；verified",
+      "new": true
+    },
+    {
+      "path": "20-Projects/domain-research-agent/evaluation/report/summary.json",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "20-Projects/domain-research-agent/evaluation/report/trials.jsonl",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "20-Projects/domain-research-agent/evaluation/run_eval.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "20-Projects/domain-research-agent/fixtures/corpus.jsonl",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "20-Projects/domain-research-agent/pyproject.toml",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "20-Projects/domain-research-agent/run-report.md",
+      "baseline": "不存在",
+      "action": "新增；导航、规范或记录",
+      "new": true
+    },
+    {
+      "path": "20-Projects/domain-research-agent/src/domain_research/__init__.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "20-Projects/domain-research-agent/src/domain_research/cli.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "20-Projects/domain-research-agent/src/domain_research/service.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "20-Projects/domain-research-agent/tests/test_integration.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "requirements-dev.lock",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "scripts/check_links.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "scripts/check_metadata.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "scripts/check_notebooks.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "scripts/execute_notebook_ipython.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "scripts/run_python.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "scripts/run_python_tests.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    },
+    {
+      "path": "scripts/tests/test_checks.py",
+      "baseline": "不存在",
+      "action": "新增；实现、配置、样例或运行证据",
+      "new": true
+    }
+  ]
+}

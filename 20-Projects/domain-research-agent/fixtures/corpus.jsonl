@@ -1,0 +1,3 @@
+{"doc_id":"timeout-guide","tenant":"demo","product":"GuideDemo","version":"1","identifiers":["ERR-12003"],"text":"ERR-12003 表示教学服务的请求等待超时。先记录请求标识和耗时，再检查下游是否已完成；不能因为客户端超时就直接重试带副作用的操作。此错误码为本项目构造。"}
+{"doc_id":"auth-guide","tenant":"demo","product":"GuideDemo","version":"1","identifiers":["ERR-12030"],"text":"ERR-12030 表示教学服务的授权范围不足。检查服务端绑定的角色和资源范围，不要通过修改检索条件绕过权限。此错误码为本项目构造。"}
+{"doc_id":"private-guide","tenant":"private","product":"GuideDemo","version":"1","identifiers":["ERR-99999"],"text":"ERR-99999 PRIVATE_FIXTURE_ONLY 是另一个租户的构造记录。公开租户不得检索到本段。"}

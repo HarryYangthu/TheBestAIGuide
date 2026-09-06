@@ -1,0 +1,15 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Local Agent Task Fixture</title>
+<style>body{font:18px system-ui;max-width:760px;margin:64px auto;background:#f5f7fb;color:#152338}main{background:white;padding:32px;border:1px solid #d3dbe8;border-radius:12px}label,input,button{display:block;margin:12px 0}input{padding:10px;width:90%}button{padding:10px 20px}li{margin:10px 0}small{color:#526077}</style>
+<main><h1>Local task board</h1><p>This page is a deterministic learning fixture.</p><label>Task<input id="task" autocomplete="off"></label><button id="submit">Add task</button><p role="status" id="status">Ready</p><ul id="tasks"></ul><small>No account, remote API, or real-world changes.</small></main>
+<script>
+const records = JSON.parse(localStorage.getItem('tasks') || '[]');
+function render(){document.querySelector('#tasks').replaceChildren(...records.map(r=>{const el=document.createElement('li');el.textContent=r.title;el.dataset.actionId=r.id;return el;}));}
+render();
+document.querySelector('#submit').onclick=()=>{
+  const title=document.querySelector('#task').value.trim();
+  const id=document.querySelector('#submit').dataset.actionId;
+  if(!title || !id){document.querySelector('#status').textContent='Missing title or action id';return;}
+  if(!records.some(r=>r.id===id)){records.push({id,title});localStorage.setItem('tasks',JSON.stringify(records));}
+  render();document.querySelector('#status').textContent='Saved';
+};
+</script></html>

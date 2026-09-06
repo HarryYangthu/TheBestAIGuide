@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "tool-call",
+  "$comment": "TheBestAIGuide local contract v1; not an MCP or A2A wire format.",
+  "type": "object",
+  "properties": {
+    "call_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "arguments": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "call_id",
+    "name",
+    "arguments"
+  ],
+  "additionalProperties": false
+}
