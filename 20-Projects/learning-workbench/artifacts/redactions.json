@@ -1,0 +1,8 @@
+{
+  "reason": "Automatic publication review found a credential-like field in model output. Values/affected raw model text removed before publication. No assertion is made that the credential was live.",
+  "paths": [
+    "20-Projects/learning-workbench/artifacts/real-models/revised-agent/search-5.trace.jsonl",
+    "20-Projects/learning-workbench/artifacts/real-models/revised-agent/agent.json"
+  ],
+  "evaluation_metrics": "unchanged; redaction occurs after execution and scoring"
+}

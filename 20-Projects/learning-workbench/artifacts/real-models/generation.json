@@ -1,0 +1,64 @@
+{
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "trials": [
+    {
+      "id": "g1",
+      "error_type": "ProviderError",
+      "error": "model output is not a complete JSON object",
+      "abstention_correct": false
+    },
+    {
+      "id": "g2",
+      "question": "FAN-01: What is the DEMO-A temperature limit?",
+      "answer": {
+        "abstained": false,
+        "reason": "The text directly states the temperature limit for FAN-01 as 68°C.",
+        "claims": [
+          {
+            "text": "Before inspecting a cooling fan, disconnect power",
+            "source_id": "fan-v2@2:0-114:f33f91e9bd85",
+            "quote": "Version 2 changes the DEMO-A temperature limit to 68 C."
+          },
+          {
+            "text": "Before inspecting a cooling fan, disconnect power",
+            "source_id": "fan-v2@2:0-114:f33f91e9bd85",
+            "quote": "Version 2 changes the DEMO-A temperature limit to 68 C."
+          }
+        ],
+        "evidence": [
+          {
+            "id": "fan-v2@2:0-114:f33f91e9bd85",
+            "doc_id": "fan-v2",
+            "version": "2",
+            "text": "FAN-01: Before inspecting a cooling fan, disconnect power. Version 2 changes the DEMO-A temperature limit to 68 C."
+          }
+        ],
+        "citation_identity_valid": true,
+        "semantic_support": "requires independent grading",
+        "model_run": {
+          "text": "{\"abstained\":false,\"reason\":\"The text directly states the temperature limit for FAN-01 as 68°C.\",\"claims\":[{\"text\":\"Before inspecting a cooling fan, disconnect power\",\"source_id\":\"fan-v2@2:0-114:f33f91e9bd85\",\"quote\":\"Version 2 changes the DEMO-A temperature limit to 68 C.\"},{\"text\":\"Before inspecting a cooling fan, disconnect power\",\"source_id\":\"fan-v2@2:0-114:f33f91e9bd85\",\"quote\":\"Version 2 changes the DEMO-A temperature limit to 68 C.\"}]}",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "input_tokens": 191,
+          "output_tokens": 146,
+          "elapsed_seconds": 25.634972229003324,
+          "backend": "local-transformers"
+        }
+      },
+      "expected_abstained": false,
+      "abstention_correct": true
+    },
+    {
+      "id": "g3",
+      "error_type": "ProviderError",
+      "error": "model output is not a complete JSON object",
+      "abstention_correct": false
+    },
+    {
+      "id": "g4",
+      "error_type": "ProviderError",
+      "error": "model output is not a complete JSON object",
+      "abstention_correct": false
+    }
+  ]
+}

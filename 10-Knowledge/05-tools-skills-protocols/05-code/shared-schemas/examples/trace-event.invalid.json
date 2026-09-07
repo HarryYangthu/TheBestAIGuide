@@ -1,0 +1,9 @@
+{
+  "run_id": "run-1",
+  "seq": 0,
+  "kind": "tool_call",
+  "data": {
+    "call_id": "call-1"
+  },
+  "unexpected_field": true
+}

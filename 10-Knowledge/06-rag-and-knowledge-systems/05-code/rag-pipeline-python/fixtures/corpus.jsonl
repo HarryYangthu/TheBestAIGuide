@@ -1,0 +1,8 @@
+{"doc_id": "fan-guide", "text": "教学设备 DEMO-A；ALM-12003 风扇告警。旧版 v1 操作：先重启再检查。此版本已废止，仅用于验证索引更新。", "tenant": "alpha", "product": "DEMO-A", "version": "1", "identifiers": ["ALM-12003"]}
+{"doc_id": "fan-guide", "text": "教学设备 DEMO-A；ALM-12003 风扇告警。v2 操作：读取转速日志，检查供电连接，确认原因后再处理；不得直接重启。此为虚构教学步骤，不是设备操作指南。", "tenant": "alpha", "product": "DEMO-A", "version": "2", "identifiers": ["ALM-12003"]}
+{"doc_id": "voltage-guide", "text": "教学设备 DEMO-A；ALM-12030 电压告警。v2 操作：记录电压采样，不适用于 ALM-12003 风扇故障。", "tenant": "alpha", "product": "DEMO-A", "version": "2", "identifiers": ["ALM-12030"]}
+{"doc_id": "other-product", "text": "教学设备 DEMO-B；ALM-12003 风扇告警。此产品步骤不同，不得用于 DEMO-A。", "tenant": "alpha", "product": "DEMO-B", "version": "2", "identifiers": ["ALM-12003"]}
+{"doc_id": "fan-guide", "text": "ALM-12003 风扇告警 ALM-12003 风扇告警。TENANT_B_ONLY_SECRET。属于另一个租户。", "tenant": "beta", "product": "DEMO-A", "version": "2", "identifiers": ["ALM-12003"]}
+{"doc_id": "cooling", "text": "教学设备 DEMO-A；散热风道堵塞会导致温度异常。仅检查通风记录与滤网状态，不自动执行设备动作。", "tenant": "alpha", "product": "DEMO-A", "version": "2", "identifiers": []}
+{"doc_id": "timeout", "text": "教学设备 DEMO-A；请求超时。排查网络连通性，记录请求持续时间，不重复提交有副作用的请求。", "tenant": "alpha", "product": "DEMO-A", "version": "2", "identifiers": []}
+{"doc_id": "release-notes", "text": "教学设备 DEMO-A v2 发布说明：更新风扇诊断步骤；变更需从 fan-guide 的当前版本读取。", "tenant": "alpha", "product": "DEMO-A", "version": "2", "identifiers": []}

@@ -1,0 +1,16 @@
+{
+  "synthetic": true,
+  "tasks": [
+    {
+      "query": "上下文",
+      "expected_ids": [
+        "doc-1",
+        "doc-2"
+      ]
+    },
+    {
+      "query": "不存在的词",
+      "expected_ids": []
+    }
+  ]
+}

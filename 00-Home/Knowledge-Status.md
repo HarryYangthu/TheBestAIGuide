@@ -1,45 +1,60 @@
 # 知识库建设状态
 
-> 盘点日期：2026-09-04
-> 状态只描述仓库内证据，不根据目录数量推断完成度。
+> 更新日期：2026-09-06；原始基线：`f9729ba319a5cf0911b009c863a4796a888d8306`。
 
-| 模块 | 当前状态 | 已有内容 | 主要缺口 |
+本轮将脚手架补成可以沿“机制 → 公式/算例 → 源码 → 实验”学习的第一版。原有 Context、RAG、Evaluation 的 20 篇正文保留并补充解释和实现链接；基础两域的 13 个概念入口改成教程，其余领域按盘点计划新增 58 篇专题与案例。
+
+新正文保留 `draft`，表示已有实质内容、完成一手来源核对与自动交叉审阅，但没有冒称人工审稿。实验与代码的 `verified` 只覆盖各运行报告注明的条件。
+
+## 按领域进入
+
+下表“正文文件”包括有实质正文的概念、模式及案例 README；长度只用于排除短导航页，不能作为文章质量评分。Notebook 单独计数。
+
+| 领域 | 正文文件 | Notebook | 证据入口 |
 | --- | --- | --- | --- |
-| AI 基础 | seed | 范围与知识地图 | 正式专题、练习和实验 |
-| 基础模型 | seed | Tokenizer、Transformer、训练与推理大纲 | 独立笔记与实验 |
-| Agent Core | seed | 总纲与最小工程入口 | Agent Loop 正文、实现和测试 |
-| Context Engineering | draft | 领域内已串联总览、信息模型、失败模式、Builder、优化、评测、来源和 Notebook 入口 | Notebook 内容、框架版本验证和实测结果 |
-| Tools 与协议 | seed | 总纲级覆盖 | Tool Schema、错误协议、权限、MCP 和实现 |
-| RAG | draft | 领域内已串联端到端流程、混合检索、模式、两个运维案例、Lab 和代码入口 | 样例数据、标注集、Pipeline 和 Eval |
-| State 与 Memory | seed | 概念边界、生命周期、四类模式入口和实验计划 | 独立专题、实现、冲突/遗忘和评测 |
-| Workflow 与 Multi-Agent | draft | 适用边界与 Multi-Agent 评测 | 拓扑、路由、交接、共享状态和案例 |
-| Runtime 与 Harness | seed | 七层模型与工程骨架入口 | 可运行 Runtime、恢复、回放和幂等测试 |
-| Evaluation 与 Observability | draft | 领域内已串联系统模型、任务、评分器、统计、Trace、Multi-Agent、运营、模板、来源和工程入口 | Eval Harness、校准集和运行报告 |
-| Safety 与 Governance | seed | 总纲级威胁与信任边界 | 威胁模型、策略、红队任务和治理流程 |
-| Agent Learning | seed | 数据、SFT、偏好优化和 Agentic RL 大纲 | 正式专题和实验 |
-| 应用与生产工程 | seed | 总纲级覆盖 | UI、API、存储、模型路由和部署实践 |
-| 多模态与具身智能 | seed | 方向清单 | 视觉、语音、文档、Computer Use、VLA 基础 |
-| Research Frontiers | seed | 方向清单 | 来源追踪、论文笔记和验证任务 |
-| 主题 Labs | seed | Context 两个 Notebook 文件及多个领域的实验入口 | Notebook 内容、依赖、样例数据和执行记录 |
-| 主题 Code | seed | Agent Loop、Tool Runtime 等领域代码骨架 | 源码、测试、锁文件和 CI |
-| 综合 Projects | seed | 已定义准入边界，暂无符合条件的项目 | 首个跨领域、可运行、可测试的端到端工程 |
+| [AI 基础](../10-Knowledge/01-ai-foundations/README.md) | 7 | 4 | [来源](../10-Knowledge/01-ai-foundations/references.md) |
+| [基础模型](../10-Knowledge/02-foundation-models/README.md) | 6 | 2 | [来源](../10-Knowledge/02-foundation-models/references.md) |
+| [Agent Core](../10-Knowledge/03-agent-core/README.md) | 5 | 1 | [来源](../10-Knowledge/03-agent-core/references.md) |
+| [Context Engineering](../10-Knowledge/04-context-engineering/README.md) | 6 | 2 | [来源](../10-Knowledge/04-context-engineering/references.md) |
+| [Tools / Skills / MCP](../10-Knowledge/05-tools-skills-protocols/README.md) | 6 | 1 | [来源](../10-Knowledge/05-tools-skills-protocols/references.md) |
+| [RAG](../10-Knowledge/06-rag-and-knowledge-systems/README.md) | 10 | 1 | [来源](../10-Knowledge/06-rag-and-knowledge-systems/references.md) |
+| [State / Memory](../10-Knowledge/07-state-and-memory/README.md) | 5 | 1 | [来源](../10-Knowledge/07-state-and-memory/references.md) |
+| [Planning / Workflow / Multi-Agent](../10-Knowledge/08-planning-workflow-multi-agent/README.md) | 6 | 1 | [来源](../10-Knowledge/08-planning-workflow-multi-agent/references.md) |
+| [Runtime / Harness](../10-Knowledge/09-runtime-harness-environment/README.md) | 5 | 1 | [来源](../10-Knowledge/09-runtime-harness-environment/references.md) |
+| [Evaluation / Observability](../10-Knowledge/10-evaluation-observability/README.md) | 10 | 1 | [来源](../10-Knowledge/10-evaluation-observability/references.md) |
+| [Safety / Security / Governance](../10-Knowledge/11-safety-security-governance/README.md) | 4 | 1 | [来源](../10-Knowledge/11-safety-security-governance/references.md) |
+| [Agent Learning](../10-Knowledge/12-agent-learning/README.md) | 5 | 1 | [来源](../10-Knowledge/12-agent-learning/references.md) |
+| [应用工程](../10-Knowledge/13-application-engineering/README.md) | 9 | 0 | [来源](../10-Knowledge/13-application-engineering/references.md) |
+| [生产工程](../10-Knowledge/14-production-engineering/README.md) | 5 | 0 | [来源](../10-Knowledge/14-production-engineering/references.md) |
+| [多模态与具身](../10-Knowledge/15-multimodal-and-embodied/README.md) | 4 | 1 | [来源](../10-Knowledge/15-multimodal-and-embodied/references.md) |
+| [研究前沿](../10-Knowledge/16-research-frontiers/README.md) | 5 | 0 | [来源](../10-Knowledge/16-research-frontiers/references.md) |
 
-## 本版完成的内容整理
+## 本轮执行范围
 
-- 将顶层结构简化为 Home、Knowledge、Projects、Sources 和 Inbox，移除重复的 Maps/Patterns/Cases/Labs/Code 顶层分类。
-- 按知识领域聚合概念、模式、案例、实验和代码，并重写全局与主题级学习路线。
-- 将 Context、RAG、Evaluation 的已有内容整理成可连续阅读的主线。
-- 将 Context Engineering 的 1319 行长文改为短总览，并拆成 5 篇专题和 1 个模式。
-- 将 Evaluation 与 Multi-Agent 的两篇长文改写为 9 个职责清晰的入口。
-- 从运维 RAG 案例提炼通用 RAG 流程与 Hybrid Retrieval 模式。
-- 重写 AgentGuide 走读，删除求职细节，保留固定提交下的代码和证据边界。
-- 删除虚构团队案例、无来源成本表和未经限定的性能数字。
-- 保留旧主文件名作为入口，避免已有链接失效。
+- 18 本 Notebook 的 86 个代码单元已实际执行并保存输出。原保存输出通过独立 Python 进程中的 IPython 顺序执行；随后提交 `5e5a40c` 的标准 Jupyter CI 已成功，详见下方记录。
+- Python 工程覆盖 Agent Loop、RAG、Memory、多任务调度、恢复运行时、Eval、权限、训练数据、文档引用与综合项目。测试总数及最终结果见[统一验证记录](Verification-Report.md)。
+- 三个 TypeScript 工程包含工具执行器、固定 SDK 的 MCP stdio 客户端/服务端，以及真实 Chromium 上的本地页面动作与恢复测试。
+- [综合项目](../20-Projects/domain-research-agent/README.md)复用五个领域组件：引用、权限、拒答与故障恢复四类任务，各运行两次；均通过预设的状态与输出断言。
+- [维护脚本](../scripts/README.md)检查相对文件/目录链接、状态元数据与 Notebook；四个 GitHub Actions 工作流已配置，远端结果以实际提交的 Actions 为准。
 
-## 当前可验证与不可验证
+逐文件交付见[完成台账](Completion-Report.md)，机器可读执行证据见[verification](verification/)。
 
-已验证：仓库结构、内部 Markdown 链接、Notebook JSON 格式、固定 AgentGuide 提交的远端 HEAD，以及本次 Markdown 重构本身。
+## 学习时应知道的限制
 
-未验证：Context/RAG/Evaluation 策略的实验效果、Notebook 执行、Agent/RAG/Eval 工程运行、任何生产指标。
+离线策略、构造语料和数值小实验用于解释机制，并不证明真实 LLM 的能力、生产吞吐、开放网页稳定性或 GPU 训练效果。RAG 的默认实现是 BM25/完整编号与 RRF，真实 embedding 和 reranker 已在学习工作台中接入并执行，固定模型、小型英文构造集的结果单列。
 
-状态含义见[目录与写作规范](Conventions.md)。
+历史 AgentGuide 走读继续保留原固定快照。八张历史 PNG 的来源尚不能确认，已在[素材登记](../assets/README.md)逐项标注并保留，不用于支持新结论。外部链接已建立月度检查任务；一次来源核对不保证远端永远有效。
+
+## 标准内核验证更新（2026-09-06）
+
+提交 `5e5a40c09e00028c7887fd3bf3bd559d96fc972f` 的 [GitHub Actions 标准 Jupyter 执行](https://github.com/HarryYangthu/TheBestAIGuide/actions/runs/34013521515)已成功。原 Notebook 保存输出的本地 IPython 来源保留；这条更新补充标准内核证据，不代表交互控件或所有前端已验收。本轮新项目与后续结果见仓库 `00-Home/Round2-Completion.md`。
+
+## 第二轮实践扩展
+
+新增学习工作台与 Tiny Transformer，Notebook 总数增至 20。本页上方领域表保留第一轮领域内文件统计；新增项目的 2 本在 Projects 下。38 项对应实现与本轮真实结果见 [Round2-Completion](Round2-Completion.md)，不沿用第一轮的测试数作为当前总数。
+
+第二轮最终代码提交 `d77bedcf4adcad7f73741d3ca897eb1d3995e88c` 的文档、Python、TypeScript/浏览器、标准 Jupyter CI 均通过。全部 20 本 Notebook 的标准内核执行证据见 [远端记录](verification/round2-remote.json)；仓库中保存输出继续保留实际本地后端标注。
+
+## 学习者走读修订（2026-09-07）
+
+本次按阅读、计算、代码与实验逐项检查，修正知识跳步、过时说明和可复现的代码问题。具体例子与验证范围见[走读修订记录](Learner-Review.md)。

@@ -1,3 +1,70 @@
-# Model Inference
+# 推理与服务：一个 token 怎样生成，哪些计算能复用
 
-计划覆盖自回归生成、Logits、Softmax、采样、KV/Prefix Cache、Batching、Speculative Decoding、量化、蒸馏、剪枝和并行推理。
+> 状态：draft · 来源核验：2026-09-06 · 本地实验验证 NumPy 机制；未测量真实 GPU 服务吞吐。
+
+自回归推理每一步根据已有前缀生成下一个 token，然后把它接回输入。一次请求的速度由处理输入、逐步生成、排队和工具执行共同决定。减少某个矩阵的计算，不一定减少用户等待时间，先把这些阶段分开。
+
+## 1. Logits 不是概率，采样也不只是“随机一点”
+
+模型最后一层把当前表示投影到词表，得到 $z\in\mathbb R^V$。温度为 $\tau>0$ 时，$p_i=\exp(z_i/\tau)/\sum_j\exp(z_j/\tau)$。较小温度放大相对差异，较大温度让分布变平；贪心解码直接取 argmax，不要在程序里真的除以零表示温度零。
+
+| 方法 | 实际操作 | 代价与边界 |
+|---|---|---|
+| Greedy | 每步选最大概率 | 确定局部选择，不保证整段最优 |
+| Top-k | 只保留前 k 个候选并重归一化 | 候选数量固定，忽略分布是否集中 |
+| Top-p | 按概率降序取累计质量达到 p 的最小集合 | 候选数量随分布变化；应保留跨过阈值的那个 token |
+| Beam Search | 保留多条高分前缀继续扩展 | 长度偏好、重复和开销需处理，不是通用创作最佳法 |
+
+例如排序后概率是 `[0.6,0.25,0.1,0.05]`，top-p=0.8 应保留前两个，因为只有0.6未达到阈值，0.85才达到。过滤后变成约 `[0.706,0.294,0,0]`。先温度、再top-k、再top-p与其他顺序可能不同，必须记录服务实际约定。终止还要考虑 EOS、最大输出长度、停止序列和结构化输出完整性。
+
+## 2. KV Cache 为什么可复用
+
+因果 Transformer 中，固定前缀、参数、位置编码和推理模式时，历史位置的表示不会因后来追加 token 而改变。因而每层历史 K/V 可以保存；新一步只为新 token 计算 Q/K/V，让它的 Q 读取过去全部 K/V。Q 一般无需长期缓存，因为未来位置不会用历史 Q 来查询。
+
+没有缓存时，如果每次把长度 $t$ 的前缀全部重算，连历史位置的投影、FFN 和注意力都会重复。缓存后一次 decode 的注意力匹配仍要读取约 $t$ 个历史键，并不是 $O(1)$。它减少重复计算，并用线性增长的 KV 存储交换速度。
+
+```python
+q = x_new @ Wq                # (1,dk)
+k_new, v_new = x_new @ Wk, x_new @ Wv
+K = np.concatenate([K, k_new], axis=0)
+V = np.concatenate([V, v_new], axis=0)
+y_new, weights = attention(q, K, V)
+```
+
+配套实验比较同一个单层注意力的完整因果计算与逐 token 缓存结果。二者应在浮点误差范围内一致。实际多层模型必须为每一层分别存 K/V；这里不包含 RoPE、FFN 和真实 token 生成，不能把小矩阵等价误当端到端服务完成。
+
+Prefill 一次处理输入前缀，建立缓存；decode 逐步追加。Prefix Cache 进一步让不同请求复用完全匹配的前缀计算，缓存键至少要覆盖模型/适配器、token序列、位置与影响计算的配置，并考虑租户隔离。字符串看起来相同但 tokenizer 或模板不同，不能复用；缓存命中也不意味着后续生成免费。
+
+## 3. 内存、批处理和并行之间的取舍
+
+标准缓存容量 $M=2BLTH_{KV}d_hb$，各符号含义见[计算基础](../../../01-ai-foundations/01-concepts/compute-foundations/README.md)。长上下文与高并发会同时放大缓存，GQA/MQA通过减少KV头数降低这部分内存。
+
+静态 batch 等整批结束会浪费先完成请求的位置；continuous batching 按生成迭代加入和移除请求，提高资源利用率，但调度与缓存管理更复杂。PagedAttention 一类机制以分页方式管理 KV，减少碎片和复制，它不改变 token 的语义。
+
+数据并行把请求分给多个副本，适合吞吐扩展；张量并行把一层矩阵切到多设备，省每卡容量但每层可能要通信；流水线并行把层分开，存在流水线空泡。单请求、小batch、网络慢时，增加设备可能反而变慢。应分别记录 TTFT（首 token 时间）、TPOT（后续 token 平均时间）、端到端时延和吞吐，不能只报一个tokens/s。
+
+## 4. Speculative Decoding 怎样保持目标分布
+
+小模型先草拟多个 token，大模型批量检查。若只凭大模型“觉得差不多”全接收，会改变采样分布。经典精确推测采样对草稿 $x\sim q$ 按 $\min(1,p(x)/q(x))$ 接受；拒绝后从与 $\max(0,p-q)$ 成比例的残差分布采样，并按协议处理接受后的额外 token。这里的 $p,q$ 必须对应同一前缀与处理后的目标/草稿分布。
+
+加速取决于接受率、草拟代价和验证并行效率。两个模型使用兼容词表是常见条件，现代变体可有不同设计。完整算法比一个接受公式多，本文没有实现推测服务，也不宣称给定模型必然提速。
+
+## 5. 量化、蒸馏、剪枝分别减少什么
+
+量化降低数值表示的位宽；蒸馏用教师输出或中间信号训练更小学生；剪枝删除权重、通道或结构。它们不是同一个操作，也不能只用参数量判断收益。蒸馏可用软目标 KL，教师温度和损失权重影响学习；结构化剪枝改变可用矩阵尺寸，往往更容易映射到密集硬件，非结构稀疏需要相应内核支持。
+
+```python
+q, scale, restored = symmetric_quantize(weights, bits=8)
+weight_error = np.max(abs(restored - weights))
+output_error = np.max(abs(inputs @ restored - inputs @ weights))
+```
+
+权重误差小不保证最终答案不变：若两个 token 的 logit 很接近，微小误差就可能改变 argmax，后续前缀随之变化。配套实验同时看权重误差、线性输出误差和近乎平局的解码变化，不给出“所有模型损失不超过某值”的承诺。
+
+[运行解码、缓存与精度实验](../../04-labs/02-decoding-cache-and-precision.ipynb) · [完整实现](../../05-code/model_mechanics.py) · [来源](../../references.md)。决定部署方案前，先按[模型选择](../model-selection/README.md)做同任务、同预算对照。
+
+## 从单层缓存走到真实生成
+
+[tiny-transformer](../../../../20-Projects/tiny-transformer/README.md)的 `Decoder.generate` 会先 prefill，再逐 token 追加各层 KV；[回归测试](../../../../20-Projects/tiny-transformer/tests/test_decoder.py)比较整段和缓存输出，并检查批内各序列分别在 EOS 停止、总长度不超过窗口。先预测“前缀长 P、新追加两个 token”时每行允许看哪些列，再读 `Attention.forward` 的位置偏移。
+
+它使用 CPU 贪心解码，没有连续批处理、分页缓存或推测服务。服务时延和并发排队的实验入口在[学习工作台](../../../../20-Projects/learning-workbench/README.md)。

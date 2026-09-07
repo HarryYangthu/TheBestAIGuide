@@ -11,18 +11,18 @@ Multi-Agent 评测的对象是“协作系统”，不是若干单 Agent 分数�
 
 ## 系统模型
 
-```text
-Task + Shared Environment
-          │
-          ▼
-Supervisor / Router
-   ├─> Agent A ──┐
-   ├─> Agent B ──┼─> Merge / Review ─> Outcome
-   └─> Agent C ──┘
-          │
-          ▼
-Messages + Handoffs + Shared State + Tool Effects
+```mermaid
+flowchart TD
+  S["Supervisor / Router"] --> A["Agent A"]
+  S --> B["Agent B"]
+  S --> C["Agent C"]
+  A --> M["合并与审查"]
+  B --> M
+  C --> M
+  M --> O["Outcome 验收"]
 ```
+
+一次 Trial 从同一任务与已重置环境开始；全程记录路由、交接、共享状态与工具效果。图中的所有角色属于同一个被测系统，不能把各角色自评分当成独立样本。
 
 一个 Trial 要绑定：
 
@@ -95,7 +95,7 @@ Messages + Handoffs + Shared State + Tool Effects
 
 ### 4. State Consistency
 
-验证共享状态的版本、原子更新、冲突检测和回滚。对于文件或数据库任务，应比较每个 Agent 的动作与最终状态，不依赖自述。
+验证共享状态的版本、原子更新和冲突检测。事务内失败可以回滚；跨工具已提交的效果通常需要按业务补偿，不能笼统要求一次回滚撤销全部外部动作。对于文件或数据库任务，应比较每个 Agent 的动作与最终状态，不依赖自述。
 
 ### 5. Conflict Resolution
 
@@ -241,3 +241,17 @@ grader_results: []
 
 - [Anthropic: Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)
 - [Anthropic: How we built our multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system)
+
+## 用任务契约评分，不按 Agent 自评分汇总
+
+假设研究者返回两条证据，执行者返回一个产物，Reviewer 说“通过”。最终 Grader 仍应读取产物、证据引用和约束结果；三个子 Agent 的肯定自评不能替代端到端验收。对一个子 Agent 注入故障后，比较首次失败节点、交接内容和合并结果，才能区分局部失败与错误传播。
+
+本域 [Eval Harness](../05-code/eval-harness-python/README.md)提供共同任务/状态/结果评分接口，具体拓扑代码见[多 Agent 专题](../../08-planning-workflow-multi-agent/README.md)。此处未把四个字段查询教学任务冒充多 Agent 性能实验；实际并行收益需在共同预算、同一任务集下另行比较。
+
+## 用同一份论文比较任务读懂协作指标
+
+[Workbench 论文实验](../../../20-Projects/learning-workbench/README.md)用固定两篇公开论文，提供顺序处理与分角色 DAG 两条路径。[单路线报告](../../../20-Projects/learning-workbench/artifacts/real-models/research-single.json)和[多角色报告](../../../20-Projects/learning-workbench/artifacts/real-models/research-multi.json)分别记录真实模型调用。读报告时先比较最终主张与证据，再比较调用数和耗时；不要把“有两个 Reader”本身记作协作成功。
+
+例如 Reader A 给出正确页码，Reader B 的 JSON 不合法，Writer 仍输出顺滑总结。此时应分别记 Reader B 的格式失败、Writer 是否采用缺失证据、最终产物是否达标。Reviewer 若只检查页码存在，就只能证明引用位置可解析，不能证明 Writer 的每条主张都被支持。主张—证据核验需要独立评分标准。
+
+自检：给两种拓扑同样的三次模型调用预算，最终质量都未通过，而多角色耗时更长，能得出“多 Agent 无用”吗？只能说明这批固定任务和该模型配置没有显示收益；可能原因仍包括任务不需要并行、模型无法满足契约或合并方式不合适。要区分原因，就一次只更改其中一项并重跑同一批任务。

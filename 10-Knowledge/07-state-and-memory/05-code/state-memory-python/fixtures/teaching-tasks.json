@@ -1,0 +1,14 @@
+{
+  "synthetic": true,
+  "clock": "numeric fixture timestamps",
+  "subjects": [
+    "alice",
+    "bob"
+  ],
+  "checks": [
+    "cross_subject",
+    "expiry",
+    "conflict",
+    "delete"
+  ]
+}

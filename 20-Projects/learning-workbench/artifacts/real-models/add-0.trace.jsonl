@@ -1,0 +1,2 @@
+{"run_id": "10acb7b62aed4801bebc2d28f582a9ec", "seq": 0, "kind": "model_error", "data": {"type": "ProviderError"}}
+{"run_id": "10acb7b62aed4801bebc2d28f582a9ec", "seq": 1, "kind": "run_finished", "data": {"status": "failed", "reason": "invalid_model_output", "steps": 1}}

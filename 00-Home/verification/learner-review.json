@@ -1,0 +1,2120 @@
+{
+  "date": "2026-09-07",
+  "base_commit": "3d917476d0013577e215974facc94a3da8e63037",
+  "scope": "Learner-oriented reading of all current Knowledge/Projects Markdown and Notebook narratives; source inspection follows examples and changed behaviors. Not a human learning study or full external benchmark rerun.",
+  "coverage": {
+    "knowledge_and_projects_learning_files": 206,
+    "uncovered": [],
+    "reviewed": [
+      "10-Knowledge/01-ai-foundations/01-concepts/classical-ai/README.md",
+      "10-Knowledge/01-ai-foundations/01-concepts/compute-foundations/README.md",
+      "10-Knowledge/01-ai-foundations/01-concepts/deep-learning/README.md",
+      "10-Knowledge/01-ai-foundations/01-concepts/machine-learning/README.md",
+      "10-Knowledge/01-ai-foundations/01-concepts/math-and-statistics/README.md",
+      "10-Knowledge/01-ai-foundations/01-concepts/reinforcement-learning/README.md",
+      "10-Knowledge/01-ai-foundations/01-concepts/trustworthy-ai/README.md",
+      "10-Knowledge/01-ai-foundations/04-labs/01-math-and-optimization.ipynb",
+      "10-Knowledge/01-ai-foundations/04-labs/02-generalization-and-calibration.ipynb",
+      "10-Knowledge/01-ai-foundations/04-labs/README.md",
+      "10-Knowledge/01-ai-foundations/04-labs/deep-learning/01-autograd-and-training.ipynb",
+      "10-Knowledge/01-ai-foundations/04-labs/deep-learning/README.md",
+      "10-Knowledge/01-ai-foundations/04-labs/run-report.md",
+      "10-Knowledge/01-ai-foundations/04-labs/search-and-rl/01-search-and-value-learning.ipynb",
+      "10-Knowledge/01-ai-foundations/04-labs/search-and-rl/README.md",
+      "10-Knowledge/01-ai-foundations/05-code/README.md",
+      "10-Knowledge/01-ai-foundations/README.md",
+      "10-Knowledge/01-ai-foundations/references.md",
+      "10-Knowledge/02-foundation-models/01-concepts/inference/README.md",
+      "10-Knowledge/02-foundation-models/01-concepts/model-selection/README.md",
+      "10-Knowledge/02-foundation-models/01-concepts/reasoning/README.md",
+      "10-Knowledge/02-foundation-models/01-concepts/tokenization/README.md",
+      "10-Knowledge/02-foundation-models/01-concepts/training/README.md",
+      "10-Knowledge/02-foundation-models/01-concepts/transformer/README.md",
+      "10-Knowledge/02-foundation-models/04-labs/01-tokenization-and-attention.ipynb",
+      "10-Knowledge/02-foundation-models/04-labs/02-decoding-cache-and-precision.ipynb",
+      "10-Knowledge/02-foundation-models/04-labs/README.md",
+      "10-Knowledge/02-foundation-models/04-labs/run-report.md",
+      "10-Knowledge/02-foundation-models/05-code/README.md",
+      "10-Knowledge/02-foundation-models/README.md",
+      "10-Knowledge/02-foundation-models/references.md",
+      "10-Knowledge/03-agent-core/01-concepts/01-agent-boundaries.md",
+      "10-Knowledge/03-agent-core/01-concepts/02-agent-loop.md",
+      "10-Knowledge/03-agent-core/01-concepts/03-model-adapters.md",
+      "10-Knowledge/03-agent-core/02-patterns/01-react-and-plan-execute.md",
+      "10-Knowledge/03-agent-core/02-patterns/02-reflection-verification-human-loop.md",
+      "10-Knowledge/03-agent-core/04-labs/01-agent-loop.ipynb",
+      "10-Knowledge/03-agent-core/04-labs/README.md",
+      "10-Knowledge/03-agent-core/05-code/agent-loop-python/README.md",
+      "10-Knowledge/03-agent-core/README.md",
+      "10-Knowledge/03-agent-core/references.md",
+      "10-Knowledge/04-context-engineering/01-concepts/00-overview.md",
+      "10-Knowledge/04-context-engineering/01-concepts/01-context-model.md",
+      "10-Knowledge/04-context-engineering/01-concepts/02-failure-modes.md",
+      "10-Knowledge/04-context-engineering/01-concepts/03-context-evaluation.md",
+      "10-Knowledge/04-context-engineering/02-patterns/01-context-builder.md",
+      "10-Knowledge/04-context-engineering/02-patterns/02-optimization-strategies.md",
+      "10-Knowledge/04-context-engineering/04-labs/01-token-budget.ipynb",
+      "10-Knowledge/04-context-engineering/04-labs/02-context-compaction.ipynb",
+      "10-Knowledge/04-context-engineering/04-labs/README.md",
+      "10-Knowledge/04-context-engineering/README.md",
+      "10-Knowledge/04-context-engineering/references.md",
+      "10-Knowledge/05-tools-skills-protocols/01-concepts/01-structured-output-and-tool-contracts.md",
+      "10-Knowledge/05-tools-skills-protocols/01-concepts/02-skills-and-progressive-disclosure.md",
+      "10-Knowledge/05-tools-skills-protocols/01-concepts/03-mcp.md",
+      "10-Knowledge/05-tools-skills-protocols/01-concepts/04-agent-communication-protocols.md",
+      "10-Knowledge/05-tools-skills-protocols/01-concepts/05-delegated-authorization.md",
+      "10-Knowledge/05-tools-skills-protocols/02-patterns/01-tool-runtime.md",
+      "10-Knowledge/05-tools-skills-protocols/04-labs/01-tool-contracts-and-errors.ipynb",
+      "10-Knowledge/05-tools-skills-protocols/04-labs/README.md",
+      "10-Knowledge/05-tools-skills-protocols/05-code/mcp-server-typescript/README.md",
+      "10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/README.md",
+      "10-Knowledge/05-tools-skills-protocols/05-code/tool-runtime-typescript/README.md",
+      "10-Knowledge/05-tools-skills-protocols/README.md",
+      "10-Knowledge/05-tools-skills-protocols/references.md",
+      "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/01-rag-pipeline.md",
+      "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/02-hybrid-retrieval-and-reranking.md",
+      "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/03-ingestion-and-parsing.md",
+      "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/04-chunking-and-metadata.md",
+      "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/05-index-lifecycle.md",
+      "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/06-query-planning-and-graph-retrieval.md",
+      "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/07-citations-and-grounding.md",
+      "10-Knowledge/06-rag-and-knowledge-systems/02-patterns/hybrid-retrieval.md",
+      "10-Knowledge/06-rag-and-knowledge-systems/03-cases/运维RAG-双索引检索设计.md",
+      "10-Knowledge/06-rag-and-knowledge-systems/03-cases/运维领域-RAG-问答系统.md",
+      "10-Knowledge/06-rag-and-knowledge-systems/04-labs/01-hybrid-retrieval-evaluation.ipynb",
+      "10-Knowledge/06-rag-and-knowledge-systems/04-labs/README.md",
+      "10-Knowledge/06-rag-and-knowledge-systems/05-code/rag-pipeline-python/README.md",
+      "10-Knowledge/06-rag-and-knowledge-systems/05-code/rag-pipeline-python/fixtures/README.md",
+      "10-Knowledge/06-rag-and-knowledge-systems/README.md",
+      "10-Knowledge/06-rag-and-knowledge-systems/references.md",
+      "10-Knowledge/07-state-and-memory/01-concepts/01-state-and-checkpoints.md",
+      "10-Knowledge/07-state-and-memory/01-concepts/02-memory-lifecycle.md",
+      "10-Knowledge/07-state-and-memory/01-concepts/03-memory-evaluation.md",
+      "10-Knowledge/07-state-and-memory/01-concepts/README.md",
+      "10-Knowledge/07-state-and-memory/02-patterns/01-memory-write-and-retrieval.md",
+      "10-Knowledge/07-state-and-memory/02-patterns/02-conflict-and-forgetting.md",
+      "10-Knowledge/07-state-and-memory/02-patterns/README.md",
+      "10-Knowledge/07-state-and-memory/04-labs/01-state-memory-and-conflicts.ipynb",
+      "10-Knowledge/07-state-and-memory/04-labs/README.md",
+      "10-Knowledge/07-state-and-memory/05-code/state-memory-python/README.md",
+      "10-Knowledge/07-state-and-memory/README.md",
+      "10-Knowledge/07-state-and-memory/references.md",
+      "10-Knowledge/08-planning-workflow-multi-agent/01-concepts/01-planning-and-replanning.md",
+      "10-Knowledge/08-planning-workflow-multi-agent/01-concepts/02-workflow-state-machines.md",
+      "10-Knowledge/08-planning-workflow-multi-agent/01-concepts/03-multi-agent-topologies.md",
+      "10-Knowledge/08-planning-workflow-multi-agent/02-patterns/01-task-contract-and-handoff.md",
+      "10-Knowledge/08-planning-workflow-multi-agent/02-patterns/02-shared-state-and-merge.md",
+      "10-Knowledge/08-planning-workflow-multi-agent/03-cases/01-single-vs-multi-agent.md",
+      "10-Knowledge/08-planning-workflow-multi-agent/03-cases/README.md",
+      "10-Knowledge/08-planning-workflow-multi-agent/04-labs/01-single-vs-multi-agent.ipynb",
+      "10-Knowledge/08-planning-workflow-multi-agent/04-labs/README.md",
+      "10-Knowledge/08-planning-workflow-multi-agent/04-labs/run-report.md",
+      "10-Knowledge/08-planning-workflow-multi-agent/05-code/multi-agent-runtime-python/README.md",
+      "10-Knowledge/08-planning-workflow-multi-agent/README.md",
+      "10-Knowledge/08-planning-workflow-multi-agent/references.md",
+      "10-Knowledge/09-runtime-harness-environment/01-concepts/01-runtime-and-harness.md",
+      "10-Knowledge/09-runtime-harness-environment/01-concepts/02-durable-execution.md",
+      "10-Knowledge/09-runtime-harness-environment/01-concepts/03-concurrency-and-budgets.md",
+      "10-Knowledge/09-runtime-harness-environment/01-concepts/04-workspaces-sandboxes-and-artifacts.md",
+      "10-Knowledge/09-runtime-harness-environment/02-patterns/01-retry-idempotency-compensation.md",
+      "10-Knowledge/09-runtime-harness-environment/04-labs/01-recovery-and-idempotency.ipynb",
+      "10-Knowledge/09-runtime-harness-environment/04-labs/README.md",
+      "10-Knowledge/09-runtime-harness-environment/04-labs/run-report.md",
+      "10-Knowledge/09-runtime-harness-environment/05-code/recoverable-runtime-python/README.md",
+      "10-Knowledge/09-runtime-harness-environment/README.md",
+      "10-Knowledge/09-runtime-harness-environment/references.md",
+      "10-Knowledge/10-evaluation-observability/01-concepts/00-overview.md",
+      "10-Knowledge/10-evaluation-observability/01-concepts/01-evaluation-model.md",
+      "10-Knowledge/10-evaluation-observability/01-concepts/02-tasks-datasets-and-trials.md",
+      "10-Knowledge/10-evaluation-observability/01-concepts/03-graders-and-scoring.md",
+      "10-Knowledge/10-evaluation-observability/01-concepts/04-statistics-and-reliability.md",
+      "10-Knowledge/10-evaluation-observability/01-concepts/05-traces-and-failure-analysis.md",
+      "10-Knowledge/10-evaluation-observability/01-concepts/06-multi-agent-evaluation.md",
+      "10-Knowledge/10-evaluation-observability/02-patterns/01-evaluation-operations.md",
+      "10-Knowledge/10-evaluation-observability/02-patterns/02-templates-and-checklists.md",
+      "10-Knowledge/10-evaluation-observability/03-cases/01-from-task-dataset-to-regression.md",
+      "10-Knowledge/10-evaluation-observability/04-labs/01-evaluation-and-regression.ipynb",
+      "10-Knowledge/10-evaluation-observability/04-labs/README.md",
+      "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/README.md",
+      "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/fixtures/README.md",
+      "10-Knowledge/10-evaluation-observability/README.md",
+      "10-Knowledge/10-evaluation-observability/references.md",
+      "10-Knowledge/11-safety-security-governance/01-concepts/01-threat-model-and-injection.md",
+      "10-Knowledge/11-safety-security-governance/01-concepts/02-identity-and-permissions.md",
+      "10-Knowledge/11-safety-security-governance/01-concepts/03-data-secrets-and-audit.md",
+      "10-Knowledge/11-safety-security-governance/01-concepts/04-supply-chain-and-response.md",
+      "10-Knowledge/11-safety-security-governance/04-labs/01-policy-and-injection.ipynb",
+      "10-Knowledge/11-safety-security-governance/04-labs/README.md",
+      "10-Knowledge/11-safety-security-governance/04-labs/run-report.md",
+      "10-Knowledge/11-safety-security-governance/05-code/README.md",
+      "10-Knowledge/11-safety-security-governance/README.md",
+      "10-Knowledge/11-safety-security-governance/references.md",
+      "10-Knowledge/12-agent-learning/01-concepts/01-trajectory-data.md",
+      "10-Knowledge/12-agent-learning/01-concepts/02-sft-and-preference-optimization.md",
+      "10-Knowledge/12-agent-learning/01-concepts/03-agentic-reinforcement-learning.md",
+      "10-Knowledge/12-agent-learning/01-concepts/04-verifiers-and-reward-hacking.md",
+      "10-Knowledge/12-agent-learning/02-patterns/01-feedback-to-improvement.md",
+      "10-Knowledge/12-agent-learning/04-labs/01-trajectories-and-rewards.ipynb",
+      "10-Knowledge/12-agent-learning/04-labs/README.md",
+      "10-Knowledge/12-agent-learning/05-code/README.md",
+      "10-Knowledge/12-agent-learning/README.md",
+      "10-Knowledge/12-agent-learning/references.md",
+      "10-Knowledge/13-application-engineering/01-concepts/01-backend-and-streaming.md",
+      "10-Knowledge/13-application-engineering/01-concepts/02-human-agent-interaction.md",
+      "10-Knowledge/13-application-engineering/01-concepts/03-storage-and-multitenancy.md",
+      "10-Knowledge/13-application-engineering/01-concepts/04-model-gateways.md",
+      "10-Knowledge/13-application-engineering/03-cases/browser-agents/README.md",
+      "10-Knowledge/13-application-engineering/03-cases/coding-agents/README.md",
+      "10-Knowledge/13-application-engineering/03-cases/domain-agents/README.md",
+      "10-Knowledge/13-application-engineering/03-cases/domain-agents/enterprise/README.md",
+      "10-Knowledge/13-application-engineering/03-cases/domain-agents/operations/README.md",
+      "10-Knowledge/13-application-engineering/03-cases/domain-agents/science/README.md",
+      "10-Knowledge/13-application-engineering/05-code/README.md",
+      "10-Knowledge/13-application-engineering/05-code/browser-agent-typescript/README.md",
+      "10-Knowledge/13-application-engineering/README.md",
+      "10-Knowledge/13-application-engineering/references.md",
+      "10-Knowledge/14-production-engineering/01-concepts/01-deployment-and-capacity.md",
+      "10-Knowledge/14-production-engineering/01-concepts/02-slos-reliability-and-cost.md",
+      "10-Knowledge/14-production-engineering/01-concepts/03-release-and-recovery.md",
+      "10-Knowledge/14-production-engineering/03-cases/failure-postmortems/README.md",
+      "10-Knowledge/14-production-engineering/03-cases/production-systems/README.md",
+      "10-Knowledge/14-production-engineering/05-code/README.md",
+      "10-Knowledge/14-production-engineering/README.md",
+      "10-Knowledge/14-production-engineering/references.md",
+      "10-Knowledge/15-multimodal-and-embodied/01-concepts/01-vision-and-document-ai.md",
+      "10-Knowledge/15-multimodal-and-embodied/01-concepts/02-speech-audio-and-video.md",
+      "10-Knowledge/15-multimodal-and-embodied/01-concepts/03-multimodal-context-and-rag.md",
+      "10-Knowledge/15-multimodal-and-embodied/01-concepts/04-computer-use-vla-and-embodied.md",
+      "10-Knowledge/15-multimodal-and-embodied/04-labs/01-document-evidence.ipynb",
+      "10-Knowledge/15-multimodal-and-embodied/04-labs/README.md",
+      "10-Knowledge/15-multimodal-and-embodied/05-code/README.md",
+      "10-Knowledge/15-multimodal-and-embodied/README.md",
+      "10-Knowledge/15-multimodal-and-embodied/references.md",
+      "10-Knowledge/16-research-frontiers/01-concepts/01-long-horizon-agents.md",
+      "10-Knowledge/16-research-frontiers/01-concepts/02-self-improvement-and-agent-swarms.md",
+      "10-Knowledge/16-research-frontiers/01-concepts/03-world-models-and-neuro-symbolic.md",
+      "10-Knowledge/16-research-frontiers/01-concepts/04-test-time-learning-and-oversight.md",
+      "10-Knowledge/16-research-frontiers/03-cases/01-research-and-science-agents.md",
+      "10-Knowledge/16-research-frontiers/03-cases/README.md",
+      "10-Knowledge/16-research-frontiers/05-code/README.md",
+      "10-Knowledge/16-research-frontiers/README.md",
+      "10-Knowledge/16-research-frontiers/references.md",
+      "10-Knowledge/README.md",
+      "20-Projects/README.md",
+      "20-Projects/domain-research-agent/README.md",
+      "20-Projects/domain-research-agent/run-report.md",
+      "20-Projects/learning-workbench/01-evidence-and-model-results.ipynb",
+      "20-Projects/learning-workbench/README.md",
+      "20-Projects/learning-workbench/artifacts/research/multi.md",
+      "20-Projects/learning-workbench/artifacts/research/single.md",
+      "20-Projects/learning-workbench/fixtures/structured-manual.md",
+      "20-Projects/learning-workbench/skills/evidence-comparison/SKILL.md",
+      "20-Projects/learning-workbench/skills/evidence-comparison/assets/comparison.md",
+      "20-Projects/tiny-transformer/01-train-and-inspect.ipynb",
+      "20-Projects/tiny-transformer/README.md"
+    ]
+  },
+  "root_changes": [
+    "Root walkthrough with successful answer and refusal fields",
+    "Learning-path matrix with self-check reasoning",
+    "Dependency tiers and OS-specific activation",
+    "Cross-chapter glossary",
+    "Historical completion checklist reconciliation",
+    "GitHub math delimiters outside code",
+    "UTF-8 fixture/report reads and writes with non-UTF8-mode CLI regression"
+  ],
+  "reviews": {
+    "foundations-review": {
+      "scope": [
+        "10-Knowledge/01-ai-foundations",
+        "10-Knowledge/02-foundation-models",
+        "20-Projects/tiny-transformer"
+      ],
+      "reviewed_at": "2026-09-07",
+      "read_files": [
+        "10-Knowledge/01-ai-foundations/01-concepts/classical-ai/README.md",
+        "10-Knowledge/01-ai-foundations/01-concepts/compute-foundations/README.md",
+        "10-Knowledge/01-ai-foundations/01-concepts/deep-learning/README.md",
+        "10-Knowledge/01-ai-foundations/01-concepts/machine-learning/README.md",
+        "10-Knowledge/01-ai-foundations/01-concepts/math-and-statistics/README.md",
+        "10-Knowledge/01-ai-foundations/01-concepts/reinforcement-learning/README.md",
+        "10-Knowledge/01-ai-foundations/01-concepts/trustworthy-ai/README.md",
+        "10-Knowledge/01-ai-foundations/04-labs/01-math-and-optimization.ipynb",
+        "10-Knowledge/01-ai-foundations/04-labs/02-generalization-and-calibration.ipynb",
+        "10-Knowledge/01-ai-foundations/04-labs/README.md",
+        "10-Knowledge/01-ai-foundations/04-labs/deep-learning/01-autograd-and-training.ipynb",
+        "10-Knowledge/01-ai-foundations/04-labs/deep-learning/README.md",
+        "10-Knowledge/01-ai-foundations/04-labs/run-report.md",
+        "10-Knowledge/01-ai-foundations/04-labs/search-and-rl/01-search-and-value-learning.ipynb",
+        "10-Knowledge/01-ai-foundations/04-labs/search-and-rl/README.md",
+        "10-Knowledge/01-ai-foundations/05-code/README.md",
+        "10-Knowledge/01-ai-foundations/05-code/foundations_core.py",
+        "10-Knowledge/01-ai-foundations/05-code/requirements.txt",
+        "10-Knowledge/01-ai-foundations/README.md",
+        "10-Knowledge/01-ai-foundations/references.md",
+        "10-Knowledge/02-foundation-models/01-concepts/inference/README.md",
+        "10-Knowledge/02-foundation-models/01-concepts/model-selection/README.md",
+        "10-Knowledge/02-foundation-models/01-concepts/reasoning/README.md",
+        "10-Knowledge/02-foundation-models/01-concepts/tokenization/README.md",
+        "10-Knowledge/02-foundation-models/01-concepts/training/README.md",
+        "10-Knowledge/02-foundation-models/01-concepts/transformer/README.md",
+        "10-Knowledge/02-foundation-models/04-labs/01-tokenization-and-attention.ipynb",
+        "10-Knowledge/02-foundation-models/04-labs/02-decoding-cache-and-precision.ipynb",
+        "10-Knowledge/02-foundation-models/04-labs/README.md",
+        "10-Knowledge/02-foundation-models/04-labs/run-report.md",
+        "10-Knowledge/02-foundation-models/05-code/README.md",
+        "10-Knowledge/02-foundation-models/05-code/model_mechanics.py",
+        "10-Knowledge/02-foundation-models/05-code/requirements.txt",
+        "10-Knowledge/02-foundation-models/README.md",
+        "10-Knowledge/02-foundation-models/references.md",
+        "20-Projects/tiny-transformer/01-train-and-inspect.ipynb",
+        "20-Projects/tiny-transformer/README.md",
+        "20-Projects/tiny-transformer/artifacts/report.json",
+        "20-Projects/tiny-transformer/pyproject.toml",
+        "20-Projects/tiny-transformer/src/tiny_transformer/__init__.py",
+        "20-Projects/tiny-transformer/src/tiny_transformer/experiment.py",
+        "20-Projects/tiny-transformer/src/tiny_transformer/model.py",
+        "20-Projects/tiny-transformer/tests/test_decoder.py"
+      ],
+      "read_file_count": 43,
+      "modified_files": [
+        "10-Knowledge/01-ai-foundations/01-concepts/deep-learning/README.md",
+        "10-Knowledge/01-ai-foundations/01-concepts/machine-learning/README.md",
+        "10-Knowledge/01-ai-foundations/01-concepts/reinforcement-learning/README.md",
+        "10-Knowledge/01-ai-foundations/01-concepts/trustworthy-ai/README.md",
+        "10-Knowledge/01-ai-foundations/04-labs/02-generalization-and-calibration.ipynb",
+        "10-Knowledge/01-ai-foundations/references.md",
+        "10-Knowledge/02-foundation-models/01-concepts/inference/README.md",
+        "10-Knowledge/02-foundation-models/01-concepts/model-selection/README.md",
+        "10-Knowledge/02-foundation-models/01-concepts/reasoning/README.md",
+        "10-Knowledge/02-foundation-models/01-concepts/tokenization/README.md",
+        "10-Knowledge/02-foundation-models/01-concepts/training/README.md",
+        "10-Knowledge/02-foundation-models/01-concepts/transformer/README.md",
+        "10-Knowledge/02-foundation-models/README.md",
+        "10-Knowledge/02-foundation-models/references.md",
+        "20-Projects/tiny-transformer/01-train-and-inspect.ipynb",
+        "20-Projects/tiny-transformer/README.md",
+        "20-Projects/tiny-transformer/src/tiny_transformer/model.py",
+        "20-Projects/tiny-transformer/tests/test_decoder.py"
+      ],
+      "modified_file_count": 18,
+      "issues": [
+        {
+          "id": "F01",
+          "category": "explanation",
+          "files": [
+            "10-Knowledge/01-ai-foundations/01-concepts/machine-learning/README.md",
+            "10-Knowledge/01-ai-foundations/04-labs/02-generalization-and-calibration.ipynb"
+          ],
+          "problem": "正文称测试点独立采样，Notebook 实际使用预先固定的均匀网格与无噪声真函数。",
+          "change": "统一为未参与拟合的测试网格，明确估计函数恢复而非 iid 业务抽样误差。"
+        },
+        {
+          "id": "F02",
+          "category": "explanation",
+          "files": [
+            "10-Knowledge/01-ai-foundations/01-concepts/machine-learning/README.md"
+          ],
+          "problem": "拒绝阈值方向和 TP/FP/FN 的阳性含义未定义，容易把阈值调反。",
+          "change": "定义危险为阳性、分数 >= 阈值拒绝，再解释误报漏报及阈值方向。"
+        },
+        {
+          "id": "F03",
+          "category": "explanation",
+          "files": [
+            "10-Knowledge/01-ai-foundations/01-concepts/trustworthy-ai/README.md"
+          ],
+          "problem": "ECE 数字例子“另50个均为0.6”没说明是正确率还是置信度。",
+          "change": "明确两个量都为0.6。"
+        },
+        {
+          "id": "F04",
+          "category": "coverage",
+          "files": [
+            "10-Knowledge/01-ai-foundations/01-concepts/deep-learning/README.md",
+            "10-Knowledge/01-ai-foundations/references.md"
+          ],
+          "problem": "eval/no_grad/冻结参数的差别没讲清；“未运行PyTorch”与新项目交叉引用不一致。",
+          "change": "补三者的行为与微调梯度路径，接通 tiny 项目；Autograd 来源对齐实际 PyTorch 2.8 文档。"
+        },
+        {
+          "id": "F05",
+          "category": "coverage",
+          "files": [
+            "10-Knowledge/01-ai-foundations/01-concepts/reinforcement-learning/README.md",
+            "10-Knowledge/01-ai-foundations/references.md"
+          ],
+          "problem": "从 Q-learning 直接跳到大模型 PPO，读者缺少策略梯度、优势和 Actor/Critic 的联系。",
+          "change": "新增 Q-V 数值例子、固定优势的策略代理损失与 log 概率梯度方向；解释不需穿过环境求导；链接 PPO 逐项算例与实验。"
+        },
+        {
+          "id": "F06",
+          "category": "learning_path",
+          "files": [
+            "10-Knowledge/02-foundation-models/README.md",
+            "10-Knowledge/02-foundation-models/01-concepts/tokenization/README.md",
+            "10-Knowledge/02-foundation-models/01-concepts/transformer/README.md",
+            "10-Knowledge/02-foundation-models/01-concepts/training/README.md",
+            "10-Knowledge/02-foundation-models/01-concepts/inference/README.md",
+            "10-Knowledge/02-foundation-models/01-concepts/reasoning/README.md",
+            "10-Knowledge/02-foundation-models/01-concepts/model-selection/README.md"
+          ],
+          "problem": "六篇相同文末扩展把推理能力/选型也指向不验证这些能力的 tiny 训练项目。",
+          "change": "结构、训练、缓存走 tiny；真实 tokenizer、判断器、模型任务结果走 learning-workbench。Attention 加源码步骤和区分平移/放大分数/修改 V 的自检。"
+        },
+        {
+          "id": "F07",
+          "category": "explanation",
+          "files": [
+            "10-Knowledge/02-foundation-models/01-concepts/training/README.md",
+            "20-Projects/tiny-transformer/README.md"
+          ],
+          "problem": "SFT prompt loss mask 在标签移位后容易漏掉答案第一个字符。",
+          "change": "加入 BOS Q x y / ignored x y EOS 四格对照；解释右 padding 安全的因果条件及不支持左 padding/packed 的边界。"
+        },
+        {
+          "id": "F08",
+          "category": "coverage",
+          "files": [
+            "10-Knowledge/02-foundation-models/01-concepts/training/README.md",
+            "10-Knowledge/02-foundation-models/references.md"
+          ],
+          "problem": "DPO 的四个 log 概率没有逐数代入；PPO 只提名字而无正负优势裁剪解释。",
+          "change": "新增 reference/current 差值例子、EOS 与序列和口径；补 PPO rho/min/clip 公式与三行正负优势算例，说明优化负号和非硬约束。"
+        },
+        {
+          "id": "F09",
+          "category": "code_prose_alignment",
+          "files": [
+            "20-Projects/tiny-transformer/README.md",
+            "20-Projects/tiny-transformer/src/tiny_transformer/model.py"
+          ],
+          "problem": "LoRA 公式有 alpha/r，代码系数是1但未解释；PyTorch Linear 权重方向与行/列向量记法不同。",
+          "change": "明确 alpha=r 固定缩放为1、适配器只挂 head；给出 W/A/B 形状、Linear 的 x@W.T 存储约定。"
+        },
+        {
+          "id": "F10",
+          "category": "correctness",
+          "files": [
+            "20-Projects/tiny-transformer/src/tiny_transformer/model.py",
+            "20-Projects/tiny-transformer/tests/test_decoder.py",
+            "20-Projects/tiny-transformer/README.md"
+          ],
+          "problem": "批量 generate 只在同一步所有行 EOS 时结束，先结束行会继续输出；输入已满窗口仍追加1个token。",
+          "change": "逐行完成状态与后续 PAD；按剩余窗口裁剪生成步数，空输入/带 PAD prompt/负预算给明确报错；增加真实有控制权重的 decoder 终止边界测试。"
+        },
+        {
+          "id": "F11",
+          "category": "learning_practice",
+          "files": [
+            "20-Projects/tiny-transformer/01-train-and-inspect.ipynb",
+            "20-Projects/tiny-transformer/README.md"
+          ],
+          "problem": "Notebook 直接打印张量然后跑完整训练，读者无法逐步连接 QK、mask、V 和模块。",
+          "change": "增加第一层 Attention 手动展开与模块输出等价断言、future 权重为0与每行和1；新增 SFT 逐格标签检查，精确导入 tiny src。"
+        },
+        {
+          "id": "F12",
+          "category": "evidence_interpretation",
+          "files": [
+            "20-Projects/tiny-transformer/README.md",
+            "20-Projects/tiny-transformer/01-train-and-inspect.ipynb"
+          ],
+          "problem": "报告 sample、teacher-forced prediction、DPO/PPO 和 checkpoints 分属不同阶段，容易误读为同一模型最终能力。",
+          "change": "新增产物/阶段/解释表；说明预训练样本、SFT checkpoint、DPO不另存、独立 PPO 策略、loss记录更新前及65/100步区别。"
+        }
+      ],
+      "validation": [
+        {
+          "command": ".venv/bin/python scripts/run_python.py -m unittest discover -s 20-Projects/tiny-transformer/tests -v",
+          "result": "6 tests passed in 1.838 seconds; includes actual 65-step tiny pretraining and SFT/DPO/checkpoint experiment; 4 newly added tests for generation, padding, LoRA gradient/scale."
+        },
+        {
+          "command": "python -m compileall -q 20-Projects/tiny-transformer/src 20-Projects/tiny-transformer/tests",
+          "result": "passed"
+        },
+        {
+          "command": "Python ast.parse on all 7 assigned Notebook code sources",
+          "result": "passed; execution/output refresh delegated to root to avoid duplicate regeneration"
+        },
+        {
+          "command": "git diff --check -- <assigned scopes>",
+          "result": "passed before final prose-only additions; root performs repository gate"
+        }
+      ],
+      "primary_sources_checked": [
+        {
+          "url": "https://arxiv.org/pdf/1707.06347v2",
+          "scope": "sections 2–3 policy gradient/clipped objective and sign of advantages"
+        },
+        {
+          "url": "https://arxiv.org/html/2106.09685v2",
+          "scope": "section4.1 A random, B zero, alpha/r scaling"
+        },
+        {
+          "url": "https://arxiv.org/html/2305.18290v3",
+          "scope": "DPO log-ratios and Appendix B loss"
+        },
+        {
+          "url": "https://docs.pytorch.org/docs/2.8/generated/torch.nn.CrossEntropyLoss.html",
+          "scope": "class-index labels, ignore_index and nonignored average"
+        },
+        {
+          "url": "https://docs.pytorch.org/docs/2.8/notes/autograd.html",
+          "scope": "reverse-mode, eval/no_grad/requires_grad"
+        }
+      ],
+      "remaining_boundaries": [
+        "This is a simulated learner walkthrough, not a measured study of human mastery.",
+        "No pretrained large model, paid API, QLoRA, full PPO/RLHF or performance benchmark was run.",
+        "Tiny generation intentionally expects equal-length unpadded prompts; unequal lengths must be generated separately.",
+        "Stored historical model report/checkpoints were preserved; tests train temporary artifacts.",
+        "Root must execute changed tiny Notebook to save output and run final repository links/CI."
+      ]
+    },
+    "agent-context-tools-review": {
+      "review_date": "2026-09-07",
+      "scope": [
+        "10-Knowledge/03-agent-core",
+        "10-Knowledge/04-context-engineering",
+        "10-Knowledge/05-tools-skills-protocols"
+      ],
+      "approach": "通读所有领域Markdown与Notebook叙述，追踪对应实现/测试，模拟学习者从概念到运行；并非真实人类理解度实验。",
+      "read_files": [
+        "10-Knowledge/03-agent-core/01-concepts/01-agent-boundaries.md",
+        "10-Knowledge/03-agent-core/01-concepts/02-agent-loop.md",
+        "10-Knowledge/03-agent-core/01-concepts/03-model-adapters.md",
+        "10-Knowledge/03-agent-core/02-patterns/01-react-and-plan-execute.md",
+        "10-Knowledge/03-agent-core/02-patterns/02-reflection-verification-human-loop.md",
+        "10-Knowledge/03-agent-core/04-labs/01-agent-loop.ipynb",
+        "10-Knowledge/03-agent-core/04-labs/README.md",
+        "10-Knowledge/03-agent-core/05-code/agent-loop-python/README.md",
+        "10-Knowledge/03-agent-core/README.md",
+        "10-Knowledge/03-agent-core/references.md",
+        "10-Knowledge/04-context-engineering/01-concepts/00-overview.md",
+        "10-Knowledge/04-context-engineering/01-concepts/01-context-model.md",
+        "10-Knowledge/04-context-engineering/01-concepts/02-failure-modes.md",
+        "10-Knowledge/04-context-engineering/01-concepts/03-context-evaluation.md",
+        "10-Knowledge/04-context-engineering/02-patterns/01-context-builder.md",
+        "10-Knowledge/04-context-engineering/02-patterns/02-optimization-strategies.md",
+        "10-Knowledge/04-context-engineering/04-labs/01-token-budget.ipynb",
+        "10-Knowledge/04-context-engineering/04-labs/02-context-compaction.ipynb",
+        "10-Knowledge/04-context-engineering/04-labs/README.md",
+        "10-Knowledge/04-context-engineering/README.md",
+        "10-Knowledge/04-context-engineering/references.md",
+        "10-Knowledge/05-tools-skills-protocols/01-concepts/01-structured-output-and-tool-contracts.md",
+        "10-Knowledge/05-tools-skills-protocols/01-concepts/02-skills-and-progressive-disclosure.md",
+        "10-Knowledge/05-tools-skills-protocols/01-concepts/03-mcp.md",
+        "10-Knowledge/05-tools-skills-protocols/01-concepts/04-agent-communication-protocols.md",
+        "10-Knowledge/05-tools-skills-protocols/01-concepts/05-delegated-authorization.md",
+        "10-Knowledge/05-tools-skills-protocols/02-patterns/01-tool-runtime.md",
+        "10-Knowledge/05-tools-skills-protocols/04-labs/01-tool-contracts-and-errors.ipynb",
+        "10-Knowledge/05-tools-skills-protocols/04-labs/README.md",
+        "10-Knowledge/05-tools-skills-protocols/05-code/mcp-server-typescript/README.md",
+        "10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/README.md",
+        "10-Knowledge/05-tools-skills-protocols/05-code/tool-runtime-typescript/README.md",
+        "10-Knowledge/05-tools-skills-protocols/README.md",
+        "10-Knowledge/05-tools-skills-protocols/references.md"
+      ],
+      "read_file_count": 34,
+      "changed_files": [
+        "10-Knowledge/03-agent-core/01-concepts/01-agent-boundaries.md",
+        "10-Knowledge/03-agent-core/01-concepts/02-agent-loop.md",
+        "10-Knowledge/03-agent-core/01-concepts/03-model-adapters.md",
+        "10-Knowledge/03-agent-core/02-patterns/01-react-and-plan-execute.md",
+        "10-Knowledge/03-agent-core/04-labs/01-agent-loop.ipynb",
+        "10-Knowledge/03-agent-core/04-labs/README.md",
+        "10-Knowledge/03-agent-core/README.md",
+        "10-Knowledge/04-context-engineering/01-concepts/00-overview.md",
+        "10-Knowledge/04-context-engineering/01-concepts/01-context-model.md",
+        "10-Knowledge/04-context-engineering/01-concepts/02-failure-modes.md",
+        "10-Knowledge/04-context-engineering/01-concepts/03-context-evaluation.md",
+        "10-Knowledge/04-context-engineering/02-patterns/01-context-builder.md",
+        "10-Knowledge/04-context-engineering/02-patterns/02-optimization-strategies.md",
+        "10-Knowledge/04-context-engineering/04-labs/01-token-budget.ipynb",
+        "10-Knowledge/04-context-engineering/04-labs/02-context-compaction.ipynb",
+        "10-Knowledge/04-context-engineering/04-labs/README.md",
+        "10-Knowledge/04-context-engineering/README.md",
+        "10-Knowledge/05-tools-skills-protocols/01-concepts/02-skills-and-progressive-disclosure.md",
+        "10-Knowledge/05-tools-skills-protocols/01-concepts/03-mcp.md",
+        "10-Knowledge/05-tools-skills-protocols/01-concepts/04-agent-communication-protocols.md",
+        "10-Knowledge/05-tools-skills-protocols/01-concepts/05-delegated-authorization.md",
+        "10-Knowledge/05-tools-skills-protocols/02-patterns/01-tool-runtime.md",
+        "10-Knowledge/05-tools-skills-protocols/04-labs/README.md",
+        "10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/README.md",
+        "10-Knowledge/05-tools-skills-protocols/05-code/tool-runtime-typescript/README.md",
+        "10-Knowledge/05-tools-skills-protocols/README.md",
+        "10-Knowledge/05-tools-skills-protocols/references.md",
+        "10-Knowledge/05-tools-skills-protocols/04-labs/01-tool-contracts-and-errors.ipynb"
+      ],
+      "changed_file_count": 28,
+      "findings": [
+        {
+          "id": "AC-01",
+          "problem": "State与实际模型Context之间少了一步，读者可能以为数据库里有记录就等于模型看到",
+          "location": "03-agent-core/01-concepts/01-agent-boundaries.md",
+          "change": "加入 c_t=B(s_t) 与百条记录选三条证据示例"
+        },
+        {
+          "id": "AC-02",
+          "problem": "重复停止没有交代是跨整次运行累计，不要求相邻",
+          "location": "03-agent-core/01-concepts/02-agent-loop.md",
+          "change": "补 A→B→A 在第3步停止，与源码和实际例子一致"
+        },
+        {
+          "id": "AC-03",
+          "problem": "费用公式缺可手算例子，调用后usage容易被误解为硬预算",
+          "location": "03-agent-core/01-concepts/02-agent-loop.md",
+          "change": "补2800输入/300输出/工具费0.02元的教学算例，总费0.024元，并区分预检查与事后计量"
+        },
+        {
+          "id": "AC-04",
+          "problem": "Trace不含最终答案，正文却暗示可单凭Trace检查答案错误",
+          "location": "03-agent-core/01-concepts/02-agent-loop.md",
+          "change": "写清需结合 state.answer，run_finished只含状态/原因/步数"
+        },
+        {
+          "id": "AC-05",
+          "problem": "适配器和领域入口仍称仓库未进行真实模型验证，忽略Round2扩展",
+          "location": "03-agent-core/01-concepts/03-model-adapters.md",
+          "change": "链接providers和真实本地模型报告，区分模型选择/流程结束/答案匹配，Notebook同步边界"
+        },
+        {
+          "id": "AC-06",
+          "problem": "固定计划示例把工具ok当作任务验收，空检索会被标为成功",
+          "location": "03-agent-core/02-patterns/01-react-and-plan-execute.md",
+          "change": "新增主题/ID/原文检查并返回missing_evidence；实际执行正常与无命中两种例子"
+        },
+        {
+          "id": "CE-01",
+          "problem": "信息源/本轮实际输入边界易误读",
+          "location": "04-context-engineering/01-concepts/01-context-model.md",
+          "change": "明确文件路径不是正文、消息模板/工具schema也是输入，并在总览补调用闭环"
+        },
+        {
+          "id": "CE-02",
+          "problem": "类别kind如何被压缩保留与实际facts/sources表示不清楚",
+          "location": "04-context-engineering/01-concepts/01-context-model.md",
+          "change": "解释kind从来源事件回读，抽取前须限定任务/命名空间/版本"
+        },
+        {
+          "id": "CE-03",
+          "problem": "Distraction/Confusion/Rot易混淆，Rot也易被理解为事实过期",
+          "location": "04-context-engineering/01-concepts/02-failure-modes.md",
+          "change": "给诊断区分和归因前提，保留原八类模式及同一故障对应表"
+        },
+        {
+          "id": "CE-04",
+          "problem": "Full-context基线可被误解为允许绕过权限或硬上限",
+          "location": "04-context-engineering/01-concepts/03-context-evaluation.md",
+          "change": "限定主体可读与硬窗口，超限需记录策略"
+        },
+        {
+          "id": "CE-05",
+          "problem": "证据Precision/Recall缺符号公式、重复chunk和空分母口径",
+          "location": "04-context-engineering/01-concepts/03-context-evaluation.md",
+          "change": "补集合公式、2/3与2/4、统一证据ID、空集不适用说明"
+        },
+        {
+          "id": "CE-06",
+          "problem": "Builder流水线未在代码入口明确伪代码，标不可信可能被理解为注入保证",
+          "location": "04-context-engineering/02-patterns/01-context-builder.md",
+          "change": "标明不可直接运行；权限检查在正文流出前；标签不代替动作授权；预算不足显式失败"
+        },
+        {
+          "id": "CE-07",
+          "problem": "贪心非最优只有一句提示，读者难以理解；公式分隔符GitHub显示不一致",
+          "location": "04-context-engineering/02-patterns/01-context-builder.md",
+          "change": "补成本6/5/5、价值12/9/9、预算10的反例，改为美元公式分隔符"
+        },
+        {
+          "id": "CE-08",
+          "problem": "总表列Refresh但正文没有讲机制；Cache未区分前缀/答案/工具缓存",
+          "location": "04-context-engineering/02-patterns/02-optimization-strategies.md",
+          "change": "新增版本更新与刷新失败处理；澄清前缀缓存通常仍占窗口及三个缓存的区别"
+        },
+        {
+          "id": "CE-09",
+          "problem": "Context两本Notebook仅从cwd导入，在仓库根打开会找不到context_lab",
+          "location": "04-context-engineering/04-labs",
+          "change": "改为向上定位仓库根，再导入固定实验目录；统一执行留给root"
+        },
+        {
+          "id": "TP-01",
+          "problem": "Skill/A2A入口陈旧，已有可运行包和HTTP子集却难找到",
+          "location": "05-tools-skills-protocols/README.md",
+          "change": "增加层次比较与准确链接，替换泛化追加段落"
+        },
+        {
+          "id": "TP-02",
+          "problem": "Skill触发标签、脚本运行、真实宿主选择效果界限易混淆",
+          "location": "05-tools-skills-protocols/01-concepts/02-skills-and-progressive-disclosure.md",
+          "change": "沿实际包文件走读，给skip反例，说明来源片段校验不等于语义证据成立"
+        },
+        {
+          "id": "TP-03",
+          "problem": "MCP先列新旧版本导致初学者难抓工具发现/调用主线",
+          "location": "05-tools-skills-protocols/01-concepts/03-mcp.md",
+          "change": "明确先运行再版本对照，tools/list不是执行，Host可筛选暴露工具"
+        },
+        {
+          "id": "TP-04",
+          "problem": "A2A缺可观察状态流程和请求ID/消息ID/任务ID区分",
+          "location": "05-tools-skills-protocols/01-concepts/04-agent-communication-protocols.md",
+          "change": "补实际命令、三ID表、input-required→completed/canceled；说明echo reviewer不是语义审核，AgentSkill不是SKILL包"
+        },
+        {
+          "id": "TP-05",
+          "problem": "授权逻辑公式缺具体拒绝例子",
+          "location": "05-tools-skills-protocols/01-concepts/05-delegated-authorization.md",
+          "change": "补Alice有scope但无Bob资源权限的True/True/False例"
+        },
+        {
+          "id": "TP-06",
+          "problem": "Runtime说明复制/校验顺序与源码不一致，漏整个调用invalid_request层",
+          "location": "05-tools-skills-protocols/02-patterns/01-tool-runtime.md",
+          "change": "按实际同步校验→复制→权限/参数→异步handler解释，增加调用封装失败"
+        },
+        {
+          "id": "TP-07",
+          "problem": "共享契约只介绍旧12个例子，遗漏已存在47个边界案例",
+          "location": "05-tools-skills-protocols/05-code/shared-schemas/README.md",
+          "change": "说明59项对象判定与覆盖，同步TS/实验/来源入口"
+        },
+        {
+          "id": "LAB-01",
+          "problem": "实验README把历史受限执行环境当当前读者前提，缺统一安装和精确启动步骤",
+          "location": "03/04/05的04-labs/README.md",
+          "change": "正文先给学习环境链接、执行命令、观察结果；历史本地/CI证据保留为有日期记录"
+        },
+        {
+          "id": "TP-08",
+          "problem": "工具无命中与业务错误只讲概念，MCP实际输出未并排展示",
+          "location": "10-Knowledge/05-tools-skills-protocols/04-labs/01-tool-contracts-and-errors.ipynb",
+          "change": "同一MCP客户端分别发送无命中关键词和空格，展示并断言空列表/isError差别"
+        }
+      ],
+      "verification": [
+        {
+          "check": "Agent Loop标准库单元测试",
+          "result": "passed",
+          "test_count": 9
+        },
+        {
+          "check": "正文固定计划正常/缺证据案例",
+          "result": "passed",
+          "observed": [
+            "budget_docs accepted, compression_docs accepted",
+            "budget_docs accepted, compression_docs missing_evidence"
+          ]
+        },
+        {
+          "check": "A→B→A相同结果累计重复",
+          "result": "passed",
+          "observed": "step3 no_progress"
+        },
+        {
+          "check": "Python共享Schema",
+          "result": "passed",
+          "objects": 59,
+          "groups": [
+            12,
+            47
+          ]
+        },
+        {
+          "check": "TS Runtime npm ci && npm test",
+          "result": "passed",
+          "test_count": 10
+        },
+        {
+          "check": "MCP npm ci && npm test",
+          "result": "passed",
+          "test_count": 2,
+          "includes": "真实stdio子进程"
+        },
+        {
+          "check": "A2A正文完整命令",
+          "result": "passed",
+          "requests": 7,
+          "observed": "input-required, duplicate same task, completed, get, handoff, input-required, canceled",
+          "output": "/workspace/scratch/46290c6cc5b4/a2a-learner-review-output.json"
+        },
+        {
+          "check": "本域Markdown/Notebook相对链接",
+          "result": "passed",
+          "errors": 0
+        },
+        {
+          "check": "git diff --check (owned paths)",
+          "result": "passed"
+        },
+        {
+          "check": "4本修改Notebook完整执行",
+          "result": "delegated_to_root",
+          "notebooks": [
+            "10-Knowledge/03-agent-core/04-labs/01-agent-loop.ipynb",
+            "10-Knowledge/04-context-engineering/04-labs/01-token-budget.ipynb",
+            "10-Knowledge/04-context-engineering/04-labs/02-context-compaction.ipynb",
+            "10-Knowledge/05-tools-skills-protocols/04-labs/01-tool-contracts-and-errors.ipynb"
+          ]
+        }
+      ],
+      "primary_sources_reopened": [
+        {
+          "url": "https://modelcontextprotocol.io/specification/2026-07-28/changelog",
+          "supports": "当前生命周期和旧SDK区分",
+          "web_ref": "turn604565view0"
+        },
+        {
+          "url": "https://agentskills.io/specification",
+          "supports": "元数据/正文/附属资源层次",
+          "web_ref": "turn604565view1"
+        },
+        {
+          "url": "https://a2a-protocol.org/v0.3.0/specification/",
+          "supports": "固定版本Task/Message/ID语义",
+          "web_ref": "turn604565view2"
+        }
+      ],
+      "boundaries": [
+        "未修改生产运行时源码；正文示例和Notebook入口已修",
+        "未调用付费API，未重新运行预训练模型",
+        "保留既有教学数据/历史结果及模型能力边界",
+        "没有将本轮学习者走读标记为人类reviewed",
+        "Git提交与推送由root统一执行"
+      ]
+    },
+    "projects-review": {
+      "reviewer": "project_learner_review",
+      "scope": [
+        "20-Projects/domain-research-agent",
+        "20-Projects/learning-workbench"
+      ],
+      "writing_standard": "00-Home/Learning-Writing-Guide.md",
+      "read_files": [
+        "20-Projects/domain-research-agent/README.md",
+        "20-Projects/domain-research-agent/run-report.md",
+        "20-Projects/learning-workbench/README.md",
+        "20-Projects/learning-workbench/fixtures/structured-manual.md",
+        "20-Projects/learning-workbench/artifacts/research/single.md",
+        "20-Projects/learning-workbench/artifacts/research/multi.md",
+        "20-Projects/learning-workbench/skills/evidence-comparison/SKILL.md",
+        "20-Projects/learning-workbench/skills/evidence-comparison/assets/comparison.md",
+        "00-Home/Learning-Writing-Guide.md",
+        "20-Projects/learning-workbench/src/learning_workbench/a2a_demo.py",
+        "20-Projects/learning-workbench/src/learning_workbench/cli.py",
+        "20-Projects/learning-workbench/src/learning_workbench/documents.py",
+        "20-Projects/learning-workbench/src/learning_workbench/experiments.py",
+        "20-Projects/learning-workbench/src/learning_workbench/memory.py",
+        "20-Projects/learning-workbench/src/learning_workbench/model_evaluation.py",
+        "20-Projects/learning-workbench/src/learning_workbench/planning.py",
+        "20-Projects/learning-workbench/src/learning_workbench/practice.py",
+        "20-Projects/learning-workbench/src/learning_workbench/providers.py",
+        "20-Projects/learning-workbench/src/learning_workbench/redaction.py",
+        "20-Projects/learning-workbench/src/learning_workbench/research.py",
+        "20-Projects/learning-workbench/src/learning_workbench/retrieval.py",
+        "20-Projects/learning-workbench/src/learning_workbench/server.py",
+        "20-Projects/learning-workbench/src/learning_workbench/workbench.html",
+        "20-Projects/learning-workbench/tests/test_workbench.py",
+        "20-Projects/domain-research-agent/src/domain_research/service.py",
+        "20-Projects/domain-research-agent/src/domain_research/cli.py",
+        "20-Projects/domain-research-agent/evaluation/run_eval.py",
+        "20-Projects/domain-research-agent/tests/test_integration.py",
+        "20-Projects/learning-workbench/pyproject.toml",
+        "20-Projects/domain-research-agent/pyproject.toml",
+        "20-Projects/learning-workbench/01-evidence-and-model-results.ipynb"
+      ],
+      "structured_inputs_and_results_inspected": [
+        "20-Projects/learning-workbench/fixtures/memory-tasks.jsonl",
+        "20-Projects/learning-workbench/fixtures/context-faults.jsonl",
+        "20-Projects/learning-workbench/fixtures/papers.json",
+        "20-Projects/learning-workbench/artifacts/real-models/retrieval.json",
+        "20-Projects/learning-workbench/artifacts/real-models/generation.json",
+        "20-Projects/learning-workbench/artifacts/real-models/generation-review.json",
+        "20-Projects/learning-workbench/artifacts/real-models/agent-comparison.json",
+        "20-Projects/learning-workbench/artifacts/offline/memory.json"
+      ],
+      "findings": [
+        {
+          "id": "P01",
+          "kind": "learning_entry",
+          "file": "20-Projects/learning-workbench/README.md",
+          "problem": "首次记忆任务需要标准库，但入门要求先安装整套开发依赖；Windows命令未说明。",
+          "change": "先跑一条标准库命令；按任务列依赖、模型下载边界、Windows解释器路径和Notebook内核要求。"
+        },
+        {
+          "id": "P02",
+          "kind": "output_interpretation",
+          "file": "20-Projects/learning-workbench/README.md",
+          "problem": "终端只返回报告路径，初学者无法知道看哪里或executed是否意味着正确。",
+          "change": "解释m0/m1/m3的输入差异、events/selected_memory/correct字段、6/8与8/8固定题结果，以及executed和评分的区别。"
+        },
+        {
+          "id": "P03",
+          "kind": "notebook_learning",
+          "file": "20-Projects/learning-workbench/01-evidence-and-model-results.ipynb",
+          "problem": "原Notebook截断输出约16KB JSON，无评分推导、逐层对照和独立修改练习。",
+          "change": "改为16个递进单元（7个代码）：紧凑表格、按文档ID重算Recall/RR、q3排位对照、g2主张与引文反例、SQLite关闭重开、Task级配对bootstrap公式与自查。未重新运行预训练模型。"
+        },
+        {
+          "id": "P04",
+          "kind": "metric_definition",
+          "file": "20-Projects/learning-workbench/README.md",
+          "problem": "原文说相关片段但实现按document ID评分，MRR和单题RR容易混淆。",
+          "change": "明确文档级Recall@3、单题RR与均值MRR；用network排名3→1说明Recall不变而RR改善，指出Hybrid不一定优于Dense。"
+        },
+        {
+          "id": "P05",
+          "kind": "pipeline_boundary",
+          "file": "20-Projects/learning-workbench/README.md",
+          "problem": "连续给retrieval和rag命令易误认为RAG自动使用Dense实验结果。",
+          "change": "明确rag CLI默认词法Index；无模型retrieval只运行BM25；组合Dense/Reranker需显式构造Index传给generated_answer。"
+        },
+        {
+          "id": "P06",
+          "kind": "correctness",
+          "file": "20-Projects/learning-workbench/src/learning_workbench/memory.py",
+          "problem": "“我以后不要用表格”被当成正向table偏好；“我以后希望小王用表格”仅因前缀也可能错误绑定本人。英文stable也会命中table子串。",
+          "change": "记忆写入和当前请求都只接受DURABLE_FORMATS/CURRENT_FORMATS完整肯定模板；出现支持的格式词但不匹配模板时，写入明确拒绝，当前请求raise ValueError。移除不完备的否定词猜测。使用单词边界避免stable命中table。",
+          "verification": "包含原来的否定/歧义/他人/转述/stable，以及复核发现的“这次无需使用表格”“I cannot use tables”“取消表格，正常解释”3个反例；另有5个明确肯定当前请求正例；实际reply面对旧table记忆仍明确报不支持。",
+          "review_iteration": "初版否定词检测仍漏掉无需/cannot/取消，root复核指出后改为完整白名单，并通过回归。"
+        },
+        {
+          "id": "P07",
+          "kind": "correctness",
+          "file": "20-Projects/learning-workbench/src/learning_workbench/server.py",
+          "problem": "服务原文答案绑定v1，可选生成再次检索却未传版本，可能将v2证据混入同份结果。",
+          "change": "generated_answer增加可选product参数；服务生成阶段传入与ResearchService相同tenant/product/version。",
+          "verification": "新增test_generation_preserves_the_service_source_version，用传输无关的证据检查器验证生成与原文引用均为v1。这是契约测试，不是模型质量测试。"
+        },
+        {
+          "id": "P08",
+          "kind": "repeat_run_boundary",
+          "files": [
+            "20-Projects/learning-workbench/README.md",
+            "20-Projects/domain-research-agent/README.md"
+          ],
+          "problem": "重复命令与故障恢复边界不够清楚，已有trace的FileExistsError容易被误判为模型失败。",
+          "change": "工作台Agent换新输出目录；其他CLI同名JSON会覆盖；domain仅prepared/completed恢复，prepared之前失败可能只留trace需换run-id。评测例子输出到.runs而不覆写历史报告。"
+        },
+        {
+          "id": "P09",
+          "kind": "persistence_learning",
+          "file": "20-Projects/learning-workbench/README.md",
+          "problem": "memory CLI临时DB清理未明确，读者可能把.runs/memory当作持续记忆库。",
+          "change": "明确CLI只留下评分报告；Notebook实际关闭后在第二个对象重开同一SQLite；说明now/ttl同单位教学时刻、当前指令优先、拒绝解析与forget区别。"
+        },
+        {
+          "id": "P10",
+          "kind": "learning_navigation",
+          "files": [
+            "20-Projects/learning-workbench/README.md",
+            "20-Projects/domain-research-agent/README.md"
+          ],
+          "problem": "知识概念与项目步骤之间缺精确路线；源码复用容易误认为单目录可独立pip安装。",
+          "change": "补5条知识→本页任务链接、DAG更新40→45使差值20→15的因果例子、服务审批/取消观察目标、常见故障对照，domain强调依赖完整仓库。"
+        },
+        {
+          "id": "P11",
+          "kind": "newly_reproduced_blocker",
+          "file": "20-Projects/learning-workbench/src/learning_workbench/cli.py",
+          "problem": "read_jsonl默认locale编码。在非UTF8环境，文档第一条memory命令读取中文fixture时UnicodeDecodeError。",
+          "status": "root_fixed; new test_cli_reads_chinese_fixtures_without_utf8_mode passed in shared workbench suite",
+          "reproduction": "env PYTHONUTF8=0 PYTHONCOERCECLOCALE=0 LC_ALL=C .venv/bin/python scripts/run_python.py -m learning_workbench.cli memory --output /tmp/learner-ascii-memory",
+          "recommendation": "cli.py、practice.py、research.py的Path.read_text/write_text显式encoding=utf-8；至少重跑上述memory命令验证读写均不依赖locale。"
+        }
+      ],
+      "modified_files": [
+        "20-Projects/domain-research-agent/README.md",
+        "20-Projects/learning-workbench/README.md",
+        "20-Projects/learning-workbench/01-evidence-and-model-results.ipynb",
+        "20-Projects/learning-workbench/src/learning_workbench/memory.py",
+        "20-Projects/learning-workbench/src/learning_workbench/retrieval.py",
+        "20-Projects/learning-workbench/src/learning_workbench/server.py",
+        "20-Projects/learning-workbench/tests/test_workbench.py"
+      ],
+      "verification": [
+        {
+          "command": "python scripts/run_python.py -m learning_workbench.cli memory --output /tmp/learner-workbench-memory",
+          "result": "passed; original 8 tasks: baseline6/8 and with-memory8/8"
+        },
+        {
+          "command": "python scripts/run_python.py -m domain_research.cli --query ERR-12003 --run-id learner-first --output /tmp/learner-domain-research",
+          "result": "passed; abstained=false, 1 timeout-guide v1 citation, steps=2, deterministic-v1/extractive-v1"
+        },
+        {
+          "command": ".venv/bin/python scripts/run_python.py -m unittest discover -s 20-Projects/learning-workbench/tests -v",
+          "result": "14 tests passed after final memory template change; 2.512s; includes local HTTP approval/SSE/owner/persistence, version scope, memory negation, PDF, A2A, repair, queue, JSON contracts"
+        },
+        {
+          "command": "Notebook execution",
+          "result": "delegated to root unified execution; subagent did not rerun models or Notebook after edits"
+        },
+        {
+          "command": "Non-UTF8 locale memory CLI",
+          "result": "failed with reproduced UnicodeDecodeError at cli.py read_jsonl; root notified before handoff"
+        },
+        {
+          "command": ".venv/bin/python scripts/run_python.py -m unittest discover -s 20-Projects/learning-workbench/tests -v",
+          "result": "15 tests passed after final current-request grammar fix (includes root-added UTF8 test); see root consolidated evidence for timing"
+        }
+      ],
+      "last_source_edit_utc": "2026-09-07T01:54:47.978560+00:00",
+      "last_notebook_edit_utc": "2026-09-07T01:52:22.522146+00:00",
+      "boundaries": [
+        "This is a simulated learner/editor walkthrough, not measured human learning efficacy.",
+        "No paid API or new pretrained-model experiment was run.",
+        "Historical model artifacts and earlier model-quality counts remain unchanged.",
+        "Skill files were read as repository documentation but not modified.",
+        "Default Run service still uses fixed demo identity and local teaching data; no production-readiness claim.",
+        "Preference recognition intentionally supports only complete affirmative templates for the three demonstrated format types; it is not general natural-language intent understanding."
+      ],
+      "cross_owner_requests": [
+        "Root to finish consolidated tests/links/publication; no further subagent source or Notebook writes."
+      ],
+      "last_tests_edit_utc": "2026-09-07T01:54:48.502574+00:00",
+      "last_readme_edit_utc": "2026-09-07T01:54:48.708300+00:00"
+    },
+    "runtime-eval-security-review": {
+      "date": "2026-09-07",
+      "scope": [
+        "10-Knowledge/09-runtime-harness-environment",
+        "10-Knowledge/10-evaluation-observability",
+        "10-Knowledge/11-safety-security-governance"
+      ],
+      "review_method": "Learner walkthrough of every domain Markdown and notebook source; source-code and existing-artifact cross-check; focused editorial and contract fixes. Not a human learner study.",
+      "read_files": [
+        "10-Knowledge/09-runtime-harness-environment/01-concepts/01-runtime-and-harness.md",
+        "10-Knowledge/09-runtime-harness-environment/01-concepts/02-durable-execution.md",
+        "10-Knowledge/09-runtime-harness-environment/01-concepts/03-concurrency-and-budgets.md",
+        "10-Knowledge/09-runtime-harness-environment/01-concepts/04-workspaces-sandboxes-and-artifacts.md",
+        "10-Knowledge/09-runtime-harness-environment/02-patterns/01-retry-idempotency-compensation.md",
+        "10-Knowledge/09-runtime-harness-environment/04-labs/01-recovery-and-idempotency.ipynb",
+        "10-Knowledge/09-runtime-harness-environment/04-labs/README.md",
+        "10-Knowledge/09-runtime-harness-environment/04-labs/run-report.md",
+        "10-Knowledge/09-runtime-harness-environment/05-code/recoverable-runtime-python/README.md",
+        "10-Knowledge/09-runtime-harness-environment/05-code/recoverable-runtime-python/pyproject.toml",
+        "10-Knowledge/09-runtime-harness-environment/05-code/recoverable-runtime-python/src/recoverable_runtime/__init__.py",
+        "10-Knowledge/09-runtime-harness-environment/05-code/recoverable-runtime-python/src/recoverable_runtime/events.py",
+        "10-Knowledge/09-runtime-harness-environment/05-code/recoverable-runtime-python/src/recoverable_runtime/recovery.py",
+        "10-Knowledge/09-runtime-harness-environment/05-code/recoverable-runtime-python/src/recoverable_runtime/runner.py",
+        "10-Knowledge/09-runtime-harness-environment/05-code/recoverable-runtime-python/tests/test_recovery.py",
+        "10-Knowledge/09-runtime-harness-environment/README.md",
+        "10-Knowledge/09-runtime-harness-environment/references.md",
+        "10-Knowledge/10-evaluation-observability/01-concepts/00-overview.md",
+        "10-Knowledge/10-evaluation-observability/01-concepts/01-evaluation-model.md",
+        "10-Knowledge/10-evaluation-observability/01-concepts/02-tasks-datasets-and-trials.md",
+        "10-Knowledge/10-evaluation-observability/01-concepts/03-graders-and-scoring.md",
+        "10-Knowledge/10-evaluation-observability/01-concepts/04-statistics-and-reliability.md",
+        "10-Knowledge/10-evaluation-observability/01-concepts/05-traces-and-failure-analysis.md",
+        "10-Knowledge/10-evaluation-observability/01-concepts/06-multi-agent-evaluation.md",
+        "10-Knowledge/10-evaluation-observability/02-patterns/01-evaluation-operations.md",
+        "10-Knowledge/10-evaluation-observability/02-patterns/02-templates-and-checklists.md",
+        "10-Knowledge/10-evaluation-observability/03-cases/01-from-task-dataset-to-regression.md",
+        "10-Knowledge/10-evaluation-observability/04-labs/01-evaluation-and-regression.ipynb",
+        "10-Knowledge/10-evaluation-observability/04-labs/README.md",
+        "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/README.md",
+        "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/fixtures/README.md",
+        "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/pyproject.toml",
+        "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/requirements.lock",
+        "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/src/eval_harness/__init__.py",
+        "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/src/eval_harness/cli.py",
+        "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/src/eval_harness/graders.py",
+        "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/src/eval_harness/reports.py",
+        "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/src/eval_harness/runner.py",
+        "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/src/eval_harness/statistics.py",
+        "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/src/eval_harness/tasks.py",
+        "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/tests/test_harness.py",
+        "10-Knowledge/10-evaluation-observability/README.md",
+        "10-Knowledge/10-evaluation-observability/references.md",
+        "10-Knowledge/11-safety-security-governance/01-concepts/01-threat-model-and-injection.md",
+        "10-Knowledge/11-safety-security-governance/01-concepts/02-identity-and-permissions.md",
+        "10-Knowledge/11-safety-security-governance/01-concepts/03-data-secrets-and-audit.md",
+        "10-Knowledge/11-safety-security-governance/01-concepts/04-supply-chain-and-response.md",
+        "10-Knowledge/11-safety-security-governance/04-labs/01-policy-and-injection.ipynb",
+        "10-Knowledge/11-safety-security-governance/04-labs/README.md",
+        "10-Knowledge/11-safety-security-governance/04-labs/run-report.md",
+        "10-Knowledge/11-safety-security-governance/05-code/README.md",
+        "10-Knowledge/11-safety-security-governance/05-code/policy_lab.py",
+        "10-Knowledge/11-safety-security-governance/05-code/test_policy.py",
+        "10-Knowledge/11-safety-security-governance/README.md",
+        "10-Knowledge/11-safety-security-governance/references.md"
+      ],
+      "changed_files": [
+        "10-Knowledge/09-runtime-harness-environment/01-concepts/02-durable-execution.md",
+        "10-Knowledge/09-runtime-harness-environment/01-concepts/03-concurrency-and-budgets.md",
+        "10-Knowledge/09-runtime-harness-environment/02-patterns/01-retry-idempotency-compensation.md",
+        "10-Knowledge/09-runtime-harness-environment/04-labs/01-recovery-and-idempotency.ipynb",
+        "10-Knowledge/09-runtime-harness-environment/05-code/recoverable-runtime-python/README.md",
+        "10-Knowledge/09-runtime-harness-environment/05-code/recoverable-runtime-python/src/recoverable_runtime/runner.py",
+        "10-Knowledge/09-runtime-harness-environment/05-code/recoverable-runtime-python/tests/test_recovery.py",
+        "10-Knowledge/09-runtime-harness-environment/README.md",
+        "10-Knowledge/10-evaluation-observability/01-concepts/00-overview.md",
+        "10-Knowledge/10-evaluation-observability/01-concepts/03-graders-and-scoring.md",
+        "10-Knowledge/10-evaluation-observability/01-concepts/04-statistics-and-reliability.md",
+        "10-Knowledge/10-evaluation-observability/01-concepts/05-traces-and-failure-analysis.md",
+        "10-Knowledge/10-evaluation-observability/01-concepts/06-multi-agent-evaluation.md",
+        "10-Knowledge/10-evaluation-observability/04-labs/01-evaluation-and-regression.ipynb",
+        "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/README.md",
+        "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/src/eval_harness/statistics.py",
+        "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/tests/test_harness.py",
+        "10-Knowledge/10-evaluation-observability/README.md",
+        "10-Knowledge/10-evaluation-observability/references.md",
+        "10-Knowledge/11-safety-security-governance/01-concepts/01-threat-model-and-injection.md",
+        "10-Knowledge/11-safety-security-governance/01-concepts/02-identity-and-permissions.md",
+        "10-Knowledge/11-safety-security-governance/05-code/test_policy.py",
+        "10-Knowledge/11-safety-security-governance/README.md"
+      ],
+      "issues": [
+        {
+          "id": "R1",
+          "file": "10-Knowledge/09-runtime-harness-environment/01-concepts/02-durable-execution.md",
+          "problem": "Replay 的确认状态容易误读成外部真实状态。",
+          "change": "补充 after_effect 时 Replay 仍 pending 但账本已提交的差别。"
+        },
+        {
+          "id": "R2",
+          "file": "10-Knowledge/09-runtime-harness-environment/02-patterns/01-retry-idempotency-compensation.md",
+          "problem": "pending→execute→compensate 被描述成先查询，实际 execute 会新建未发生的原动作。",
+          "change": "明确这是完成后补偿，不是取消；修 API docstring/错误文字与 Notebook 练习，增加调用前 pending 补偿不产生效果的测试。"
+        },
+        {
+          "id": "R3",
+          "file": "10-Knowledge/09-runtime-harness-environment/01-concepts/03-concurrency-and-budgets.md",
+          "problem": "吞掉 CancelledError 后父任务一定以为已取消的描述过强。",
+          "change": "说明取消可能无法传播、父任务继续等待或收到普通返回值。"
+        },
+        {
+          "id": "R4",
+          "file": "10-Knowledge/09-runtime-harness-environment/01-concepts/03-concurrency-and-budgets.md",
+          "problem": "只有 Token 上限概念，缺少多 Worker 同时消费预算的具体机制。",
+          "change": "用 1000 余额/两个 800 请求说明原子预留与结算，标明本仓真实模型调用只记录软预算。"
+        },
+        {
+          "id": "E1",
+          "file": "10-Knowledge/10-evaluation-observability/01-concepts/03-graders-and-scoring.md",
+          "problem": "本仓没有运行 LLM Judge 的全仓声明已过时。",
+          "change": "限定四任务 Harness，连接 Workbench 已有真实 Judge；更新导航、工程说明和来源索引。"
+        },
+        {
+          "id": "E2",
+          "file": "10-Knowledge/10-evaluation-observability/01-concepts/04-statistics-and-reliability.md",
+          "problem": "共享模型/Prompt 被直接等同为 Trial 不独立。",
+          "change": "区分固定 Task 下独立采样、共享故障/状态、跨任务难度异质性。"
+        },
+        {
+          "id": "E3",
+          "file": "10-Knowledge/10-evaluation-observability/01-concepts/04-statistics-and-reliability.md",
+          "problem": "微平均与宏平均只有名称，不够读者决定指标权重。",
+          "change": "写出两条公式及 A=9/10、B=0/2，解释 75% 与 45% 的分母；Notebook 加可执行计算。"
+        },
+        {
+          "id": "E4",
+          "file": "10-Knowledge/10-evaluation-observability/01-concepts/04-statistics-and-reliability.md",
+          "problem": "pass@k 候选中存在正确答案与线上能选择正确答案未区分。",
+          "change": "强调选择器与隐藏评分答案不能默认为线上能力。"
+        },
+        {
+          "id": "E5",
+          "file": "10-Knowledge/10-evaluation-observability/01-concepts/04-statistics-and-reliability.md",
+          "problem": "配对 bootstrap 只列术语，未说明到底重采样什么。",
+          "change": "解释 Task 均值差与有放回抽样，给四项差值手算；连实际实现并说明未内层重采样 Trial。"
+        },
+        {
+          "id": "E6",
+          "file": "10-Knowledge/10-evaluation-observability/01-concepts/04-statistics-and-reliability.md",
+          "problem": "超时、成本/成功、成功子集平均成本的分母不明确。",
+          "change": "给 6/10 与 6/8、20/6 与 9/6 的可比算例，零成功与超时延迟条件标明。"
+        },
+        {
+          "id": "E7",
+          "file": "10-Knowledge/10-evaluation-observability/01-concepts/03-graders-and-scoring.md",
+          "problem": "Judge 假阳性/漏判没有标签方向和数值对照。",
+          "change": "用 100 例混淆矩阵解释准确率 90% 但漏判率 50%，说明 insufficient 与 contradicted 区别。"
+        },
+        {
+          "id": "E8",
+          "file": "10-Knowledge/10-evaluation-observability/01-concepts/03-graders-and-scoring.md",
+          "problem": "已有真实报告缺少帮助学习者解释结果的逐项说明。",
+          "change": "解释 Judge 3/6 的具体错误，以及四个位置交换输出均不满足 JSON 契约，不能当纯位置偏差证据。"
+        },
+        {
+          "id": "E9",
+          "file": "10-Knowledge/10-evaluation-observability/01-concepts/05-traces-and-failure-analysis.md",
+          "problem": "Trace/Span/Event 混用，filter 事件似乎证明了存储读取授权。",
+          "change": "用横表解释三个单位，强调单调时钟/attempt；明确这是返回前过滤，函数仍持有完整 fixture。"
+        },
+        {
+          "id": "E10",
+          "file": "10-Knowledge/10-evaluation-observability/01-concepts/06-multi-agent-evaluation.md",
+          "problem": "多 Agent 状态回滚描述忽略已提交外部动作；评测清单缺少完整可读案例。",
+          "change": "区分事务回滚与业务补偿；连接同论文单/多路线报告，解释 Reader 格式失败、合并传播与共同预算消融。"
+        },
+        {
+          "id": "E11",
+          "file": "10-Knowledge/10-evaluation-observability/04-labs/01-evaluation-and-regression.ipynb",
+          "problem": "Notebook 工程路径只按 cwd.parent 推断，仓库根启动会找错。",
+          "change": "改为向上搜索仓库根，支持根目录或 Lab 启动。"
+        },
+        {
+          "id": "E12",
+          "file": "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/src/eval_harness/statistics.py",
+          "problem": "统计接口可接受非整数计数、bool 或 NaN/Inf 分位数，可能生成误导数值。",
+          "change": "明确输入类型/有限值检查与 docstring，增加针对回归测试。"
+        },
+        {
+          "id": "S1",
+          "file": "10-Knowledge/11-safety-security-governance/01-concepts/02-identity-and-permissions.md",
+          "problem": "审批绑定资源 ID，读者可能误以为同时绑定对象版本；重试消费语义不清楚。",
+          "change": "补完整批准流程、可信应用附令牌、版本/摘要与持久回执的生产扩展边界。"
+        },
+        {
+          "id": "S2",
+          "file": "10-Knowledge/11-safety-security-governance/05-code/test_policy.py",
+          "problem": "旧复用测试在对象已删除时拒绝，不能独立证明令牌已消费。",
+          "change": "同 ID 重建资源后旧令牌依然拒绝，验证真正消费语义。"
+        },
+        {
+          "id": "S3",
+          "file": "10-Knowledge/11-safety-security-governance/01-concepts/01-threat-model-and-injection.md",
+          "problem": "读者容易混淆模型格式失败、离题提案与实际非法效果。",
+          "change": "分三层给观察指标，连接已有真实注入报告，并说明无工具调用也可能污染答案。"
+        },
+        {
+          "id": "N1",
+          "file": "domain README / evaluation diagrams",
+          "problem": "领域首页泛泛链接扩展项目，ASCII 拓扑难快速对应知识与实现。",
+          "change": "将三域导航改为具体学习动作、自检与结果入口；评测系统、多 Agent 拓扑改紧凑 Mermaid，Trace 用表。"
+        }
+      ],
+      "verification": {
+        "runtime_unittest": {
+          "passed": 7
+        },
+        "eval_unittest": {
+          "passed": 8
+        },
+        "security_unittest": {
+          "passed": 5
+        },
+        "local_links": {
+          "status": "passed",
+          "documents_at_run": 247,
+          "targets_at_run": 1769
+        },
+        "git_diff_check": "passed",
+        "notebooks": "Only source revised in Runtime and Evaluation; root requested centralized final notebook execution. Existing outputs retained pending root execution."
+      },
+      "primary_sources_opened": [
+        "https://arxiv.org/abs/2107.03374",
+        "https://docs.python.org/3/library/asyncio-task.html",
+        "https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/",
+        "https://www.itl.nist.gov/div898/handbook/prc/section2/prc241.htm"
+      ],
+      "boundaries": [
+        "No production cancellation/query protocol added; execute still ensures original action completion.",
+        "No new real-model run or paid API use. Stored results interpreted only within their constructed tasks.",
+        "No independent expert Judge labels or real user learning outcomes claimed.",
+        "Approval version binding, durable receipts, atomic model-budget reservation remain documented production extensions, not secretly implemented."
+      ]
+    },
+    "retrieval-memory-planning-review": {
+      "scope": "Learning-oriented review of RAG, State/Memory, Planning/Workflow/Multi-Agent",
+      "reviewed_markdown_and_notebooks": [
+        "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/01-rag-pipeline.md",
+        "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/02-hybrid-retrieval-and-reranking.md",
+        "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/03-ingestion-and-parsing.md",
+        "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/04-chunking-and-metadata.md",
+        "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/05-index-lifecycle.md",
+        "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/06-query-planning-and-graph-retrieval.md",
+        "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/07-citations-and-grounding.md",
+        "10-Knowledge/06-rag-and-knowledge-systems/02-patterns/hybrid-retrieval.md",
+        "10-Knowledge/06-rag-and-knowledge-systems/03-cases/运维RAG-双索引检索设计.md",
+        "10-Knowledge/06-rag-and-knowledge-systems/03-cases/运维领域-RAG-问答系统.md",
+        "10-Knowledge/06-rag-and-knowledge-systems/04-labs/01-hybrid-retrieval-evaluation.ipynb",
+        "10-Knowledge/06-rag-and-knowledge-systems/04-labs/README.md",
+        "10-Knowledge/06-rag-and-knowledge-systems/05-code/rag-pipeline-python/README.md",
+        "10-Knowledge/06-rag-and-knowledge-systems/05-code/rag-pipeline-python/fixtures/README.md",
+        "10-Knowledge/06-rag-and-knowledge-systems/README.md",
+        "10-Knowledge/06-rag-and-knowledge-systems/references.md",
+        "10-Knowledge/07-state-and-memory/01-concepts/01-state-and-checkpoints.md",
+        "10-Knowledge/07-state-and-memory/01-concepts/02-memory-lifecycle.md",
+        "10-Knowledge/07-state-and-memory/01-concepts/03-memory-evaluation.md",
+        "10-Knowledge/07-state-and-memory/01-concepts/README.md",
+        "10-Knowledge/07-state-and-memory/02-patterns/01-memory-write-and-retrieval.md",
+        "10-Knowledge/07-state-and-memory/02-patterns/02-conflict-and-forgetting.md",
+        "10-Knowledge/07-state-and-memory/02-patterns/README.md",
+        "10-Knowledge/07-state-and-memory/04-labs/01-state-memory-and-conflicts.ipynb",
+        "10-Knowledge/07-state-and-memory/04-labs/README.md",
+        "10-Knowledge/07-state-and-memory/05-code/state-memory-python/README.md",
+        "10-Knowledge/07-state-and-memory/README.md",
+        "10-Knowledge/07-state-and-memory/references.md",
+        "10-Knowledge/08-planning-workflow-multi-agent/01-concepts/01-planning-and-replanning.md",
+        "10-Knowledge/08-planning-workflow-multi-agent/01-concepts/02-workflow-state-machines.md",
+        "10-Knowledge/08-planning-workflow-multi-agent/01-concepts/03-multi-agent-topologies.md",
+        "10-Knowledge/08-planning-workflow-multi-agent/02-patterns/01-task-contract-and-handoff.md",
+        "10-Knowledge/08-planning-workflow-multi-agent/02-patterns/02-shared-state-and-merge.md",
+        "10-Knowledge/08-planning-workflow-multi-agent/03-cases/01-single-vs-multi-agent.md",
+        "10-Knowledge/08-planning-workflow-multi-agent/03-cases/README.md",
+        "10-Knowledge/08-planning-workflow-multi-agent/04-labs/01-single-vs-multi-agent.ipynb",
+        "10-Knowledge/08-planning-workflow-multi-agent/04-labs/README.md",
+        "10-Knowledge/08-planning-workflow-multi-agent/04-labs/run-report.md",
+        "10-Knowledge/08-planning-workflow-multi-agent/05-code/multi-agent-runtime-python/README.md",
+        "10-Knowledge/08-planning-workflow-multi-agent/README.md",
+        "10-Knowledge/08-planning-workflow-multi-agent/references.md"
+      ],
+      "reviewed_learning_file_count": 41,
+      "changes": [
+        "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/01-rag-pipeline.md",
+        "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/02-hybrid-retrieval-and-reranking.md",
+        "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/03-ingestion-and-parsing.md",
+        "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/04-chunking-and-metadata.md",
+        "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/05-index-lifecycle.md",
+        "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/06-query-planning-and-graph-retrieval.md",
+        "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/07-citations-and-grounding.md",
+        "\"10-Knowledge/06-rag-and-knowledge-systems/03-cases/\\350\\277\\220\\347\\273\\264RAG-\\345\\217\\214\\347\\264\\242\\345\\274\\225\\346\\243\\200\\347\\264\\242\\350\\256\\276\\350\\256\\241.md\"",
+        "10-Knowledge/06-rag-and-knowledge-systems/04-labs/01-hybrid-retrieval-evaluation.ipynb",
+        "10-Knowledge/06-rag-and-knowledge-systems/04-labs/README.md",
+        "10-Knowledge/06-rag-and-knowledge-systems/05-code/rag-pipeline-python/README.md",
+        "10-Knowledge/06-rag-and-knowledge-systems/README.md",
+        "10-Knowledge/06-rag-and-knowledge-systems/references.md",
+        "10-Knowledge/07-state-and-memory/01-concepts/02-memory-lifecycle.md",
+        "10-Knowledge/07-state-and-memory/01-concepts/03-memory-evaluation.md",
+        "10-Knowledge/07-state-and-memory/02-patterns/02-conflict-and-forgetting.md",
+        "10-Knowledge/07-state-and-memory/05-code/state-memory-python/README.md",
+        "10-Knowledge/07-state-and-memory/README.md",
+        "10-Knowledge/08-planning-workflow-multi-agent/01-concepts/01-planning-and-replanning.md",
+        "10-Knowledge/08-planning-workflow-multi-agent/01-concepts/02-workflow-state-machines.md",
+        "10-Knowledge/08-planning-workflow-multi-agent/01-concepts/03-multi-agent-topologies.md",
+        "10-Knowledge/08-planning-workflow-multi-agent/02-patterns/01-task-contract-and-handoff.md",
+        "10-Knowledge/08-planning-workflow-multi-agent/02-patterns/02-shared-state-and-merge.md",
+        "10-Knowledge/08-planning-workflow-multi-agent/04-labs/01-single-vs-multi-agent.ipynb",
+        "10-Knowledge/08-planning-workflow-multi-agent/05-code/multi-agent-runtime-python/README.md",
+        "10-Knowledge/08-planning-workflow-multi-agent/05-code/multi-agent-runtime-python/src/multi_agent/fixture.py",
+        "10-Knowledge/08-planning-workflow-multi-agent/05-code/multi-agent-runtime-python/src/multi_agent/merge.py",
+        "10-Knowledge/08-planning-workflow-multi-agent/05-code/multi-agent-runtime-python/tests/test_runtime.py",
+        "10-Knowledge/08-planning-workflow-multi-agent/README.md"
+      ],
+      "issues": [
+        {
+          "type": "stale boundaries",
+          "detail": "RAG claimed no model/PDF executions anywhere despite later workbench artifacts; now each base and advanced experiment has an exact scope and link."
+        },
+        {
+          "type": "mechanism gap",
+          "detail": "Dense independent encoding vs cross-encoder joint scoring, vector shapes and pre-retrieval recall ceiling explained; core BM25/RRF moved before pipeline decisions."
+        },
+        {
+          "type": "score confusion",
+          "detail": "Query de-duplication, chunk-local BM25 statistics, RR vs MRR, relevance gains/IDCG, and Hit.score remaining RRF after reranking are explicit."
+        },
+        {
+          "type": "unsupported improvement claim",
+          "detail": "Saved q3 example shows hybrid demoting Dense correct first place to third; comparison is within the same six English questions, not across datasets."
+        },
+        {
+          "type": "version storage mismatch",
+          "detail": "Covering upsert cannot serve the removed historical version; archived versions and compare_versions have precise source links."
+        },
+        {
+          "type": "citation coverage",
+          "detail": "Two supporting citations cover two of four claims only if they support two distinct claims; g2 shows correct quote identity but wrong claim/question."
+        },
+        {
+          "type": "memory semantics",
+          "detail": "CAS detects stale versions, not truth; expired invisible records are not nonexistent; current task constraints outrank historical preferences."
+        },
+        {
+          "type": "memory result boundary",
+          "detail": "8/8 format/lifecycle cases are traced to fixed-rule answers, not general conversational model quality; paired improvement/regression and percentage points explained."
+        },
+        {
+          "type": "planning mechanism",
+          "detail": "Base Supervisor lacks DAG dependencies; actual Plan dependency invalidation 40→45 ms, 5+3 executions, batch scheduling and stable graph boundaries explained."
+        },
+        {
+          "type": "async timeout",
+          "detail": "Queue time counts, pending may timeout/cancel, cooperative wait_for timeout is not a hard wall-clock kill."
+        },
+        {
+          "type": "missing task bug",
+          "detail": "merge_results gains optional expected_task_ids, detects wholly absent results and rejects duplicate/unexpected task IDs; fixture supplies its real task manifest."
+        },
+        {
+          "type": "notebook execution path",
+          "detail": "RAG bootstrap resolves repository root; multi-worker output path anchored in the correct lab directory; BM25 hand calculation now executable in notebook."
+        }
+      ],
+      "verification": {
+        "rag_unit_tests": {
+          "passed": 9
+        },
+        "state_memory_unit_tests": {
+          "passed": 4
+        },
+        "multi_worker_unit_tests": {
+          "passed": 7,
+          "new_test": "test_expected_manifest_detects_missing_and_invalid_results"
+        },
+        "repository_local_links": {
+          "documents": 247,
+          "local_targets": 1762,
+          "errors": 0
+        },
+        "notebooks": "Latest source cells await root unified execution; system python lacked nbformat; root will use shared venv and explicit IPython fallback then CI standard kernel.",
+        "new_model_calls": 0,
+        "checked_primary_sources": [
+          "https://sbert.net/docs/sentence_transformer/usage/usage.html",
+          "https://sbert.net/docs/cross_encoder/usage/usage.html",
+          "https://docs.python.org/3/library/asyncio-task.html",
+          "https://www.sqlite.org/lang_transaction.html"
+        ]
+      },
+      "limits": [
+        "All 38 Markdown and 3 Notebook narratives in assigned domains read; code inspected where claims/interfaces required it, not a general security audit.",
+        "PDF/model weights and all binary artifacts were not audited or re-executed; model results were read from saved JSON.",
+        "Other knowledge domains and Home/Projects are parent or sibling responsibilities.",
+        "Source webpage checking was targeted to uncertain API/timeout semantics, not a complete external-link audit.",
+        "Learner simulation and repaired examples do not prove independent human mastery."
+      ]
+    },
+    "advanced-topics-review": {
+      "scope": [
+        "12-agent-learning",
+        "13-application-engineering",
+        "14-production-engineering",
+        "15-multimodal-and-embodied",
+        "16-research-frontiers"
+      ],
+      "reviewed_markdown_and_notebooks": [
+        "10-Knowledge/12-agent-learning/01-concepts/01-trajectory-data.md",
+        "10-Knowledge/12-agent-learning/01-concepts/02-sft-and-preference-optimization.md",
+        "10-Knowledge/12-agent-learning/01-concepts/03-agentic-reinforcement-learning.md",
+        "10-Knowledge/12-agent-learning/01-concepts/04-verifiers-and-reward-hacking.md",
+        "10-Knowledge/12-agent-learning/02-patterns/01-feedback-to-improvement.md",
+        "10-Knowledge/12-agent-learning/04-labs/01-trajectories-and-rewards.ipynb",
+        "10-Knowledge/12-agent-learning/04-labs/README.md",
+        "10-Knowledge/12-agent-learning/05-code/README.md",
+        "10-Knowledge/12-agent-learning/README.md",
+        "10-Knowledge/12-agent-learning/references.md",
+        "10-Knowledge/13-application-engineering/01-concepts/01-backend-and-streaming.md",
+        "10-Knowledge/13-application-engineering/01-concepts/02-human-agent-interaction.md",
+        "10-Knowledge/13-application-engineering/01-concepts/03-storage-and-multitenancy.md",
+        "10-Knowledge/13-application-engineering/01-concepts/04-model-gateways.md",
+        "10-Knowledge/13-application-engineering/03-cases/browser-agents/README.md",
+        "10-Knowledge/13-application-engineering/03-cases/coding-agents/README.md",
+        "10-Knowledge/13-application-engineering/03-cases/domain-agents/README.md",
+        "10-Knowledge/13-application-engineering/03-cases/domain-agents/enterprise/README.md",
+        "10-Knowledge/13-application-engineering/03-cases/domain-agents/operations/README.md",
+        "10-Knowledge/13-application-engineering/03-cases/domain-agents/science/README.md",
+        "10-Knowledge/13-application-engineering/05-code/README.md",
+        "10-Knowledge/13-application-engineering/05-code/browser-agent-typescript/README.md",
+        "10-Knowledge/13-application-engineering/README.md",
+        "10-Knowledge/13-application-engineering/references.md",
+        "10-Knowledge/14-production-engineering/01-concepts/01-deployment-and-capacity.md",
+        "10-Knowledge/14-production-engineering/01-concepts/02-slos-reliability-and-cost.md",
+        "10-Knowledge/14-production-engineering/01-concepts/03-release-and-recovery.md",
+        "10-Knowledge/14-production-engineering/03-cases/failure-postmortems/README.md",
+        "10-Knowledge/14-production-engineering/03-cases/production-systems/README.md",
+        "10-Knowledge/14-production-engineering/05-code/README.md",
+        "10-Knowledge/14-production-engineering/README.md",
+        "10-Knowledge/14-production-engineering/references.md",
+        "10-Knowledge/15-multimodal-and-embodied/01-concepts/01-vision-and-document-ai.md",
+        "10-Knowledge/15-multimodal-and-embodied/01-concepts/02-speech-audio-and-video.md",
+        "10-Knowledge/15-multimodal-and-embodied/01-concepts/03-multimodal-context-and-rag.md",
+        "10-Knowledge/15-multimodal-and-embodied/01-concepts/04-computer-use-vla-and-embodied.md",
+        "10-Knowledge/15-multimodal-and-embodied/04-labs/01-document-evidence.ipynb",
+        "10-Knowledge/15-multimodal-and-embodied/04-labs/README.md",
+        "10-Knowledge/15-multimodal-and-embodied/05-code/README.md",
+        "10-Knowledge/15-multimodal-and-embodied/README.md",
+        "10-Knowledge/15-multimodal-and-embodied/references.md",
+        "10-Knowledge/16-research-frontiers/01-concepts/01-long-horizon-agents.md",
+        "10-Knowledge/16-research-frontiers/01-concepts/02-self-improvement-and-agent-swarms.md",
+        "10-Knowledge/16-research-frontiers/01-concepts/03-world-models-and-neuro-symbolic.md",
+        "10-Knowledge/16-research-frontiers/01-concepts/04-test-time-learning-and-oversight.md",
+        "10-Knowledge/16-research-frontiers/03-cases/01-research-and-science-agents.md",
+        "10-Knowledge/16-research-frontiers/03-cases/README.md",
+        "10-Knowledge/16-research-frontiers/05-code/README.md",
+        "10-Knowledge/16-research-frontiers/README.md",
+        "10-Knowledge/16-research-frontiers/references.md"
+      ],
+      "reviewed_document_count": 50,
+      "code_review": "阅读五域全部一级 Python 实现与测试、浏览器 policy/state/actions；交叉核对 workbench server/providers相关入口、practice、experiments、documents.error_rate 与 tiny-transformer/experiment。",
+      "changed_files": [
+        "10-Knowledge/12-agent-learning/01-concepts/02-sft-and-preference-optimization.md",
+        "10-Knowledge/12-agent-learning/01-concepts/03-agentic-reinforcement-learning.md",
+        "10-Knowledge/12-agent-learning/01-concepts/04-verifiers-and-reward-hacking.md",
+        "10-Knowledge/12-agent-learning/04-labs/01-trajectories-and-rewards.ipynb",
+        "10-Knowledge/12-agent-learning/05-code/learning.py",
+        "10-Knowledge/12-agent-learning/05-code/test_learning.py",
+        "10-Knowledge/12-agent-learning/README.md",
+        "10-Knowledge/13-application-engineering/01-concepts/01-backend-and-streaming.md",
+        "10-Knowledge/13-application-engineering/01-concepts/02-human-agent-interaction.md",
+        "10-Knowledge/13-application-engineering/01-concepts/03-storage-and-multitenancy.md",
+        "10-Knowledge/13-application-engineering/01-concepts/04-model-gateways.md",
+        "10-Knowledge/13-application-engineering/03-cases/coding-agents/README.md",
+        "10-Knowledge/13-application-engineering/03-cases/domain-agents/science/README.md",
+        "10-Knowledge/13-application-engineering/05-code/README.md",
+        "10-Knowledge/13-application-engineering/05-code/application_cases.py",
+        "10-Knowledge/13-application-engineering/05-code/test_application_cases.py",
+        "10-Knowledge/13-application-engineering/README.md",
+        "10-Knowledge/13-application-engineering/references.md",
+        "10-Knowledge/14-production-engineering/01-concepts/01-deployment-and-capacity.md",
+        "10-Knowledge/14-production-engineering/01-concepts/02-slos-reliability-and-cost.md",
+        "10-Knowledge/14-production-engineering/README.md",
+        "10-Knowledge/15-multimodal-and-embodied/01-concepts/01-vision-and-document-ai.md",
+        "10-Knowledge/15-multimodal-and-embodied/01-concepts/02-speech-audio-and-video.md",
+        "10-Knowledge/15-multimodal-and-embodied/01-concepts/03-multimodal-context-and-rag.md",
+        "10-Knowledge/15-multimodal-and-embodied/01-concepts/04-computer-use-vla-and-embodied.md",
+        "10-Knowledge/15-multimodal-and-embodied/04-labs/01-document-evidence.ipynb",
+        "10-Knowledge/15-multimodal-and-embodied/04-labs/README.md",
+        "10-Knowledge/15-multimodal-and-embodied/05-code/README.md",
+        "10-Knowledge/15-multimodal-and-embodied/README.md",
+        "10-Knowledge/15-multimodal-and-embodied/references.md",
+        "10-Knowledge/16-research-frontiers/01-concepts/02-self-improvement-and-agent-swarms.md",
+        "10-Knowledge/16-research-frontiers/01-concepts/03-world-models-and-neuro-symbolic.md",
+        "10-Knowledge/16-research-frontiers/01-concepts/04-test-time-learning-and-oversight.md",
+        "10-Knowledge/16-research-frontiers/03-cases/01-research-and-science-agents.md",
+        "10-Knowledge/16-research-frontiers/03-cases/README.md",
+        "10-Knowledge/16-research-frontiers/README.md"
+      ],
+      "changed_file_count": 36,
+      "issues": [
+        {
+          "id": "advanced-01",
+          "problem": "训练层次前后矛盾",
+          "file": "10-Knowledge/12-agent-learning/README.md",
+          "resolution": "首轮“本库未训练”与二轮 Tiny Transformer 已训练冲突；明确本域手填概率与跨域真实 SFT/LoRA/DPO 的区别，精确指向 experiment.py。"
+        },
+        {
+          "id": "advanced-02",
+          "problem": "SFT 标签错位易误学",
+          "file": "10-Knowledge/12-agent-learning/01-concepts/02-sft-and-preference-optimization.md",
+          "resolution": "增加 BOS/问题/答案/EOS 移位示例，说明忽略预测目标不等于忽略输入；DPO 从四个序列 log 概率算到 z/loss，解释负对数概率。"
+        },
+        {
+          "id": "advanced-03",
+          "problem": "PPO clipping 不是硬概率约束",
+          "file": "10-Knowledge/12-agent-learning/01-concepts/03-agentic-reinforcement-learning.md",
+          "resolution": "增加正负优势三行数值表、最大化目标与最小化 loss 关系、共享参数导致越界；解释 value 预期回报与 GRPO 只是优势公式而非完整目标。"
+        },
+        {
+          "id": "advanced-04",
+          "problem": "奖励门与执行授权混同",
+          "file": "10-Knowledge/12-agent-learning/01-concepts/04-verifiers-and-reward-hacking.md",
+          "resolution": "明确 -1 是事后评分不能防执行；全部非法时 max 仍返回非法候选，应先过滤并处理空集合。"
+        },
+        {
+          "id": "advanced-05",
+          "problem": "非有限优势平滑参数未拒绝",
+          "file": "10-Knowledge/12-agent-learning/05-code/learning.py",
+          "resolution": "epsilon=NaN/Inf 原来产生 NaN 或伪零优势；改为拒绝并补回归断言。"
+        },
+        {
+          "id": "advanced-06",
+          "problem": "服务设计和现有实现混同",
+          "file": "10-Knowledge/13-application-engineering/01-concepts/01-backend-and-streaming.md",
+          "resolution": "更新真实本地 SSE/SQLite 服务链接与 awaiting_approval 状态；明确推荐事件分类未全实现、创建 POST 无幂等键，新增断线/旧版本读输出练习。"
+        },
+        {
+          "id": "advanced-07",
+          "problem": "批准粒度未区分",
+          "file": "10-Knowledge/13-application-engineering/01-concepts/02-human-agent-interaction.md",
+          "resolution": "明确工作台批准只读 Run 版本与浏览器具体动作摘要不是同一个机制，计划在线编辑仍是扩展设计。"
+        },
+        {
+          "id": "advanced-08",
+          "problem": "缓存键示例漏访问主体",
+          "file": "10-Knowledge/13-application-engineering/01-concepts/03-storage-and-multitenancy.md",
+          "resolution": "将 principal_id 放入示例，解释同租户不同主体；明确工作台 owner 实为租户标签，未实现同租户个人权限。"
+        },
+        {
+          "id": "advanced-09",
+          "problem": "网关公式缺计算且不等于代码",
+          "file": "10-Knowledge/13-application-engineering/01-concepts/04-model-gateways.md",
+          "resolution": "补成本+时延数值决策；明确 choose_model 仅成本排序、providers 仅适配，不冒充自动多供应商网关。"
+        },
+        {
+          "id": "advanced-10",
+          "problem": "九折与减免比例歧义",
+          "file": "10-Knowledge/13-application-engineering/03-cases/coding-agents/README.md",
+          "resolution": "明确九折传 .1，.9 意味支付 10%；链接真实临时 Git 修复过程与固定策略边界。"
+        },
+        {
+          "id": "advanced-11",
+          "problem": "价格输入边界虚假完备",
+          "file": "10-Knowledge/13-application-engineering/05-code/application_cases.py",
+          "resolution": "拒绝 NaN/Inf 金额和折扣，避免返回非有限价格；补回归断言与函数输入注释。"
+        },
+        {
+          "id": "advanced-12",
+          "problem": "Little 定律把需求误当稳定观测",
+          "file": "10-Knowledge/14-production-engineering/01-concepts/01-deployment-and-capacity.md",
+          "resolution": "区分停留时间 W/服务 S，解释 offered_inflight 是负载需求非已稳定平均；纠正 lambda=mu 必然积压的过强表述。"
+        },
+        {
+          "id": "advanced-13",
+          "problem": "p95 和拒绝率遗漏解读",
+          "file": "10-Knowledge/14-production-engineering/01-concepts/02-slos-reliability-and-cost.md",
+          "resolution": "定义 p95 非最慢5%平均；说明低 p95 可能来自入口拒绝，按全部到达记录数验算。"
+        },
+        {
+          "id": "advanced-14",
+          "problem": "视觉 token 符号缺定义",
+          "file": "10-Knowledge/15-multimodal-and-embodied/01-concepts/01-vision-and-document-ai.md",
+          "resolution": "补 ViT/VLM/OCR 与 C/D 含义、二维框完整检查、原点和轴向；连接真实 PDF 文字起点与手标框的差异。"
+        },
+        {
+          "id": "advanced-15",
+          "problem": "说话人归属与声源分离混称",
+          "file": "10-Knowledge/15-multimodal-and-embodied/01-concepts/02-speech-audio-and-video.md",
+          "resolution": "区分 diarization 时间+speaker标签、source separation 波形、ASR/VAD/TTS；补 WER 否定词反例、参考为空的处理和实际函数入口。"
+        },
+        {
+          "id": "advanced-16",
+          "problem": "多向量公式跳步",
+          "file": "10-Knowledge/15-multimodal-and-embodied/01-concepts/03-multimodal-context-and-rag.md",
+          "resolution": "定义 nq/nd/D，列点积矩阵与逐行max，说明不是一对一匹配也不保证行列支持。"
+        },
+        {
+          "id": "advanced-17",
+          "problem": "Notebook 练习没有答案",
+          "file": "10-Knowledge/12-agent-learning/04-labs/01-trajectories-and-rewards.ipynb",
+          "resolution": "增加失败奖励/全等组/语义改写的自检答案；多模态 Notebook 增坐标系变换答案和 PDF 实践链接。"
+        },
+        {
+          "id": "advanced-18",
+          "problem": "文档测试数过期",
+          "file": "10-Knowledge/15-multimodal-and-embodied/05-code/README.md",
+          "resolution": "实际五个测试，修复 README/实验导航的四个测试表述。"
+        },
+        {
+          "id": "advanced-19",
+          "problem": "世界模型停留抽象",
+          "file": "10-Knowledge/16-research-frontiers/01-concepts/03-world-models-and-neuro-symbolic.md",
+          "resolution": "增加温度状态、两种行动序列、终态奖励、执行偏差后重规划算例；纠正声称模型提出三个候选而代码手填两个。"
+        },
+        {
+          "id": "advanced-20",
+          "problem": "多数票与在线状态直觉不完整",
+          "file": "10-Knowledge/16-research-frontiers/01-concepts/02-self-improvement-and-agent-swarms.md",
+          "resolution": "解释多数票公式两项和 p=.4 反而下降；TTT 继续读第二输入后状态变 .5，解释跨会话重置。"
+        },
+        {
+          "id": "advanced-21",
+          "problem": "科研实践旧边界与当前代码断开",
+          "file": "10-Knowledge/16-research-frontiers/03-cases/01-research-and-science-agents.md",
+          "resolution": "链接已实现固定论文下载和独立线性训练，明确两者还未连成自动科研系统；避免把宽度枚举与线性拟合指标拼接。"
+        }
+      ],
+      "verification": {
+        "unit_tests": {
+          "learning": 4,
+          "application": 5,
+          "evidence": 5,
+          "total_passed": 14
+        },
+        "notebook_code_cells": {
+          "method": "plain Python exec in source order; not Jupyter kernel validation",
+          "learning": 6,
+          "evidence": 5,
+          "total_passed": 11
+        },
+        "numeric_scripts": [
+          "production_checks.py passed built-in assertions",
+          "research_checks.py passed built-in assertions",
+          "new PPO/DPO/majority/world-state arithmetic passed"
+        ],
+        "links": "scripts/check_links.check(): 0 errors in owned domains; 247 documents scanned overall at verification time",
+        "whitespace": "git diff --check for all five owned domains passed"
+      },
+      "sources_checked": [
+        "https://arxiv.org/abs/1707.06347v2",
+        "https://arxiv.org/html/2402.03300v3",
+        "https://arxiv.org/abs/2305.18290v3",
+        "https://huggingface.co/pyannote/speaker-diarization-3.1",
+        "https://arxiv.org/abs/2405.15793v1",
+        "https://arxiv.org/abs/1803.10122v4",
+        "https://arxiv.org/abs/1911.08265v2",
+        "https://arxiv.org/abs/2407.04620v1",
+        "https://arxiv.org/abs/2501.00663v1",
+        "https://arxiv.org/abs/2406.09246v3",
+        "https://arxiv.org/abs/2407.01449v6"
+      ],
+      "boundaries": [
+        "学习者视角走读与自检，不是真实人类掌握度实验",
+        "未重新下载大模型、调用付费 API 或宣称视觉/音频/机器人基准通过",
+        "未改浏览器源码或重跑 Chromium；正文仅匹配已存在的执行器范围",
+        "未提交或推送 Git，由父任务统一处理"
+      ]
+    }
+  },
+  "validation": {
+    "python": {
+      "tests": 93,
+      "suites": 14,
+      "assertion_examples": 2,
+      "failed_groups": 0,
+      "skipped": 0,
+      "backend": "Python 3.12, torch 2.8.0+cpu"
+    },
+    "notebooks": [
+      {
+        "file": "10-Knowledge/01-ai-foundations/04-labs/02-generalization-and-calibration.ipynb",
+        "status": "executed",
+        "code_cells": 4,
+        "executed_code_cells": 4,
+        "backend": "ipython-fallback"
+      },
+      {
+        "file": "10-Knowledge/03-agent-core/04-labs/01-agent-loop.ipynb",
+        "status": "executed",
+        "code_cells": 5,
+        "executed_code_cells": 5,
+        "backend": "ipython-fallback"
+      },
+      {
+        "file": "10-Knowledge/04-context-engineering/04-labs/01-token-budget.ipynb",
+        "status": "executed",
+        "code_cells": 4,
+        "executed_code_cells": 4,
+        "backend": "ipython-fallback"
+      },
+      {
+        "file": "10-Knowledge/04-context-engineering/04-labs/02-context-compaction.ipynb",
+        "status": "executed",
+        "code_cells": 3,
+        "executed_code_cells": 3,
+        "backend": "ipython-fallback"
+      },
+      {
+        "file": "10-Knowledge/06-rag-and-knowledge-systems/04-labs/01-hybrid-retrieval-evaluation.ipynb",
+        "status": "executed",
+        "code_cells": 5,
+        "executed_code_cells": 5,
+        "backend": "ipython-fallback"
+      },
+      {
+        "file": "10-Knowledge/08-planning-workflow-multi-agent/04-labs/01-single-vs-multi-agent.ipynb",
+        "status": "executed",
+        "code_cells": 5,
+        "executed_code_cells": 5,
+        "backend": "ipython-fallback"
+      },
+      {
+        "file": "10-Knowledge/09-runtime-harness-environment/04-labs/01-recovery-and-idempotency.ipynb",
+        "status": "executed",
+        "code_cells": 4,
+        "executed_code_cells": 4,
+        "backend": "ipython-fallback"
+      },
+      {
+        "file": "10-Knowledge/10-evaluation-observability/04-labs/01-evaluation-and-regression.ipynb",
+        "status": "executed",
+        "code_cells": 4,
+        "executed_code_cells": 4,
+        "backend": "ipython-fallback"
+      },
+      {
+        "file": "10-Knowledge/12-agent-learning/04-labs/01-trajectories-and-rewards.ipynb",
+        "status": "executed",
+        "code_cells": 6,
+        "executed_code_cells": 6,
+        "backend": "ipython-fallback"
+      },
+      {
+        "file": "10-Knowledge/15-multimodal-and-embodied/04-labs/01-document-evidence.ipynb",
+        "status": "executed",
+        "code_cells": 5,
+        "executed_code_cells": 5,
+        "backend": "ipython-fallback"
+      },
+      {
+        "file": "20-Projects/learning-workbench/01-evidence-and-model-results.ipynb",
+        "status": "executed",
+        "code_cells": 7,
+        "executed_code_cells": 7,
+        "backend": "ipython-fallback"
+      },
+      {
+        "file": "20-Projects/tiny-transformer/01-train-and-inspect.ipynb",
+        "status": "executed",
+        "code_cells": 5,
+        "executed_code_cells": 5,
+        "backend": "ipython-fallback"
+      },
+      {
+        "file": "10-Knowledge/05-tools-skills-protocols/04-labs/01-tool-contracts-and-errors.ipynb",
+        "status": "executed",
+        "code_cells": 5,
+        "executed_code_cells": 5,
+        "backend": "ipython-fallback"
+      }
+    ],
+    "standard_jupyter_local": {
+      "status": "environment_blocked",
+      "reason": "Kernel process failed in local network interface discovery / ip_resolver: Operation not permitted",
+      "fallback": "Explicit ipython-fallback, one new process per Notebook"
+    },
+    "typescript": "Agent-owned actual tool-runtime 10 and MCP 2 tests passed; browser/standard kernel validation delegated to final GitHub CI",
+    "links": {
+      "documents": 248,
+      "local_targets_checked": 1810,
+      "external_urls_not_requested": 167,
+      "errors": []
+    },
+    "metadata": {
+      "articles_checked": 78,
+      "errors": [],
+      "note": "This validates metadata, not factual accuracy or human review."
+    },
+    "notebook_format": [
+      {
+        "file": "10-Knowledge/01-ai-foundations/04-labs/01-math-and-optimization.ipynb",
+        "status": "format-valid",
+        "code_cells": 5,
+        "executed_code_cells": 5
+      },
+      {
+        "file": "10-Knowledge/01-ai-foundations/04-labs/02-generalization-and-calibration.ipynb",
+        "status": "format-valid",
+        "code_cells": 4,
+        "executed_code_cells": 4
+      },
+      {
+        "file": "10-Knowledge/01-ai-foundations/04-labs/deep-learning/01-autograd-and-training.ipynb",
+        "status": "format-valid",
+        "code_cells": 5,
+        "executed_code_cells": 5
+      },
+      {
+        "file": "10-Knowledge/01-ai-foundations/04-labs/search-and-rl/01-search-and-value-learning.ipynb",
+        "status": "format-valid",
+        "code_cells": 5,
+        "executed_code_cells": 5
+      },
+      {
+        "file": "10-Knowledge/02-foundation-models/04-labs/01-tokenization-and-attention.ipynb",
+        "status": "format-valid",
+        "code_cells": 6,
+        "executed_code_cells": 6
+      },
+      {
+        "file": "10-Knowledge/02-foundation-models/04-labs/02-decoding-cache-and-precision.ipynb",
+        "status": "format-valid",
+        "code_cells": 7,
+        "executed_code_cells": 7
+      },
+      {
+        "file": "10-Knowledge/03-agent-core/04-labs/01-agent-loop.ipynb",
+        "status": "format-valid",
+        "code_cells": 5,
+        "executed_code_cells": 5
+      },
+      {
+        "file": "10-Knowledge/04-context-engineering/04-labs/01-token-budget.ipynb",
+        "status": "format-valid",
+        "code_cells": 4,
+        "executed_code_cells": 4
+      },
+      {
+        "file": "10-Knowledge/04-context-engineering/04-labs/02-context-compaction.ipynb",
+        "status": "format-valid",
+        "code_cells": 3,
+        "executed_code_cells": 3
+      },
+      {
+        "file": "10-Knowledge/05-tools-skills-protocols/04-labs/01-tool-contracts-and-errors.ipynb",
+        "status": "format-valid",
+        "code_cells": 5,
+        "executed_code_cells": 5
+      },
+      {
+        "file": "10-Knowledge/06-rag-and-knowledge-systems/04-labs/01-hybrid-retrieval-evaluation.ipynb",
+        "status": "format-valid",
+        "code_cells": 5,
+        "executed_code_cells": 5
+      },
+      {
+        "file": "10-Knowledge/07-state-and-memory/04-labs/01-state-memory-and-conflicts.ipynb",
+        "status": "format-valid",
+        "code_cells": 4,
+        "executed_code_cells": 4
+      },
+      {
+        "file": "10-Knowledge/08-planning-workflow-multi-agent/04-labs/01-single-vs-multi-agent.ipynb",
+        "status": "format-valid",
+        "code_cells": 5,
+        "executed_code_cells": 5
+      },
+      {
+        "file": "10-Knowledge/09-runtime-harness-environment/04-labs/01-recovery-and-idempotency.ipynb",
+        "status": "format-valid",
+        "code_cells": 4,
+        "executed_code_cells": 4
+      },
+      {
+        "file": "10-Knowledge/10-evaluation-observability/04-labs/01-evaluation-and-regression.ipynb",
+        "status": "format-valid",
+        "code_cells": 4,
+        "executed_code_cells": 4
+      },
+      {
+        "file": "10-Knowledge/11-safety-security-governance/04-labs/01-policy-and-injection.ipynb",
+        "status": "format-valid",
+        "code_cells": 4,
+        "executed_code_cells": 4
+      },
+      {
+        "file": "10-Knowledge/12-agent-learning/04-labs/01-trajectories-and-rewards.ipynb",
+        "status": "format-valid",
+        "code_cells": 6,
+        "executed_code_cells": 6
+      },
+      {
+        "file": "10-Knowledge/15-multimodal-and-embodied/04-labs/01-document-evidence.ipynb",
+        "status": "format-valid",
+        "code_cells": 5,
+        "executed_code_cells": 5
+      },
+      {
+        "file": "20-Projects/learning-workbench/01-evidence-and-model-results.ipynb",
+        "status": "format-valid",
+        "code_cells": 7,
+        "executed_code_cells": 7
+      },
+      {
+        "file": "20-Projects/tiny-transformer/01-train-and-inspect.ipynb",
+        "status": "format-valid",
+        "code_cells": 5,
+        "executed_code_cells": 5
+      }
+    ]
+  },
+  "math_format": [
+    {
+      "path": "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/02-hybrid-retrieval-and-reranking.md",
+      "delimiters_or_pairs": 22
+    },
+    {
+      "path": "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/03-ingestion-and-parsing.md",
+      "delimiters_or_pairs": 4
+    },
+    {
+      "path": "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/04-chunking-and-metadata.md",
+      "delimiters_or_pairs": 10
+    },
+    {
+      "path": "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/05-index-lifecycle.md",
+      "delimiters_or_pairs": 5
+    },
+    {
+      "path": "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/07-citations-and-grounding.md",
+      "delimiters_or_pairs": 2
+    },
+    {
+      "path": "10-Knowledge/08-planning-workflow-multi-agent/01-concepts/01-planning-and-replanning.md",
+      "delimiters_or_pairs": 10
+    },
+    {
+      "path": "10-Knowledge/08-planning-workflow-multi-agent/01-concepts/03-multi-agent-topologies.md",
+      "delimiters_or_pairs": 12
+    },
+    {
+      "path": "10-Knowledge/08-planning-workflow-multi-agent/02-patterns/02-shared-state-and-merge.md",
+      "delimiters_or_pairs": 2
+    },
+    {
+      "path": "10-Knowledge/09-runtime-harness-environment/01-concepts/03-concurrency-and-budgets.md",
+      "delimiters_or_pairs": 4
+    },
+    {
+      "path": "10-Knowledge/09-runtime-harness-environment/02-patterns/01-retry-idempotency-compensation.md",
+      "delimiters_or_pairs": 8
+    },
+    {
+      "path": "10-Knowledge/10-evaluation-observability/01-concepts/03-graders-and-scoring.md",
+      "delimiters_or_pairs": 4
+    },
+    {
+      "path": "10-Knowledge/10-evaluation-observability/01-concepts/04-statistics-and-reliability.md",
+      "delimiters_or_pairs": 19
+    },
+    {
+      "path": "10-Knowledge/11-safety-security-governance/01-concepts/01-threat-model-and-injection.md",
+      "delimiters_or_pairs": 2
+    },
+    {
+      "path": "10-Knowledge/11-safety-security-governance/01-concepts/02-identity-and-permissions.md",
+      "delimiters_or_pairs": 5
+    }
+  ],
+  "limitations": [
+    "Real model evaluation reports retain previous run conditions and were not rerun in full",
+    "No claim of human review, complete production system or learner mastery",
+    "Current teaching memory grammar intentionally rejects unsupported format-bearing requests"
+  ],
+  "changed_files": [
+    "00-Home/Changelog.md",
+    "00-Home/Glossary.md",
+    "00-Home/Knowledge-Map.md",
+    "00-Home/Knowledge-Status.md",
+    "00-Home/Learner-Review.md",
+    "00-Home/Learning-Paths.md",
+    "00-Home/Learning-Writing-Guide.md",
+    "00-Home/README.md",
+    "00-Home/Repository-Structure.md",
+    "00-Home/verification/learner-review.json",
+    "00-Home/待补充计划.md",
+    "10-Knowledge/01-ai-foundations/01-concepts/deep-learning/README.md",
+    "10-Knowledge/01-ai-foundations/01-concepts/machine-learning/README.md",
+    "10-Knowledge/01-ai-foundations/01-concepts/reinforcement-learning/README.md",
+    "10-Knowledge/01-ai-foundations/01-concepts/trustworthy-ai/README.md",
+    "10-Knowledge/01-ai-foundations/04-labs/02-generalization-and-calibration.ipynb",
+    "10-Knowledge/01-ai-foundations/references.md",
+    "10-Knowledge/02-foundation-models/01-concepts/inference/README.md",
+    "10-Knowledge/02-foundation-models/01-concepts/model-selection/README.md",
+    "10-Knowledge/02-foundation-models/01-concepts/reasoning/README.md",
+    "10-Knowledge/02-foundation-models/01-concepts/tokenization/README.md",
+    "10-Knowledge/02-foundation-models/01-concepts/training/README.md",
+    "10-Knowledge/02-foundation-models/01-concepts/transformer/README.md",
+    "10-Knowledge/02-foundation-models/README.md",
+    "10-Knowledge/02-foundation-models/references.md",
+    "10-Knowledge/03-agent-core/01-concepts/01-agent-boundaries.md",
+    "10-Knowledge/03-agent-core/01-concepts/02-agent-loop.md",
+    "10-Knowledge/03-agent-core/01-concepts/03-model-adapters.md",
+    "10-Knowledge/03-agent-core/02-patterns/01-react-and-plan-execute.md",
+    "10-Knowledge/03-agent-core/04-labs/01-agent-loop.ipynb",
+    "10-Knowledge/03-agent-core/04-labs/README.md",
+    "10-Knowledge/03-agent-core/README.md",
+    "10-Knowledge/04-context-engineering/01-concepts/00-overview.md",
+    "10-Knowledge/04-context-engineering/01-concepts/01-context-model.md",
+    "10-Knowledge/04-context-engineering/01-concepts/02-failure-modes.md",
+    "10-Knowledge/04-context-engineering/01-concepts/03-context-evaluation.md",
+    "10-Knowledge/04-context-engineering/02-patterns/01-context-builder.md",
+    "10-Knowledge/04-context-engineering/02-patterns/02-optimization-strategies.md",
+    "10-Knowledge/04-context-engineering/04-labs/01-token-budget.ipynb",
+    "10-Knowledge/04-context-engineering/04-labs/02-context-compaction.ipynb",
+    "10-Knowledge/04-context-engineering/04-labs/README.md",
+    "10-Knowledge/04-context-engineering/README.md",
+    "10-Knowledge/05-tools-skills-protocols/01-concepts/02-skills-and-progressive-disclosure.md",
+    "10-Knowledge/05-tools-skills-protocols/01-concepts/03-mcp.md",
+    "10-Knowledge/05-tools-skills-protocols/01-concepts/04-agent-communication-protocols.md",
+    "10-Knowledge/05-tools-skills-protocols/01-concepts/05-delegated-authorization.md",
+    "10-Knowledge/05-tools-skills-protocols/02-patterns/01-tool-runtime.md",
+    "10-Knowledge/05-tools-skills-protocols/04-labs/01-tool-contracts-and-errors.ipynb",
+    "10-Knowledge/05-tools-skills-protocols/04-labs/README.md",
+    "10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/README.md",
+    "10-Knowledge/05-tools-skills-protocols/05-code/tool-runtime-typescript/README.md",
+    "10-Knowledge/05-tools-skills-protocols/README.md",
+    "10-Knowledge/05-tools-skills-protocols/references.md",
+    "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/01-rag-pipeline.md",
+    "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/02-hybrid-retrieval-and-reranking.md",
+    "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/03-ingestion-and-parsing.md",
+    "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/04-chunking-and-metadata.md",
+    "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/05-index-lifecycle.md",
+    "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/06-query-planning-and-graph-retrieval.md",
+    "10-Knowledge/06-rag-and-knowledge-systems/01-concepts/07-citations-and-grounding.md",
+    "10-Knowledge/06-rag-and-knowledge-systems/03-cases/运维RAG-双索引检索设计.md",
+    "10-Knowledge/06-rag-and-knowledge-systems/04-labs/01-hybrid-retrieval-evaluation.ipynb",
+    "10-Knowledge/06-rag-and-knowledge-systems/04-labs/README.md",
+    "10-Knowledge/06-rag-and-knowledge-systems/05-code/rag-pipeline-python/README.md",
+    "10-Knowledge/06-rag-and-knowledge-systems/README.md",
+    "10-Knowledge/06-rag-and-knowledge-systems/references.md",
+    "10-Knowledge/07-state-and-memory/01-concepts/02-memory-lifecycle.md",
+    "10-Knowledge/07-state-and-memory/01-concepts/03-memory-evaluation.md",
+    "10-Knowledge/07-state-and-memory/02-patterns/02-conflict-and-forgetting.md",
+    "10-Knowledge/07-state-and-memory/05-code/state-memory-python/README.md",
+    "10-Knowledge/07-state-and-memory/README.md",
+    "10-Knowledge/08-planning-workflow-multi-agent/01-concepts/01-planning-and-replanning.md",
+    "10-Knowledge/08-planning-workflow-multi-agent/01-concepts/02-workflow-state-machines.md",
+    "10-Knowledge/08-planning-workflow-multi-agent/01-concepts/03-multi-agent-topologies.md",
+    "10-Knowledge/08-planning-workflow-multi-agent/02-patterns/01-task-contract-and-handoff.md",
+    "10-Knowledge/08-planning-workflow-multi-agent/02-patterns/02-shared-state-and-merge.md",
+    "10-Knowledge/08-planning-workflow-multi-agent/04-labs/01-single-vs-multi-agent.ipynb",
+    "10-Knowledge/08-planning-workflow-multi-agent/04-labs/artifacts/experiment.json",
+    "10-Knowledge/08-planning-workflow-multi-agent/05-code/multi-agent-runtime-python/README.md",
+    "10-Knowledge/08-planning-workflow-multi-agent/05-code/multi-agent-runtime-python/src/multi_agent/fixture.py",
+    "10-Knowledge/08-planning-workflow-multi-agent/05-code/multi-agent-runtime-python/src/multi_agent/merge.py",
+    "10-Knowledge/08-planning-workflow-multi-agent/05-code/multi-agent-runtime-python/tests/test_runtime.py",
+    "10-Knowledge/08-planning-workflow-multi-agent/README.md",
+    "10-Knowledge/09-runtime-harness-environment/01-concepts/02-durable-execution.md",
+    "10-Knowledge/09-runtime-harness-environment/01-concepts/03-concurrency-and-budgets.md",
+    "10-Knowledge/09-runtime-harness-environment/02-patterns/01-retry-idempotency-compensation.md",
+    "10-Knowledge/09-runtime-harness-environment/04-labs/01-recovery-and-idempotency.ipynb",
+    "10-Knowledge/09-runtime-harness-environment/05-code/recoverable-runtime-python/README.md",
+    "10-Knowledge/09-runtime-harness-environment/05-code/recoverable-runtime-python/src/recoverable_runtime/runner.py",
+    "10-Knowledge/09-runtime-harness-environment/05-code/recoverable-runtime-python/tests/test_recovery.py",
+    "10-Knowledge/09-runtime-harness-environment/README.md",
+    "10-Knowledge/10-evaluation-observability/01-concepts/00-overview.md",
+    "10-Knowledge/10-evaluation-observability/01-concepts/03-graders-and-scoring.md",
+    "10-Knowledge/10-evaluation-observability/01-concepts/04-statistics-and-reliability.md",
+    "10-Knowledge/10-evaluation-observability/01-concepts/05-traces-and-failure-analysis.md",
+    "10-Knowledge/10-evaluation-observability/01-concepts/06-multi-agent-evaluation.md",
+    "10-Knowledge/10-evaluation-observability/04-labs/01-evaluation-and-regression.ipynb",
+    "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/README.md",
+    "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/src/eval_harness/statistics.py",
+    "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/tests/test_harness.py",
+    "10-Knowledge/10-evaluation-observability/README.md",
+    "10-Knowledge/10-evaluation-observability/references.md",
+    "10-Knowledge/11-safety-security-governance/01-concepts/01-threat-model-and-injection.md",
+    "10-Knowledge/11-safety-security-governance/01-concepts/02-identity-and-permissions.md",
+    "10-Knowledge/11-safety-security-governance/05-code/test_policy.py",
+    "10-Knowledge/11-safety-security-governance/README.md",
+    "10-Knowledge/12-agent-learning/01-concepts/02-sft-and-preference-optimization.md",
+    "10-Knowledge/12-agent-learning/01-concepts/03-agentic-reinforcement-learning.md",
+    "10-Knowledge/12-agent-learning/01-concepts/04-verifiers-and-reward-hacking.md",
+    "10-Knowledge/12-agent-learning/04-labs/01-trajectories-and-rewards.ipynb",
+    "10-Knowledge/12-agent-learning/05-code/learning.py",
+    "10-Knowledge/12-agent-learning/05-code/test_learning.py",
+    "10-Knowledge/12-agent-learning/README.md",
+    "10-Knowledge/13-application-engineering/01-concepts/01-backend-and-streaming.md",
+    "10-Knowledge/13-application-engineering/01-concepts/02-human-agent-interaction.md",
+    "10-Knowledge/13-application-engineering/01-concepts/03-storage-and-multitenancy.md",
+    "10-Knowledge/13-application-engineering/01-concepts/04-model-gateways.md",
+    "10-Knowledge/13-application-engineering/03-cases/coding-agents/README.md",
+    "10-Knowledge/13-application-engineering/03-cases/domain-agents/science/README.md",
+    "10-Knowledge/13-application-engineering/05-code/README.md",
+    "10-Knowledge/13-application-engineering/05-code/application_cases.py",
+    "10-Knowledge/13-application-engineering/05-code/test_application_cases.py",
+    "10-Knowledge/13-application-engineering/README.md",
+    "10-Knowledge/13-application-engineering/references.md",
+    "10-Knowledge/14-production-engineering/01-concepts/01-deployment-and-capacity.md",
+    "10-Knowledge/14-production-engineering/01-concepts/02-slos-reliability-and-cost.md",
+    "10-Knowledge/14-production-engineering/README.md",
+    "10-Knowledge/15-multimodal-and-embodied/01-concepts/01-vision-and-document-ai.md",
+    "10-Knowledge/15-multimodal-and-embodied/01-concepts/02-speech-audio-and-video.md",
+    "10-Knowledge/15-multimodal-and-embodied/01-concepts/03-multimodal-context-and-rag.md",
+    "10-Knowledge/15-multimodal-and-embodied/01-concepts/04-computer-use-vla-and-embodied.md",
+    "10-Knowledge/15-multimodal-and-embodied/04-labs/01-document-evidence.ipynb",
+    "10-Knowledge/15-multimodal-and-embodied/04-labs/README.md",
+    "10-Knowledge/15-multimodal-and-embodied/05-code/README.md",
+    "10-Knowledge/15-multimodal-and-embodied/README.md",
+    "10-Knowledge/15-multimodal-and-embodied/references.md",
+    "10-Knowledge/16-research-frontiers/01-concepts/02-self-improvement-and-agent-swarms.md",
+    "10-Knowledge/16-research-frontiers/01-concepts/03-world-models-and-neuro-symbolic.md",
+    "10-Knowledge/16-research-frontiers/01-concepts/04-test-time-learning-and-oversight.md",
+    "10-Knowledge/16-research-frontiers/03-cases/01-research-and-science-agents.md",
+    "10-Knowledge/16-research-frontiers/03-cases/README.md",
+    "10-Knowledge/16-research-frontiers/README.md",
+    "10-Knowledge/README.md",
+    "20-Projects/domain-research-agent/README.md",
+    "20-Projects/learning-workbench/01-evidence-and-model-results.ipynb",
+    "20-Projects/learning-workbench/README.md",
+    "20-Projects/learning-workbench/src/learning_workbench/cli.py",
+    "20-Projects/learning-workbench/src/learning_workbench/memory.py",
+    "20-Projects/learning-workbench/src/learning_workbench/practice.py",
+    "20-Projects/learning-workbench/src/learning_workbench/research.py",
+    "20-Projects/learning-workbench/src/learning_workbench/retrieval.py",
+    "20-Projects/learning-workbench/src/learning_workbench/server.py",
+    "20-Projects/learning-workbench/tests/test_utf8.py",
+    "20-Projects/learning-workbench/tests/test_workbench.py",
+    "20-Projects/tiny-transformer/01-train-and-inspect.ipynb",
+    "20-Projects/tiny-transformer/README.md",
+    "20-Projects/tiny-transformer/src/tiny_transformer/model.py",
+    "20-Projects/tiny-transformer/tests/test_decoder.py",
+    "README.md",
+    "scripts/README.md"
+  ]
+}

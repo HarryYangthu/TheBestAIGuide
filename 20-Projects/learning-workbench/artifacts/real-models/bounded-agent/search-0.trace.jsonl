@@ -1,0 +1,4 @@
+{"run_id": "effbd83409294980bb9843c238861e88", "seq": 0, "kind": "tool_call", "data": {"call_id": "effbd83409294980bb9843c238861e88:1", "name": "search", "arguments": {"tool_name": "FAN-01", "query": "before inspection"}}}
+{"run_id": "effbd83409294980bb9843c238861e88", "seq": 1, "kind": "tool_result", "data": {"call_id": "effbd83409294980bb9843c238861e88:1", "ok": false, "error": {"code": "invalid_arguments", "retryable": false}}}
+{"run_id": "effbd83409294980bb9843c238861e88", "seq": 2, "kind": "model_error", "data": {"type": "ProviderError"}}
+{"run_id": "effbd83409294980bb9843c238861e88", "seq": 3, "kind": "run_finished", "data": {"status": "failed", "reason": "invalid_model_output", "steps": 2}}

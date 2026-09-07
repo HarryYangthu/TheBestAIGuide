@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "runId": "run-success",
+  "actions": {
+    "fill-1": {
+      "digest": "1bff07ea0bc95876ecc077bd0d3bf773faa070980058e0604efea71e55d01161",
+      "status": "completed",
+      "attempts": 1,
+      "evidence": "fill-1.png"
+    },
+    "submit-1": {
+      "digest": "79041150e22ec1691241437b1600daa9aaa1eb6795225d9acfbcee3edbdd6c21",
+      "status": "completed",
+      "attempts": 1,
+      "evidence": "submit-1.png"
+    }
+  }
+}

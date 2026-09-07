@@ -1,0 +1,226 @@
+{
+  "blocks": [
+    {
+      "source": "document",
+      "version": "1",
+      "kind": "heading",
+      "text": "# DEMO-FAN manual\n",
+      "start": 0,
+      "end": 18,
+      "heading": [
+        "DEMO-FAN manual"
+      ],
+      "parent": "DEMO-FAN manual",
+      "block_id": "26279b83bf43d0e9"
+    },
+    {
+      "source": "document",
+      "version": "1",
+      "kind": "paragraph",
+      "text": "All equipment names and measurements in this file are constructed teaching data.\n",
+      "start": 19,
+      "end": 100,
+      "heading": [
+        "DEMO-FAN manual"
+      ],
+      "parent": "DEMO-FAN manual",
+      "block_id": "3373129cca492f3e"
+    },
+    {
+      "source": "document",
+      "version": "1",
+      "kind": "heading",
+      "text": "## Version 1 inspection\n",
+      "start": 101,
+      "end": 125,
+      "heading": [
+        "DEMO-FAN manual",
+        "Version 1 inspection"
+      ],
+      "parent": "DEMO-FAN manual/Version 1 inspection",
+      "block_id": "391482edfb080e79"
+    },
+    {
+      "source": "document",
+      "version": "1",
+      "kind": "paragraph",
+      "text": "Only after power is disconnected, inspect the cooling fan. The temperature limit is 70 C.\n",
+      "start": 126,
+      "end": 216,
+      "heading": [
+        "DEMO-FAN manual",
+        "Version 1 inspection"
+      ],
+      "parent": "DEMO-FAN manual/Version 1 inspection",
+      "block_id": "a709a3c24e28a500"
+    },
+    {
+      "source": "document",
+      "version": "1",
+      "kind": "table",
+      "text": "| Device | Limit | Unit |\n| --- | --- | --- |\n| DEMO-A | 70 | C |\n| DEMO-B | 65 | C |\n",
+      "start": 217,
+      "end": 303,
+      "heading": [
+        "DEMO-FAN manual",
+        "Version 1 inspection"
+      ],
+      "parent": "DEMO-FAN manual/Version 1 inspection",
+      "block_id": "2e1f68678a6e8e98"
+    },
+    {
+      "source": "document",
+      "version": "1",
+      "kind": "code",
+      "text": "```python\n# A fenced block must not be split into unrelated retrieval chunks.\nif power_disconnected:\n    inspect_fan()\n```\n",
+      "start": 304,
+      "end": 427,
+      "heading": [
+        "DEMO-FAN manual",
+        "Version 1 inspection"
+      ],
+      "parent": "DEMO-FAN manual/Version 1 inspection",
+      "block_id": "edbd092931d71770"
+    },
+    {
+      "source": "document",
+      "version": "1",
+      "kind": "paragraph",
+      "text": "The table is not permission to touch a running fan; the preceding safety condition applies.\n",
+      "start": 428,
+      "end": 520,
+      "heading": [
+        "DEMO-FAN manual",
+        "Version 1 inspection"
+      ],
+      "parent": "DEMO-FAN manual/Version 1 inspection",
+      "block_id": "8f132895c105e4b8"
+    },
+    {
+      "source": "document",
+      "version": "1",
+      "kind": "heading",
+      "text": "## Version 2 inspection\n",
+      "start": 521,
+      "end": 545,
+      "heading": [
+        "DEMO-FAN manual",
+        "Version 2 inspection"
+      ],
+      "parent": "DEMO-FAN manual/Version 2 inspection",
+      "block_id": "38d59aa2530e9503"
+    },
+    {
+      "source": "document",
+      "version": "1",
+      "kind": "paragraph",
+      "text": "Version 2 changes the DEMO-A limit to 68 C; do not mix version 1 and version 2 limits.\n",
+      "start": 546,
+      "end": 633,
+      "heading": [
+        "DEMO-FAN manual",
+        "Version 2 inspection"
+      ],
+      "parent": "DEMO-FAN manual/Version 2 inspection",
+      "block_id": "7275584510bb11f1"
+    }
+  ],
+  "parent_of_table": [
+    {
+      "source": "document",
+      "version": "1",
+      "kind": "heading",
+      "text": "## Version 1 inspection\n",
+      "start": 101,
+      "end": 125,
+      "heading": [
+        "DEMO-FAN manual",
+        "Version 1 inspection"
+      ],
+      "parent": "DEMO-FAN manual/Version 1 inspection",
+      "block_id": "391482edfb080e79"
+    },
+    {
+      "source": "document",
+      "version": "1",
+      "kind": "paragraph",
+      "text": "Only after power is disconnected, inspect the cooling fan. The temperature limit is 70 C.\n",
+      "start": 126,
+      "end": 216,
+      "heading": [
+        "DEMO-FAN manual",
+        "Version 1 inspection"
+      ],
+      "parent": "DEMO-FAN manual/Version 1 inspection",
+      "block_id": "a709a3c24e28a500"
+    },
+    {
+      "source": "document",
+      "version": "1",
+      "kind": "table",
+      "text": "| Device | Limit | Unit |\n| --- | --- | --- |\n| DEMO-A | 70 | C |\n| DEMO-B | 65 | C |\n",
+      "start": 217,
+      "end": 303,
+      "heading": [
+        "DEMO-FAN manual",
+        "Version 1 inspection"
+      ],
+      "parent": "DEMO-FAN manual/Version 1 inspection",
+      "block_id": "2e1f68678a6e8e98"
+    },
+    {
+      "source": "document",
+      "version": "1",
+      "kind": "code",
+      "text": "```python\n# A fenced block must not be split into unrelated retrieval chunks.\nif power_disconnected:\n    inspect_fan()\n```\n",
+      "start": 304,
+      "end": 427,
+      "heading": [
+        "DEMO-FAN manual",
+        "Version 1 inspection"
+      ],
+      "parent": "DEMO-FAN manual/Version 1 inspection",
+      "block_id": "edbd092931d71770"
+    },
+    {
+      "source": "document",
+      "version": "1",
+      "kind": "paragraph",
+      "text": "The table is not permission to touch a running fan; the preceding safety condition applies.\n",
+      "start": 428,
+      "end": 520,
+      "heading": [
+        "DEMO-FAN manual",
+        "Version 1 inspection"
+      ],
+      "parent": "DEMO-FAN manual/Version 1 inspection",
+      "block_id": "8f132895c105e4b8"
+    }
+  ],
+  "pdf": [
+    {
+      "source": "comparison.pdf",
+      "sha256": "710c6ae83ff3b977ee3fc4b58fc08ffd470fd64b02be4d0137f0b2c4650fdde2",
+      "page": 1,
+      "text": "DEMO manual v1. Disconnect power before inspection.\nModel DEMO-A   Maximum 70 C\nModel DEMO-B   Maximum 60 C\n",
+      "parser": "pypdf",
+      "requires_ocr": false
+    },
+    {
+      "source": "comparison.pdf",
+      "sha256": "710c6ae83ff3b977ee3fc4b58fc08ffd470fd64b02be4d0137f0b2c4650fdde2",
+      "page": 2,
+      "text": "DEMO manual v2. Disconnect power before inspection.\nModel DEMO-A   Maximum 68 C\nDo not transfer limits between versions.\n",
+      "parser": "pypdf",
+      "requires_ocr": false
+    },
+    {
+      "source": "comparison.pdf",
+      "sha256": "710c6ae83ff3b977ee3fc4b58fc08ffd470fd64b02be4d0137f0b2c4650fdde2",
+      "page": 3,
+      "text": "",
+      "parser": "pypdf",
+      "requires_ocr": true
+    }
+  ]
+}

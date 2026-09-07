@@ -1,0 +1,73 @@
+{
+  "available": {
+    "steps": [
+      {
+        "query": "FAN-01",
+        "required_version": "1",
+        "evidence": [
+          {
+            "chunk_id": "fan-v1@1:0-96:73c0c449a653",
+            "doc_id": "fan-v1",
+            "text": "FAN-01: Before inspecting a cooling fan, disconnect power. The DEMO-A temperature limit is 70 C.",
+            "tenant": "alpha",
+            "product": "GuideDemo",
+            "version": "1",
+            "identifiers": [],
+            "start": 0,
+            "end": 96,
+            "split": false
+          }
+        ]
+      },
+      {
+        "query": "FAN-01",
+        "required_version": "2",
+        "evidence": [
+          {
+            "chunk_id": "fan-v2@2:0-114:f33f91e9bd85",
+            "doc_id": "fan-v2",
+            "text": "FAN-01: Before inspecting a cooling fan, disconnect power. Version 2 changes the DEMO-A temperature limit to 68 C.",
+            "tenant": "alpha",
+            "product": "GuideDemo",
+            "version": "2",
+            "identifiers": [],
+            "start": 0,
+            "end": 114,
+            "split": false
+          }
+        ]
+      }
+    ],
+    "can_compare": true,
+    "stop_reason": "all versions retrieved"
+  },
+  "missing": {
+    "steps": [
+      {
+        "query": "FAN-01",
+        "required_version": "1",
+        "evidence": [
+          {
+            "chunk_id": "fan-v1@1:0-96:73c0c449a653",
+            "doc_id": "fan-v1",
+            "text": "FAN-01: Before inspecting a cooling fan, disconnect power. The DEMO-A temperature limit is 70 C.",
+            "tenant": "alpha",
+            "product": "GuideDemo",
+            "version": "1",
+            "identifiers": [],
+            "start": 0,
+            "end": 96,
+            "split": false
+          }
+        ]
+      },
+      {
+        "query": "FAN-01",
+        "required_version": "3",
+        "evidence": []
+      }
+    ],
+    "can_compare": false,
+    "stop_reason": "missing version evidence"
+  }
+}

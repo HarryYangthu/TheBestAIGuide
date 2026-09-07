@@ -1,0 +1,181 @@
+{"suite": "10-Knowledge/03-agent-core/05-code/agent-loop-python/tests", "returncode": 0}
+test_budget (test_loop.LoopTests.test_budget) ... ok
+test_evidence_and_trace (test_loop.LoopTests.test_evidence_and_trace) ... ok
+test_invalid_model (test_loop.LoopTests.test_invalid_model) ... ok
+test_model_cannot_mutate_state (test_loop.LoopTests.test_model_cannot_mutate_state) ... ok
+test_no_progress (test_loop.LoopTests.test_no_progress) ... ok
+test_non_json_arguments_and_output_stay_in_error_boundary (test_loop.LoopTests.test_non_json_arguments_and_output_stay_in_error_boundary) ... ok
+test_permission_and_unknown (test_loop.LoopTests.test_permission_and_unknown) ... ok
+test_tool_error_is_observation (test_loop.LoopTests.test_tool_error_is_observation) ... ok
+test_tool_mutation_cannot_rewrite_previous_observations_or_events (test_loop.LoopTests.test_tool_mutation_cannot_rewrite_previous_observations_or_events) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.003s
+
+OK
+
+{"suite": "10-Knowledge/06-rag-and-knowledge-systems/05-code/rag-pipeline-python/tests", "returncode": 0}
+test_acl_product_version_identifier (test_pipeline.PipelineTests.test_acl_product_version_identifier) ... ok
+test_bm25_tf_saturates_and_empty (test_pipeline.PipelineTests.test_bm25_tf_saturates_and_empty) ... ok
+test_callbacks_see_only_authorized_candidates (test_pipeline.PipelineTests.test_callbacks_see_only_authorized_candidates) ... ok
+test_chunk_offsets_and_long_block (test_pipeline.PipelineTests.test_chunk_offsets_and_long_block) ... ok
+test_document_top_k_deduplicates_before_cutoff (test_pipeline.PipelineTests.test_document_top_k_deduplicates_before_cutoff) ... ok
+test_multicode_document_does_not_mix_sections (test_pipeline.PipelineTests.test_multicode_document_does_not_mix_sections) ... ok
+test_rank_fusion_and_metrics (test_pipeline.PipelineTests.test_rank_fusion_and_metrics) ... ok
+test_unknown_empty_no_answer (test_pipeline.PipelineTests.test_unknown_empty_no_answer) ... ok
+test_update_delete_and_stale_citation (test_pipeline.PipelineTests.test_update_delete_and_stale_citation) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.002s
+
+OK
+
+{"suite": "10-Knowledge/07-state-and-memory/05-code/state-memory-python/tests", "returncode": 0}
+test_bad_data_does_not_commit (test_memory.StateMemoryTests.test_bad_data_does_not_commit) ... ok
+test_checkpoint_resume_and_conflict (test_memory.StateMemoryTests.test_checkpoint_resume_and_conflict) ... ok
+test_scoped_reads (test_memory.StateMemoryTests.test_scoped_reads) ... ok
+test_ttl_conflict_and_delete (test_memory.StateMemoryTests.test_ttl_conflict_and_delete) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.003s
+
+OK
+
+{"suite": "10-Knowledge/08-planning-workflow-multi-agent/05-code/multi-agent-runtime-python/tests", "returncode": 0}
+test_bad_route_contract_and_input_isolation (test_runtime.RuntimeTests.test_bad_route_contract_and_input_isolation) ... ok
+test_baselines_and_concurrency (test_runtime.RuntimeTests.test_baselines_and_concurrency) ... ok
+test_budget_rejected_before_start (test_runtime.RuntimeTests.test_budget_rejected_before_start) ... ok
+test_conflict_not_last_write_wins (test_runtime.RuntimeTests.test_conflict_not_last_write_wins) ... ok
+test_external_cancel_propagates (test_runtime.RuntimeTests.test_external_cancel_propagates) ... ok
+test_timeout_partial_failure_and_cleanup (test_runtime.RuntimeTests.test_timeout_partial_failure_and_cleanup) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.093s
+
+OK
+
+{"suite": "10-Knowledge/09-runtime-harness-environment/05-code/recoverable-runtime-python/tests", "returncode": 0}
+test_changed_input_rejected (test_recovery.RecoveryTests.test_changed_input_rejected) ... ok
+test_compensation_retry_after_crash (test_recovery.RecoveryTests.test_compensation_retry_after_crash) ... ok
+test_crashes_reopen_and_exactly_one_effect (test_recovery.RecoveryTests.test_crashes_reopen_and_exactly_one_effect) ... ok
+test_key_separates_run_and_step (test_recovery.RecoveryTests.test_key_separates_run_and_step) ... ok
+test_pending_compensation_requires_reconciliation (test_recovery.RecoveryTests.test_pending_compensation_requires_reconciliation) ... ok
+test_replay_has_no_effect (test_recovery.RecoveryTests.test_replay_has_no_effect) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.009s
+
+OK
+
+{"suite": "10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/tests", "returncode": 0}
+test_bad_grader_configuration_rejected_before_run (test_harness.HarnessTests.test_bad_grader_configuration_rejected_before_run) ... ok
+test_errors_counted_not_excluded (test_harness.HarnessTests.test_errors_counted_not_excluded) ... ok
+test_final_state_not_self_report (test_harness.HarnessTests.test_final_state_not_self_report) ... ok
+test_fixture_isolation_labels_private (test_harness.HarnessTests.test_fixture_isolation_labels_private) ... ok
+test_forbidden_exact_string_and_type (test_harness.HarnessTests.test_forbidden_exact_string_and_type) ... ok
+test_gate_detects_regression_and_mismatch (test_harness.HarnessTests.test_gate_detects_regression_and_mismatch) ... ok
+test_statistical_examples_and_boundaries (test_harness.HarnessTests.test_statistical_examples_and_boundaries) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.001s
+
+OK
+
+{"suite": "10-Knowledge/11-safety-security-governance/05-code", "returncode": 0}
+test_approval_bound_to_run_resource_and_user (test_policy.PolicyTests.test_approval_bound_to_run_resource_and_user) ... ok
+test_approved_delete_and_reuse_rejected (test_policy.PolicyTests.test_approved_delete_and_reuse_rejected) ... ok
+test_positive_and_injection_proposals (test_policy.PolicyTests.test_positive_and_injection_proposals) ... ok
+test_projection_redacts_secret (test_policy.PolicyTests.test_projection_redacts_secret) ... ok
+test_scope_and_expiry (test_policy.PolicyTests.test_scope_and_expiry) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.000s
+
+OK
+
+{"suite": "10-Knowledge/12-agent-learning/05-code", "returncode": 0}
+test_dpo_and_equal_groups (test_learning.LearningTests.test_dpo_and_equal_groups) ... ok
+test_false_positive (test_learning.LearningTests.test_false_positive) ... ok
+test_leakage (test_learning.LearningTests.test_leakage) ... ok
+test_mask_ignores_context_probabilities (test_learning.LearningTests.test_mask_ignores_context_probabilities) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.000s
+
+OK
+
+{"suite": "10-Knowledge/13-application-engineering/05-code", "returncode": 0}
+test_bug_and_patch (test_application_cases.ApplicationCases.test_bug_and_patch) ... ok
+test_capability_before_price (test_application_cases.ApplicationCases.test_capability_before_price) ... ok
+test_cross_tenant_and_principal (test_application_cases.ApplicationCases.test_cross_tenant_and_principal) ... ok
+test_no_feasible_science_candidate (test_application_cases.ApplicationCases.test_no_feasible_science_candidate) ... ok
+test_operations_is_a_recommendation (test_application_cases.ApplicationCases.test_operations_is_a_recommendation) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.000s
+
+OK
+
+{"suite": "10-Knowledge/15-multimodal-and-embodied/05-code", "returncode": 0}
+test_demo (test_evidence.EvidenceTests.test_demo) ... ok
+test_location_and_version (test_evidence.EvidenceTests.test_location_and_version) ... ok
+test_missing_and_ambiguous (test_evidence.EvidenceTests.test_missing_and_ambiguous) ... ok
+test_valid_and_wrong_units (test_evidence.EvidenceTests.test_valid_and_wrong_units) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.000s
+
+OK
+
+{"suite": "20-Projects/domain-research-agent/tests", "returncode": 0}
+test_citation_memory_and_request_binding (test_integration.IntegrationTests.test_citation_memory_and_request_binding) ... ok
+test_model_cannot_choose_tenant_or_publish_unsupported_prose (test_integration.IntegrationTests.test_model_cannot_choose_tenant_or_publish_unsupported_prose) ... ok
+test_model_cannot_substitute_another_error_code (test_integration.IntegrationTests.test_model_cannot_substitute_another_error_code) ... ok
+test_no_evidence_and_cross_tenant_are_not_memorized (test_integration.IntegrationTests.test_no_evidence_and_cross_tenant_are_not_memorized) ... ok
+test_reopen_after_each_crash_point_without_retrieving_again (test_integration.IntegrationTests.test_reopen_after_each_crash_point_without_retrieving_again) ... ok
+test_source_change_rejects_stale_resume (test_integration.IntegrationTests.test_source_change_rejects_stale_resume) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.019s
+
+OK
+
+{"suite": "scripts/tests", "returncode": 0}
+test_missing_target_and_fenced_example_are_distinct (test_checks.LinkChecks.test_missing_target_and_fenced_example_are_distinct) ... ok
+test_relative_target_and_notebook_links (test_checks.LinkChecks.test_relative_target_and_notebook_links) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.002s
+
+OK
+
+{"assertion_example": "10-Knowledge/14-production-engineering/05-code/production_checks.py", "returncode": 0}
+{
+  "capacity": {
+    "capacity_per_second": 1.3333333333333333,
+    "stable_mean_condition": false,
+    "offered_inflight": 60
+  },
+  "remaining_error_budget": 30,
+  "naive_record_count": 2,
+  "idempotent_record_count": 1,
+  "cost_a": 0.4,
+  "cost_b": 0.3333333333333333
+}
+
+{"assertion_example": "10-Knowledge/16-research-frontiers/05-code/research_checks.py", "returncode": 0}
+{
+  "independent_50_step_probability": 0.36416968008711675,
+  "independent_majority": 0.7839999999999999,
+  "fully_correlated_majority": 0.7,
+  "feasible": [
+    {
+      "width": 8,
+      "params": 64,
+      "latency_ms": 9
+    }
+  ],
+  "scalar_update": 1.0
+}
+
+{"suites": 12, "assertion_examples": 2, "failed_groups": 0}

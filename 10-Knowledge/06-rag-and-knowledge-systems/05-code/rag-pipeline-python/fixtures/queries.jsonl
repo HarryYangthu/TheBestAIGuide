@@ -1,0 +1,8 @@
+{"id": "q-code", "query": "ALM-12003 风扇告警", "tenant": "alpha", "product": "DEMO-A", "version": "2", "relevance": {"fan-guide": 2}, "slice": "identifier"}
+{"id": "q-near-code", "query": "ALM-12030", "tenant": "alpha", "product": "DEMO-A", "version": "2", "relevance": {"voltage-guide": 2}, "slice": "identifier"}
+{"id": "q-cooling", "query": "散热 风道 堵塞", "tenant": "alpha", "product": "DEMO-A", "version": "2", "relevance": {"cooling": 2}, "slice": "keyword"}
+{"id": "q-timeout", "query": "请求超时", "tenant": "alpha", "product": "DEMO-A", "version": "2", "relevance": {"timeout": 2}, "slice": "keyword"}
+{"id": "q-no-answer", "query": "ALM-99999", "tenant": "alpha", "product": "DEMO-A", "version": "2", "relevance": {}, "slice": "unanswerable"}
+{"id": "q-old-version", "query": "ALM-12003", "tenant": "alpha", "product": "DEMO-A", "version": "1", "relevance": {}, "slice": "version"}
+{"id": "q-tenant", "query": "ALM-12003", "tenant": "nobody", "product": "DEMO-A", "version": "2", "relevance": {}, "slice": "permission"}
+{"id": "q-synonym", "query": "airflow obstruction", "tenant": "alpha", "product": "DEMO-A", "version": "2", "relevance": {"cooling": 2}, "slice": "paraphrase"}

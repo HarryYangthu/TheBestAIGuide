@@ -1,0 +1,26 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> tool-runtime-typescript@0.1.0 test
+> npm run build && node --test dist/test/*.test.js
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> tool-runtime-typescript@0.1.0 build
+> tsc
+
+✔ input/output contracts and permissions (71.927241ms)
+✔ concurrent duplicates execute once and conflicts are rejected (15.300971ms)
+✔ timeout aborts cooperative handler and is not automatically retryable (22.509195ms)
+✔ caller cancellation propagates (21.380749ms)
+✔ unknown tool and exceptions stay structured (26.546754ms)
+✔ caller mutation cannot change validated input or poison cached output (11.747839ms)
+✔ cancellation before handler scheduling prevents execution (13.585612ms)
+✔ the same six contracts accept/reject the same 12 fixtures in TypeScript (63.428135ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 319.691478

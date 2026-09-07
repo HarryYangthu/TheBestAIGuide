@@ -1,0 +1,5 @@
+{"run_id": "70058ddb0b784849a319e6064ef9bf4a", "seq": 0, "kind": "tool_call", "data": {"call_id": "70058ddb0b784849a319e6064ef9bf4a:1", "name": "add", "arguments": {"a": 4, "b": 7}}}
+{"run_id": "70058ddb0b784849a319e6064ef9bf4a", "seq": 1, "kind": "tool_result", "data": {"call_id": "70058ddb0b784849a319e6064ef9bf4a:1", "ok": true, "data": {"sum": 11}}}
+{"run_id": "70058ddb0b784849a319e6064ef9bf4a", "seq": 2, "kind": "tool_call", "data": {"call_id": "70058ddb0b784849a319e6064ef9bf4a:2", "name": "add", "arguments": {"a": 4, "b": 7}}}
+{"run_id": "70058ddb0b784849a319e6064ef9bf4a", "seq": 3, "kind": "tool_result", "data": {"call_id": "70058ddb0b784849a319e6064ef9bf4a:2", "ok": true, "data": {"sum": 11}}}
+{"run_id": "70058ddb0b784849a319e6064ef9bf4a", "seq": 4, "kind": "run_finished", "data": {"status": "stopped", "reason": "no_progress", "steps": 2}}

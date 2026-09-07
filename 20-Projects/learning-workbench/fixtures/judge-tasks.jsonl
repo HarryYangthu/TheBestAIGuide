@@ -1,0 +1,6 @@
+{"id":"supported","question":"What is the limit?","evidence":"The DEMO-A limit is 70 C.","answer":"The limit is 70 C.","label":"supported"}
+{"id":"wrong-number","question":"What is the limit?","evidence":"The DEMO-A limit is 70 C.","answer":"The limit is 80 C.","label":"unsupported"}
+{"id":"negation","question":"Can I restart?","evidence":"At 70 C, do not restart.","answer":"At 70 C, restart.","label":"unsupported"}
+{"id":"unit","question":"What is the limit?","evidence":"The limit is 70 C.","answer":"The limit is 70 F.","label":"unsupported"}
+{"id":"unknown","question":"How long is the warranty?","evidence":"The DEMO-A limit is 70 C.","answer":"The warranty is 5 years.","label":"insufficient"}
+{"id":"condition","question":"Can I inspect the fan?","evidence":"Inspect the fan only after disconnecting power.","answer":"Disconnect power before inspecting the fan.","label":"supported"}

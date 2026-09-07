@@ -1,0 +1,140 @@
+{
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "result": {
+    "baseline": {
+      "reference_labels": "author-labelled constructed examples, not independent expert calibration",
+      "backend": "numeric-overlap baseline",
+      "trials": [
+        {
+          "id": "supported",
+          "question": "What is the limit?",
+          "evidence": "The DEMO-A limit is 70 C.",
+          "answer": "The limit is 70 C.",
+          "gold": "supported",
+          "prediction": "supported",
+          "correct": true
+        },
+        {
+          "id": "wrong-number",
+          "question": "What is the limit?",
+          "evidence": "The DEMO-A limit is 70 C.",
+          "answer": "The limit is 80 C.",
+          "gold": "unsupported",
+          "prediction": "insufficient",
+          "correct": false
+        },
+        {
+          "id": "negation",
+          "question": "Can I restart?",
+          "evidence": "At 70 C, do not restart.",
+          "answer": "At 70 C, restart.",
+          "gold": "unsupported",
+          "prediction": "supported",
+          "correct": false
+        },
+        {
+          "id": "unit",
+          "question": "What is the limit?",
+          "evidence": "The limit is 70 C.",
+          "answer": "The limit is 70 F.",
+          "gold": "unsupported",
+          "prediction": "supported",
+          "correct": false
+        },
+        {
+          "id": "unknown",
+          "question": "How long is the warranty?",
+          "evidence": "The DEMO-A limit is 70 C.",
+          "answer": "The warranty is 5 years.",
+          "gold": "insufficient",
+          "prediction": "insufficient",
+          "correct": true
+        },
+        {
+          "id": "condition",
+          "question": "Can I inspect the fan?",
+          "evidence": "Inspect the fan only after disconnecting power.",
+          "answer": "Disconnect power before inspecting the fan.",
+          "gold": "supported",
+          "prediction": "insufficient",
+          "correct": false
+        }
+      ],
+      "accuracy": 0.3333333333333333,
+      "confusion": {
+        "supported -> supported": 1,
+        "unsupported -> insufficient": 1,
+        "unsupported -> supported": 2,
+        "insufficient -> insufficient": 1,
+        "supported -> insufficient": 1
+      }
+    },
+    "model": {
+      "reference_labels": "author-labelled constructed examples, not independent expert calibration",
+      "backend": "real model",
+      "trials": [
+        {
+          "id": "supported",
+          "question": "What is the limit?",
+          "evidence": "The DEMO-A limit is 70 C.",
+          "answer": "The limit is 70 C.",
+          "gold": "supported",
+          "prediction": "supported",
+          "correct": true
+        },
+        {
+          "id": "wrong-number",
+          "question": "What is the limit?",
+          "evidence": "The DEMO-A limit is 70 C.",
+          "answer": "The limit is 80 C.",
+          "gold": "unsupported",
+          "prediction": "insufficient",
+          "correct": false
+        },
+        {
+          "id": "negation",
+          "question": "Can I restart?",
+          "evidence": "At 70 C, do not restart.",
+          "answer": "At 70 C, restart.",
+          "gold": "unsupported",
+          "prediction": "insufficient",
+          "correct": false
+        },
+        {
+          "id": "unit",
+          "question": "What is the limit?",
+          "evidence": "The limit is 70 C.",
+          "answer": "The limit is 70 F.",
+          "gold": "unsupported",
+          "prediction": "insufficient",
+          "correct": false
+        },
+        {
+          "id": "unknown",
+          "question": "How long is the warranty?",
+          "evidence": "The DEMO-A limit is 70 C.",
+          "answer": "The warranty is 5 years.",
+          "gold": "insufficient",
+          "prediction": "insufficient",
+          "correct": true
+        },
+        {
+          "id": "condition",
+          "question": "Can I inspect the fan?",
+          "evidence": "Inspect the fan only after disconnecting power.",
+          "answer": "Disconnect power before inspecting the fan.",
+          "gold": "supported",
+          "prediction": "supported",
+          "correct": true
+        }
+      ],
+      "accuracy": 0.5,
+      "confusion": {
+        "supported -> supported": 2,
+        "unsupported -> insufficient": 3,
+        "insufficient -> insufficient": 1
+      }
+    }
+  }
+}

@@ -1,0 +1,4 @@
+from price import discounted
+assert discounted(100,.2)==80
+assert discounted(100,0)==100
+assert discounted(50,1)==0

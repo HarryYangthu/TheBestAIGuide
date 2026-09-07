@@ -183,4 +183,10 @@ RAG 负责提供可更新事实和来源；输出格式是否通过 SFT 或 Prom
 
 不能说：某个 Embedding、32B 生成模型、固定 Chunk 长度或 `0.3/0.7` 权重已经优于其他方案，也不能说系统已经在真实运维任务中稳定运行。
 
-下一步应先建立最小样例语料与标注集，再实现 [RAG Pipeline Python](../05-code/rag-pipeline-python/README.md) 和 [RAG Labs](../04-labs/README.md)。
+现在可先通过下方虚构教学语料运行 [RAG Pipeline Python](../05-code/rag-pipeline-python/README.md) 和 [RAG Labs](../04-labs/README.md)。
+
+## 已补充的教学复现与真实业务边界
+
+已提供 [8 条文档事件](../05-code/rag-pipeline-python/fixtures/corpus.jsonl)、[8 条查询及 gold](../05-code/rag-pipeline-python/fixtures/queries.jsonl)、[源码](../05-code/rag-pipeline-python/README.md)与[输出实验](../04-labs/01-hybrid-retrieval-evaluation.ipynb)。语料使用虚构 DEMO-A/DEMO-B，不包含真实设备维修依据，也没有使用原方案的私有语料。
+
+它可以验证相似编号、错产品、错租户、旧版本、删除和无答案的处理，并明确暴露跨语言词法失败。原文 BGE/Elasticsearch/Qwen 的候选架构仍属于设计；这些教学结果不能冒充那套系统的生产效果。

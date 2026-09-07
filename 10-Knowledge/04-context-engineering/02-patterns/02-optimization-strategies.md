@@ -109,6 +109,12 @@
 - 命中率之外的任务质量；
 - 敏感数据是否允许进入共享缓存。
 
+这里说的是模型前缀缓存：相同前缀的计算可以复用，通常仍占本次上下文窗口；它不是把那段文字从输入容量中免费移走。另两种常见缓存是“直接返回旧答案”的响应缓存与“复用搜索结果”的工具缓存，后两者还需核对任务参数、资源版本和访问权限。不要把三者的命中率、计费和失效条件混在同一个数字里。
+
+## Refresh：重新确认仍然有效的事实
+
+例如昨天读到手册 v1，今天状态记录显示当前生效的是 v2，应按同一产品和版本范围重读权威源，再替换当前事实。重读失败时保留“最后确认于何时”并标记未知，不能因为旧缓存仍存在就说它是现行规则。历史版本比较则需要同时保留 v1/v2 及各自条件，不能一概删除旧版。是否刷新可由过期时间、源版本变化或与新观察冲突触发，不必每轮重查所有材料。
+
 ## 策略选择顺序
 
 ```text
@@ -145,3 +151,9 @@
 - [LangChain: Context engineering for agents](https://blog.langchain.com/context-engineering-for-agents/)
 - [Anthropic: Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
 - [Manus: Lessons from building Manus](https://manus.im/blog/Context-Engineering-for-AI-Agents-Lessons-from-Building-Manus)
+
+## 什么时候不要压缩
+
+如果错误来自错型号、错版本或无权限，压缩会把错误信息变短，却不会把它变对。先过滤；只有仍然需要的内容太长时才压缩。若一个完整日志还需要后续计算，保存原文并给出文件指针，比让摘要替代数据可靠。
+
+[压缩实验](../04-labs/02-context-compaction.ipynb)保留原始事件，再抽取三个带来源的字段。规则保留最新 `test_passed=False`，并保留 `allow_restart=False` 和下一步待办。它证明的是已结构化字段的保留；开放文本总结还需要专门测试否定、数值、条件和未完成承诺是否被误写。

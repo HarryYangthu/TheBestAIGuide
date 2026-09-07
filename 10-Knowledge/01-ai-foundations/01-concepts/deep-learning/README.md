@@ -1,3 +1,78 @@
-# Deep Learning
+# 深度学习：从计算图到真正改变参数
 
-计划覆盖神经网络、计算图、Autograd、反向传播、激活、初始化、Normalization、优化器、训练循环和表示学习。
+> 状态：draft · 来源核验：2026-09-06 · 本域先用 NumPy＋标量自动微分学习；完整 PyTorch 训练接在文末 tiny-transformer 项目。
+
+神经网络的核心是可训练的函数组合。前一层把原始输入变成更适合任务的表示，后一层在这个表示上继续计算；训练用损失的梯度调整各层参数。理解这个过程，需要把“前向算出了什么”和“反向把哪条误差传回去”对应起来。
+
+## 1. 为什么要有非线性
+
+两层网络可以写成 $H=\phi(XW_1+b_1)$、$\hat Y=HW_2+b_2$。若 $X:(B,D)$，隐藏宽度为 $H_d$，输出宽度为 $C$，则 $W_1:(D,H_d)$、$W_2:(H_d,C)$。批次轴 $B$ 不参与参数定义，所有样本复用同一套权重。
+
+如果去掉激活函数 $\phi$，两层合起来仍是一个仿射变换（线性变换加偏置）：$XW_1W_2+b_1W_2+b_2$，多堆几层也不能表达 XOR 这样的非线性分类边界。ReLU 为 $\max(0,z)$，正半轴梯度 1，负半轴梯度 0；tanh 将输入压到 $[-1,1]$，导数为 $1-\tanh^2z$，绝对值很大时会饱和。GELU/SiLU 是平滑门控，选择它们不免除初始化与归一化的需要。
+
+表示学习说的就是：中间的 $H$ 不是人预先指定的特征表，而是由任务损失训练出来的。但“有高维向量”不等于已获得好表示，要在下游任务或检索邻居上检验。
+
+## 2. 反向传播是链式法则加梯度累加
+
+令 $z=wx+b$、$h=\tanh z$、$L=(h-y)^2/2$。则：
+
+$$\frac{\partial L}{\partial w}=(h-y)(1-h^2)x,\quad
+\frac{\partial L}{\partial b}=(h-y)(1-h^2).$$
+
+这三项分别来自损失对输出的影响、激活对线性输出的影响、线性输出对参数的影响。反向传播先算靠近损失的导数，再按依赖关系传到输入端，避免为每个参数重新做完整求导。
+
+如果参数被多处复用，例如 $L=w\times w+w$，必须把来自两条乘法边和一条加法边的导数相加，得到 $2w+1$。自动微分引擎记录的计算图包含操作与依赖；`backward()` 依照拓扑逆序调用每个操作的局部导数。这和用有限差分估计梯度不同，也和提前把公式符号展开不同。
+
+```python
+from foundations_core import Scalar
+w = Scalar(3.)
+loss = w * w + w
+loss.backward()
+print(loss.data, w.grad)  # 12.0, 7.0
+```
+
+配套 `Scalar` 实现只支持本实验需要的标量加、乘、tanh。真实框架还需处理张量广播、设备、稀疏运算和多线程；这里把它缩小，是为了看清“记录图—反向累加”的机制。
+
+## 3. 一次完整训练迭代
+
+前向得到预测，损失将预测与目标比较，反向产生各参数梯度，优化器才真正修改参数。只执行 `backward()` 不会更新权重。我们的小引擎在每次反向开始清零可达节点梯度；PyTorch 通常需要显式 `optimizer.zero_grad()`，除非有意做梯度累积。
+
+```python
+# 伪代码：展示框架训练循环，完整可运行标量版见源码
+for batch in data:
+    optimizer.zero_grad()
+    prediction = model(batch.inputs)
+    loss = criterion(prediction, batch.targets)
+    loss.backward()
+    optimizer.step()
+```
+
+`model.eval()`、`torch.no_grad()` 和冻结参数做的事不同：`eval()` 切换 Dropout/BatchNorm 等层的行为，仍可求梯度；`no_grad()` 在这段计算中不建立反向图；`parameter.requires_grad_(False)` 才是禁止为该参数累积梯度。预测时常同时使用 `eval()` 和 `no_grad()`。微调时冻结部分权重，但保留所需梯度路径，不能把整个前向都放进 `no_grad()`；详见 [PyTorch 2.8 Autograd](https://docs.pytorch.org/docs/2.8/notes/autograd.html)。
+
+SGD 更新 $\theta\leftarrow\theta-\eta g$；动量积累近期梯度以减小来回震荡；Adam 维护一阶和二阶移动平均：
+
+$$m_t=\beta_1m_{t-1}+(1-\beta_1)g_t,\quad
+v_t=\beta_2v_{t-1}+(1-\beta_2)g_t^2,$$
+$$\theta_{t+1}=\theta_t-\eta\frac{m_t/(1-\beta_1^t)}{\sqrt{v_t/(1-\beta_2^t)}+\epsilon}.$$
+
+平方和除法逐元素进行，偏差修正补偿从零初始化造成的偏小估计。Adam 不保证自动得到好学习率。AdamW 把权重衰减作为独立参数缩小步骤，在自适应优化器下它与往损失中简单加 L2 惩罚并不等价。
+
+## 4. 初始化与 Normalization 解决什么
+
+如果同一层全部权重初始化相同，各隐藏单元收到相同梯度，就无法学出不同特征。随机初始化打破对称；方差还需要随输入宽度调整，例如 ReLU 常用 $\operatorname{Var}(W)\approx2/\mathrm{fan\_in}$，避免层层传播时信号尺度快速漂移。这是带分布假设的经验准则，不是所有结构通用的定理。
+
+LayerNorm 对每个样本/位置的特征维归一化：$\mathrm{LN}(x)=\gamma\odot(x-\mu)/\sqrt{\sigma^2+\epsilon}+\beta$。均值和方差沿特征轴求，$\gamma,\beta$ 可训练。BatchNorm 通常使用批次统计，并维护推理时统计，因此训练与评估模式不同。把批次轴和特征轴弄反，往往不会报错，但会让样本互相影响。Residual 让层输出为 $x+f(x)$，为信息与梯度提供直通路径，不等于每层无需学习。
+
+## 5. 用症状找错误
+
+| 症状 | 首先检查 | 有针对性的处理 |
+|---|---|---|
+| 损失完全不变 | 参数是否被优化器持有、图是否被截断、梯度是否为零 | 检查一个参数更新前后的值 |
+| 很快出现 NaN | 输入、除零、指数溢出、学习率 | 稳定损失实现，定位第一个非有限张量 |
+| 训练好、验证差 | 数据泄漏与过拟合、训练/评估模式 | 正确划分、早停、正则化 |
+| 同一输入评估结果波动 | Dropout、随机采样、未切 eval | 固定评估模式与解码配置 |
+| 深层前部梯度很小 | 饱和激活、尺度、结构 | 检查层间梯度，调整初始化/残差 |
+
+配套实验先对共享节点做精确梯度检查，再训练一个 2→4→1 的 XOR 网络。XOR 只有四个教学点，训练成功说明计算图和优化步骤能一起工作，不说明网络有真实任务泛化能力。
+
+[运行 Autograd 与训练 Notebook](../../04-labs/deep-learning/01-autograd-and-training.ipynb) · [完整源码](../../05-code/foundations_core.py) · [来源](../../references.md)。后续在 [Transformer](../../../02-foundation-models/01-concepts/transformer/README.md) 中看这些构件如何组合，再运行 [tiny-transformer](../../../../20-Projects/tiny-transformer/README.md)：同一条 `zero_grad → backward → step` 链路会真正更新 PyTorch 的 Embedding、Attention 和 FFN。

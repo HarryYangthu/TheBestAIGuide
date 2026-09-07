@@ -1,0 +1,158 @@
+{
+  "license": "original fixture authored for this repository; no third-party page reproduced",
+  "pages": [
+    {
+      "source": "comparison.pdf",
+      "sha256": "710c6ae83ff3b977ee3fc4b58fc08ffd470fd64b02be4d0137f0b2c4650fdde2",
+      "page": 1,
+      "text": "DEMO manual v1. Disconnect power before inspection.\nModel DEMO-A   Maximum 70 C\nModel DEMO-B   Maximum 60 C\n",
+      "parser": "pypdf",
+      "requires_ocr": false
+    },
+    {
+      "source": "comparison.pdf",
+      "sha256": "710c6ae83ff3b977ee3fc4b58fc08ffd470fd64b02be4d0137f0b2c4650fdde2",
+      "page": 2,
+      "text": "DEMO manual v2. Disconnect power before inspection.\nModel DEMO-A   Maximum 68 C\nDo not transfer limits between versions.\n",
+      "parser": "pypdf",
+      "requires_ocr": false
+    },
+    {
+      "source": "comparison.pdf",
+      "sha256": "710c6ae83ff3b977ee3fc4b58fc08ffd470fd64b02be4d0137f0b2c4650fdde2",
+      "page": 3,
+      "text": "",
+      "parser": "pypdf",
+      "requires_ocr": true
+    }
+  ],
+  "regions": [
+    {
+      "source": "comparison.pdf",
+      "sha256": "710c6ae83ff3b977ee3fc4b58fc08ffd470fd64b02be4d0137f0b2c4650fdde2",
+      "page": 1,
+      "text": "DEMO manual v1. Disconnect power before inspection.",
+      "origin_pdf_points": [
+        30.0,
+        260.0
+      ],
+      "font_size": 12.0,
+      "coordinate_system": "PDF bottom-left points; text origin, not a bounding box"
+    },
+    {
+      "source": "comparison.pdf",
+      "sha256": "710c6ae83ff3b977ee3fc4b58fc08ffd470fd64b02be4d0137f0b2c4650fdde2",
+      "page": 1,
+      "text": "Model DEMO-A   Maximum 70 C",
+      "origin_pdf_points": [
+        30.0,
+        220.0
+      ],
+      "font_size": 12.0,
+      "coordinate_system": "PDF bottom-left points; text origin, not a bounding box"
+    },
+    {
+      "source": "comparison.pdf",
+      "sha256": "710c6ae83ff3b977ee3fc4b58fc08ffd470fd64b02be4d0137f0b2c4650fdde2",
+      "page": 1,
+      "text": "Model DEMO-B   Maximum 60 C",
+      "origin_pdf_points": [
+        30.0,
+        180.0
+      ],
+      "font_size": 12.0,
+      "coordinate_system": "PDF bottom-left points; text origin, not a bounding box"
+    },
+    {
+      "source": "comparison.pdf",
+      "sha256": "710c6ae83ff3b977ee3fc4b58fc08ffd470fd64b02be4d0137f0b2c4650fdde2",
+      "page": 2,
+      "text": "DEMO manual v2. Disconnect power before inspection.",
+      "origin_pdf_points": [
+        30.0,
+        260.0
+      ],
+      "font_size": 12.0,
+      "coordinate_system": "PDF bottom-left points; text origin, not a bounding box"
+    },
+    {
+      "source": "comparison.pdf",
+      "sha256": "710c6ae83ff3b977ee3fc4b58fc08ffd470fd64b02be4d0137f0b2c4650fdde2",
+      "page": 2,
+      "text": "Model DEMO-A   Maximum 68 C",
+      "origin_pdf_points": [
+        30.0,
+        220.0
+      ],
+      "font_size": 12.0,
+      "coordinate_system": "PDF bottom-left points; text origin, not a bounding box"
+    },
+    {
+      "source": "comparison.pdf",
+      "sha256": "710c6ae83ff3b977ee3fc4b58fc08ffd470fd64b02be4d0137f0b2c4650fdde2",
+      "page": 2,
+      "text": "Do not transfer limits between versions.",
+      "origin_pdf_points": [
+        30.0,
+        180.0
+      ],
+      "font_size": 12.0,
+      "coordinate_system": "PDF bottom-left points; text origin, not a bounding box"
+    }
+  ],
+  "checks": {
+    "v1": {
+      "abstained": false,
+      "evidence": [
+        {
+          "source": "comparison.pdf",
+          "sha256": "710c6ae83ff3b977ee3fc4b58fc08ffd470fd64b02be4d0137f0b2c4650fdde2",
+          "page": 1,
+          "text": "Model DEMO-A   Maximum 70 C",
+          "origin_pdf_points": [
+            30.0,
+            220.0
+          ],
+          "font_size": 12.0,
+          "coordinate_system": "PDF bottom-left points; text origin, not a bounding box"
+        }
+      ]
+    },
+    "v2": {
+      "abstained": false,
+      "evidence": [
+        {
+          "source": "comparison.pdf",
+          "sha256": "710c6ae83ff3b977ee3fc4b58fc08ffd470fd64b02be4d0137f0b2c4650fdde2",
+          "page": 2,
+          "text": "Model DEMO-A   Maximum 68 C",
+          "origin_pdf_points": [
+            30.0,
+            220.0
+          ],
+          "font_size": 12.0,
+          "coordinate_system": "PDF bottom-left points; text origin, not a bounding box"
+        }
+      ]
+    },
+    "wrong_row": {
+      "abstained": true,
+      "evidence": []
+    },
+    "wrong_unit": {
+      "abstained": true,
+      "reason": "requested unit not represented"
+    },
+    "empty_page_requires_ocr": true
+  },
+  "transcript_exercise": {
+    "reference": "power off before inspection",
+    "hypothesis": "power on before inspection",
+    "wer": {
+      "edits": 1,
+      "reference_units": 4,
+      "rate": 0.25
+    },
+    "boundary": "manual transcript comparison; no ASR or audio comprehension claimed"
+  }
+}

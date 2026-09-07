@@ -1,0 +1,9 @@
+{"run_id": "b23e79675523452297a7610ac3a4189b", "seq": 0, "kind": "tool_call", "data": {"call_id": "b23e79675523452297a7610ac3a4189b:1", "name": "search", "arguments": {"query": "must I disconnect power before inspection?"}}}
+{"run_id": "b23e79675523452297a7610ac3a4189b", "seq": 1, "kind": "tool_result", "data": {"call_id": "b23e79675523452297a7610ac3a4189b:1", "ok": true, "data": {"documents": []}}}
+{"run_id": "b23e79675523452297a7610ac3a4189b", "seq": 2, "kind": "tool_call", "data": {"call_id": "b23e79675523452297a7610ac3a4189b:2", "name": "search", "arguments": {"query": "must i disconnect power before inspection?"}}}
+{"run_id": "b23e79675523452297a7610ac3a4189b", "seq": 3, "kind": "tool_result", "data": {"call_id": "b23e79675523452297a7610ac3a4189b:2", "ok": true, "data": {"documents": []}}}
+{"run_id": "b23e79675523452297a7610ac3a4189b", "seq": 4, "kind": "tool_call", "data": {"call_id": "b23e79675523452297a7610ac3a4189b:3", "name": "search", "arguments": {"query": "manual"}}}
+{"run_id": "b23e79675523452297a7610ac3a4189b", "seq": 5, "kind": "tool_result", "data": {"call_id": "b23e79675523452297a7610ac3a4189b:3", "ok": true, "data": {"documents": []}}}
+{"run_id": "b23e79675523452297a7610ac3a4189b", "seq": 6, "kind": "tool_call", "data": {"call_id": "b23e79675523452297a7610ac3a4189b:4", "name": "search", "arguments": {"query": "manual"}}}
+{"run_id": "b23e79675523452297a7610ac3a4189b", "seq": 7, "kind": "tool_result", "data": {"call_id": "b23e79675523452297a7610ac3a4189b:4", "ok": true, "data": {"documents": []}}}
+{"run_id": "b23e79675523452297a7610ac3a4189b", "seq": 8, "kind": "run_finished", "data": {"status": "stopped", "reason": "no_progress", "steps": 4}}

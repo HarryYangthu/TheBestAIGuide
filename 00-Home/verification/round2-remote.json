@@ -1,0 +1,31 @@
+{
+  "tested_code_commit": "d77bedcf4adcad7f73741d3ca897eb1d3995e88c",
+  "tree": "d9c7eb375783b3f3c1613d5df021aa020cd26200",
+  "tested_snapshot_files": 549,
+  "uploaded_files_verified": 201,
+  "unchanged_files_preserved": 348,
+  "missing": [],
+  "mismatches": [],
+  "ci": [
+    {
+      "name": "Documentation checks",
+      "conclusion": "success",
+      "url": "https://github.com/HarryYangthu/TheBestAIGuide/actions/runs/34026085289"
+    },
+    {
+      "name": "TypeScript tools and browser",
+      "conclusion": "success",
+      "url": "https://github.com/HarryYangthu/TheBestAIGuide/actions/runs/34026085296"
+    },
+    {
+      "name": "Python teaching components",
+      "conclusion": "success",
+      "url": "https://github.com/HarryYangthu/TheBestAIGuide/actions/runs/34026085275"
+    },
+    {
+      "name": "Execute learning notebooks",
+      "conclusion": "success",
+      "url": "https://github.com/HarryYangthu/TheBestAIGuide/actions/runs/34026085277"
+    }
+  ]
+}

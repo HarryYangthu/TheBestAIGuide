@@ -1,0 +1,33 @@
+name: Execute learning notebooks
+on:
+  push:
+    paths: ['10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/**', '**/*.ipynb', '**/*.py', '**/*.ts', '**/package*.json', '**/tsconfig.json', 'requirements-dev.lock', 'requirements-learning.txt', '**/*.html', '**/fixtures/**', '.github/workflows/notebooks.yml']
+  pull_request:
+    paths: ['10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/**', '**/*.ipynb', '**/*.py', '**/*.ts', '**/package*.json', '**/tsconfig.json', 'requirements-dev.lock', 'requirements-learning.txt', '**/*.html', '**/fixtures/**', '.github/workflows/notebooks.yml']
+permissions:
+  contents: read
+jobs:
+  notebooks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-dev.lock
+      - run: pip install -r requirements-dev.lock
+      - run: pip install torch==2.8.0 --index-url https://download.pytorch.org/whl/cpu
+      - run: pip install pypdf==6.1.0 reportlab==4.4.3
+      - run: python -m ipykernel install --sys-prefix --name python3
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: |
+            10-Knowledge/05-tools-skills-protocols/05-code/tool-runtime-typescript/package-lock.json
+            10-Knowledge/05-tools-skills-protocols/05-code/mcp-server-typescript/package-lock.json
+      - run: npm ci --prefix 10-Knowledge/05-tools-skills-protocols/05-code/tool-runtime-typescript
+      - run: npm ci --prefix 10-Knowledge/05-tools-skills-protocols/05-code/mcp-server-typescript
+      - run: python scripts/check_notebooks.py --execute

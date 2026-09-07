@@ -1,0 +1,33 @@
+{
+  "labels": "author review of these exact saved outputs, not model self-grading or expert benchmark",
+  "trials": [
+    {
+      "id": "g1",
+      "citation_identity": "not assessable",
+      "semantic_support": "not assessable",
+      "answers_question": false,
+      "reason": "invalid JSON; no accepted answer"
+    },
+    {
+      "id": "g2",
+      "citation_identity": true,
+      "semantic_support": false,
+      "answers_question": false,
+      "reason": "Both claims discuss disconnecting power, but quotes discuss temperature; no claim actually answers the temperature question."
+    },
+    {
+      "id": "g3",
+      "citation_identity": "not assessable",
+      "semantic_support": "not assessable",
+      "answers_question": false,
+      "reason": "invalid JSON; cannot count as a correct refusal"
+    },
+    {
+      "id": "g4",
+      "citation_identity": "not assessable",
+      "semantic_support": "not assessable",
+      "answers_question": false,
+      "reason": "invalid JSON; cannot count as a correct refusal"
+    }
+  ]
+}

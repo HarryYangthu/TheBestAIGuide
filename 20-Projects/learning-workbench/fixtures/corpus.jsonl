@@ -1,0 +1,8 @@
+{"doc_id": "fan-v1", "text": "FAN-01: Before inspecting a cooling fan, disconnect power. The DEMO-A temperature limit is 70 C.", "version": "1", "tenant": "alpha", "product": "GuideDemo"}
+{"doc_id": "fan-v2", "text": "FAN-01: Before inspecting a cooling fan, disconnect power. Version 2 changes the DEMO-A temperature limit to 68 C.", "version": "2", "tenant": "alpha", "product": "GuideDemo"}
+{"doc_id": "battery", "text": "Rechargeable batteries should be kept away from excessive heat. A swollen battery needs qualified inspection.", "version": "1", "tenant": "alpha", "product": "GuideDemo"}
+{"doc_id": "network", "text": "When the router loses connectivity, first inspect its status light and cable. Do not reset configuration without approval.", "version": "1", "tenant": "alpha", "product": "GuideDemo"}
+{"doc_id": "backup", "text": "A backup stores copies of files so that deleted documents can be restored. The recovery test is separate from copying.", "version": "1", "tenant": "alpha", "product": "GuideDemo"}
+{"doc_id": "rain", "text": "The rain sensor in this synthetic fixture measures precipitation. It does not measure equipment temperature.", "version": "1", "tenant": "alpha", "product": "GuideDemo"}
+{"doc_id": "restricted", "text": "FAN-01: The beta tenant secret calibration code is DEMO-SECRET.", "version": "1", "tenant": "beta", "product": "GuideDemo"}
+{"doc_id": "memory", "text": "Working state records the current task. Long-term memory stores selected information for future tasks.", "version": "1", "tenant": "alpha", "product": "GuideDemo"}

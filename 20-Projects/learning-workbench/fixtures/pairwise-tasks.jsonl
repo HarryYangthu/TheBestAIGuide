@@ -1,0 +1,2 @@
+{"id":"negation-order","question":"Should I restart?","evidence":"Do not restart at 70 C.","good":"Do not restart at 70 C.","bad":"Restart at 70 C."}
+{"id":"unit-order","question":"What is the limit?","evidence":"The limit is 70 C.","good":"70 C.","bad":"70 F."}

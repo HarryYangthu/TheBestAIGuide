@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Agent 学习工作台</title>
+<style>body{font:16px/1.7 system-ui;max-width:980px;margin:40px auto;padding:0 24px;background:#f5f7fa;color:#183044}h1{font-size:28px}section{background:white;padding:24px;margin:20px 0;border:1px solid #dae2ea;border-radius:12px}.row{display:flex;gap:16px;flex-wrap:wrap}input{padding:10px;font:inherit;flex:1;min-width:180px}button{padding:10px 18px;border:0;border-radius:6px;background:#174f78;color:white;cursor:pointer}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:14px/1.6 ui-monospace,monospace}.muted{color:#596b78}label{display:block}
+*{box-sizing:border-box}
+input:not([type="checkbox"]){display:block;width:100%;min-width:0;margin-top:6px}
+input[type="checkbox"]{width:auto;min-width:0;padding:0;flex:none;margin-right:8px}
+#status{overflow-wrap:anywhere}
+@media(max-width:480px){body{padding:0 16px;margin:24px auto}section{padding:18px}.row{gap:10px}}
+</style>
+<h1>Agent 学习工作台</h1><p class="muted">提交一个资料查询，观察审批、执行、事件与结果。仅使用本地构造资料。</p>
+<section><label>演示身份 <input id="token" value="demo-alice" aria-label="演示身份"></label><p class="muted">demo-alice 与 demo-bob 对应两个独立租户。</p>
+<label>查询 <input id="query" value="FAN-01 inspection" aria-label="查询"></label>
+<p><label><input id="approval" type="checkbox" checked> 执行前等待批准</label></p><div class="row"><button id="create">创建任务</button><button id="approve">批准</button><button id="cancel">取消</button><button id="refresh">刷新与补读事件</button></div></section>
+<section><strong id="status" role="status">尚未创建任务</strong><pre id="events"></pre></section>
+<section><strong>查询结果与引用</strong><pre id="result">结果会在任务完成后显示。</pre></section>
+<script>
+let run=null,lastEvent=0,busy=false;
+const el=id=>document.getElementById(id);
+async function request(path,body){const r=await fetch(path,{method:body?'POST':'GET',headers:{Authorization:'Bearer '+el('token').value,'Content-Type':'application/json'},body:body?JSON.stringify(body):undefined});const data=await r.json();if(!r.ok)throw Error(data.error||r.status);return data;}
+async function refresh(){if(!run||busy)return;busy=true;try{run=await request('/runs/'+run.id);el('status').textContent=run.state+' · '+run.id+' · 版本 '+run.version;el('result').textContent=JSON.stringify(run.result,null,2);const r=await fetch('/runs/'+run.id+'/events',{headers:{Authorization:'Bearer '+el('token').value,'Last-Event-ID':String(lastEvent)}});if(!r.ok)throw Error('事件读取失败');const text=await r.text();for(const block of text.trim().split('\n\n')){if(!block)continue;const match=block.match(/^id: (\d+)/);if(match)lastEvent=Number(match[1]);el('events').textContent+=block+'\n\n';}}catch(e){el('status').textContent=e.message;}finally{busy=false;}}
+el('create').onclick=async()=>{try{run=await request('/runs',{query:el('query').value,requires_approval:el('approval').checked});lastEvent=0;el('events').textContent='';await refresh();}catch(e){el('status').textContent=e.message;}};
+for(const action of ['approve','cancel'])el(action).onclick=async()=>{if(!run)return;try{run=await request('/runs/'+run.id);run=await request('/runs/'+run.id+'/'+action,{version:run.version});await refresh();}catch(e){el('status').textContent=e.message;}};
+el('refresh').onclick=refresh;setInterval(()=>{if(run&&['queued','running'].includes(run.state))refresh();},700);
+</script></html>

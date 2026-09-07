@@ -1,0 +1,396 @@
+{
+  "models": [
+    {
+      "model": "sentence-transformers/paraphrase-MiniLM-L3-v2",
+      "revision": "4ca70771034acceecb2e72475f72050fcdde4ddc"
+    },
+    {
+      "model": "cross-encoder/ms-marco-MiniLM-L6-v2",
+      "revision": "233902d25c440f23af6f7d6e94d2946bac0bee0a"
+    }
+  ],
+  "trials": [
+    {
+      "mode": "bm25",
+      "id": "q1",
+      "query": "What should I do before opening the fan?",
+      "retrieved": [
+        "fan-v1",
+        "fan-v2",
+        "network"
+      ],
+      "relevant": [
+        "fan-v1",
+        "fan-v2"
+      ],
+      "recall_at_3": 1.0,
+      "reciprocal_rank": 1.0,
+      "empty_returned": false
+    },
+    {
+      "mode": "bm25",
+      "id": "q2",
+      "query": "How can I recover an erased document?",
+      "retrieved": [
+        "backup"
+      ],
+      "relevant": [
+        "backup"
+      ],
+      "recall_at_3": 1.0,
+      "reciprocal_rank": 1.0,
+      "empty_returned": false
+    },
+    {
+      "mode": "bm25",
+      "id": "q3",
+      "query": "The internet connection stopped working.",
+      "retrieved": [
+        "memory",
+        "fan-v1",
+        "rain"
+      ],
+      "relevant": [
+        "network"
+      ],
+      "recall_at_3": 0.0,
+      "reciprocal_rank": 0,
+      "empty_returned": false
+    },
+    {
+      "mode": "bm25",
+      "id": "q4",
+      "query": "Is heat safe for the rechargeable cell?",
+      "retrieved": [
+        "battery",
+        "memory",
+        "fan-v1"
+      ],
+      "relevant": [
+        "battery"
+      ],
+      "recall_at_3": 1.0,
+      "reciprocal_rank": 1.0,
+      "empty_returned": false
+    },
+    {
+      "mode": "bm25",
+      "id": "q5",
+      "query": "How much precipitation fell?",
+      "retrieved": [
+        "rain"
+      ],
+      "relevant": [
+        "rain"
+      ],
+      "recall_at_3": 1.0,
+      "reciprocal_rank": 1.0,
+      "empty_returned": false
+    },
+    {
+      "mode": "bm25",
+      "id": "q6",
+      "query": "What persists across future tasks?",
+      "retrieved": [
+        "memory"
+      ],
+      "relevant": [
+        "memory"
+      ],
+      "recall_at_3": 1.0,
+      "reciprocal_rank": 1.0,
+      "empty_returned": false
+    },
+    {
+      "mode": "dense",
+      "id": "q1",
+      "query": "What should I do before opening the fan?",
+      "retrieved": [
+        "fan-v2",
+        "fan-v1",
+        "battery"
+      ],
+      "relevant": [
+        "fan-v1",
+        "fan-v2"
+      ],
+      "recall_at_3": 1.0,
+      "reciprocal_rank": 1.0,
+      "empty_returned": false
+    },
+    {
+      "mode": "dense",
+      "id": "q2",
+      "query": "How can I recover an erased document?",
+      "retrieved": [
+        "backup",
+        "network",
+        "battery"
+      ],
+      "relevant": [
+        "backup"
+      ],
+      "recall_at_3": 1.0,
+      "reciprocal_rank": 1.0,
+      "empty_returned": false
+    },
+    {
+      "mode": "dense",
+      "id": "q3",
+      "query": "The internet connection stopped working.",
+      "retrieved": [
+        "network",
+        "fan-v1",
+        "fan-v2"
+      ],
+      "relevant": [
+        "network"
+      ],
+      "recall_at_3": 1.0,
+      "reciprocal_rank": 1.0,
+      "empty_returned": false
+    },
+    {
+      "mode": "dense",
+      "id": "q4",
+      "query": "Is heat safe for the rechargeable cell?",
+      "retrieved": [
+        "battery",
+        "fan-v1",
+        "fan-v2"
+      ],
+      "relevant": [
+        "battery"
+      ],
+      "recall_at_3": 1.0,
+      "reciprocal_rank": 1.0,
+      "empty_returned": false
+    },
+    {
+      "mode": "dense",
+      "id": "q5",
+      "query": "How much precipitation fell?",
+      "retrieved": [
+        "rain",
+        "fan-v2",
+        "fan-v1"
+      ],
+      "relevant": [
+        "rain"
+      ],
+      "recall_at_3": 1.0,
+      "reciprocal_rank": 1.0,
+      "empty_returned": false
+    },
+    {
+      "mode": "dense",
+      "id": "q6",
+      "query": "What persists across future tasks?",
+      "retrieved": [
+        "memory",
+        "backup",
+        "network"
+      ],
+      "relevant": [
+        "memory"
+      ],
+      "recall_at_3": 1.0,
+      "reciprocal_rank": 1.0,
+      "empty_returned": false
+    },
+    {
+      "mode": "hybrid",
+      "id": "q1",
+      "query": "What should I do before opening the fan?",
+      "retrieved": [
+        "fan-v1",
+        "fan-v2",
+        "battery"
+      ],
+      "relevant": [
+        "fan-v1",
+        "fan-v2"
+      ],
+      "recall_at_3": 1.0,
+      "reciprocal_rank": 1.0,
+      "empty_returned": false
+    },
+    {
+      "mode": "hybrid",
+      "id": "q2",
+      "query": "How can I recover an erased document?",
+      "retrieved": [
+        "backup",
+        "network",
+        "battery"
+      ],
+      "relevant": [
+        "backup"
+      ],
+      "recall_at_3": 1.0,
+      "reciprocal_rank": 1.0,
+      "empty_returned": false
+    },
+    {
+      "mode": "hybrid",
+      "id": "q3",
+      "query": "The internet connection stopped working.",
+      "retrieved": [
+        "fan-v1",
+        "memory",
+        "network"
+      ],
+      "relevant": [
+        "network"
+      ],
+      "recall_at_3": 1.0,
+      "reciprocal_rank": 0.3333333333333333,
+      "empty_returned": false
+    },
+    {
+      "mode": "hybrid",
+      "id": "q4",
+      "query": "Is heat safe for the rechargeable cell?",
+      "retrieved": [
+        "battery",
+        "fan-v1",
+        "memory"
+      ],
+      "relevant": [
+        "battery"
+      ],
+      "recall_at_3": 1.0,
+      "reciprocal_rank": 1.0,
+      "empty_returned": false
+    },
+    {
+      "mode": "hybrid",
+      "id": "q5",
+      "query": "How much precipitation fell?",
+      "retrieved": [
+        "rain",
+        "fan-v2",
+        "fan-v1"
+      ],
+      "relevant": [
+        "rain"
+      ],
+      "recall_at_3": 1.0,
+      "reciprocal_rank": 1.0,
+      "empty_returned": false
+    },
+    {
+      "mode": "hybrid",
+      "id": "q6",
+      "query": "What persists across future tasks?",
+      "retrieved": [
+        "memory",
+        "backup",
+        "network"
+      ],
+      "relevant": [
+        "memory"
+      ],
+      "recall_at_3": 1.0,
+      "reciprocal_rank": 1.0,
+      "empty_returned": false
+    },
+    {
+      "mode": "hybrid-rerank",
+      "id": "q1",
+      "query": "What should I do before opening the fan?",
+      "retrieved": [
+        "fan-v1",
+        "fan-v2",
+        "battery"
+      ],
+      "relevant": [
+        "fan-v1",
+        "fan-v2"
+      ],
+      "recall_at_3": 1.0,
+      "reciprocal_rank": 1.0,
+      "empty_returned": false
+    },
+    {
+      "mode": "hybrid-rerank",
+      "id": "q2",
+      "query": "How can I recover an erased document?",
+      "retrieved": [
+        "backup",
+        "memory",
+        "battery"
+      ],
+      "relevant": [
+        "backup"
+      ],
+      "recall_at_3": 1.0,
+      "reciprocal_rank": 1.0,
+      "empty_returned": false
+    },
+    {
+      "mode": "hybrid-rerank",
+      "id": "q3",
+      "query": "The internet connection stopped working.",
+      "retrieved": [
+        "network",
+        "battery",
+        "memory"
+      ],
+      "relevant": [
+        "network"
+      ],
+      "recall_at_3": 1.0,
+      "reciprocal_rank": 1.0,
+      "empty_returned": false
+    },
+    {
+      "mode": "hybrid-rerank",
+      "id": "q4",
+      "query": "Is heat safe for the rechargeable cell?",
+      "retrieved": [
+        "battery",
+        "fan-v1",
+        "backup"
+      ],
+      "relevant": [
+        "battery"
+      ],
+      "recall_at_3": 1.0,
+      "reciprocal_rank": 1.0,
+      "empty_returned": false
+    },
+    {
+      "mode": "hybrid-rerank",
+      "id": "q5",
+      "query": "How much precipitation fell?",
+      "retrieved": [
+        "rain",
+        "fan-v1",
+        "fan-v2"
+      ],
+      "relevant": [
+        "rain"
+      ],
+      "recall_at_3": 1.0,
+      "reciprocal_rank": 1.0,
+      "empty_returned": false
+    },
+    {
+      "mode": "hybrid-rerank",
+      "id": "q6",
+      "query": "What persists across future tasks?",
+      "retrieved": [
+        "memory",
+        "battery",
+        "network"
+      ],
+      "relevant": [
+        "memory"
+      ],
+      "recall_at_3": 1.0,
+      "reciprocal_rank": 1.0,
+      "empty_returned": false
+    }
+  ]
+}

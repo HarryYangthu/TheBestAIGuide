@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "guide-domain-research-agent"
+version = "0.1.0"
+description = "Offline, evidence-first integration of the AI Guide teaching components"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+guide-research = "domain_research.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

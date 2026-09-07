@@ -1,26 +1,19 @@
-# State 与 Memory
+# State与Memory
 
-> 状态：seed
-> 学习目标：先建立当前任务的权威状态模型，再理解哪些信息值得跨步骤或跨会话保存。
+> 状态：draft | 实测范围：SQLite快照、恢复、版本冲突、过期、删除与主体隔离
 
-State 与 Memory 放在同一领域，是为了对比边界和串起生命周期，而不是把两者视为同一概念：State 回答“系统现在是什么状态”，Memory 回答“未来可能需要记住什么”。
+State保存当前任务继续执行所需的权威事实，Memory保留未来可能有用的信息。先保证任务状态可靠，再讨论跨任务记忆。
 
-## 前置知识
+| 顺序 | 文章 | 配套实现 |
+| --- | --- | --- |
+| 1 | [State与Checkpoint](01-concepts/01-state-and-checkpoints.md) | SQLite事务、CAS、跨连接恢复 |
+| 2 | [Memory生命周期](01-concepts/02-memory-lifecycle.md) | 来源/主体/时效/版本数据模型 |
+| 3 | [写入与召回](02-patterns/01-memory-write-and-retrieval.md) | 先隔离过滤，再子串检索 |
+| 4 | [冲突与遗忘](02-patterns/02-conflict-and-forgetting.md) | 显式更新、TTL和删除墓碑 |
+| 5 | [Memory评测](01-concepts/03-memory-evaluation.md) | 无记忆/全量/过滤对照及错误分类 |
 
-- [Agent Core](../03-agent-core/README.md)中的 Goal、Observation、Action 和 Agent Loop。
-- [Context Engineering](../04-context-engineering/README.md)中的信息来源、信任、选择和注入。
-- [Runtime 与 Harness](../09-runtime-harness-environment/README.md)中的 Run、Step 和执行生命周期，可在本领域之后继续深入。
+[概念速查](01-concepts/README.md)保留State、Session、Checkpoint、Memory、Context边界；[模式导航](02-patterns/README.md)便于按故障找方案。[工程](05-code/state-memory-python/README.md)与[Notebook](04-labs/01-state-memory-and-conflicts.ipynb)共用源码，全部为本地教学数据。来源见[参考资料](references.md)。
 
-## 连续学习顺序
+## 读完存储之后，追一次完整使用过程
 
-1. [概念与边界](01-concepts/README.md)：State、Session、Checkpoint、Memory 与 Context。
-2. 先理解 State 的权威性、精确读取和确定性更新。
-3. 再理解 Memory 的选择性写入、检索、更新与遗忘。
-4. [设计模式](02-patterns/README.md)：Checkpoint/Resume、Memory Write、Retrieval 和 Conflict Resolution。
-5. [实验入口](04-labs/README.md)：比较无 Memory、全量历史与检索式 Memory。
-
-## 当前证据边界
-
-- 当前内容用于建立概念边界和后续写作结构，状态仍为 `seed`。
-- 尚无可运行的 State Store、Memory Store、Checkpoint 或评测实验。
-- 存储选型、召回策略和保留周期必须绑定具体任务、权限与数据验证，不能作为通用默认值。
+在 [Learning Workbench](../../20-Projects/learning-workbench/README.md)运行 `memory` 任务，然后同时打开[输入题目](../../20-Projects/learning-workbench/fixtures/memory-tasks.jsonl)、[提取与回答代码](../../20-Projects/learning-workbench/src/learning_workbench/memory.py)和[逐题结果](../../20-Projects/learning-workbench/artifacts/offline/memory.json)。沿 m0 追“长期表格偏好 → 写入 → 下一会话召回 → 表格回答”，再看 m3 的当前段落要求为什么胜过旧偏好。它使用规则提取和固定知识回答，8/8 只说明这些格式与生命周期用例通过，不能外推通用记忆模型效果。

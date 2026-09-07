@@ -1,0 +1,10 @@
+{
+  "task": "上下文",
+  "run_id": "run-1",
+  "status": "completed",
+  "steps": 2,
+  "observations": [],
+  "answer": "doc-1",
+  "stop_reason": "model_finished",
+  "unexpected_field": true
+}

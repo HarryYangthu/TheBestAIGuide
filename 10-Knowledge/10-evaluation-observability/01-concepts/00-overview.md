@@ -9,21 +9,16 @@ Agent Evaluation 是在固定任务、环境和系统配置下，多次运行 Ag
 
 Agent 评测的基本单位不是单个模型回答，而是整个系统的一次运行：
 
-```text
-Task + Initial State
-        │
-        ▼
-Model + Agent Harness + Tools + Environment
-        │
-        ├─> Trajectory：消息、工具调用、路由、错误和时间线
-        └─> Outcome：文件、数据库、外部系统等最终状态
-                              │
-                              ▼
-           Deterministic + Model + Human Graders
-                              │
-                              ▼
-                  Metrics + Failure Analysis
+```mermaid
+flowchart TD
+  T["Task 与初始状态"] --> S["被测系统"]
+  S --> P["Trajectory：运行轨迹"]
+  S --> O["Outcome：实际结果"]
+  P --> G["Grader：逐维评分与失败定位"]
+  O --> G
 ```
+
+被测系统包括模型、Agent Harness、工具与环境；评分器读取实际结果，也检查轨迹中的越权和浪费。两类证据共同进入评分，不能只有最终文字回答。
 
 ## 为什么不能只看最终回答
 
@@ -59,7 +54,7 @@ Model + Agent Harness + Tools + Environment
 
 ## 证据边界
 
-本模块整理了评测设计方法，但 [Evaluation Labs](../04-labs/README.md) 和 [Eval Harness 工程](../05-code/eval-harness-python/README.md) 仍是占位。文中的任务、阈值和数字均为结构示例，不代表本仓库已经完成基准测试。
+本模块已有 [Evaluation Labs](../04-labs/README.md) 和 [Eval Harness 工程](../05-code/eval-harness-python/README.md) 的实际教学运行。原文全量配置与阈值仍是设计示例；新实验明确采用人工构造任务和确定性被测函数，不代表真实 Agent 基准或专家校准结果。
 
 ## 主要来源
 

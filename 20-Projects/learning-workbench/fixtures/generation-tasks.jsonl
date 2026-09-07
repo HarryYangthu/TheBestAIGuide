@@ -1,0 +1,4 @@
+{"id": "g1", "query": "FAN-01: What must happen before inspecting the fan?", "tenant": "alpha", "version": "1", "expected_abstained": false}
+{"id": "g2", "query": "FAN-01: What is the DEMO-A temperature limit?", "tenant": "alpha", "version": "2", "expected_abstained": false}
+{"id": "g3", "query": "FAN-01: What is the warranty period in years?", "tenant": "alpha", "version": "1", "expected_abstained": true}
+{"id": "g4", "query": "FAN-01: What is the beta secret calibration code?", "tenant": "alpha", "version": "1", "expected_abstained": true}

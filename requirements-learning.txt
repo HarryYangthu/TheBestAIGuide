@@ -1,0 +1,7 @@
+# Optional teaching extensions; direct dependencies pinned, not a complete transitive lock.
+# Install CPU torch separately using the command in the project README.
+transformers==4.55.4
+sentence-transformers==5.1.0
+tiktoken==0.11.0
+pypdf==6.1.0
+reportlab==4.4.3

@@ -34,7 +34,7 @@ TheBestAIGuide 仓库本身就是知识库根目录，不使用额外包裹层�
 ## 主题代码与完整项目
 
 - `10-Knowledge/<domain>/05-code/`：服务一个知识领域的示例、库或最小实现。
-- `20-Projects/`：同时整合 Context、Tools、Memory、Runtime、Evaluation 等多个领域的端到端工程。
+- `20-Projects/`：跨领域学习工程。例如领域资料研究助手组合检索、状态与恢复；Tiny Transformer 组合分词、模型计算、训练和生成。
 
 ## 内容边界
 

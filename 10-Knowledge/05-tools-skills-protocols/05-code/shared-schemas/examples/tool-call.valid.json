@@ -1,0 +1,7 @@
+{
+  "call_id": "call-1",
+  "name": "search",
+  "arguments": {
+    "query": "上下文"
+  }
+}

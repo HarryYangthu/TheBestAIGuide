@@ -1,0 +1,636 @@
+[
+  {
+    "id": "agent-state-missing-task",
+    "schema": "agent-state",
+    "valid": false,
+    "value": {
+      "run_id": "run-1",
+      "status": "completed",
+      "steps": 2,
+      "observations": [],
+      "answer": "doc-1",
+      "stop_reason": "model_finished"
+    }
+  },
+  {
+    "id": "agent-state-missing-run_id",
+    "schema": "agent-state",
+    "valid": false,
+    "value": {
+      "task": "\u4e0a\u4e0b\u6587",
+      "status": "completed",
+      "steps": 2,
+      "observations": [],
+      "answer": "doc-1",
+      "stop_reason": "model_finished"
+    }
+  },
+  {
+    "id": "agent-state-missing-status",
+    "schema": "agent-state",
+    "valid": false,
+    "value": {
+      "task": "\u4e0a\u4e0b\u6587",
+      "run_id": "run-1",
+      "steps": 2,
+      "observations": [],
+      "answer": "doc-1",
+      "stop_reason": "model_finished"
+    }
+  },
+  {
+    "id": "agent-state-missing-steps",
+    "schema": "agent-state",
+    "valid": false,
+    "value": {
+      "task": "\u4e0a\u4e0b\u6587",
+      "run_id": "run-1",
+      "status": "completed",
+      "observations": [],
+      "answer": "doc-1",
+      "stop_reason": "model_finished"
+    }
+  },
+  {
+    "id": "agent-state-missing-observations",
+    "schema": "agent-state",
+    "valid": false,
+    "value": {
+      "task": "\u4e0a\u4e0b\u6587",
+      "run_id": "run-1",
+      "status": "completed",
+      "steps": 2,
+      "answer": "doc-1",
+      "stop_reason": "model_finished"
+    }
+  },
+  {
+    "id": "agent-state-missing-answer",
+    "schema": "agent-state",
+    "valid": false,
+    "value": {
+      "task": "\u4e0a\u4e0b\u6587",
+      "run_id": "run-1",
+      "status": "completed",
+      "steps": 2,
+      "observations": [],
+      "stop_reason": "model_finished"
+    }
+  },
+  {
+    "id": "agent-state-missing-stop_reason",
+    "schema": "agent-state",
+    "valid": false,
+    "value": {
+      "task": "\u4e0a\u4e0b\u6587",
+      "run_id": "run-1",
+      "status": "completed",
+      "steps": 2,
+      "observations": [],
+      "answer": "doc-1"
+    }
+  },
+  {
+    "id": "agent-state-wrong-id-type",
+    "schema": "agent-state",
+    "valid": false,
+    "value": {
+      "task": 42,
+      "run_id": "run-1",
+      "status": "completed",
+      "steps": 2,
+      "observations": [],
+      "answer": "doc-1",
+      "stop_reason": "model_finished"
+    }
+  },
+  {
+    "id": "eval-task-missing-task_id",
+    "schema": "eval-task",
+    "valid": false,
+    "value": {
+      "input": {
+        "query": "\u4e0a\u4e0b\u6587"
+      },
+      "expected": {
+        "document_ids": [
+          "doc-1"
+        ]
+      },
+      "metadata": {
+        "synthetic": true
+      }
+    }
+  },
+  {
+    "id": "eval-task-missing-input",
+    "schema": "eval-task",
+    "valid": false,
+    "value": {
+      "task_id": "search-1",
+      "expected": {
+        "document_ids": [
+          "doc-1"
+        ]
+      },
+      "metadata": {
+        "synthetic": true
+      }
+    }
+  },
+  {
+    "id": "eval-task-missing-expected",
+    "schema": "eval-task",
+    "valid": false,
+    "value": {
+      "task_id": "search-1",
+      "input": {
+        "query": "\u4e0a\u4e0b\u6587"
+      },
+      "metadata": {
+        "synthetic": true
+      }
+    }
+  },
+  {
+    "id": "eval-task-missing-metadata",
+    "schema": "eval-task",
+    "valid": false,
+    "value": {
+      "task_id": "search-1",
+      "input": {
+        "query": "\u4e0a\u4e0b\u6587"
+      },
+      "expected": {
+        "document_ids": [
+          "doc-1"
+        ]
+      }
+    }
+  },
+  {
+    "id": "eval-task-wrong-id-type",
+    "schema": "eval-task",
+    "valid": false,
+    "value": {
+      "task_id": 42,
+      "input": {
+        "query": "\u4e0a\u4e0b\u6587"
+      },
+      "expected": {
+        "document_ids": [
+          "doc-1"
+        ]
+      },
+      "metadata": {
+        "synthetic": true
+      }
+    }
+  },
+  {
+    "id": "tool-call-missing-call_id",
+    "schema": "tool-call",
+    "valid": false,
+    "value": {
+      "name": "search",
+      "arguments": {
+        "query": "\u4e0a\u4e0b\u6587"
+      }
+    }
+  },
+  {
+    "id": "tool-call-missing-name",
+    "schema": "tool-call",
+    "valid": false,
+    "value": {
+      "call_id": "call-1",
+      "arguments": {
+        "query": "\u4e0a\u4e0b\u6587"
+      }
+    }
+  },
+  {
+    "id": "tool-call-missing-arguments",
+    "schema": "tool-call",
+    "valid": false,
+    "value": {
+      "call_id": "call-1",
+      "name": "search"
+    }
+  },
+  {
+    "id": "tool-call-wrong-id-type",
+    "schema": "tool-call",
+    "valid": false,
+    "value": {
+      "call_id": 42,
+      "name": "search",
+      "arguments": {
+        "query": "\u4e0a\u4e0b\u6587"
+      }
+    }
+  },
+  {
+    "id": "tool-result-missing-call_id",
+    "schema": "tool-result",
+    "valid": false,
+    "value": {
+      "ok": true,
+      "data": {
+        "documents": []
+      }
+    }
+  },
+  {
+    "id": "tool-result-missing-ok",
+    "schema": "tool-result",
+    "valid": false,
+    "value": {
+      "call_id": "call-1",
+      "data": {
+        "documents": []
+      }
+    }
+  },
+  {
+    "id": "tool-result-missing-data",
+    "schema": "tool-result",
+    "valid": false,
+    "value": {
+      "call_id": "call-1",
+      "ok": true
+    }
+  },
+  {
+    "id": "tool-result-wrong-id-type",
+    "schema": "tool-result",
+    "valid": false,
+    "value": {
+      "call_id": 42,
+      "ok": true,
+      "data": {
+        "documents": []
+      }
+    }
+  },
+  {
+    "id": "trace-event-missing-run_id",
+    "schema": "trace-event",
+    "valid": false,
+    "value": {
+      "seq": 0,
+      "kind": "tool_call",
+      "data": {
+        "call_id": "call-1"
+      }
+    }
+  },
+  {
+    "id": "trace-event-missing-seq",
+    "schema": "trace-event",
+    "valid": false,
+    "value": {
+      "run_id": "run-1",
+      "kind": "tool_call",
+      "data": {
+        "call_id": "call-1"
+      }
+    }
+  },
+  {
+    "id": "trace-event-missing-kind",
+    "schema": "trace-event",
+    "valid": false,
+    "value": {
+      "run_id": "run-1",
+      "seq": 0,
+      "data": {
+        "call_id": "call-1"
+      }
+    }
+  },
+  {
+    "id": "trace-event-missing-data",
+    "schema": "trace-event",
+    "valid": false,
+    "value": {
+      "run_id": "run-1",
+      "seq": 0,
+      "kind": "tool_call"
+    }
+  },
+  {
+    "id": "trace-event-wrong-id-type",
+    "schema": "trace-event",
+    "valid": false,
+    "value": {
+      "run_id": 42,
+      "seq": 0,
+      "kind": "tool_call",
+      "data": {
+        "call_id": "call-1"
+      }
+    }
+  },
+  {
+    "id": "trial-result-missing-task_id",
+    "schema": "trial-result",
+    "valid": false,
+    "value": {
+      "trial_id": "trial-1",
+      "status": "completed",
+      "score": 1,
+      "output": {
+        "document_ids": [
+          "doc-1"
+        ]
+      },
+      "errors": []
+    }
+  },
+  {
+    "id": "trial-result-missing-trial_id",
+    "schema": "trial-result",
+    "valid": false,
+    "value": {
+      "task_id": "search-1",
+      "status": "completed",
+      "score": 1,
+      "output": {
+        "document_ids": [
+          "doc-1"
+        ]
+      },
+      "errors": []
+    }
+  },
+  {
+    "id": "trial-result-missing-status",
+    "schema": "trial-result",
+    "valid": false,
+    "value": {
+      "task_id": "search-1",
+      "trial_id": "trial-1",
+      "score": 1,
+      "output": {
+        "document_ids": [
+          "doc-1"
+        ]
+      },
+      "errors": []
+    }
+  },
+  {
+    "id": "trial-result-missing-score",
+    "schema": "trial-result",
+    "valid": false,
+    "value": {
+      "task_id": "search-1",
+      "trial_id": "trial-1",
+      "status": "completed",
+      "output": {
+        "document_ids": [
+          "doc-1"
+        ]
+      },
+      "errors": []
+    }
+  },
+  {
+    "id": "trial-result-missing-output",
+    "schema": "trial-result",
+    "valid": false,
+    "value": {
+      "task_id": "search-1",
+      "trial_id": "trial-1",
+      "status": "completed",
+      "score": 1,
+      "errors": []
+    }
+  },
+  {
+    "id": "trial-result-missing-errors",
+    "schema": "trial-result",
+    "valid": false,
+    "value": {
+      "task_id": "search-1",
+      "trial_id": "trial-1",
+      "status": "completed",
+      "score": 1,
+      "output": {
+        "document_ids": [
+          "doc-1"
+        ]
+      }
+    }
+  },
+  {
+    "id": "trial-result-wrong-id-type",
+    "schema": "trial-result",
+    "valid": false,
+    "value": {
+      "task_id": 42,
+      "trial_id": "trial-1",
+      "status": "completed",
+      "score": 1,
+      "output": {
+        "document_ids": [
+          "doc-1"
+        ]
+      },
+      "errors": []
+    }
+  },
+  {
+    "id": "trial-result-score-0",
+    "schema": "trial-result",
+    "valid": false,
+    "value": {
+      "task_id": "search-1",
+      "trial_id": "trial-1",
+      "status": "completed",
+      "score": -0.1,
+      "output": {
+        "document_ids": [
+          "doc-1"
+        ]
+      },
+      "errors": []
+    }
+  },
+  {
+    "id": "trial-result-score-1",
+    "schema": "trial-result",
+    "valid": false,
+    "value": {
+      "task_id": "search-1",
+      "trial_id": "trial-1",
+      "status": "completed",
+      "score": 1.1,
+      "output": {
+        "document_ids": [
+          "doc-1"
+        ]
+      },
+      "errors": []
+    }
+  },
+  {
+    "id": "trial-result-score-2",
+    "schema": "trial-result",
+    "valid": false,
+    "value": {
+      "task_id": "search-1",
+      "trial_id": "trial-1",
+      "status": "completed",
+      "score": "1",
+      "output": {
+        "document_ids": [
+          "doc-1"
+        ]
+      },
+      "errors": []
+    }
+  },
+  {
+    "id": "trial-result-score-3",
+    "schema": "trial-result",
+    "valid": false,
+    "value": {
+      "task_id": "search-1",
+      "trial_id": "trial-1",
+      "status": "completed",
+      "score": null,
+      "output": {
+        "document_ids": [
+          "doc-1"
+        ]
+      },
+      "errors": []
+    }
+  },
+  {
+    "id": "trial-result-status-0",
+    "schema": "trial-result",
+    "valid": false,
+    "value": {
+      "task_id": "search-1",
+      "trial_id": "trial-1",
+      "status": "done",
+      "score": 1,
+      "output": {
+        "document_ids": [
+          "doc-1"
+        ]
+      },
+      "errors": []
+    }
+  },
+  {
+    "id": "agent-state-status-0",
+    "schema": "agent-state",
+    "valid": false,
+    "value": {
+      "task": "\u4e0a\u4e0b\u6587",
+      "run_id": "run-1",
+      "status": "queued",
+      "steps": 2,
+      "observations": [],
+      "answer": "doc-1",
+      "stop_reason": "model_finished"
+    }
+  },
+  {
+    "id": "tool-call-call_id-0",
+    "schema": "tool-call",
+    "valid": false,
+    "value": {
+      "call_id": "",
+      "name": "search",
+      "arguments": {
+        "query": "\u4e0a\u4e0b\u6587"
+      }
+    }
+  },
+  {
+    "id": "tool-call-call_id-1",
+    "schema": "tool-call",
+    "valid": false,
+    "value": {
+      "call_id": null,
+      "name": "search",
+      "arguments": {
+        "query": "\u4e0a\u4e0b\u6587"
+      }
+    }
+  },
+  {
+    "id": "tool-call-call_id-2",
+    "schema": "tool-call",
+    "valid": false,
+    "value": {
+      "call_id": false,
+      "name": "search",
+      "arguments": {
+        "query": "\u4e0a\u4e0b\u6587"
+      }
+    }
+  },
+  {
+    "id": "tool-call-arguments-0",
+    "schema": "tool-call",
+    "valid": false,
+    "value": {
+      "call_id": "call-1",
+      "name": "search",
+      "arguments": []
+    }
+  },
+  {
+    "id": "tool-call-arguments-1",
+    "schema": "tool-call",
+    "valid": false,
+    "value": {
+      "call_id": "call-1",
+      "name": "search",
+      "arguments": null
+    }
+  },
+  {
+    "id": "tool-result-exclusive-0",
+    "schema": "tool-result",
+    "valid": false,
+    "value": {
+      "call_id": "a",
+      "ok": true,
+      "data": {},
+      "error": {
+        "code": "bad",
+        "retryable": false
+      }
+    }
+  },
+  {
+    "id": "tool-result-exclusive-1",
+    "schema": "tool-result",
+    "valid": false,
+    "value": {
+      "call_id": "a",
+      "ok": false,
+      "data": {}
+    }
+  },
+  {
+    "id": "tool-result-exclusive-2",
+    "schema": "tool-result",
+    "valid": false,
+    "value": {
+      "call_id": "a",
+      "ok": false,
+      "error": {
+        "code": "bad",
+        "retryable": "false"
+      }
+    }
+  }
+]

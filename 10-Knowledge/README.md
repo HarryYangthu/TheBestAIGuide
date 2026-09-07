@@ -1,29 +1,33 @@
 # 知识领域
 
-本目录是知识库主体。内容先按知识领域聚合，再在领域内部按“概念 → 模式 → 案例 → 实验 → 代码”组织，避免学习同一主题时跨多个顶层目录跳转。
+按领域聚合概念、模式、案例、Notebook 和源码。每一行的 README 给出具体阅读顺序；详细执行记录见[建设状态](../00-Home/Knowledge-Status.md)。
 
-## 推荐顺序
-
-| 阶段 | 知识领域 | 当前状态 |
+| 顺序 | 领域 | 学习问题与实践 |
 | --- | --- | --- |
-| 基础 | [AI 基础](01-ai-foundations/README.md) → [基础模型](02-foundation-models/README.md) | seed |
-| 最小系统 | [Agent Core](03-agent-core/README.md) | seed |
-| 信息与行动 | [Context](04-context-engineering/README.md) → [Tools](05-tools-skills-protocols/README.md) → [RAG](06-rag-and-knowledge-systems/README.md) → [State 与 Memory](07-state-and-memory/README.md) | Context/RAG draft，其余 seed |
-| 编排与执行 | [Planning 与 Multi-Agent](08-planning-workflow-multi-agent/README.md) → [Runtime 与 Harness](09-runtime-harness-environment/README.md) | seed/draft |
-| 验证与治理 | [Evaluation](10-evaluation-observability/README.md) → [Safety](11-safety-security-governance/README.md) | Evaluation draft，Safety seed |
-| 改进与产品化 | [Agent Learning](12-agent-learning/README.md) → [应用工程](13-application-engineering/README.md) → [生产工程](14-production-engineering/README.md) | seed |
-| 扩展 | [多模态与具身智能](15-multimodal-and-embodied/README.md) → [研究前沿](16-research-frontiers/README.md) | seed |
+| 1 | [AI 基础](01-ai-foundations/README.md) | 补齐数学统计、ML、DL、搜索规划、RL、可信 AI、计算基础；配四个小实验 |
+| 2 | [基础模型](02-foundation-models/README.md) | 补齐 Tokenizer、Transformer、训练对齐、推理、推理模型、选型；配输入/注意力与解码/缓存实验 |
+| 3 | [Agent Core](03-agent-core/README.md) | 完成边界、Loop、停止与错误处理、ReAct/Plan-and-Execute；实现最小 Python Agent |
+| 4 | [Context Engineering](04-context-engineering/README.md) | 选择哪些信息进入本轮模型调用，如何诊断八类失效；运行预算与压缩实验 |
+| 5 | [Tools / Skills / MCP](05-tools-skills-protocols/README.md) | 完成工具契约、Skills、MCP、Agent 协议和授权；实现 TypeScript Runtime、MCP Server 与共享 Schema |
+| 6 | [RAG](06-rag-and-knowledge-systems/README.md) | 完善已有案例；补解析、切块、索引更新、查询/图检索和引用；建立语料、标注集、Pipeline、消融实验 |
+| 7 | [State / Memory](07-state-and-memory/README.md) | 补状态事务、Checkpoint、记忆生命周期、冲突遗忘与评测；实现存储与恢复实验 |
+| 8 | [Planning / Workflow / Multi-Agent](08-planning-workflow-multi-agent/README.md) | 补规划、状态图、协作拓扑、交接合并；实现协作 Runtime 与单 Agent 基线 |
+| 9 | [Runtime / Harness](09-runtime-harness-environment/README.md) | 补运行生命周期、持久执行、并发预算、环境与 Harness 职责；验证恢复/回放/幂等 |
+| 10 | [Evaluation / Observability](10-evaluation-observability/README.md) | 如何构造任务、选择分母、判分与解释差异；配手算、评分器、Trace 和回归报告 |
+| 11 | [Safety / Security / Governance](11-safety-security-governance/README.md) | 完成威胁边界、授权、数据与供应链；用本地任务验证越权拒绝及合法请求通过 |
+| 12 | [Agent Learning](12-agent-learning/README.md) | 完成轨迹数据、SFT/偏好优化、Agentic RL、Verifier/奖励与反馈闭环；小规模可复现实验 |
+| 13 | [应用工程](13-application-engineering/README.md) | 完成 API/流式事件/交互/存储/模型网关；补 Coding、Browser、企业、运维、科研案例与浏览器测试工程 |
+| 14 | [生产工程](14-production-engineering/README.md) | 完成部署容量、SLO/成本、发布回滚；补有出处的系统分析与本地故障复盘 |
+| 15 | [多模态与具身](15-multimodal-and-embodied/README.md) | 完成视觉文档、语音视频、多模态 RAG/上下文、VLA/具身；配文档结构与引用实验 |
+| 16 | [研究前沿](16-research-frontiers/README.md) | 形成有日期和论文版本的长程、自进化、世界模型、神经符号、Test-time Learning、AI for Science 知识快照 |
 
-完整路线见[连续学习路线](../00-Home/Learning-Paths.md)，尚未拆成独立文章的知识点见[完整知识地图](../00-Home/Knowledge-Map.md)。
+## 领域内怎么找
 
-## 领域内部约定
+- `01-concepts/`：定义、机制、公式与失败原因。
+- `02-patterns/`：适用条件、设计步骤和代价。
+- `03-cases/`：真实来源分析或明确标注的构造案例。
+- `04-labs/`：输入、执行过程、中间量、结果和练习。
+- `05-code/`：文章和实验复用的完整实现、样例与测试。
+- `references.md`：一手来源、版本和证据范围。
 
-- `README.md`：唯一局部入口，说明前置知识、阅读顺序、已有内容和缺口。
-- `01-concepts/`：定义、机制、边界和失败模式。
-- `02-patterns/`：可复用方案、适用条件、工程取舍和反模式。
-- `03-cases/`：具体系统、代码仓和失败复盘。
-- `04-labs/`：可运行实验及其输入、输出和结论。
-- `05-code/`：与该领域直接配套的可测试实现。
-- `references.md`：本领域来源、版本和证据边界。
-
-只有存在实际内容时才建立对应子目录；空骨架不算知识覆盖。
+[连续学习路线](../00-Home/Learning-Paths.md)按前置知识安排顺序，[综合项目](../20-Projects/domain-research-agent/README.md)展示组件如何一起运行。

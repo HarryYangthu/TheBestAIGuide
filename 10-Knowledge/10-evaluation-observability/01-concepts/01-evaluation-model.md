@@ -84,3 +84,9 @@ Trajectory 仍然重要，因为它可以判断：
 - **Safe**：执行环境隔离，生成代码和外部动作受控。
 
 下一步：[任务、数据集与 Trial](02-tasks-datasets-and-trials.md)。
+
+## 在代码中把被测系统和评分器分开
+
+本仓 `system(request, fixture, emit)` 只接收公开输入、可变教学环境和事件记录函数；`EvalTask.expected` 留在 Harness 内。系统返回后，评分器分别读取 output 和最终 fixture。这样可发现“回答说完成，状态却没变”的失败，也减少参考标签直接泄漏到系统输入的问题。
+
+[runner.py](../05-code/eval-harness-python/src/eval_harness/runner.py)演示这个边界。函数仍处于同一个进程，不是安全隔离：对恶意生成代码，必须换进程/容器并限制文件和网络，不能依赖一个参数列表保护评分器秘密。

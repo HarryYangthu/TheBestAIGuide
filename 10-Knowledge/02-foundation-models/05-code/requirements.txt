@@ -1,0 +1,2 @@
+# Shared CPU learning environment; relative path resolves from this file.
+-r ../../01-ai-foundations/05-code/requirements.txt

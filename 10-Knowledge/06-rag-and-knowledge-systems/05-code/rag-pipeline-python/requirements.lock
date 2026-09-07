@@ -1,0 +1,3 @@
+# Core runtime and tests use only Python standard library.
+# Python >=3.10; reference run uses Python 3.12.13.
+# No third-party runtime distributions to lock.
