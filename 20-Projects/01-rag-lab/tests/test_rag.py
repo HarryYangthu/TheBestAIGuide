@@ -82,6 +82,60 @@ class RAGTests(unittest.TestCase):
             self.assertEqual(result['summary']['active']['answer_em'],0)
             self.assertEqual(result['summary']['active']['errors'],1)
             self.assertFalse(result['acceptance']['passed'])
+            checked=verify(Path(temp)/'active')
+            self.assertTrue(checked['passed'])
+            self.assertFalse(checked['experiment_passed'])
+
+    def test_acceptance_and_coherent_tampering(self):
+        import copy
+        from rag_lab.report import render
+        with tempfile.TemporaryDirectory() as temp:
+            path=Path(temp)/'run'
+            original=run(path,split='dev',methods=('bm25','tfidf'),limit=1)
+            def save(bundle):
+                (path/'summary.json').write_text(json.dumps({k:v for k,v in bundle.items() if k!='rows'}))
+                (path/'results.jsonl').write_text(''.join(json.dumps(r)+'\n' for r in bundle['rows']))
+                render(bundle,path)
+            mutations=[
+                lambda b:b['acceptance'].update(passed=False),
+                lambda b:b['rows'][0].update(context_chars=0),
+                lambda b:b['rows'][0].update(question='forged question'),
+                lambda b:b['rows'][0]['recall'].update({'5':float('nan')}),
+                lambda b:b['rows'][0]['ranking'].append(b['rows'][0]['ranking'][0]),
+            ]
+            for mutate in mutations:
+                with self.subTest(mutation=mutate):
+                    changed=copy.deepcopy(original);mutate(changed);save(changed)
+                    self.assertFalse(verify(path)['passed'])
+            save(original)
+            (path/'paired-recall.json').write_text('{}')
+            self.assertIn('paired_comparison_mismatch',verify(path)['errors'])
+
+    def test_reference_comparison_and_configuration_guard(self):
+        from compare import compare
+        with tempfile.TemporaryDirectory() as temp:
+            a,b=Path(temp)/'a',Path(temp)/'b'
+            run(a,split='dev',methods=('bm25',),limit=1)
+            run(b,split='dev',methods=('bm25',),limit=1)
+            self.assertTrue(compare(a,b)['passed'])
+            c=Path(temp)/'c'
+            run(c,split='dev',methods=('bm25',),limit=1,top_k=10)
+            result=compare(c,a)
+            self.assertFalse(result['passed'])
+            self.assertEqual(result['fields'],['top_k'])
+            from unittest.mock import patch
+            original_rank=Index.rank
+            def reversed_rank(index,query,method='bm25'):
+                return list(reversed(original_rank(index,query,method)))
+            d=Path(temp)/'d'
+            with patch.object(Index,'rank',reversed_rank):
+                run(d,split='dev',methods=('bm25',),limit=1)
+            self.assertTrue(verify(d)['passed'])
+            changed=compare(d,a)
+            self.assertFalse(changed['passed'])
+            self.assertEqual(changed['reason'],'different_scores')
+            self.assertGreater(changed['changed_rows'],0)
+
 
     def test_end_to_end_and_tampering(self):
         with tempfile.TemporaryDirectory() as temp:

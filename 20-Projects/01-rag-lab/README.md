@@ -100,13 +100,31 @@ python 20-Projects/01-rag-lab/run.py --split dev --limit 5 --methods bm25 active
 ## 怎样验收
 
 1. `run.py` 的工程检查 PASS，全部题目和方案都有记录，失败不会被删掉。
-2. `verify.py` 重新校验来源映射、逐题评分、汇总以及页面嵌入数据，一致才返回 PASS。
-3. 同样的固定数据与默认配置，检索指标应匹配 [参考汇总](reference/summary.json)；耗时因机器不同，不要求相等。
+2. `verify.py` 重新校验来源映射、上下文装配、逐题评分、汇总、工程验收状态和页面嵌入数据。`passed` 表示文件一致；`experiment_passed` 表示实验工程检查也通过。只有两项都为 true，命令才以退出码 0 结束。
+3. 同样的固定数据与默认配置，用下面的 `compare.py` 自动核对逐题检索指标是否匹配 [参考汇总](reference/summary.json)；耗时因机器不同，不要求相等。
 4. 自己完成一次受控修改，说明指标变化以及一个失败案例。真实模型部分另看答案和引用成绩，不要求凭空达到某个百分比。
 
 ```bash
 python -m unittest discover -s 20-Projects/01-rag-lab/tests -v
 ```
+
+默认实验跑完后，再执行：
+
+```bash
+python 20-Projects/01-rag-lab/compare.py --output .runs/rag-first --reference 20-Projects/01-rag-lab/reference
+```
+
+期望看到 `passed: true`、`reason: "matches_reference"`、`compared_rows: 300`、`changed_rows: 0`。这是逐题指标复现，不是只检查平均分。语义实验使用 `reference-neural`，要求同样 100 题和四个方案；预训练模型数值差异造成的不一致需逐题分析。
+
+| 检查结果 | 怎么处理 |
+| --- | --- |
+| `passed=false`（verify） | 结果文件有缺失或不一致；检查 `errors`，不要手动改成 PASS |
+| `passed=true`，`experiment_passed=false` | 失败被如实记录；检查模型响应、失败题和配置，修复后用新目录重跑 |
+| `incompatible_configuration`（compare） | 题集、K、预算、方法或模型配置不同，不能作为同条件复现 |
+| `different_scores`（compare） | 查看每道变化题的 ID、指标及差值；若有意改进算法，不必追求与基线相同 |
+| `matches_reference`（compare） | 逐题检索指标与基线相同；仍要完成一次改进实验和失败分析 |
+
+文件检查与基线复现无法证明学习者理解了算法，也不验证算法实现身份。`compare.py` 只接受不含模型生成的实验；实际生成需评估答案与引用，不要求每次输出一致。
 
 这不是“100题全答对”的门禁。评分器采用 HotpotQA 风格的答案归一化、EM、token F1 和证据集合指标；位置有效的引用不一定支持答案。程序检查标注证据匹配，语义上的论证充分性仍需逐题阅读。
 
