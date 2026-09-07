@@ -7,6 +7,7 @@
 | 类型 | 项目 | 任务与输入输出 | 运行和验收入口 |
 | --- | --- | --- | --- |
 | 入门项目 00 | [Mini Agent：从一个循环写起](00-mini-agent/README.md) | 对比资料→升级清单；逐步加入上下文、记忆、计划、并发与 Harness | README 一键运行；reference 参考报告；completion 总验收 |
+| RAG 项目 01 | [多文档检索与可视化验收](01-rag-lab/README.md) | HotpotQA 真实数据；BM25/词项向量/融合对照，语义与生成扩展入口 | HTML 复盘、SVG/PNG 图表、逐题结果与独立复算 |
 | 组件 | [工具调用循环](../10-Knowledge/03-agent-core/05-code/agent-loop-python/README.md) | 输入任务→State/Trace；限步、错误、工具结果 | 项目 README 的命令与测试 |
 | 组件 | [工具契约与授权](../10-Knowledge/05-tools-skills-protocols/05-code/tool-runtime-typescript/README.md) | 完整 ToolCall、参数校验、调用去重 | 项目 README 的命令与测试 |
 | 组件 | [MCP 工具服务](../10-Knowledge/05-tools-skills-protocols/05-code/mcp-server-typescript/README.md) | stdio 客户端/服务端；固定 SDK | 项目 README 的命令与测试 |

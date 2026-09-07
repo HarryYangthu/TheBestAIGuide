@@ -1,0 +1,22 @@
+{
+  "dataset": "hotpotqa/hotpot_qa",
+  "config": "distractor",
+  "observed_revision": "1908d6afbbead072334abe2965f91bd2709910ab",
+  "retrieval": "Hugging Face datasets-server rows API; immutable local SHA256 snapshots",
+  "license": "CC-BY-SA-4.0",
+  "files": {
+    "dev-00.jsonl": "00406b6e916ad85df37401b614b740f422d2a7ae915431629bdd8776628c4ef8",
+    "dev-01.jsonl": "3fea35996e9ee571c5e7994c668187f7f9efb1591d1ef3e721ef7c1f1d3da388",
+    "eval-00.jsonl": "c0ddf880cbc6515a431ffb873a2c7237b4ee8887235d93e6cee84bfe4932d78b",
+    "eval-01.jsonl": "5338f77bc11329ab7644d837f860ea3ca67a256fb831e241d58e1552f5469533",
+    "eval-02.jsonl": "8ea182b1d4b32ad25fc85506be20adeb84007eeda28cea3e5f6983afaa571ad7",
+    "eval-03.jsonl": "3bedf84e4dec8a4a83023bfd24c1c57642e5f8082050bcbd42ec49f161285b46",
+    "eval-04.jsonl": "2e42239a6d7ef40258d4b16933ad371862834ffc69e8337d82d56f7db01a3e5c",
+    "eval-05.jsonl": "5445ac7998b94c1cec1bd1a3d013a07ed0f132510c7a20ee52e90bb6741b8f17",
+    "eval-06.jsonl": "c16f38efa662e639ba64e422fbbe80e44a88e3a2d70bcd2977aea393079125f7",
+    "eval-07.jsonl": "61dd59a2a808434f6e3d4f9a55c9facd8e3fcd03eabec4f430ee3435f74f3588",
+    "eval-08.jsonl": "fd80635bce79ec6615be1e7c529878247cc26ea17f1928ad8b1abd2bbf0dd213",
+    "eval-09.jsonl": "a9ca07e2f9c45e7de7b95a6f822164d569539a2ef52ae310f3bf048c1dab88e4"
+  },
+  "selection": "first 20 train rows -> dev; first 100 validation rows -> eval, no performance-based selection"
+}

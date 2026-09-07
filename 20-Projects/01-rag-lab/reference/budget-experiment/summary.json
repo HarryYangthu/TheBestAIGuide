@@ -1,0 +1,41 @@
+{
+  "config": {
+    "split": "dev",
+    "questions": 20,
+    "scope": "HotpotQA distractor: per-question supplied documents",
+    "chunk_size": 1,
+    "top_k": 10,
+    "budget": 600,
+    "generation": "none",
+    "model": null
+  },
+  "summary": {
+    "bm25": {
+      "recall": {
+        "1": 0.2725,
+        "3": 0.4533333333333333,
+        "5": 0.5700000000000001,
+        "10": 0.7108333333333333,
+        "20": 0.9066666666666666
+      },
+      "candidate_complete": 0.75,
+      "selected_complete": 0.4,
+      "context_complete": 0.15,
+      "answer_em": null,
+      "answer_f1": null,
+      "errors": 0,
+      "calls": 0
+    }
+  },
+  "acceptance": {
+    "passed": true,
+    "checks": {
+      "all_tasks_recorded": true,
+      "unique_task_method": true,
+      "context_within_budget": true,
+      "generation_errors_absent": true,
+      "no_fabricated_predictions": true
+    },
+    "meaning": "工程检查，不是答案全对或泛化能力通过"
+  }
+}

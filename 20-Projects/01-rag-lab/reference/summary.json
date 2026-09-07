@@ -1,0 +1,73 @@
+{
+  "config": {
+    "split": "eval",
+    "questions": 100,
+    "scope": "HotpotQA distractor: per-question supplied documents",
+    "chunk_size": 1,
+    "top_k": 5,
+    "budget": 1800,
+    "generation": "none",
+    "model": null
+  },
+  "summary": {
+    "bm25": {
+      "recall": {
+        "1": 0.31116666666666665,
+        "3": 0.6103333333333333,
+        "5": 0.6948333333333333,
+        "10": 0.8123333333333334,
+        "20": 0.9205
+      },
+      "candidate_complete": 0.8,
+      "selected_complete": 0.38,
+      "context_complete": 0.38,
+      "answer_em": null,
+      "answer_f1": null,
+      "errors": 0,
+      "calls": 0
+    },
+    "tfidf": {
+      "recall": {
+        "1": 0.31616666666666665,
+        "3": 0.5578333333333333,
+        "5": 0.6745,
+        "10": 0.8048333333333333,
+        "20": 0.9113333333333334
+      },
+      "candidate_complete": 0.78,
+      "selected_complete": 0.37,
+      "context_complete": 0.37,
+      "answer_em": null,
+      "answer_f1": null,
+      "errors": 0,
+      "calls": 0
+    },
+    "hybrid": {
+      "recall": {
+        "1": 0.3245,
+        "3": 0.5961666666666666,
+        "5": 0.6978333333333333,
+        "10": 0.8056666666666666,
+        "20": 0.9079999999999999
+      },
+      "candidate_complete": 0.78,
+      "selected_complete": 0.39,
+      "context_complete": 0.39,
+      "answer_em": null,
+      "answer_f1": null,
+      "errors": 0,
+      "calls": 0
+    }
+  },
+  "acceptance": {
+    "passed": true,
+    "checks": {
+      "all_tasks_recorded": true,
+      "unique_task_method": true,
+      "context_within_budget": true,
+      "generation_errors_absent": true,
+      "no_fabricated_predictions": true
+    },
+    "meaning": "工程检查，不是答案全对或泛化能力通过"
+  }
+}
