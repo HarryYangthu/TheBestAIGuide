@@ -38,7 +38,9 @@ class MyModelAdapter:
         raise ValueError("unsupported action")
 ```
 
-这段是适配边界示例，不是某家API的完整调用器。真实连接还要绑定模型ID、参数、工具格式、超时、拒绝状态和usage；这些应以对应版本官方SDK为准。仓库没有凭据，因此没有宣称做过真实模型质量验证。你可以先用 [ScriptedModel](../05-code/agent-loop-python/src/agent_loop/models.py) 输入错误动作，确认运行时如何处理，再接真实模型，避免把控制问题和模型问题混在一起。
+这段是适配边界示例，不是某家API的完整调用器。真实连接还要绑定模型ID、参数、工具格式、超时、拒绝状态和usage；这些应以对应版本官方SDK为准。缺字段时这里会抛异常，由 Loop 归入 `invalid_model_output`；它没有实现自动修复。你可以先用 [ScriptedModel](../05-code/agent-loop-python/src/agent_loop/models.py) 输入错误动作，确认运行时如何处理，再接真实模型，避免把控制问题和模型问题混在一起。
+
+接着读 [workbench 的 providers.py](../../../20-Projects/learning-workbench/src/learning_workbench/providers.py)：`LocalChat` 执行本地模型，`ActionModel` 将响应解析为本章 Action；`ChatAPI` 提供可选远程接口。仓库已保存 [12 条教学任务的真实本地模型结果](../../../20-Projects/learning-workbench/artifacts/real-models/agent-comparison.json)。结果分别统计工具选择、流程完成和答案匹配，三项不能互相代替。远程 API 传输契约测试不等于付费模型质量验证，运行方式及边界见[项目说明](../../../20-Projects/learning-workbench/README.md)。
 
 不要在日志打印完整异常消息。SDK的异常可能带URL、请求内容或认证信息。本例仅记异常类型；进一步诊断时按字段脱敏保存请求ID、响应状态和可公开的错误码。
 

@@ -7,7 +7,7 @@
 
 ## 区分四种版本
 
-| 版本 | 改变什么 | 必須做的动作 |
+| 版本 | 改变什么 | 必须做的动作 |
 | --- | --- | --- |
 | 来源版本 | 文档事实和适用范围 | 重新解析受影响块，撤下被替代块 |
 | 解析/切块版本 | 文本结构、边界和位置 | 重建块、标注映射与派生索引 |
@@ -18,11 +18,11 @@
 
 余弦相似度为：
 
-\[
+$$
 s(q,d)=\frac{q^\top d}{\lVert q\rVert_2\lVert d\rVert_2}.
-\]
+$$
 
-\(q,d\in\mathbb R^m\) 必须来自兼容空间且范数非零。若都已 L2 归一化，余弦就等于点积。例如 \(q=(1,0),d=(3,4)\)，余弦为 \(3/5=0.6\)。这表示方向相近程度，不表示有 60% 的概率支持答案。
+$q,d\in\mathbb R^m$ 必须来自兼容空间且范数非零。若都已 L2 归一化，余弦就等于点积。例如 $q=(1,0),d=(3,4)$，余弦为 $3/5=0.6$。这表示方向相近程度，不表示有 60% 的概率支持答案。
 
 ## 增量更新的最小可靠做法
 
@@ -41,7 +41,7 @@ index.delete("manual", tenant="a")
 assert index.search("新内容", tenant="a") == []
 ```
 
-`upsert` 先切块，再替换当前文档。旧版本引用在 `verify_citation` 中失效，不会悄悄指向新原文。完整实现见[retrieval.py](../05-code/rag-pipeline-python/src/rag_pipeline/retrieval.py)和[更新删除测试](../05-code/rag-pipeline-python/tests/test_pipeline.py)。这一实现是内存对象，不具备数据库事务、跨进程原子切换和故障后持久恢复；并发服务应加锁或采用存储事务。
+`upsert` 先切块，再替换当前文档。这里的替换键是 `(tenant, doc_id)`，所以 v2 会使同 ID 的 v1 不再可查。若业务要比较历史版本，必须另外保留归档记录，或把版本加入存储键并维护“当前版”指针；不能对这个覆盖式索引直接查询已经被替换的 v1。进阶工程的 [compare_versions](../../../20-Projects/learning-workbench/src/learning_workbench/retrieval.py)使用保留版本的证据记录，演示分别取两侧证据再比较。旧版本引用在 `verify_citation` 中失效，不会悄悄指向新原文。完整实现见[retrieval.py](../05-code/rag-pipeline-python/src/rag_pipeline/retrieval.py)和[更新删除测试](../05-code/rag-pipeline-python/tests/test_pipeline.py)。这一实现是内存对象，不具备数据库事务、跨进程原子切换和故障后持久恢复；并发服务应加锁或采用存储事务。
 
 ## 删除与撤权不是同一件事
 

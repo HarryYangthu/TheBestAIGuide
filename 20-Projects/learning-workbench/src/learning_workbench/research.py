@@ -20,7 +20,7 @@ FIXTURES=Path(__file__).resolve().parents[2]/'fixtures'
 
 def fetch_papers(directory):
     directory=Path(directory);directory.mkdir(parents=True,exist_ok=True)
-    manifest=json.loads((FIXTURES/'papers.json').read_text());result=[]
+    manifest=json.loads((FIXTURES/'papers.json').read_text(encoding="utf-8"));result=[]
     for paper in manifest:
         target=directory/(paper['id']+'.pdf')
         if not target.exists():
@@ -48,7 +48,7 @@ def extract(paper,directory):
 
 
 async def compare(directory, *, mode='multi', provider=None):
-    papers=json.loads((FIXTURES/'papers.json').read_text());calls=[]
+    papers=json.loads((FIXTURES/'papers.json').read_text(encoding="utf-8"));calls=[]
     async def plan(_):return {'question':'Do Transformer attention and LoRA solve the same problem?',
                               'axes':['architecture','adaptation'],'sources':[p['id'] for p in papers]}
     def worker(paper):
@@ -116,6 +116,6 @@ if __name__=='__main__':
     output=Path(a.output);output.mkdir(parents=True,exist_ok=True)
     for mode in ['single','multi']:
         result=asyncio.run(compare(a.papers,mode=mode,provider=provider))
-        (output/(mode+'.json')).write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
-        (output/(mode+'.md')).write_text(render(result))
+        (output/(mode+'.json')).write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n', encoding="utf-8")
+        (output/(mode+'.md')).write_text(render(result), encoding="utf-8")
     print(output)

@@ -26,10 +26,10 @@
 | M11 | Hoffmann et al.，[Training Compute-Optimal Large Language Models](https://arxiv.org/abs/2203.15556)，2022 | 固定训练计算预算下数据与参数的分配 | 摘要与条目；不作为所有场景固定比例定律 |
 | M12 | Ouyang et al.，[Training language models to follow instructions with human feedback](https://arxiv.org/abs/2203.02155)，2022 | 指令示范、偏好与RLHF训练流程 | 摘要与条目；未复现人类标注或PPO训练 |
 | M13 | Bai et al.，[Constitutional AI](https://arxiv.org/abs/2212.08073)，2022 | 用AI反馈参与训练的具体研究实例 | 摘要与条目；AI反馈不代表无偏真值 |
-| M14 | Schulman et al.，[Proximal Policy Optimization Algorithms](https://arxiv.org/abs/1707.06347)，2017 | PPO是策略优化算法，区别于完整RLHF流程 | 原论文条目；本域没有PPO训练器 |
-| M15 | Rafailov et al.，[Direct Preference Optimization](https://arxiv.org/html/2305.18290v3)，2023论文，v3为2024修订 | 偏好对、参考模型相对对数概率差、DPO损失 | 读取HTML正文；只运行标量损失计算，没有模型训练 |
+| M14 | Schulman et al.，[Proximal Policy Optimization Algorithms](https://arxiv.org/abs/1707.06347)，2017 | PPO是策略优化算法，区别于完整RLHF流程 | 2026-09-07 补读 v2 PDF 第 3 节公式 7 与符号；[tiny 项目](../../20-Projects/tiny-transformer/README.md)只做一次两动作梯度更新，不是完整 PPO 训练器 |
+| M15 | Rafailov et al.，[Direct Preference Optimization](https://arxiv.org/html/2305.18290v3)，2023论文，v3为2024修订 | 偏好对、参考模型相对对数概率差、DPO损失 | 读取 HTML 正文与附录 B；本域 Notebook 检查标量损失，tiny 项目另有真实模型快照与 DPO 更新；不复现论文规模 |
 | M16 | Shao et al.，[DeepSeekMath](https://arxiv.org/html/2402.03300v3)，2024 | GRPO组相对优势与策略更新的提出 | 读取HTML；只讲原始方法的核心，不混用后续训练器变体 |
-| M17 | Hu et al.，[LoRA](https://arxiv.org/html/2106.09685v2)，2021 | 冻结基座，训练低秩更新；合并权重 | 读取HTML；本库验证矩阵等价与零初始化梯度，不复现微调效果 |
+| M17 | Hu et al.，[LoRA](https://arxiv.org/html/2106.09685v2)，2021 | 冻结基座，训练低秩更新；合并权重 | 读取 HTML 第 4.1 节；本域检查矩阵等价，tiny 项目检查适配器训练/合并；不是论文任务的微调效果复现 |
 | M18 | Dettmers et al.，[QLoRA](https://arxiv.org/html/2305.14314v1)，2023 | 量化冻结基座＋LoRA、NF4等设计 | 读取HTML；均匀INT4教学例不冒充NF4实现 |
 | M19 | Holtzman et al.，[The Curious Case of Neural Text Degeneration](https://arxiv.org/abs/1904.09751v2)，ICLR 2020 | Nucleus/top-p采样与解码分布 | 原论文条目；本库验证阈值边界，不复现生成文本质量 |
 | M20 | Chen et al.，[Accelerating Large Language Model Decoding with Speculative Sampling](https://arxiv.org/html/2302.01318v1)，2023 | 草拟、验证、接受/残差采样保持目标分布 | 读取算法2与第4节；本库用p表示目标、q表示草稿，符号与论文相反但定义明确；未实现推测服务 |

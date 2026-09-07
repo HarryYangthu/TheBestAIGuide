@@ -14,7 +14,9 @@ API 接收请求并创建 Run，队列缓冲到达波动，Worker 执行工具�
 
 在稳定系统中，Little 定律为 $L=\lambda W$：$L$ 是平均系统内任务数，$\lambda$ 是平均到达率，$W$ 是平均停留时间。若每秒到达 2 个任务，平均停留 30 秒，平均在途任务就是 60 个。这是平均关系，不保证 P99，也不能用不稳定积压的数据直接规划容量。
 
-对于占用一个 Worker 的任务，若单任务平均服务时间为 $S$，有 $c$ 个 Worker，则服务能力粗略为 $\mu=c/S$。当 $\lambda\ge\mu$，队列长期增长；即使略低于它，突发流量和长尾仍会使排队时延变差。
+对于占用一个 Worker 的任务，若单任务平均服务时间为 $S$，有 $c$ 个 Worker，则服务能力粗略为 $\mu=c/S$。当 $\lambda>\mu$ 且持续接收，平均新增工作超过处理能力，队列会增长；$\lambda=\mu$ 没有余量，常见随机到达/服务时间下也难以维持稳定等待。即使略低于它，突发流量和长尾仍会使排队时延变差。
+
+注意 $W$ 包含排队和服务时间，$S$ 只算占用 Worker 的服务时间。上例的 `arrival * service_seconds=60` 是输入负载对服务并发的需求，不是 40 个 Worker 系统已经稳定存在 60 个任务；该配置会积压，不能用它反推稳定的平均等待。利用率 $\rho=\lambda S/c=1.5>1$ 也能直接看出超载。若任务等待模型时能释放计算槽，需分别建模任务并发与计算槽，不能机械套用这个独占 Worker 估计。
 
 ```python
 arrival_per_second, service_seconds, workers = 2, 30, 40
@@ -22,7 +24,7 @@ capacity = workers / service_seconds
 assert arrival_per_second > capacity   # 积压是必然，不是模型偶然变慢
 ```
 
-本库[容量与故障脚本](../05-code/production_checks.py)计算稳定性条件、错误预算与重复写入反例。参数是教学假设，没有压测真实服务。
+本库[容量与故障脚本](../05-code/production_checks.py)计算稳定性条件、错误预算与重复写入反例。参数是教学假设，没有压测真实服务。下一步可运行[工作台队列实验](../../../20-Projects/learning-workbench/src/learning_workbench/experiments.py)的 `queue_experiment`，同时看完成数、拒绝数、排队 p95 和重试次数。短队列可能降低已接收任务的 p95，却把更多任务拒绝在入口；不把拒绝率一起报告，就会误以为性能全面改善。
 
 ## 五类拥塞与对应处理
 

@@ -1,6 +1,6 @@
 # 深度学习：从计算图到真正改变参数
 
-> 状态：draft · 来源核验：2026-09-06 · 配套实现为 NumPy＋标量自动微分，未运行 PyTorch 训练。
+> 状态：draft · 来源核验：2026-09-06 · 本域先用 NumPy＋标量自动微分学习；完整 PyTorch 训练接在文末 tiny-transformer 项目。
 
 神经网络的核心是可训练的函数组合。前一层把原始输入变成更适合任务的表示，后一层在这个表示上继续计算；训练用损失的梯度调整各层参数。理解这个过程，需要把“前向算出了什么”和“反向把哪条误差传回去”对应起来。
 
@@ -47,6 +47,8 @@ for batch in data:
     optimizer.step()
 ```
 
+`model.eval()`、`torch.no_grad()` 和冻结参数做的事不同：`eval()` 切换 Dropout/BatchNorm 等层的行为，仍可求梯度；`no_grad()` 在这段计算中不建立反向图；`parameter.requires_grad_(False)` 才是禁止为该参数累积梯度。预测时常同时使用 `eval()` 和 `no_grad()`。微调时冻结部分权重，但保留所需梯度路径，不能把整个前向都放进 `no_grad()`；详见 [PyTorch 2.8 Autograd](https://docs.pytorch.org/docs/2.8/notes/autograd.html)。
+
 SGD 更新 $\theta\leftarrow\theta-\eta g$；动量积累近期梯度以减小来回震荡；Adam 维护一阶和二阶移动平均：
 
 $$m_t=\beta_1m_{t-1}+(1-\beta_1)g_t,\quad
@@ -73,4 +75,4 @@ LayerNorm 对每个样本/位置的特征维归一化：$\mathrm{LN}(x)=\gamma\o
 
 配套实验先对共享节点做精确梯度检查，再训练一个 2→4→1 的 XOR 网络。XOR 只有四个教学点，训练成功说明计算图和优化步骤能一起工作，不说明网络有真实任务泛化能力。
 
-[运行 Autograd 与训练 Notebook](../../04-labs/deep-learning/01-autograd-and-training.ipynb) · [完整源码](../../05-code/foundations_core.py) · [来源](../../references.md)。后续在 [Transformer](../../../02-foundation-models/01-concepts/transformer/README.md) 中看这些构件如何组合。
+[运行 Autograd 与训练 Notebook](../../04-labs/deep-learning/01-autograd-and-training.ipynb) · [完整源码](../../05-code/foundations_core.py) · [来源](../../references.md)。后续在 [Transformer](../../../02-foundation-models/01-concepts/transformer/README.md) 中看这些构件如何组合，再运行 [tiny-transformer](../../../../20-Projects/tiny-transformer/README.md)：同一条 `zero_grad → backward → step` 链路会真正更新 PyTorch 的 Embedding、Attention 和 FFN。

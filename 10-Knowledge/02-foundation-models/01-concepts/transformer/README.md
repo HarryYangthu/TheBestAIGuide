@@ -1,6 +1,6 @@
 # Transformer：Attention 如何匹配信息，再把信息读回来
 
-> 状态：draft · 来源核验：2026-09-06 · 配套实验验证数值机制，没有训练语言模型。
+> 状态：draft · 来源核验：2026-09-06 · NumPy 实验拆解数值机制；文末 tiny-transformer 项目把它们接成可训练的字符语言模型。
 
 Attention 做了两步：先计算当前位置与各候选位置的匹配程度，再按匹配程度汇总候选位置携带的内容。$QK^T$ 负责算“该关注谁”，乘 $V$ 负责算“从它那里拿到什么”。只说“关注重要信息”太宽泛，必须把这两步的对象和数值对应起来。
 
@@ -96,6 +96,8 @@ Encoder 通常使用双向 self-attention，适合构建输入表示；decoder-o
 
 [动手：矩阵算例、缩放方差、Mask 与 RoPE](../../04-labs/01-tokenization-and-attention.ipynb) · [源码](../../05-code/model_mechanics.py) · [继续：解码与缓存](../inference/README.md) · [来源及各主张范围](../../references.md)。
 
-## 配套项目扩展（2026-09-06）
+## 把这篇文章接到完整模型
 
-[完整 decoder、训练、生成与 LoRA](../../../../20-Projects/tiny-transformer/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。
+打开 [tiny-transformer 的 Attention.forward](../../../../20-Projects/tiny-transformer/src/tiny_transformer/model.py)，按 `qkv → split → scores → mask → weights @ v → projection` 找到上面每一步。运行[训练 Notebook](../../../../20-Projects/tiny-transformer/01-train-and-inspect.ipynb)中第一层的手动展开：对照中间形状，并检查手动结果和模块输出一致。
+
+自检：保持 Q/K 不变只改 V，权重会变吗？不会，因为 V 没参与打分；但输出通常会变。若把一行分数全加 100，权重会变吗？不会；若全乘 100，通常会更集中。能解释这三个判断，再去读缓存实现。

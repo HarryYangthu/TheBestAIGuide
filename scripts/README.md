@@ -1,36 +1,92 @@
-# 仓库维护与运行脚本
+# 运行实验与维护检查
 
-从仓库根目录运行。标准库检查不需要安装依赖；Notebook 和部分教学实验需要 Python 3.12 及根目录的 `requirements-dev.lock`。
+所有命令从仓库根目录执行，即同时能看到 `10-Knowledge/`、`20-Projects/` 和 `scripts/` 的目录。先按要做的实验安装依赖；阅读 Markdown 和 GitHub 上已保存的 Notebook 输出无需安装环境。
+
+## 只想先运行一个学习项目
+
+Python 3.11 或更高即可，以下命令只用标准库：
+
+```bash
+python scripts/run_python.py -m domain_research.cli --query ERR-12003 --run-id first --output .runs/first-lesson
+python scripts/run_python.py -m learning_workbench.cli memory --output .runs/memory-lesson
+```
+
+第一条直接打印回答和引用，第二条打印报告路径；怎样读结果分别见[领域资料研究助手](../20-Projects/domain-research-agent/README.md)和[学习工作台](../20-Projects/learning-workbench/README.md)。生成文件进入指定输出目录；比较新方案时使用新的 run-id 或目录，避免把恢复旧任务误当成重新实验。
+
+`run_python.py` 只把本仓库的各个 `src/` 加入 Python 导入路径，因此项目可以复用其他知识领域的实现。它不会安装依赖；请保持完整仓库结构，不能只复制一个 `src/` 就认为依赖齐全。
+
+## 执行 Notebook
+
+完整复现环境使用 Python 3.12（与 CI 一致）。先创建虚拟环境：
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate
+```
+
+| 终端 | 激活命令 | 验证选中了哪个解释器 |
+| --- | --- | --- |
+| macOS / Linux bash | `source .venv/bin/activate` | `python -c "import sys; print(sys.executable)"` |
+| Windows PowerShell | `.\.venv\Scripts\Activate.ps1` | 同上 |
+| Windows cmd | `.venv\Scripts\activate.bat` | 同上 |
+
+解释器路径应指向这个仓库的 `.venv`。也可不激活，直接用 `.venv/bin/python`（Windows 为 `.\.venv\Scripts\python.exe`）替代下面的 `python`。
+
+```bash
 python -m pip install -r requirements-dev.lock
-pip install torch==2.8.0 --index-url https://download.pytorch.org/whl/cpu
-pip install pypdf==6.1.0 reportlab==4.4.3
 python -m ipykernel install --sys-prefix --name python3
-python scripts/check_links.py
-python scripts/check_metadata.py
-python scripts/run_python_tests.py
+```
+
+`requirements-dev.lock` 固定本库已验证的 Python 依赖版本，提供 NumPy、IPython、Notebook 执行与 Schema 校验。它不包含编辑器或 Notebook 网页服务。可以在已有的 Jupyter 前端或 VS Code 中选择这份 `.venv` 的内核，然后执行“重启内核并运行全部”；只打开页面查看旧输出不算重新执行。
+
+先运行一本纯 Python 基础实验：
+
+```bash
+python scripts/check_notebooks.py --execute 10-Knowledge/02-foundation-models/04-labs/01-tokenization-and-attention.ipynb
+```
+
+脚本以 Notebook 所在目录为工作目录，从干净内核运行，并把新输出保存回该 `.ipynb`。正常结果含 `status: executed`；想只检查文件结构和已有错误输出，去掉 `--execute`。
+
+要运行全部 20 本 Notebook，还需下面的 CPU 训练/PDF 依赖，以及 Node.js 22 或更高版本。Tools Notebook 会实际运行 TypeScript 工具执行器和 MCP stdio 客户端/服务端；这一步并非只用 Python 演示接口。
+
+```bash
+python -m pip install torch==2.8.0 --index-url https://download.pytorch.org/whl/cpu
+python -m pip install pypdf==6.1.0 reportlab==4.4.3
 npm ci --prefix 10-Knowledge/05-tools-skills-protocols/05-code/tool-runtime-typescript
 npm ci --prefix 10-Knowledge/05-tools-skills-protocols/05-code/mcp-server-typescript
 python scripts/check_notebooks.py --execute
 ```
 
-Windows 激活命令是 `.venv\Scripts\activate`。锁文件记录本次实际安装版本，用于复现。
+上述过程不下载预训练语言模型，也不调用付费 API。Tiny Transformer 会在构造的小数据上实际训练；学习工作台 Notebook 会读取仓库中的历史模型报告，运行当下的离线实验，二者在各本 Notebook 中分别标明。想重跑预训练模型，按[工作台的可选模型步骤](../20-Projects/learning-workbench/README.md)安装 `requirements-learning.txt` 并下载固定模型。
 
-执行全部 Notebook 还需要 Node.js 22 或更高版本：Tools 实验会运行真实 TypeScript Runtime 和 MCP stdio 集成，所以先安装上面两个工程的 npm 依赖。单独执行纯 Python Notebook 时不需要这一步。
+如果环境明确禁止 Jupyter 内核所需的本地 socket，可运行 `python scripts/check_notebooks.py --execute --backend ipython-fallback`。它为每本 Notebook 启动独立 Python 进程，经 IPython 依次执行代码并保存输出，元数据会注明后端。该模式不验证内核通信或前端交互；CI 仍用标准 Jupyter 后端。
 
-如果环境禁止 Jupyter 内核使用本地 socket，可显式运行 `python scripts/check_notebooks.py --execute --backend ipython-fallback`。它为每本 Notebook 启动独立 Python 进程，经 IPython 依次执行全部代码格并保存真实输出；元数据会注明后端。该模式不验证 Jupyter 内核通信和前端交互，CI 仍使用默认 Jupyter 后端。
+## 修改后怎样检查
 
-| 脚本 | 检查或执行内容 | 边界 |
+在上面的完整环境中运行：
+
+```bash
+python scripts/check_links.py
+python scripts/check_metadata.py
+python scripts/run_python_tests.py
+```
+
+| 脚本 | 检查或执行内容 | 如何理解通过结果 |
 | --- | --- | --- |
-| [check_links.py](check_links.py) | Markdown、Notebook Markdown 中的相对文件和目录链接；跳过代码围栏 | 不发外网请求；检查本仓 Markdown 的中文、重复标题锚点，支持范围见 heading_anchors；不验证远端内容 |
-| [check_metadata.py](check_metadata.py) | 一级标题；概念、模式、案例的状态字段 | 不把格式通过当成事实审查 |
-| [check_notebooks.py](check_notebooks.py) | Notebook 结构、非空代码、错误输出；`--execute` 从干净内核执行并更新输出 | 工作目录是 Notebook 所在目录，默认每格 180 秒 |
-| [run_python_tests.py](run_python_tests.py) | 加入本库源码路径，分别运行各工程 `tests/test_*.py` 的 unittest | 失败返回非零；不运行外部服务或 GPU 训练 |
-| [run_python.py](run_python.py) | 运行模块或脚本，复用各领域 `src/` | 不自动安装依赖，不覆盖包版本 |
+| [check_links.py](check_links.py) | Markdown 与 Notebook Markdown 的相对路径、支持范围内的标题锚点 | 能找到目标文件/标题，不代表读者能理解或远端链接可访问 |
+| [check_metadata.py](check_metadata.py) | 一级标题、概念/模式/案例状态字段 | 格式有效，不等于事实已审查 |
+| [check_notebooks.py](check_notebooks.py) | 格式、代码单元和错误输出；加 `--execute` 才重跑 | 区分 `format-valid` 与 `executed`；每格默认超时 180 秒 |
+| [run_python_tests.py](run_python_tests.py) | 各工程 `unittest` 及指定算例断言 | 看实际失败和 skip；依赖缺失导致跳过不算对应功能已验证 |
+| [run_python.py](run_python.py) | 按本仓库源码路径运行模块或脚本 | 只提供导入路径，不自动安装库或覆盖版本 |
 
-例如 `python scripts/run_python.py -m domain_research.cli` 可运行综合项目。只执行一个 Notebook：`python scripts/check_notebooks.py --execute <相对路径.ipynb>`。
+TypeScript 工程各自在项目目录运行 `npm ci`、`npm run build`、`npm test`；[浏览器工程](../10-Knowledge/13-application-engineering/05-code/browser-agent-typescript/README.md)还需要安装 Chromium。对应自动检查见 [workflows](../.github/workflows/README.md)，实际结果以具体提交的 Actions 为准。
 
-TypeScript 工程分别执行 `npm ci`、`npm run build`、`npm test`。浏览器工程还需 `npx playwright install chromium`。CI 定义见 [workflows](../.github/workflows/README.md)。
+## 遇到运行问题先检查哪里
+
+| 现象 | 最先检查 | 原因 |
+| --- | --- | --- |
+| 找不到 `scripts/run_python.py` | 终端是否处于仓库根目录 | 文档命令的相对路径以根目录为基准 |
+| `ModuleNotFoundError` 指向本库包 | 是否通过 `run_python.py` 启动，是否保留完整仓库 | 综合项目跨领域复用 `src/`，不是独立发布的包 |
+| 缺少 `torch`、`nbformat` 等外部包 | 安装依赖与运行时是否用了同一个 Python | 在另一个环境安装不影响当前内核 |
+| Notebook 里变量不存在 | 重启内核并从第一格依次执行 | 后面格依赖前面构造的对象 |
+| Notebook 提示内核不存在 | 执行 `ipykernel install`，确认前端选中该环境 | 有 `.ipynb` 文件不代表已经有可运行内核 |
+| 改问题后仍看到旧任务结果 | run-id 与输出目录是否复用 | 持久任务身份用于恢复，比较实验应使用新身份 |

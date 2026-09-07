@@ -63,6 +63,8 @@ output_error = np.max(abs(inputs @ restored - inputs @ weights))
 
 [运行解码、缓存与精度实验](../../04-labs/02-decoding-cache-and-precision.ipynb) · [完整实现](../../05-code/model_mechanics.py) · [来源](../../references.md)。决定部署方案前，先按[模型选择](../model-selection/README.md)做同任务、同预算对照。
 
-## 配套项目扩展（2026-09-06）
+## 从单层缓存走到真实生成
 
-[完整 decoder、训练、生成与 LoRA](../../../../20-Projects/tiny-transformer/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。
+[tiny-transformer](../../../../20-Projects/tiny-transformer/README.md)的 `Decoder.generate` 会先 prefill，再逐 token 追加各层 KV；[回归测试](../../../../20-Projects/tiny-transformer/tests/test_decoder.py)比较整段和缓存输出，并检查批内各序列分别在 EOS 停止、总长度不超过窗口。先预测“前缀长 P、新追加两个 token”时每行允许看哪些列，再读 `Attention.forward` 的位置偏移。
+
+它使用 CPU 贪心解码，没有连续批处理、分页缓存或推测服务。服务时延和并发排队的实验入口在[学习工作台](../../../../20-Projects/learning-workbench/README.md)。

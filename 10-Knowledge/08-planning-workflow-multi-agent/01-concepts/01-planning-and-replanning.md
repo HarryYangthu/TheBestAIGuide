@@ -19,7 +19,7 @@
 
 ## 用依赖而不是段落表达计划
 
-将计划记成有向图 \(G=(V,E)\)。\(V\) 是任务集合，边 \((u,v)\in E\) 表示任务 \(v\) 要用到 \(u\) 的输出。只有当一个任务的所有前驱都成功且产物契约通过校验，才允许调度它。
+将计划记成有向图 $G=(V,E)$。$V$ 是任务集合，边 $(u,v)\in E$ 表示任务 $v$ 要用到 $u$ 的输出。只有当一个任务的所有前驱都成功且产物契约通过校验，才允许调度它。
 
 例如质量评分和硬件检查互相独立，都指向最终选择。若质量评分发现 A 的数据来自旧版本，就新增“复测 A”节点，替换 A 的过期评分；不必重做 B/C 的约束检查。这个修改必须记录 `plan_version` 和被替代的证据版本，否则合并阶段可能同时读到旧结论和新结论。
 
@@ -29,11 +29,27 @@ ready = [task for task in plan
          and all(states[parent] == "succeeded" for parent in task.depends_on)]
 ```
 
-这是依赖调度的核心条件，属于说明性代码。完整运行示例用两个无依赖 Worker，再由协调器合并，见[源码](../05-code/multi-agent-runtime-python/src/multi_agent/fixture.py)。
+这是依赖调度的核心条件，属于说明性代码。本域[基础示例](../05-code/multi-agent-runtime-python/src/multi_agent/fixture.py)只有两个独立 Worker；真正含前驱依赖与失效传播的实现是 [Learning Workbench 的 Plan](../../../20-Projects/learning-workbench/src/learning_workbench/planning.py)。不要把控制并发数的 Supervisor 当成 DAG 调度器。
+
+## 跟一次真正执行的局部重算
+
+进阶工程的依赖是：`planner` 提供问题，`research-a/research-b` 取两份测量，`writer` 求差值，`reviewer` 检查算术。这五个节点都是固定 Python 函数，尚不是模型自主生成的计划。
+
+第一次 A=40 ms、B=60 ms，差值为 20 ms；后来 A 更新为 45 ms。若只改 A 的结果而不作废汇总，读者仍会得到过期的 20 ms。[Plan.invalidate](../../../20-Projects/learning-workbench/src/learning_workbench/planning.py)从 `research-a` 开始，反复把依赖已失效节点的任务加入集合，直到集合不再变，最后得到 `research-a, writer, reviewer`。第二次仅运行这三个节点，差值变成 15 ms，B 的结果沿用。
+
+从仓库根目录运行：
+
+```bash
+python scripts/run_python.py -m learning_workbench.cli multi --output .runs/planning-readthrough
+```
+
+检查输出 `planning.json` 的 `single/parallel`：两者都先执行 5 个节点，再执行 3 个节点，`executions=8`；Trace 中 `research-b` 只有一次 `start`。[已保存结果](../../../20-Projects/learning-workbench/artifacts/offline/planning.json)可在不运行时逐行对照。并发数改变执行重叠，不改变依赖关系或答案。
+
+失效集合可写为 $A_0=C$，$A_{j+1}=A_j\cup\{v: \exists u\in A_j,(u,v)\in E\}$，其中 $C$ 是变更节点集合；停止于 $A_{j+1}=A_j$。这就是代码循环的含义。当前 `Plan` 支持既有图上的局部重算；它不会自动新增节点、识别证据何时失效或持久恢复计划。`invalidate` 应在一轮执行结束后调用，不能在仍运行的旧任务上无锁修改状态。
 
 ## 预算不是“尽量少调用”
 
-给总预算 \(B\)，先预留验证预算 \(B_v\)，剩余工作满足 \(\sum_i b_i\le B-B_v\)。\(b_i\) 是任务 \(i\) 的允许成本；成本单位可以是 Token、调用次数或货币，但同一约束不能混用单位。比如最多 12 次工具调用，预留 2 次验证，那么规划器只能分配 10 次，而不是先花光 12 次再问是否追加验证。
+给总预算 $B$，先预留验证预算 $B_v$，剩余工作满足 $\sum_i b_i\le B-B_v$。$b_i$ 是任务 $i$ 的允许成本；成本单位可以是 Token、调用次数或货币，但同一约束不能混用单位。比如最多 12 次工具调用，预留 2 次验证，那么规划器只能分配 10 次，而不是先花光 12 次再问是否追加验证。
 
 对子任务再限制最大轮数和截止时间。一个“最多 5 步”的 Worker 若每步都能无限等待，仍没有时间上界；一个“最多 30 秒”的 Worker 若瞬间发出 1000 个请求，也没有成本上界。次数、并发、时间各限制不同资源。
 

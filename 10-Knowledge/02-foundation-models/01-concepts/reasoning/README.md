@@ -60,6 +60,6 @@ assert verified == ['17', '34/2']
 
 [运行候选池与验证器小实验](../../04-labs/02-decoding-cache-and-precision.ipynb) · [系统评测](../../../10-evaluation-observability/README.md) · [一手来源](../../references.md)。
 
-## 配套项目扩展（2026-09-06）
+## 继续做能暴露判断器错误的实验
 
-[完整 decoder、训练、生成与 LoRA](../../../../20-Projects/tiny-transformer/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。
+[学习工作台](../../../../20-Projects/learning-workbench/README.md)提供候选成对比较、判断器与文献证据实验，并保留了实际模型给出非法 JSON、引用定位正确却不支持结论的失败。读结果时分别问：候选里有没有好答案？选择器有没有选到它？证据能否支持最终结论？这比用小 Transformer 的训练 loss 推断推理能力更直接。

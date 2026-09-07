@@ -8,16 +8,19 @@
 任务契约是交接双方都能检查的数据约定。它把自然语言目标变成输入范围、允许动作、输出格式和完成条件。
 
 ```python
+from multi_agent import Task
+
 Task(
     task_id="constraints",
     kind="constraints",
-    payload={"candidates": candidates},
+    payload={"candidates": [{"name": "A", "quality": 0.91,
+                             "latency_ms": 18, "memory_mb": 200}]},
     required_keys=("feasible",),
     timeout_s=1.0,
 )
 ```
 
-这个真实可运行的构造来自[contracts.py](../05-code/multi-agent-runtime-python/src/multi_agent/contracts.py)。`task_id` 供追踪和重试引用；`kind` 路由到有对应能力的 Worker；`payload` 只包含完成此任务需要的数据；`required_keys` 防止返回另一种答案；`timeout_s` 为从排队开始到执行完成的总期限。
+这个真实可运行的构造来自[contracts.py](../05-code/multi-agent-runtime-python/src/multi_agent/contracts.py)。`task_id` 供追踪和重试引用；`kind` 路由到有对应能力的 Worker；`payload` 只包含完成此任务需要的数据；`required_keys` 防止返回另一种答案；`timeout_s` 为包含排队时间的超时阈值，等待并发名额也会消耗它。底层 `asyncio.wait_for` 到点会请求取消并等待清理，因此超时阈值不是强制中止进程的墙钟保证；Worker 阻塞事件循环或不配合取消时，实际返回可能更晚。
 
 ## 三次交接，各检查一层
 

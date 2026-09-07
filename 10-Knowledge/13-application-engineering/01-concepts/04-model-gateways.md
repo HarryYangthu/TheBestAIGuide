@@ -14,6 +14,8 @@ $$m^*=\arg\min_{m\in\mathcal M_{\rm eligible}}\left[\widehat C_m+\lambda\widehat
 
 $\widehat C_m$ 是根据输入量估算的成本，$\widehat T_m$ 是同类任务的预计时延，$\lambda$ 把时间折为业务权重。这个目标只在候选已满足质量、权限和能力下使用；最低价格不等于最低成功任务成本。
 
+例如候选 A 成本 2 单位、预计 8 秒，B 成本 3 单位、预计 2 秒；取 $\lambda=.2$ 单位/秒，总分分别为 3.6 和 3.4，应选 B。若 B 不支持当前工具 Schema，它根本不能进入候选集合，即使总分更低也不选。`choose_model` 的教学实现只按能力、预算和成本选择，相当于忽略时延项；它没有自动测量模型质量。
+
 ## 回退必须按失败阶段区分
 
 | 失败 | 是否适合自动回退 | 原因 |
@@ -36,4 +38,4 @@ $j$ 是每次模型请求，token 数与对应单价必须使用相同计量单�
 
 ## 配套项目扩展（2026-09-06）
 
-[网页工作台与持久 Run 服务](../../../20-Projects/learning-workbench/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。
+[providers.py](../../../20-Projects/learning-workbench/src/learning_workbench/providers.py)提供本地模型和兼容聊天 API 的真实适配接口；按[工作台说明](../../../20-Projects/learning-workbench/README.md)选择其一。它不是上文完整网关：没有多供应商自动路由、故障回退和全链路计费。先读 `ChatAPI` 的请求/响应处理，再对照上表判断一次失败发生在什么阶段。

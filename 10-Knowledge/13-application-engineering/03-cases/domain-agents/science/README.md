@@ -17,4 +17,4 @@ $\mathcal X$ 是候选集合，$P$ 是参数量计算，$L$ 是评价函数。�
 | Executor | 固定配置执行并归档 | 随意改变评价标准 |
 | Evaluator | 检查约束与指标 | 把开发集最优等同于泛化 |
 
-反例包括：候选全部超预算、训练与评测数据重叠、不同候选训练时长不同、失败运行被悄悄丢弃。最小实现已对无可行候选抛错；其余真实训练环节未运行。公开研究流程参考[The AI Scientist v1](https://arxiv.org/abs/2408.06292v1)，更详细的归档与评审机制见[Research Agent 案例](../../../../16-research-frontiers/03-cases/01-research-and-science-agents.md)。
+反例包括：候选全部超预算、训练与评测数据重叠、不同候选训练时长不同、失败运行被悄悄丢弃。最小实现已对无可行候选抛错；这个枚举算例没有训练环节。若要继续看实际训练，[工作台科研任务](../../../../../20-Projects/learning-workbench/README.md)在 80 个构造样本上拟合线性模型，用另 40 个样本比较均值基线，并保存数据、划分、训练 loss 和验证 MSE。它研究的是线性拟合，不是本篇网络宽度选择，两个实验的指标不能拼成同一个寻优成绩。公开研究流程参考[The AI Scientist v1](https://arxiv.org/abs/2408.06292v1)，更详细的归档与评审机制见[Research Agent 案例](../../../../16-research-frontiers/03-cases/01-research-and-science-agents.md)。

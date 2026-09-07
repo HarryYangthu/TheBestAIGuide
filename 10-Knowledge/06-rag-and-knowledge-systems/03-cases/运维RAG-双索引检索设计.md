@@ -10,7 +10,7 @@
 - “风扇异常怎么处理”这类自然语言现象；
 - `S5735`、`ALM-12003`、`0x...`、接口名或命令这类精确标识。
 
-Dense Retrieval 能连接不同说法，Embedding 却可能把相似编号视为相近；BM25 和精确字段能保护标识符，却可能漏掉口语化表达。因此单一通道无法同时覆盖两类需求。
+Dense Retrieval 能连接不同说法，Embedding 却可能把相似编号视为相近；BM25 和精确字段能保护标识符，却可能漏掉口语化表达。因此本设计不假设任一单通道能可靠覆盖全部查询；是否确实需要双索引，要由目标语料的错误分布验证。
 
 ## 决策
 
@@ -145,10 +145,10 @@ Rerank 解决候选排序，不解决 ACL、错误版本和来源权威性。
 - 多 Trial 检查 Query Rewrite、路由和生成的波动；
 - 验证文档更新、删除、ACL 与过期版本不会泄露。
 
-真实 Dense/生成模型及业务数据的实验尚未完成，因此该决策保持 `draft`；下方列出已完成的确定性教学验证。
+这份运维方案尚无目标业务数据上的 Dense/生成模型实验，因此决策保持 `draft`；通用教学模型实验不等于该运维方案已经验收。
 
 通用原理见[混合检索与重排](../01-concepts/02-hybrid-retrieval-and-reranking.md)，完整案例见[运维领域 RAG 问答系统](运维领域-RAG-问答系统.md)。
 
 ## 复现进展
 
-[教学实现](../05-code/rag-pipeline-python/README.md)现已验证词法/精确字段两类信号、过滤和引用更新；[消融实验](../04-labs/01-hybrid-retrieval-evaluation.ipynb)显示，当前小语料中 BM25 与融合的 Recall 相同。真实 Dense/Reranker 仍未运行，所以双索引收益仍须用目标语料验证，不应据此把本决策改为“已验证最优”。
+[教学实现](../05-code/rag-pipeline-python/README.md)现已验证词法/精确字段两类信号、过滤和引用更新；[消融实验](../04-labs/01-hybrid-retrieval-evaluation.ipynb)显示，当前小语料中 BM25 与融合的 Recall 相同。进阶工程已有另一组英文教学题上的[真实 Dense/Reranker 结果](../../../20-Projects/learning-workbench/artifacts/real-models/retrieval.json)，包含融合把正确证据排低的反例。双索引收益仍须用目标运维语料验证，不应据此把本决策改为“已验证最优”。

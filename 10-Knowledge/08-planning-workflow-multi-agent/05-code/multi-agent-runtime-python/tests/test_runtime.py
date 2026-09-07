@@ -56,4 +56,18 @@ class RuntimeTests(unittest.IsolatedAsyncioTestCase):
         merged = merge_results([WorkerResult("a", "ok", {"x": 2}), WorkerResult("b", "ok", {"x": 2})])
         self.assertEqual(merged.owners["x"], ["a", "b"])
 
+    def test_expected_manifest_detects_missing_and_invalid_results(self):
+        quality = WorkerResult("quality", "ok", {"quality": {"A": 0.91}})
+        merged = merge_results([quality], expected_task_ids=["quality", "constraints"])
+        self.assertFalse(merged.complete)
+        self.assertEqual(merged.missing_tasks, ["constraints"])
+        self.assertEqual(merged.values, quality.values)
+        self.assertFalse(merge_results([], expected_task_ids=["quality"]).complete)
+        with self.assertRaises(ValueError):
+            merge_results([quality, quality])
+        with self.assertRaises(ValueError):
+            merge_results([quality], expected_task_ids=["constraints"])
+        with self.assertRaises(ValueError):
+            merge_results([], expected_task_ids=["quality", "quality"])
+
 if __name__ == "__main__": unittest.main()

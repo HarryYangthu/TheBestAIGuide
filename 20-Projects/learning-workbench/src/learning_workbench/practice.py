@@ -23,23 +23,23 @@ def repair(directory):
             return {'argv':args,'returncode':p.returncode,'stdout':p.stdout,'stderr':p.stderr}
         trace.append(command(['git','init','--quiet']))
         before='def discounted(price, discount):\n    return price * discount\n'
-        source=root/'price.py';source.write_text(before)
+        source=root/'price.py';source.write_text(before, encoding="utf-8")
         # Tests are fixed outside the writable proposal interface.
         tests='from price import discounted\nassert discounted(100,.2)==80\nassert discounted(100,0)==100\nassert discounted(50,1)==0\n'
-        (root/'acceptance.py').write_text(tests)
-        trace.append({'event':'read_file','path':'price.py','sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'content':source.read_text()})
+        (root/'acceptance.py').write_text(tests, encoding="utf-8")
+        trace.append({'event':'read_file','path':'price.py','sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'content':source.read_text(encoding="utf-8")})
         baseline=command([sys.executable,'acceptance.py']);trace.append({'event':'test_before',**baseline})
         assert baseline['returncode']!=0
         expected=hashlib.sha256(before.encode()).hexdigest()
         if hashlib.sha256(source.read_bytes()).hexdigest()!=expected:raise RuntimeError('stale patch')
         after=before.replace('price * discount','price * (1 - discount)')
-        ast.parse(after);source.write_text(after)
+        ast.parse(after);source.write_text(after, encoding="utf-8")
         trace.append({'event':'apply_patch','path':'price.py','expected_sha256':expected})
         final=command([sys.executable,'acceptance.py']);trace.append({'event':'test_after',**final})
         diff=''.join(difflib.unified_diff(before.splitlines(True),after.splitlines(True),fromfile='a/price.py',tofile='b/price.py'))
-        (directory/'repair.patch').write_text(diff)
-        (directory/'price.before.py.txt').write_text(before);(directory/'price.after.py.txt').write_text(after)
-        (directory/'acceptance.py.txt').write_text(tests)
+        (directory/'repair.patch').write_text(diff, encoding="utf-8")
+        (directory/'price.before.py.txt').write_text(before, encoding="utf-8");(directory/'price.after.py.txt').write_text(after, encoding="utf-8")
+        (directory/'acceptance.py.txt').write_text(tests, encoding="utf-8")
     return {'policy':'fixed read-patch-test policy, not model-generated code','baseline_failed':baseline['returncode']!=0,
             'repaired':final['returncode']==0,'trace':trace,'diff':diff,
             'boundary':'Temporary directory is isolation of files, not a sandbox for arbitrary generated code.'}
@@ -58,7 +58,7 @@ def science(directory):
     split=rng.permutation(120);train=split[:80];valid=split[80:]
     data=[{'id':i,'x':float(x[i]),'y':float(y[i]),'split':'train' if i in train else 'validation'} for i in range(120)]
     data_bytes=json.dumps(data,sort_keys=True).encode();(directory/'data.json').write_bytes(data_bytes)
-    (directory/'config.json').write_text(json.dumps(config,indent=2)+'\n')
+    (directory/'config.json').write_text(json.dumps(config,indent=2)+'\n', encoding="utf-8")
     w=b=0.;history=[]
     for step in range(config['steps']):
         error=w*x[train]+b-y[train]
@@ -69,7 +69,7 @@ def science(directory):
             'history':'training.json','baseline_validation_mse':baseline,'candidate_validation_mse':candidate,
             'weights':{'w':w,'b':b},'n_validation':40,'hypothesis_supported_on_this_split':candidate<baseline,
             'boundary':'One constructed linear dataset and one split; not a paper reproduction or evidence of real-world superiority.'}
-    (directory/'training.json').write_text(json.dumps(history,indent=2)+'\n')
+    (directory/'training.json').write_text(json.dumps(history,indent=2)+'\n', encoding="utf-8")
     return report
 
 
@@ -130,5 +130,5 @@ if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('task',choices=['repair','science','media'])
     parser.add_argument('--output',required=True);args=parser.parse_args()
     result=globals()[args.task](args.output)
-    Path(args.output,'report.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+    Path(args.output,'report.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n', encoding="utf-8")
     print(json.dumps({'task':args.task,'output':args.output}))

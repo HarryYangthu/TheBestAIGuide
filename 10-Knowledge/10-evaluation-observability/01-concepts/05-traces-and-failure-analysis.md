@@ -13,20 +13,26 @@ Trace 不是把所有文本永久保存，而是为以下问题提供最小充�
 - 是否能够重放、复现或解释；
 - 是否存在越权、泄露或成本异常。
 
+## Trace、Span、Event 分别是什么
+
+| 名词 | 记录的对象 | 教学例子 |
+|---|---|---|
+| Trace | 一次请求跨组件的整条执行路径 | run-42 从收到任务到最终验收 |
+| Span | 一段有开始、结束和父子关系的操作 | 第一次调用检索服务，耗时 80 ms |
+| Event | 某个时刻发生的一件事 | 开始重试、权限拒绝、Checkpoint 提交 |
+
+一个工具动作重试三次，应保留同一逻辑 step 和不同 attempt；否则无法区分三次尝试与三个业务动作。计算本进程耗时用单调时钟，跨机器关联依赖 ID 与调用关系，不能只按墙钟时间排序推断先后因果。配套 Harness 的 `sequence/type/attributes` 是顺序事件列表，没有实现完整 Span 树。
+
 ## 事件模型
 
 一次 Agent Run 可以作为根 Span，下面连接模型、工具、检索、工作流节点和环境操作：
 
-```text
-agent.run
-  ├─ context.build
-  ├─ model.invoke
-  ├─ tool.call
-  │    └─ external.request
-  ├─ state.update
-  ├─ model.invoke
-  └─ grader.evaluate
-```
+| 父 Span | 子操作示例 | 对应观察 |
+|---|---|---|
+| agent.run | context.build、model.invoke、tool.call、grader.evaluate | 每段耗时、状态和输入输出引用 |
+| tool.call | external.request | 下游请求 ID、attempt、错误与回执 |
+
+同名 `model.invoke` 可以出现多次，各自要有独立 Span ID；表中的名称只是本库结构示意。
 
 每个事件至少记录：
 
@@ -114,7 +120,7 @@ remaining_risk: "..."
 
 ## 一条最小可用的失败轨迹
 
-[教学案例](../03-cases/01-from-task-dataset-to-regression.md)的越权任务记录：`trial_start → lookup(scope_checked=False) → trial_end(success=False)`。与候选版对比，首次差异是缺少 `filter(authorized=False)`，因此先修授权过滤；改回答文风解决不了已经读错范围的问题。
+[教学案例](../03-cases/01-from-task-dataset-to-regression.md)的越权任务记录：`trial_start → lookup(scope_checked=False) → trial_end(success=False)`。与候选版对比，首次差异是缺少 `filter(authorized=False)`，结合源码可确认候选版补了返回前的范围判断。因此先修这一逻辑；改回答文风解决不了返回了其他租户记录的问题。这里被测函数本来就持有完整 fixture，事件不证明存储层已按权限隔离读取。
 
 这里事件由被测教学函数主动 emit，不能当独立审计事实。生产工具权限与副作用记录应由 Runtime 产生，防止被测 Agent 漏报。当前工程保留任务/Trial 的顺序事件，不自称完整 OpenTelemetry 导出器。
 

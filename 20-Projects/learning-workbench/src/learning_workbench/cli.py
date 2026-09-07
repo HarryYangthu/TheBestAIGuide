@@ -12,7 +12,7 @@ PROJECT = Path(__file__).resolve().parents[2]
 
 
 def read_jsonl(name):
-    return [json.loads(line) for line in (PROJECT/'fixtures'/name).read_text().splitlines() if line.strip()]
+    return [json.loads(line) for line in (PROJECT/'fixtures'/name).read_text(encoding="utf-8").splitlines() if line.strip()]
 
 
 def corpus(): return [Document(**row) for row in read_jsonl('corpus.jsonl')]
@@ -58,7 +58,7 @@ def model_loop(provider, output, *, one_tool=False):
         if provider is None:policy=OfflineToolPolicy()
         state=run_agent(policy,{'search':Tool(search),'add':Tool(add)},case['query'],
                          max_steps=4,trace_path=str(output/(case['id']+'.trace.jsonl')))
-        events=[json.loads(line) for line in (output/(case['id']+'.trace.jsonl')).read_text().splitlines()]
+        events=[json.loads(line) for line in (output/(case['id']+'.trace.jsonl')).read_text(encoding="utf-8").splitlines()]
         called=[e['data']['name'] for e in events if e['kind']=='tool_call']
         # Runtime observations carry the tool name under `name` in this version;
         # final answer scoring uses independent task labels, not the model's claim.
@@ -71,8 +71,8 @@ def model_loop(provider, output, *, one_tool=False):
     from .redaction import publishable
     for case in read_jsonl('agent-tasks.jsonl'):
         path=output/(case['id']+'.trace.jsonl')
-        rows=[publishable(json.loads(line)) for line in path.read_text().splitlines() if line.strip()]
-        path.write_text(''.join(json.dumps(row,ensure_ascii=False)+'\n' for row in rows))
+        rows=[publishable(json.loads(line)) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+        path.write_text(''.join(json.dumps(row,ensure_ascii=False)+'\n' for row in rows), encoding="utf-8")
     return publishable(results)
 
 
@@ -135,14 +135,14 @@ def main():
             result=injection(provider) if args.task=='injection' else pairwise(read_jsonl('pairwise-tasks.jsonl'),provider)
     else:
         from .documents import markdown_blocks,parent_evidence,parse_pdf
-        text=(PROJECT/'fixtures/structured-manual.md').read_text()
+        text=(PROJECT/'fixtures/structured-manual.md').read_text(encoding="utf-8")
         blocks=markdown_blocks(text)
         result={'blocks':[asdict(b) for b in blocks],
                 'parent_of_table':[asdict(b) for b in parent_evidence(next(b for b in blocks if b.kind=='table'),blocks)],
                 'pdf':parse_pdf(PROJECT/'fixtures/comparison.pdf')}
     target=output/(args.task+'.json')
     from .redaction import publishable
-    target.write_text(json.dumps(publishable(result),ensure_ascii=False,indent=2)+'\n')
+    target.write_text(json.dumps(publishable(result),ensure_ascii=False,indent=2)+'\n', encoding="utf-8")
     print(json.dumps({'task':args.task,'report':str(target),'status':'executed'},ensure_ascii=False))
 
 

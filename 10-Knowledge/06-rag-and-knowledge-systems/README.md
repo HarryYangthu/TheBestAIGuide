@@ -33,8 +33,15 @@
 ## 当前证据边界
 
 - 案例参数是待实验的候选配置，不是本仓实测结论。
-- Lab 与代码已完成离线教学链路并保存输出；真实模型、PDF/OCR、图引擎和业务生产效果尚未运行。
+- 本域 Lab 使用无模型的 BM25/Exact 基线；进阶工程已运行真实检索与生成模型，并保留失败。两组教学数据不同，不能跨实验比较提升。
+- PDF 文本层提取在进阶工程已运行；OCR、图引擎和业务生产效果未验证。
 
-## 配套项目扩展（2026-09-06）
+## 从机制到模型：按这个顺序实践
 
-[真实 Embedding/Reranker、生成式 RAG 与多版本证据](../../20-Projects/learning-workbench/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。
+| 阶段 | 打开什么 | 学完应能判断什么 |
+| --- | --- | --- |
+| 先看证据链 | [本域 Notebook](04-labs/01-hybrid-retrieval-evaluation.ipynb) | 无权限、旧版本、错误编号为什么必须在生成前拦住 |
+| 再比较真实检索 | [模型适配器](../../20-Projects/learning-workbench/src/learning_workbench/retrieval.py)与[24 条结果](../../20-Projects/learning-workbench/artifacts/real-models/retrieval.json) | 同一道 q3，为什么 Dense 找对了而融合把它排低了 |
+| 最后检查生成 | [原始输出](../../20-Projects/learning-workbench/artifacts/real-models/generation.json)与[逐题审阅](../../20-Projects/learning-workbench/artifacts/real-models/generation-review.json) | 引文抄对了为什么主张仍然错，非法 JSON 为什么不能算正确拒答 |
+
+安装和完整命令见 [Learning Workbench](../../20-Projects/learning-workbench/README.md)。先读已保存结果不需要下载权重；要重跑模型实验，再按那里固定的模型 revision 安装。

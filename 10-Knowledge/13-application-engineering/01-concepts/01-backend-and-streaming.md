@@ -6,9 +6,9 @@
 
 ## 接口的职责
 
-`POST /runs` 验证身份和输入，使用请求幂等键创建 Run，返回 run_id；Worker 从队列取任务执行。`GET /runs/{id}` 返回权威状态，`GET /runs/{id}/events` 返回执行进展，`POST /runs/{id}/cancel` 请求取消。这里是接口设计范例，本库浏览器实验实现的是动作执行层，并没有宣称已经部署完整后端。
+`POST /runs` 验证身份和输入，创建 Run，返回 run_id；Worker（后台执行者）取任务执行。`GET /runs/{id}` 返回权威状态，`GET /runs/{id}/events` 返回执行进展，`POST /runs/{id}/cancel` 请求取消。[工作台服务](../../../20-Projects/learning-workbench/src/learning_workbench/server.py)已经实现这些本地接口，用 SQLite 保存状态、线程池执行任务。生产接口还应支持创建请求的幂等键：同一次创建在网络重试时返回同一 Run。本地示例目前每次 POST 创建新 Run，不要把重复点击当作安全重试。
 
-Run 可以经历 `queued → running → waiting_approval → running → completed`，也可以进入 failed 或 cancelled。终态不能因为一个延迟到达的事件变回 running。把所有内容放在“Assistant message”里，会让前端难以区分文本暂时生成完与整个任务真正完成。
+Run 可以经历 `queued → awaiting_approval → queued → running → completed`，也可以进入 failed 或 cancelled。终态不能因为一个延迟到达的事件变回 running。把所有内容放在“Assistant message”里，会让前端难以区分文本暂时生成完与整个任务真正完成。
 
 ## 流式文本与流式状态分开
 
@@ -21,7 +21,7 @@ Run 可以经历 `queued → running → waiting_approval → running → comple
 | `artifact.created` | 产物 ID、名称、版本 | 否 |
 | `run.completed` | 终态版本、最终产物引用 | 是 |
 
-SSE 是服务端向浏览器发送事件的简单方式。每条持久事件带单调 ID，断线后客户端可通过 Last-Event-ID 请求补发。重连本身不提供持久队列，服务端仍须保存事件并实现补发、权限检查和过期处理。
+SSE（Server-Sent Events，服务端发送事件）是服务端向浏览器持续推送事件的方式。上表是推荐的事件分类；本地服务使用更少的事件，如 `started`、`approval_required`、`completed`，并没有实现表中全部工具和文本增量事件。每条持久事件带单调 ID，断线后客户端可通过 Last-Event-ID 请求补发。重连本身不提供持久队列，服务端仍须保存事件并实现补发、权限检查和过期处理。
 
 ```text
 id: 17
@@ -38,6 +38,8 @@ data: {"run_id":"r1","call_id":"c3","artifact_id":"a8"}
 
 可执行的本地示例见[浏览器工程](../05-code/browser-agent-typescript/README.md)：动作有唯一 ID，执行前写 checkpoint，执行后根据页面标记确认结果。这里的 checkpoint 是单进程教学文件，不替代分布式事务。流协议依据[WHATWG SSE](https://html.spec.whatwg.org/multipage/server-sent-events.html)，更多来源见[索引](../references.md)。
 
-## 配套项目扩展（2026-09-06）
+## 用断线和过期版本检查自己是否读懂
 
-[网页工作台与持久 Run 服务](../../../20-Projects/learning-workbench/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。
+按[工作台运行说明](../../../20-Projects/learning-workbench/README.md)启动服务，创建需要批准的任务，记下它的 `version`。刷新页面后仍应看到等待批准，说明任务独立于页面；批准后再用旧版本提交操作，应收到 409，说明状态不能被旧请求覆盖。SSE 重连后按事件 ID 续读；它在本地服务中最多保持 5 秒后重连，这是连接寿命，不是任务超时。实现先读 `RunStore.create/action/events`，再读 `_work`。
+
+如果页面没收到 `completed`，应先 GET 查询状态，再决定是否重建任务。漏掉事件不等于任务没有执行。

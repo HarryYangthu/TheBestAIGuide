@@ -14,7 +14,7 @@
 | 主说明 | 步骤、约束、输入输出、失败处理 | 判定适用后 | 说明太薄，模型需猜流程；太长，挤占任务空间 |
 | 附属资源 | 脚本、模板、详细参考 | 当前步骤实际需要时 | 全量读入浪费上下文；只列路径不说明用途又难找到 |
 
-Agent Skills格式使用包含 `SKILL.md` 的目录，文件的frontmatter至少包括名称与描述。以下只是文档示例，不是已安装Skill：
+Agent Skills格式使用包含 `SKILL.md` 的目录，文件的frontmatter（Markdown 正文前的 YAML 元数据）至少包括名称与描述。下面是最小格式；仓库另有[完整教学包](../../../20-Projects/learning-workbench/skills/evidence-comparison/SKILL.md)，但文件存在不代表宿主已自动发现或安装它：
 
 ```yaml
 ---
@@ -34,3 +34,9 @@ description: 当用户要比较多种技术方案并需要逐条证据时，整�
 把任务分成应触发、不应触发、容易混淆和执行失败四组。先测选择是否正确，再测产物是否满足条件；不能只检查“模型读了文件”。调整描述解决漏选/误选，调整流程解决执行遗漏，调整脚本解决计算错误。一次只改变主要变量，保留旧版对照。
 
 第三方Skill中的说明和脚本必须按来源审查。来自资料的文字不能重写宿主授权规则；脚本运行也需要明确的环境权限。这里的设计原则可与 [工具Runtime](../02-patterns/01-tool-runtime.md)组合：Skill指导怎么用工具，Runtime检查能不能用工具。格式依据：[Agent Skills官方规范](https://agentskills.io/specification)。
+
+## 顺着一个包找到真正运行的部分
+
+打开教学包后，按 `SKILL.md → references/cases.json → scripts/compare.py → assets/comparison.md` 阅读：主说明定义何时使用；案例给触发、非触发、歧义和缺资料输入；脚本检查引用片段是否属于所给来源；模板固定表格列。`compare.py` 不会自己搜索网页，也不会证明引用支持主张，它只验证来源 ID 与片段位置并渲染结果。具体命令见 [workbench](../../../20-Projects/learning-workbench/README.md)。
+
+试着判断“把这段话改通顺”是否应触发这项比较 Skill，再对照[案例](../../../20-Projects/learning-workbench/skills/evidence-comparison/references/cases.json)：预期是 `skip`。这些人工标签是选用规则的例子；脚本把比较表生成正确，不代表已经测过真实宿主能否正确触发。宿主识别、加载、执行和最终质量应分别记录。

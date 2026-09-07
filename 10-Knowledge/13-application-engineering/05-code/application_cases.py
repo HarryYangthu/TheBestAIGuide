@@ -1,5 +1,5 @@
 """Original deterministic teaching cases; no real tenant data or model call."""
-from dataclasses import dataclass
+import math
 
 
 def visible_documents(documents, tenant, principal):
@@ -21,7 +21,8 @@ def operations_recommendation(metrics):
 
 
 def correct_price(amount, discount):
-    if amount < 0 or not 0 <= discount <= 1:
+    """discount is the fraction removed: 0.1 means pay 90% of amount."""
+    if not math.isfinite(amount) or not math.isfinite(discount) or amount < 0 or not 0 <= discount <= 1:
         raise ValueError('invalid price input')
     return amount * (1 - discount)
 

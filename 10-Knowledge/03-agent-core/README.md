@@ -1,6 +1,6 @@
 # Agent Core
 
-> 状态：draft | 配套工程与Notebook的离线控制流程已运行验证；真实LLM效果未评测
+> 状态：draft | 本章规则工程与Notebook已验证；真实本地模型扩展结果见下方入口
 
 从“检索资料并带证据回答”理解Agent。先掌握动作与状态如何变化，再增加计划、验证和恢复。
 
@@ -16,6 +16,6 @@
 
 来源见[参考资料](references.md)。下一站：[上下文工程](../04-context-engineering/README.md)与[工具契约](../05-tools-skills-protocols/README.md)。
 
-## 配套项目扩展（2026-09-06）
+## 从规则策略走到真实模型
 
-[真实模型适配、两工具和 12 条任务评测](../../20-Projects/learning-workbench/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。
+读懂最小 Loop 后，进入 [learning-workbench](../../20-Projects/learning-workbench/README.md)，沿“模型文本 → `ActionModel` 解析 → 本章 `run_agent` → 工具观察 → 下一次决策”读一遍。先查看 [agent-comparison.json](../../20-Projects/learning-workbench/artifacts/real-models/agent-comparison.json)，区分选对工具、正常结束与答对三种结果，再按项目说明运行。受限单工具流程由宿主控制结束阶段，不能把它的成绩当成自由循环能力。

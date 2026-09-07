@@ -31,7 +31,7 @@ def dpo_loss(policy_chosen, policy_rejected, ref_chosen, ref_rejected, beta=0.1)
 
 
 def group_advantages(rewards, epsilon=1e-8):
-    if len(rewards) < 2 or epsilon <= 0 or not all(math.isfinite(r) for r in rewards):
+    if len(rewards) < 2 or not math.isfinite(epsilon) or epsilon <= 0 or not all(math.isfinite(r) for r in rewards):
         raise ValueError('at least two finite rewards and positive epsilon required')
     mean = sum(rewards) / len(rewards)
     std = math.sqrt(sum((r - mean) ** 2 for r in rewards) / len(rewards))

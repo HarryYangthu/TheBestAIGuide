@@ -15,6 +15,6 @@
 
 [实验运行方法](04-labs/README.md) · [完整源码](05-code/README.md) · [一手来源与版本](references.md)。下一域：[Agent Core](../03-agent-core/README.md)。
 
-## 配套项目扩展（2026-09-06）
+## 两条实践路线
 
-[完整 decoder、训练、生成与 LoRA](../../20-Projects/tiny-transformer/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。
+学结构和训练，按上表 1–4 顺序完成 NumPy 算例，再运行 [tiny-transformer](../../20-Projects/tiny-transformer/README.md)：从字符 ID、Attention、标签移位一直走到参数更新与生成。学模型能力和选型，读完 5–6 后进入[学习工作台](../../20-Projects/learning-workbench/README.md)，检查真实任务的成功与失败。小模型训练 loss 下降和系统任务完成率回答不同问题。

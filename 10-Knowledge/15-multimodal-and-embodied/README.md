@@ -11,7 +11,7 @@
 | [多模态上下文与检索](01-concepts/03-multimodal-context-and-rag.md) | 多向量匹配、区域证据和引用 | [evidence.py](05-code/evidence.py) |
 | [Computer Use 与 VLA](01-concepts/04-computer-use-vla-and-embodied.md) | 目标定位、动作契约与恢复边界 | [本地浏览器工程](../13-application-engineering/05-code/browser-agent-typescript/README.md) |
 
-[来源索引](references.md)对应 ViT、CLIP、Whisper、ColPali、OpenVLA 等一手资料。[实验说明](04-labs/README.md)明确本库只实跑人工结构化文档证据，没有运行这些大型模型或机器人。
+[来源索引](references.md)对应 ViT、CLIP、Whisper、ColPali、OpenVLA 等一手资料。[实验说明](04-labs/README.md)覆盖人工结构化文档证据；配套工作台进一步实际解析原创 PDF 文本与页码。两者都没有运行这些视觉/音频大型模型或机器人。
 
 ## 配套项目扩展（2026-09-06）
 

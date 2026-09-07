@@ -21,12 +21,12 @@
 
 ## 两个指标不要混用
 
-定义 `citation precision` 为已给出的“主张—证据对”中真正支持的比例；定义 `claim coverage` 为需要证据的关键主张中获得充分证据的比例。一次回答有 4 个关键主张，只给出 2 个引文且都支持对应主张，引用精度是 100%，主张覆盖只有 50%。
+定义 `citation precision` 为已给出的“主张—证据对”中真正支持的比例；定义 `claim coverage` 为需要证据的关键主张中获得充分证据的比例。一次回答有 4 个需要证据的关键主张，给出 2 个引用对，分别充分支持其中两个不同主张，引用精度是 100%，主张覆盖为 50%。若两个引文都只支持同一个主张，覆盖就是 25%；引用个数不能直接代替主张覆盖数。
 
-\[
+$$
 P_{cite}=\frac{\#\text{支持的引用对}}{\#\text{全部引用对}},\qquad
 C_{claim}=\frac{\#\text{有充分证据的关键主张}}{\#\text{需证据的关键主张}}.
-\]
+$$
 
 分母为零时单独报告不适用，不能默认满分。哪些主张需要证据、怎样判定“充分”，要写入标注指南。开放式答案需要独立人工标签或经校准的 Judge；同一个模型出答案又出标签，不能证明准确性。
 
@@ -57,6 +57,12 @@ assert all(verify_citation(idx,c,tenant="a") for c in result.citations)
 新手册与旧手册冲突时，先确认它们是否针对同一产品、同一时间。多个网站互相转载一个旧结论，也不是多份独立证据。无法确定适用版本时，应并列展示冲突并指出缺失条件。
 
 代码实验见[检索 Notebook](../04-labs/01-hybrid-retrieval-evaluation.ipynb)，完整评分链见[从任务到回归案例](../../10-evaluation-observability/03-cases/01-from-task-dataset-to-regression.md)。方法背景：[RAG 原始论文](https://arxiv.org/abs/2005.11401v4)，本文引用契约与手算指标属于工程化教学设计。
+
+## 真实生成结果怎样审阅
+
+进阶工程已经运行小模型生成，结果见 [generation.json](../../../20-Projects/learning-workbench/artifacts/real-models/generation.json)与[逐题标签](../../../20-Projects/learning-workbench/artifacts/real-models/generation-review.json)。4 道构造题中，3 道没有产生可接受的 JSON；另 1 道 g2 引文身份通过，但问题问温度，主张却讨论断电，引文也只谈温度。这个结果能同时满足“引文来自原文”和“没有回答问题”。
+
+阅读时按三步检查：先看输出契约是否通过；再逐对核对主张和引文；最后看所有主张合起来有没有回答原问题。g2 失败在第二、三步；其余三道不能跳过解析错误按意图猜成正确答案。这里的标签是作者对具体输出的审阅，样本少且没有独立专家标注，不是模型能力基准。
 
 ## 一次审阅发现的编号反例
 

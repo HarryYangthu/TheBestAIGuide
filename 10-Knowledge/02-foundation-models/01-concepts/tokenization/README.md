@@ -55,6 +55,6 @@ Padding 需要正确的 attention mask 与 loss mask。把 PAD 当普通目标�
 
 [运行 BPE 与 Attention 实验](../../04-labs/01-tokenization-and-attention.ipynb) · [BPE 源码](../../05-code/model_mechanics.py) · [来源](../../references.md)。继续：[Transformer](../transformer/README.md)。
 
-## 配套项目扩展（2026-09-06）
+## 把编号接到 Embedding，再检查实际预算
 
-[完整 decoder、训练、生成与 LoRA](../../../../20-Projects/tiny-transformer/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。
+[tiny-transformer](../../../../20-Projects/tiny-transformer/README.md)用字符词表串起 `encode → Embedding → logits → decode`，适合逐个 ID 跟踪。之后用[学习工作台](../../../../20-Projects/learning-workbench/README.md)的 `tokenizer` 实验检查固定版本真实 tokenizer 的中文、代码、emoji 和聊天模板开销；两套 tokenizer 不共享词表，结果不能互相替代。

@@ -115,7 +115,11 @@ class RunStore:
                 index=Index()
                 for document in corpus():index.upsert(document)
                 with self.model_lock:
-                    result["generation"]=generated_answer(index,request["query"],self.provider,tenant=item["owner"])
+                    # The generation stage must use the same source scope as
+                    # the extractive answer above; otherwise v1/v2 can mix.
+                    result["generation"]=generated_answer(
+                        index, request["query"], self.provider,
+                        tenant=service.tenant, product=service.product, version=service.version)
             with self.lock:
                 if self._read(run_id)['state']=='cancelled':return
                 self._transition(run_id,'completed','completed',result)

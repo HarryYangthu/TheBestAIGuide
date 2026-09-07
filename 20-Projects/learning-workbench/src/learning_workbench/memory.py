@@ -4,21 +4,57 @@ import re
 from state_memory import MemoryStore
 
 
+FORMAT_PATTERNS = {
+    'table': r'表格|\btables?\b',
+    'bullets': r'分条|列表|\bbullets?\b',
+    'paragraph': r'段落|\bparagraphs?\b',
+}
+DURABLE_FORMATS = (
+    r'(?:我以后|我一直|以后请给我)\s*(?:希望|喜欢|习惯)?\s*(?:用|使用)?\s*'
+    r'(?:表格|分条|列表|段落)(?:回答|回复|作答)?[。.!！]?',
+    r'(?:I always|For future replies)[ ,]*(?:prefer|use)?\s*'
+    r'(?:tables?|bullets?|paragraphs?)[.!]?',
+)
+CURRENT_FORMATS = (
+    r'(?:这次|本次)?\s*请?\s*(?:用|使用)\s*(?:表格|分条|列表|段落)'
+    r'(?:回答|回复|作答|解释\s*State\s*和\s*Memory)?[。.!！]?',
+    r'(?:please\s+)?use\s+(?:tables?|bullets?|paragraphs?)'
+    r'(?:\s+to explain State and Memory)?[.!]?',
+)
+
+
 def preference(text):
-    if any(x in text for x in ['表格', 'table']): return 'table'
-    if any(x in text for x in ['分条', '列表', 'bullets']): return 'bullets'
-    if any(x in text for x in ['段落', 'paragraph']): return 'paragraph'
-    return None
+    """Recognize one affirmative format; reject rather than invert a negation.
+
+    Only complete affirmative templates are accepted. Any format mention in
+    another sentence is unsupported: do not infer intent from a keyword or a
+    list of negation words. The caller must expose that limitation.
+    """
+    matches = [name for name, pattern in FORMAT_PATTERNS.items()
+               if re.search(pattern, text, re.I)]
+    if not matches:
+        return None
+    if len(matches) != 1 or not any(
+            re.fullmatch(pattern, text.strip(), re.I)
+            for pattern in (*DURABLE_FORMATS, *CURRENT_FORMATS)):
+        raise ValueError('unsupported format expression; use one complete affirmative template')
+    return matches[0]
 
 
 def extract_preference(text, *, subject, source):
     # Limited, inspectable grammar. A statement about another person never
     # inherits the authenticated subject merely because a model suggested it.
-    persistent = re.search(r'^(我以后|我一直|以后请给我|I always|For future replies)', text)
+    text = text.strip()
+    persistent = re.search(r'^(我以后|我一直|以后请给我|I always|For future replies)', text, re.I)
     transient = any(x in text for x in ['这次', '今天', '临时', 'this time', 'today'])
-    value = preference(text)
+    try:
+        value = preference(text)
+    except ValueError as error:
+        return {'accepted': False, 'reason': str(error)}
     if not persistent or transient or value is None:
         return {'accepted': False, 'reason': 'not an explicit durable self-preference'}
+    if not any(re.fullmatch(pattern, text, re.I) for pattern in DURABLE_FORMATS):
+        return {'accepted': False, 'reason': 'unsupported preference grammar; use one direct self-preference'}
     return {'accepted': True, 'subject': subject, 'key': 'answer_format',
             'value': value, 'source': source}
 
@@ -41,6 +77,8 @@ class MemoryAssistant:
         return {'accepted': True, 'memory': asdict(saved), 'replaced': old is not None}
 
     def reply(self, task, *, subject, now, use_memory=True):
+        # An unsupported current instruction must not silently fall back to an
+        # older table preference that the user has just negated.
         current = preference(task)
         saved = self.store.get(subject, 'answer_format', now) if use_memory else None
         style = current or (saved.value if saved else 'paragraph')

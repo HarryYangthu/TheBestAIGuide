@@ -11,6 +11,8 @@
 stateDiagram-v2
     [*] --> Pending
     Pending --> Running: 取得执行名额
+    Pending --> TimedOut: 排队期限到达
+    Pending --> Cancelled: 排队时取消
     Running --> Succeeded: 产物校验通过
     Running --> Failed: 工具或契约错误
     Running --> TimedOut: 期限到达
@@ -38,7 +40,7 @@ stateDiagram-v2
 
 ```python
 allowed = {
-    "pending": {"running", "cancelled"},
+    "pending": {"running", "timed_out", "cancelled"},
     "running": {"succeeded", "failed", "timed_out", "cancelled"},
     "succeeded": set(),
 }
@@ -48,7 +50,7 @@ if next_status not in allowed[current_status]:
 
 这段说明性代码检查合法边。在多个进程并发更新时，还要加“版本必须等于我读取的版本”条件，避免两个进程都以为自己拥有任务。单纯在 Python 中先检查再写入，不能代替数据库事务。
 
-复现实验中的协调器使用更小的状态集：`queued/started/completed/timeout/error/cancelled` 记录为事件，输出汇总为 `ok/error/timeout`。外部取消通过异常向上传播，不伪造成正常返回。这个实现适合观察控制流；它没有分布式抢占任务的租约，也没有自动执行任意 DAG 的调度器。
+复现实验中的协调器使用更小的状态集：`queued/started/completed/timeout/error/cancelled` 记录为事件，输出汇总为 `ok/error/timeout`。外部取消通过异常向上传播，不伪造成正常返回。这个基础实现适合观察独立 Worker 的控制流；它没有分布式抢占任务的租约，也没有依赖调度器。进阶工程另有 [Plan.execute](../../../20-Projects/learning-workbench/src/learning_workbench/planning.py)，会检查环与缺失前驱，再按就绪批次执行 DAG。它等待同一批任务结束后才调度下一批，属于容易读懂的批次调度，不是任一节点刚完成就立即补满并发槽位的高吞吐调度器。
 
 ## 学习时检查一个重要不变量
 

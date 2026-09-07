@@ -32,6 +32,19 @@
 | pass@k | 允许 `k` 个候选时至少一个成功的概率或相应估计 | 单次运行可靠性 |
 | pass^k | 本仓用于讨论连续或成组 `k` 次全部成功的自定义稳定性记号，使用时必须给出定义 | 统一标准化指标 |
 
+## 读公式与报告时常见的缩写
+
+| 记号 | 怎样读 | 在本库哪里看完整机制 |
+| --- | --- | --- |
+| Token / Embedding | 分词后的单位 / 单位对应的数值向量；不是同一件事 | [分词](../10-Knowledge/02-foundation-models/01-concepts/tokenization/README.md) |
+| Q、K、V | Attention 的查询、键、值向量；Q 在强化学习中还可能指动作价值，应按本篇定义读 | [Attention](../10-Knowledge/02-foundation-models/01-concepts/transformer/README.md) |
+| Logit / Softmax | 未归一化分数 / 将一组分数转成和为 1 的权重或概率 | [模型与推理](../10-Knowledge/02-foundation-models/README.md) |
+| SFT / LoRA / DPO | 示范监督微调 / 低秩参数更新 / 偏好对优化；分别描述目标或参数化方法，可以组合 | [训练机制](../10-Knowledge/02-foundation-models/01-concepts/training/README.md) |
+| TTL / CAS | 有效期限 / 写入前比较版本是否仍匹配；CAS 不判断事实真假 | [记忆生命周期](../10-Knowledge/07-state-and-memory/01-concepts/02-memory-lifecycle.md) |
+| DAG | 有向无环的依赖图；图中边表示先有哪个结果，后续任务才能做 | [规划与重规划](../10-Knowledge/08-planning-workflow-multi-agent/01-concepts/01-planning-and-replanning.md) |
+| SLI / SLO / p95 | 实测服务指标 / 该指标的目标 / 第 95 百分位；必须说明单位、统计窗口与样本范围 | [可靠性与成本](../10-Knowledge/14-production-engineering/01-concepts/02-slos-reliability-and-cost.md) |
+| fixture / baseline / ablation | 固定实验输入 / 对照方案 / 移除或改变一个组件的实验 | [任务与数据集](../10-Knowledge/10-evaluation-observability/01-concepts/02-tasks-datasets-and-trials.md) |
+
 ## 术语关系入口
 
 - [Agent 系统学习路线](Learning-Paths.md)

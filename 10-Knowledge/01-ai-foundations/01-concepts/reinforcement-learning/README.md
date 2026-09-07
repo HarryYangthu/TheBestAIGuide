@@ -56,4 +56,14 @@ $\epsilon$-greedy 以概率 $\epsilon$ 随机选动作，否则选当前最优�
 
 训练和评估要分开：评估冻结参数、关闭无意探索，在未参与调参的环境种子和任务上比较规则基线。至少记录成功率、回报、步数、预算超限和非法动作。更高回报不一定意味着业务更好，先检查奖励是否和业务目标一致。
 
+## 5. 从 Q 表走到可训练的策略
+
+动作很多、状态连续时，逐格保存 Q 表不方便。可以用神经网络直接输出 $\pi_\theta(a\mid s)$，并根据采样回报调整动作概率。Actor 指选择动作的策略；Critic 估计状态/动作价值，为策略提供学习信号。它们是训练中的功能分工，不是两个聊天 Agent。
+
+优势 $A^\pi(s,a)=Q^\pi(s,a)-V^\pi(s)$ 衡量动作比“这个状态下按原策略行动的平均水平”好多少。例如两个动作概率都为 0.5，Q 值为 3 和 1，则 $V=2$，两个优势为 1 和 -1。更新应倾向第一个动作、降低第二个动作概率。
+
+给定采样轨迹及已估计的优势 $\hat A_t$，一种策略更新的代理损失为 $L=-\frac1N\sum_t\operatorname{stopgrad}(\hat A_t)\log\pi_\theta(a_t\mid s_t)$。$N$ 是这批有效动作数，`stopgrad` 表示本次策略更新把优势视为固定数值。对 log 概率的导数是 $-\hat A_t/N$：正优势推动该动作概率上升，负优势相反。因此不需要让梯度穿过离散工具执行或环境本身，梯度通过策略给已采样动作分配的 log 概率传播。
+
+这是理解策略梯度方向的教学写法；完整算法还需明确回报/优势估计、折扣和采样分布。若重复使用旧策略采集的数据，还要处理新旧策略概率不同的问题。[模型训练](../../../02-foundation-models/01-concepts/training/README.md)继续解释 PPO 的概率比与裁剪，[tiny-transformer](../../../../20-Projects/tiny-transformer/README.md)含独立两动作策略的一步梯度实验。
+
 [运行价值迭代与 Q-learning](../../04-labs/search-and-rl/01-search-and-value-learning.ipynb) · [源码](../../05-code/foundations_core.py) · [来源](../../references.md)。大模型轨迹训练见 [Agent Learning](../../../12-agent-learning/README.md)。

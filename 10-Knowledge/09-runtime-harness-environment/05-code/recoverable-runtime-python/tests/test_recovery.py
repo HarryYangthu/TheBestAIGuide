@@ -53,6 +53,16 @@ class RecoveryTests(unittest.TestCase):
         self.runner.compensate('r','x')
         self.assertEqual(self.ledger.snapshot()['net'],0)
 
+    def test_rejected_pending_compensation_does_not_create_effect(self):
+        with self.assertRaises(InjectedCrash):
+            self.runner.execute('r', 'x', 10, 'before_effect')
+        with self.assertRaises(ValueError):
+            self.runner.compensate('r', 'x')
+        self.assertEqual(self.ledger.snapshot()['charge_count'], 0)
+        # execute 的契约是确保动作完成，不是只读对账。
+        self.runner.execute('r', 'x', 10)
+        self.assertEqual(self.ledger.snapshot()['charge_count'], 1)
+
     def test_key_separates_run_and_step(self):
         self.runner.execute('a:b','c',2);self.runner.execute('a','b:c',3)
         self.assertEqual(self.ledger.snapshot()['charge_count'],2)

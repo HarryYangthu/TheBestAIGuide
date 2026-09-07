@@ -1,7 +1,7 @@
 # 接入与解析：先确认知识没有在入口处变形
 
 > 状态：draft
-> 资料核验：2026-09-06；教学实现可运行，PDF/OCR 工具链未在本仓执行。
+> 资料核验：2026-09-06；本域演示 UTF-8 接入；进阶工程已执行 PDF 文本提取，未执行 OCR。
 > 前置：[RAG 端到端流程](01-rag-pipeline.md)
 
 如果原文写的是“电压低于 10 V **不得**重启”，解析结果丢掉“不得”，后面的检索和生成即使完全正确，也只会把错误步骤讲得更像真的。接入首先要解决的是：让机器拿到的内容与原文一致，并且保留结论成立的条件。
@@ -45,11 +45,11 @@ OCR 负责识别“写了哪些字”；版面分析负责判断“这些字属�
 
 可以把解析质量分成两层。字符错误率看整体转录误差：
 
-\[
+$$
 \mathrm{CER}=\frac{S+D+I}{N}
-\]
+$$
 
-其中 \(S,D,I\) 分别是替换、删除和插入字符数，\(N\) 是人工参考文本字符数，分母为零的空页另行统计。参考文本有 100 个字符，发生 2 次替换和 1 次删除，CER 为 3%。这只是计数例子，未运行 OCR。
+其中 $S,D,I$ 分别是替换、删除和插入字符数，$N$ 是人工参考文本字符数，分母为零的空页另行统计。参考文本有 100 个字符，发生 2 次替换和 1 次删除，CER 为 3%。这只是计数例子，未运行 OCR。
 
 但 3% 的错误可能全落在标点，也可能恰好落在三个故障码上。因此还要单独统计关键字段精确正确率，以及“型号—条件—动作”三元组是否完整。指标合格不替代高风险步骤抽查。
 
@@ -74,6 +74,6 @@ index = Index()
 index.upsert(doc)
 ```
 
-完整代码在 [ingest.py](../05-code/rag-pipeline-python/src/rag_pipeline/ingest.py)。运行入口见[工程说明](../05-code/rag-pipeline-python/README.md)。进入 PDF/OCR 时保留同样的来源契约，把解析器输出转换为有来源的文档块，再进入[切块与元数据](04-chunking-and-metadata.md)。本仓尚未实现 bbox 存储和 OCR，它们不能从当前代码的通过率中获得验证。
+完整代码在 [ingest.py](../05-code/rag-pipeline-python/src/rag_pipeline/ingest.py)。运行入口见[工程说明](../05-code/rag-pipeline-python/README.md)。进入 PDF/OCR 时保留同样的来源契约，把解析器输出转换为有来源的文档块，再进入[切块与元数据](04-chunking-and-metadata.md)。本域的 `Document/Chunk` 只保留字符偏移。进阶工程的 [documents.py](../../../20-Projects/learning-workbench/src/learning_workbench/documents.py)与[多模态教学任务](../../../20-Projects/learning-workbench/src/learning_workbench/practice.py)已处理自制 PDF 的文本和页码，也记录文本起点坐标；起点不是整段的精确包围框。OCR、复杂版面重建仍未执行，不能用文本层提取成功来证明它们有效。
 
 [1] [Docling Technical Report，v5](https://arxiv.org/abs/2408.09869v5)。更完整的来源范围见[资源索引](../references.md)。

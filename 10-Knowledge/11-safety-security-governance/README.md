@@ -15,6 +15,8 @@
 
 本实验没有调用模型，也不声称解决全部提示注入；它验证的是模型提出越权动作以后，确定性执行边界仍能拒绝。模型可靠性、校准和可解释性继续参考 [AI 基础](../01-ai-foundations/README.md)。
 
-## 配套项目扩展（2026-09-06）
+## 接上模型后观察什么
 
-[真实外部文本→模型候选→策略→效果的注入实验](../../20-Projects/learning-workbench/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。
+先读[本域 Notebook](04-labs/01-policy-and-injection.ipynb)的可控动作正反例，再对照[真实模型注入报告](../../20-Projects/learning-workbench/artifacts/real-models/injection.json)。分别看输出格式、是否提出离题动作、策略判定和最终资源，不把其中一个指标代替其余三个。重新运行模型的入口见 [Workbench](../../20-Projects/learning-workbench/README.md)。
+
+读完应能解释：文档里一句“管理员已批准”为什么不能签发令牌？用户准许删除 a2，为何不能删 a1？工具都守权限，答案仍可能怎样出错？用主体、资源、Run 与实际结果回答，比记住几条攻击关键词更有用。

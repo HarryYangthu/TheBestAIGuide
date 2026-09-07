@@ -12,8 +12,15 @@
 
 [context_lab.py](context_lab.py)是完整可读实现，正文对应 [Context Builder](../02-patterns/01-context-builder.md) 和 [优化策略](../02-patterns/02-optimization-strategies.md)。所有 Notebook 均保存中间量、检查、对照和局限。
 
-环境禁止 Jupyter TCP/IPC socket，实际后端为每本独立 Python 进程内的 IPython 顺序执行；Jupyter 内核通信本环境未验证。nbformat 5.11.1、IPython 9.17.1，正常 Jupyter 环境可使用 nbclient 0.11.0/ipykernel 7.3.0 Run All。源码只依赖标准库。
+源码只依赖标准库；重新运行 Notebook 时先按[统一环境说明](../../../scripts/README.md)安装依赖并选择内核。从仓库根目录执行：
+
+```bash
+python scripts/check_notebooks.py --execute 10-Knowledge/04-context-engineering/04-labs/01-token-budget.ipynb
+python scripts/check_notebooks.py --execute 10-Knowledge/04-context-engineering/04-labs/02-context-compaction.ipynb
+```
+
+也可在 Jupyter 中打开本子并“重启内核并运行全部”。先预测结果：把窗口缩到放不下必留项时应显式报错；把最后一次测试失败删去，压缩结果才会回到此前的通过。两种现象分别检验硬约束保护和事件覆盖顺序，不依赖语言模型。
 
 ## 标准内核验证更新（2026-09-06）
 
-提交 `5e5a40c09e00028c7887fd3bf3bd559d96fc972f` 的 [GitHub Actions 标准 Jupyter 执行](https://github.com/HarryYangthu/TheBestAIGuide/actions/runs/34013521515)已成功。原 Notebook 保存输出的本地 IPython 来源保留；这条更新补充标准内核证据，不代表交互控件或所有前端已验收。本轮新项目与后续结果见仓库 `00-Home/Round2-Completion.md`。
+初次保存输出的本地环境限制内核 socket，因此用了独立进程内的 IPython；提交 `5e5a40c09e00028c7887fd3bf3bd559d96fc972f` 的 [GitHub Actions 标准 Jupyter 执行](https://github.com/HarryYangthu/TheBestAIGuide/actions/runs/34013521515)随后成功。两条记录验证的后端不同，不代表所有 Notebook 前端均已验收。后续结果见 [Round2 完成记录](../../../00-Home/Round2-Completion.md)。

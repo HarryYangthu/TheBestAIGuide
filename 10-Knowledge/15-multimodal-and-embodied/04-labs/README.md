@@ -10,7 +10,7 @@
 python scripts/check_notebooks.py --execute --backend ipython-fallback 10-Knowledge/15-multimodal-and-embodied/04-labs/01-document-evidence.ipynb
 ```
 
-结构查询在 3 个已知人工问题上返回 3 个正确值，故意弱化的扁平基线返回 2 个。这个差异只演示结构作用，不能作为 OCR/VLM 真实准确率。实现与 4 个独立测试见[代码目录](../05-code/README.md)。
+结构查询在 3 个已知人工问题上返回 3 个正确值，故意弱化的扁平基线返回 2 个。这个差异只演示结构作用，不能作为 OCR/VLM 真实准确率。实现与 5 个独立测试见[代码目录](../05-code/README.md)。
 
 ## 标准内核验证更新（2026-09-06）
 

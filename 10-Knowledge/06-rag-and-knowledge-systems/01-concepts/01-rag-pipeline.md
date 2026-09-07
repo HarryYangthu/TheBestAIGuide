@@ -167,4 +167,4 @@ Chunk 长度没有普适最优值，需要针对语料、查询和模型评测�
 
 配套 [RAG Pipeline](../05-code/rag-pipeline-python/README.md)已实现：本地 UTF-8/JSONL 接入、段落切块、租户/版本/产品/编号过滤、BM25 与 Exact 融合、原文摘录与引用验证。按顺序读取 `ingest.py → chunking.py → retrieval.py → citations.py`，再运行 [Notebook](../04-labs/01-hybrid-retrieval-evaluation.ipynb)。
 
-先用抽取式输出，是为了把“搜没搜到、有没有读错版本、引用有没有失效”与“模型有没有正确组织答案”拆开。真实 Dense/Reranker 和生成模型尚未运行；跨语言查询保留零召回失败，不能把此工程描述为已经完成所有 RAG 组件的效果验证。
+先用抽取式输出，是为了把“搜没搜到、有没有读错版本、引用有没有失效”与“模型有没有正确组织答案”拆开。这个基础工程的 Notebook 没有调用 Dense/Reranker 或生成模型，跨语言查询保留零召回失败。学完它，再进入 [Learning Workbench 的模型检索实现](../../../20-Projects/learning-workbench/src/learning_workbench/retrieval.py)与[已保存结果](../../../20-Projects/learning-workbench/artifacts/real-models/retrieval.json)：那里运行了真实模型，使用的是另一组英文教学题，不能把两组分数直接相减来声称模型带来了多少收益。

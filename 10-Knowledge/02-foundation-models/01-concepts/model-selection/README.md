@@ -61,6 +61,6 @@ A 支配 C，但 A 与 B 各有优劣。若要求成功率至少0.88，B才可�
 
 [运行 Pareto 与成本小实验](../../04-labs/02-decoding-cache-and-precision.ipynb) · [评测体系](../../../10-evaluation-observability/README.md) · [一手来源](../../references.md)。
 
-## 配套项目扩展（2026-09-06）
+## 用任务结果填自己的选型表
 
-[完整 decoder、训练、生成与 LoRA](../../../../20-Projects/tiny-transformer/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。
+[学习工作台](../../../../20-Projects/learning-workbench/README.md)记录固定版本小模型、规则基线与限制工具步骤后的任务结果。它展示如何分开记录格式合法、工具选择正确、流程完成和最终答案正确；样本很小，不能当模型排行榜。把同样的口径换到自己的独立任务集，才是这篇文章对应的选型实践。

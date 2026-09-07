@@ -2,28 +2,56 @@
 
 这个项目补上“理解机制之后，怎样把它跑起来”的一段路。默认路径用本地数据和明确规则检查系统行为；可选路径接入真实模型，记录回答、工具动作、token 用量和失败。两类结果分开保存。
 
-建议先运行记忆和审批服务，再读生成式 RAG，最后做模型评测与多源研究。命令均从**仓库根目录**执行。
+这里有多种任务，第一次不需要全部安装、全部运行。先做记忆实验：读一条偏好，保存到 SQLite，再用它改变下一次回答格式；然后再选你关心的检索、规划或服务主题。命令均从**仓库根目录**执行，推荐 Python 3.12；核心离线任务支持 Python 3.11+。
 
 ## 安装与第一个任务
 
+记忆、规则 Agent、规划、审批服务、上下文装配、统计和队列只需要 Python 标准库。先运行这一条：
+
 ```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements-dev.lock
 python scripts/run_python.py -m learning_workbench.cli memory --output .runs/memory
-python scripts/run_python.py -m learning_workbench.server --port 8765
 ```
 
-打开 `http://127.0.0.1:8765`，创建任务 → 等待批准 → 批准 → 查看结果与事件。默认演示身份 `demo-alice` 属于 alpha 租户，`demo-bob` 属于 beta。它们是固定教学身份，不是真实账号系统。服务只监听本机。
+终端会返回 `{"task": "memory", "report": ".runs/memory/memory.json", "status": "executed"}`。`executed` 表示程序已经运行，不是“所有题都答对”的评分。打开报告，先看下面三个案例：
 
-可选的模型/PDF实验：
+| 案例 | 输入变化 | 无记忆 / 有记忆的回答格式 | 这说明什么 |
+| --- | --- | --- | --- |
+| `m0` | Alice 说“我以后希望用表格回答” | `paragraph` / `table` | 明确的长期偏好被保存，下一次能召回 |
+| `m1` | 改成“这次用表格” | `paragraph` / `paragraph` | 临时要求不应影响下一次会话 |
+| `m3` | 已保存表格偏好，但当前要求段落 | `paragraph` / `paragraph` | 当前要求覆盖旧偏好 |
+
+每条记录中的 `events` 是记忆写入/删除结果，`answers.with_memory.context.selected_memory` 是本次真正召回的记录，`correct` 才是与教学标签的比较。当前 8 个固定案例为无记忆 6/8、有记忆 8/8；它只验证格式规则，不能代表通用记忆准确率。完整输入见 [memory-tasks.jsonl](fixtures/memory-tasks.jsonl)，实现从 [MemoryAssistant.remember / reply](src/learning_workbench/memory.py) 开始读。
+
+要顺着中间量学习，打开 [实验 Notebook](01-evidence-and-model-results.ipynb)。它显示检索排序与评分、一个“引用真实但答非所问”的模型失败、关闭后重新打开数据库的记忆实验，以及 Task 级统计；不会下载或重新运行预训练模型。
+
+### 按任务补依赖
+
+先创建虚拟环境：`python -m venv .venv`。macOS/Linux 用 `source .venv/bin/activate` 激活；Windows 可以直接用 `.venv\Scripts\python.exe` 替换下方命令中的 `python`，无需修改执行策略。
+
+| 想运行的内容 | 需要安装什么 | 是否下载模型 |
+| --- | --- | --- |
+| 上面的标准库任务、审批服务、A2A | 无额外包；A2A 需要可用的本机 HTTP | 否 |
+| 代码修复 `practice repair` | 系统中有 Git，可运行 `git --version` | 否 |
+| Notebook、科学实验与开发检查 | `python -m pip install -r requirements-dev.lock` | 否 |
+| `documents`、`practice media`、文献 PDF 解析 | `python -m pip install pypdf==6.1.0 reportlab==4.4.3` | 否；文献 `--fetch` 单独下载论文 |
+| 本地聊天、Dense、Cross-Encoder、tokenizer | 下方两条模型安装命令 | 是，首次运行需要网络、内存和磁盘 |
 
 ```bash
-pip install torch==2.8.0 --index-url https://download.pytorch.org/whl/cpu
-pip install -r requirements-learning.txt
+python -m pip install torch==2.8.0 --index-url https://download.pytorch.org/whl/cpu
+python -m pip install -r requirements-learning.txt
 ```
 
-直接依赖固定版本，但此文件不是完整传递依赖锁。下载模型需要网络和磁盘；默认服务、记忆、规划和队列不下载模型。
+模型依赖固定了直接版本，不是完整传递依赖锁。Notebook 在支持 `.ipynb` 的编辑器中选择这个虚拟环境内核；`requirements-dev.lock` 提供执行依赖，不包含独立 Jupyter 网页编辑器。无需为阅读已存报告安装模型依赖。
+
+### 下一步选一个问题
+
+| 我想学会什么 | 先读知识 | 再读本页 |
+| --- | --- | --- |
+| 保存什么，当前要求如何覆盖旧记忆 | [记忆生命周期](../../10-Knowledge/07-state-and-memory/01-concepts/02-memory-lifecycle.md) | [跨会话记忆](#3-从一句话到下一次会话的记忆) |
+| 找到文档后，怎样避免错引和答非所问 | [引用与 Grounding](../../10-Knowledge/06-rag-and-knowledge-systems/01-concepts/07-citations-and-grounding.md) | [检索与生成](#2-检索生成和证据支持不能混为一谈) |
+| 工具已经调用，为什么任务还没完成 | [Agent Loop](../../10-Knowledge/03-agent-core/01-concepts/02-agent-loop.md) | [模型接入](#1-模型如何接入-agent-loop) |
+| 证据更新后，哪些工作要重做 | [规划与重规划](../../10-Knowledge/08-planning-workflow-multi-agent/01-concepts/01-planning-and-replanning.md) | [规划实验](#3-从一句话到下一次会话的记忆) |
+| 后端怎样等待批准并持续展示状态 | [后端与流式返回](../../10-Knowledge/13-application-engineering/01-concepts/01-backend-and-streaming.md) | [审批服务](#4-从任务状态到浏览器) |
 
 ## 项目地图
 
@@ -57,7 +85,9 @@ python scripts/run_python.py -m learning_workbench.cli agent --one-tool --provid
 
 不传 `--provider` 可运行同一 12 题的确定性基线；它只识别加法与本地风扇资料任务，不是假模型。
 
-每次换新的输出目录，避免覆盖已有 trace。输出包含 12 个任务的真实结果；任务数据在 [agent-tasks.jsonl](fixtures/agent-tasks.jsonl)，不等于单元测试。
+Agent 的输出目录要用新的，例如下次改成 `.runs/agent-02`：trace 采用排他创建，同一路径重复执行会报 `FileExistsError`。不要把这个错误当成模型失败；保留旧结果，换目录即可。其他 CLI 实验会覆写指定目录的同名 JSON，若要比较修改前后也应换目录。
+
+`agent.json` 每条记录的 `called_tools` 是实际调用顺序，`tool_selection_correct` 仅表示期望工具曾出现，`completed` 表示循环正常终止，`answer_match` 则只是答案包含固定关键词/数字的检查。例如把 `42` 写在无关句子里，也可能通过字符串匹配。因此要同时看 trace、完成状态与原回答，不能只看一个布尔值。任务数据在 [agent-tasks.jsonl](fixtures/agent-tasks.jsonl)，不等于单元测试。
 
 远端路径配置 `AI_GUIDE_BASE_URL`、`AI_GUIDE_MODEL`、`AI_GUIDE_API_KEY`，再改用 `--provider api`。Base URL 指向兼容 Chat Completions 的 API 根目录，适配器拼接 `/chat/completions`。密钥由环境提供，不能放进 Notebook、trace 或仓库。
 
@@ -78,7 +108,9 @@ python scripts/run_python.py -m learning_workbench.cli rag --provider local \
   --revision 7ae557604adf67be50417f59c2c2f167def9a775 --output .runs/rag
 ```
 
-[retrieval.json](artifacts/real-models/retrieval.json)保存同一 6 题的 4 种检索模式，共 24 次结果；小型英文构造集不能证明中文业务效果。Recall@k 衡量相关片段是否找全，MRR 看首个相关结果的位置。重排只重排候选，无法找回完全没召回的证据。
+[retrieval.json](artifacts/real-models/retrieval.json)保存同一 6 题的 4 种检索模式，共 24 次结果；小型英文构造集不能证明中文业务效果。这里按**文档 ID**评分：一条问题的 `recall_at_3` 是找回的相关文档数除以标签中的相关文档数；`reciprocal_rank` 是第一个相关文档排名的倒数，所有问题的均值才叫 MRR。不是按片段数重复计分。
+
+例如 `q3` 的唯一相关文档是 `network`。Hybrid 排序把它放第 3 位，所以 Recall@3 = 1/1 = 1，RR = 1/3；重排后第 1 位，RR = 1。召回已经完整，改善的是位置。这也说明 Hybrid 不一定优于 Dense：这题 Dense 原本已排第 1 位。重排只处理候选，无法找回完全没召回的证据。Notebook 会从保存的结果重新计算这两个分数。
 
 生成答案后做三层判断：
 
@@ -89,6 +121,8 @@ python scripts/run_python.py -m learning_workbench.cli rag --provider local \
 | 回答了问题 | 检查题目目标、版本、单位、前提与拒答 | 有引用或 JSON 合法就算正确 |
 
 [真实生成结果](artifacts/real-models/generation.json)有意保留失败：小模型可能返回不完整 JSON，也可能抄对引文却写错主张。[逐题审阅](artifacts/real-models/generation-review.json)与原始输出分开。需要上线的系统必须对这些失败继续处理；这个适配器交付了完整实验链路，没有承诺该小模型足以服务用户。
+
+只想先学习检索代码，可不安装模型，运行 `python scripts/run_python.py -m learning_workbench.cli retrieval --output .runs/bm25`。这时只执行 BM25，报告 `trials` 中只有 6 行，不会用伪向量填充另外三种模式。`rag` 命令当前也使用词法检索再调用生成模型；它不会自动接上上一步 Dense 实验的输出。要组合两者，应显式创建带 `embedder`/`reranker` 的 `Index`，再传给 `generated_answer`。
 
 `compare_versions` 分别检索两个版本；任何一侧没有证据就不能比较。结构化 Markdown 解析保留表格和代码块的原文偏移，父段落回读可补上“先断电”等条件。它是本仓受限格式解析器，不是完整 CommonMark AST。
 
@@ -103,7 +137,13 @@ python scripts/run_python.py -m learning_workbench.cli multi --output .runs/plan
 
 [记忆结果](artifacts/offline/memory.json)同时列无记忆和有记忆输出，覆盖长期/临时、当前覆盖、他人、过期、删除。回答内容是固定的 State/Memory 概念解释，格式由规则决定，不能称为通用对话模型。规则的好处是能把“写错记忆”和“模型没遵循格式”两个问题先拆开。
 
-[规划 trace](artifacts/offline/planning.json)记录每个角色输入输出和更新后的失效范围。这个版本使用规则角色；真实模型角色比较见文献任务。
+这不是任意中文偏好解析器。持久偏好与当前请求都只接受源码 `DURABLE_FORMATS` / `CURRENT_FORMATS` 中完整匹配的肯定句模板，例如“我以后希望用表格回答”“这次用段落解释State和Memory”“Please use bullets”。它不靠罗列否定词猜意思。出现格式词但没有匹配模板时，写入返回 `accepted=false` 并附原因，不改动旧记录；当前请求则抛出 `ValueError`，要求改写成受支持模板。因此“这次无需使用表格”“I cannot use tables”“取消表格，正常解释”等不会被当成使用表格，也不会悄悄沿用旧表格偏好。普通任务不含格式词时，才使用已有记忆或默认段落。删除旧偏好应调用 `store.forget(subject, 'answer_format')`；拒绝解析不等于删除。带引语、条件或多人的复杂表达仍需更完整的提取器与独立标签。
+
+`now` 和 `ttl` 使用同一秒单位；固定任务传入 1、2、3 等教学时刻，不读取当前日期。CLI 为 8 道题分别创建临时数据库，评分完即清理，`.runs/memory` 只留下报告。想观察真正的跨会话持久化，按 Notebook 中的例子关闭并重新打开同一个 SQLite 文件。
+
+[规划 trace](artifacts/offline/planning.json)记录每个角色输入输出和更新后的失效范围。第一次 A=40 ms、B=60 ms，writer 输出差值 20 ms；把 A 更新为 45 ms 后，差值变为 15 ms。`invalidated` 应为 `research-a`、`writer`、`reviewer`，B 的 `start` 事件仍只有一次。原因是 writer 依赖 A/B，reviewer 依赖 writer，而 B 不依赖 A。
+
+这里的 `single` / `parallel` 只表示同一 DAG 的并发数 1 / 2，`Plan` 按一批就绪任务等待后再推进；不是最优调度器，也不是两个模型团队。它使用规则角色；真实模型角色比较见文献任务。
 
 ## 4. 从任务状态到浏览器
 
@@ -111,9 +151,15 @@ python scripts/run_python.py -m learning_workbench.cli multi --output .runs/plan
 python scripts/run_python.py -m learning_workbench.server --port 8765 --directory .runs/service
 ```
 
+打开 `http://127.0.0.1:8765`，保留 `demo-alice`、查询 `FAN-01 inspection` 和“执行前等待批准”，依次点“创建任务”“批准”。应看到 `awaiting_approval` → `running` → `completed`；默认 `result` 内是租户 alpha、版本 1 的本地手册引用。取消实验应另建任务，在等待批准时点“取消”，得到 `cancelled`。服务命令会持续占用当前终端；用另一个终端做其他实验，用 Ctrl+C 停止服务。若 8765 被占用，可改成 8766 并打开对应地址。
+
+`demo-alice` 属于 alpha 租户，`demo-bob` 属于 beta，二者是固定教学身份。切换身份再读取已有任务会返回 404，防止透露另一个租户的任务是否存在；请新建任务来测试另一身份。
+
 API：`POST /runs` 创建，`GET /runs/{id}` 查询，`GET /runs/{id}/events` 接收 SSE，`POST /runs/{id}/approve` 或 `/cancel` 提交当前 `version`。游标用 `Last-Event-ID`；服务保存事件，重连只补后续事件。SSE 每次最多保持 5 秒，客户端可重连。
 
 批准和状态更新在一个数据库事务里；旧版本操作返回 409。租户由演示凭据决定，请求参数不能改变它。进程恢复会重排未完成任务；工作采用每个 run 的隔离目录。取消是协作式的：已开始的只读工作可能继续计算，但不能再把任务发布为完成。
+
+生成阶段与原文抽取阶段绑定同一租户、产品和版本；默认版本为 `1`。否则一个报告可能在上半段引用 v1、下半段生成时引用 v2。
 
 加 `--provider api` 或 `--provider local --model ... --revision ...` 可在同一服务调用模型生成；模型契约失败把任务记为失败，不伪造成功。多个 worker 共享本地模型时通过锁串行调用，防止把并发请求误算成模型并行吞吐。
 
@@ -169,6 +215,17 @@ python scripts/run_python.py -m learning_workbench.cli judge --output .runs/judg
 ```bash
 python scripts/run_python.py -m unittest discover -s 20-Projects/learning-workbench/tests -v
 ```
+
+## 遇到结果不符合预期时
+
+| 现象 | 先检查什么 | 下一步 |
+| --- | --- | --- |
+| `No module named learning_workbench` | 是否在仓库根目录，用了 `scripts/run_python.py` | 不要直接在 `src/` 中拼 `PYTHONPATH`，按本页入口运行 |
+| Agent 出现 `FileExistsError` | 输出目录是否已有同名 `.trace.jsonl` | 换新目录，旧 trace 留作比较 |
+| `ProviderError` / 不完整 JSON | `state.status`、最后一条模型输出、trace | 这是实验要保留的失败；不要手工补 JSON 后冒充模型原结果 |
+| `completed` 但 `abstained=true` | 当前范围里是否确实没有证据 | 执行完成可以是正确拒答；看任务期望与授权语料 |
+| `rag` 输出没有 Dense 候选 | CLI 的 RAG 默认使用词法 Index | 用 `retrieval` 单独比较，或显式组装带模型的 Index |
+| 文献报告提示 `missing` | `.runs/papers` 中是否已有两篇指定 PDF | 允许联网时用 `--fetch`，缺一篇时应停止比较 |
 
 本轮环境、结果汇总与限制见[补齐记录](../../00-Home/Round2-Completion.md)。知识正文与项目入口相互链接；先理解机制，再运行结果，最后修改一个条件观察失败，是建议的学习顺序。
 

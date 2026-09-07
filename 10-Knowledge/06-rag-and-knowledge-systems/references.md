@@ -10,7 +10,7 @@
 | [Cormack et al., RRF，2009，作者 PDF](https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf) | 用排名融合异质量纲通道 | 论文收益不外推本教学集 |
 | [Docling Technical Report，v5](https://arxiv.org/abs/2408.09869v5) | 文档转换中版面与表格结构识别 | 没有实际运行 Docling/OCR |
 | [Sentence Transformers bi-encoder 文档](https://sbert.net/docs/sentence_transformer/usage/usage.html) | 编码向量、query/document 编码入口 | 页面会变化，真实模型运行需另锁版本和权重 |
-| [Sentence Transformers cross-encoder 文档](https://sbert.net/docs/cross_encoder/usage/usage.html) | Query—文档成对评分 | 模型未运行，不报告重排收益 |
+| [Sentence Transformers cross-encoder 文档](https://sbert.net/docs/cross_encoder/usage/usage.html) | Query—文档成对评分 | 模型已在进阶工程英文教学集运行，不外推运维业务收益 |
 | [Elasticsearch RRF 文档](https://www.elastic.co/docs/reference/elasticsearch/rest-apis/reciprocal-rank-fusion) | 检索器排名融合的产品实现 | 本代码不依赖 Elasticsearch，未验证部署 |
 | [Edge et al., GraphRAG](https://arxiv.org/abs/2404.16130) | 面向语料全局问题的图与社区摘要 | 只说明原论文任务定位，未复现 |
 

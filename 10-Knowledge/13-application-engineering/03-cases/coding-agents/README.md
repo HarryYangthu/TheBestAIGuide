@@ -4,7 +4,7 @@
 
 本案例把公开方法与一个本地算例分开。公开依据是 [SWE-agent v1，2024-05-06](https://arxiv.org/abs/2405.15793v1)，用于学习 Agent-Computer Interface 如何组织仓库读取、编辑与执行。下面的价格函数是本库原创教学代码，不是 SWE-bench 结果，也没有调用模型自动生成补丁。
 
-输入需求：`discount` 表示折扣比例，100 元打九折应返回 90。错误实现若写成 `amount - discount`，结果会是 99.9。可运行修复在[application_cases.py](../../05-code/application_cases.py)的 `correct_price`：计算 `amount * (1-discount)` 并检查输入边界。
+输入需求：`discount` 表示**减免比例**，不是中文“几折”的数值。100 元打九折保留 90%，因此传入 `discount=.1`，返回 90；传 `.9` 则只需支付 10。错误实现若写成 `amount - discount`，结果会是 99.9。可运行修复在[application_cases.py](../../05-code/application_cases.py)的 `correct_price`：计算 `amount * (1-discount)` 并检查输入边界。
 
 | 阶段 | 具体动作 | 留下的证据 |
 |---|---|---|
@@ -22,5 +22,7 @@ python -m unittest discover -s 10-Knowledge/13-application-engineering/05-code -
 ```
 
 实际 Agent 还需在隔离工作区保留原 commit、补丁和命令输出；不能改验收测试让它迁就错误实现。只跑作者刚写的测试会遗漏回归，需同时运行仓库原有测试和固定隐藏边界。真实货币计算还要使用明确的小数精度和舍入规则；这个浮点算例只演示接口语义错误。
+
+要看真正“失败 → 编辑 → 测试 → diff”的过程，运行[工作台修复任务](../../../../20-Projects/learning-workbench/README.md)，阅读其 [practice.py 的 repair](../../../../20-Projects/learning-workbench/src/learning_workbench/practice.py)。输出包含修改前后的测试和补丁；修复策略是预先写好的，没有模型自主定位或生成补丁。
 
 失败时先区分编译/依赖错误、环境错误、行为错误与测试本身错误，再决定是否继续编辑。测试超时不等于代码一定错误，更不等于可以删除测试。代码 E2E 的更一般组织见[应用域导航](../../README.md)。

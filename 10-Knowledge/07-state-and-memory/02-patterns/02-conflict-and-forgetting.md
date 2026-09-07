@@ -28,6 +28,8 @@ assert store.get("alice", "context_budget", now=110) is None
 
 本库`put`默认预期版本0，表示创建新记录；更新须显式传旧记录的版本。过期记录仍占有其键和版本，避免旧任务把同名事实当全新记录复活。需要更新时由可信业务层在保留的版本和当前证据基础上提交，示例不提供对模型开放的任意覆盖接口。
 
+过期后的 `get` 返回 `None` 是“当前不可使用”，不等于“存储从未存在”。不要随后直接 `put` 当新记录创建：它会因预期版本 0 与保留版本不一致而失败。进阶工程的 [MemoryAssistant.remember](../../../20-Projects/learning-workbench/src/learning_workbench/memory.py)在收到新的明确长期偏好后，由可信业务层读取保留版本，再做受 CAS 保护的更新；读取和写入之间仍可能冲突，调用方应处理冲突。
+
 ## 删除为何保留墓碑
 
 `forget(subject,key)`清空活动记录中的value/source，增加版本，标为deleted。保留键与版本的这部分元数据叫墓碑。它防止一个旧写入者带着删除前版本又把数据写回来。删除后`get/retrieve`均不可见，重复删除无副作用。

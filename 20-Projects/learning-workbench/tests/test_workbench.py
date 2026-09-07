@@ -49,6 +49,37 @@ class WorkbenchTests(unittest.TestCase):
         from learning_workbench.memory import evaluate_memory
         with tempfile.TemporaryDirectory() as d:rows=evaluate_memory(read_jsonl('memory-tasks.jsonl'),d)
         self.assertTrue(all(r['correct'] for r in rows),rows)
+    def test_negated_memory_never_becomes_a_positive_preference(self):
+        from learning_workbench.memory import MemoryAssistant, extract_preference, preference
+        for text in ['我以后不要用表格', '我以后用表格或段落', 'I always avoid tables',
+                     '我以后希望小王用表格', '我以后转述“用表格回答”']:
+            with self.subTest(text=text):
+                candidate=extract_preference(text,subject='alice',source='chat:negative')
+                self.assertFalse(candidate['accepted'])
+                self.assertIn('unsupported',candidate['reason'])
+        self.assertIsNone(preference('a stable explanation'))
+        for text in ['这次无需使用表格', 'I cannot use tables', '取消表格，正常解释']:
+            with self.subTest(current=text):
+                with self.assertRaisesRegex(ValueError,'unsupported'):
+                    preference(text)
+        for text,expected in [('这次用表格','table'), ('这次用段落解释State和Memory','paragraph'),
+                              ('请用列表回答','bullets'), ('Use tables','table'),
+                              ('Please use bullets to explain State and Memory','bullets')]:
+            with self.subTest(current=text):
+                self.assertEqual(preference(text),expected)
+        with tempfile.TemporaryDirectory() as d:
+            assistant=MemoryAssistant(Path(d)/'memory.sqlite')
+            try:
+                assistant.remember('我以后希望用表格',subject='alice',source='chat:1',now=1)
+                rejected=assistant.remember('我以后不要用表格',subject='alice',source='chat:2',now=2)
+                self.assertFalse(rejected['accepted'])
+                self.assertEqual(assistant.store.get('alice','answer_format',2).version,1)
+                # Unsupported current language must be surfaced, not silently
+                # answered in the old table style the user just rejected.
+                for task in ['这次不要用表格','这次无需使用表格','I cannot use tables','取消表格，正常解释']:
+                    with self.subTest(task=task), self.assertRaisesRegex(ValueError,'unsupported'):
+                        assistant.reply(task,subject='alice',now=3)
+            finally:assistant.close()
     def test_replan(self):
         from learning_workbench.planning import research_demo,Plan,Task
         report=asyncio.run(research_demo())
@@ -88,6 +119,29 @@ class WorkbenchTests(unittest.TestCase):
 
 
 class ServiceTests(unittest.TestCase):
+    def test_generation_preserves_the_service_source_version(self):
+        from learning_workbench.server import RunStore
+        from learning_workbench.providers import Completion
+        class EvidenceInspector:
+            """Inspect the transport contract; this is not a model-quality test."""
+            evidence=None
+            def complete(self,messages,**kwargs):
+                self.evidence=json.loads(messages[-1]['content'])['evidence']
+                return Completion(json.dumps({'abstained':True,'reason':'scope inspection','claims':[]}),
+                                  'contract-fixture',0,0,0,'test-only')
+        with tempfile.TemporaryDirectory() as d:
+            provider=EvidenceInspector();store=RunStore(d,provider)
+            try:
+                row=store.create('alpha',{'query':'FAN-01'})
+                deadline=time.monotonic()+4
+                while row['state'] not in {'completed','failed'} and time.monotonic()<deadline:
+                    time.sleep(.01);row=store.get(row['id'],'alpha')
+                self.assertEqual(row['state'],'completed',row)
+                self.assertTrue(provider.evidence)
+                self.assertEqual({e['version'] for e in provider.evidence},{'1'})
+                self.assertEqual({c['version'] for c in row['result']['citations']},{'1'})
+            finally:store.close()
+
     def test_http_approval_replay_owner_and_persistence(self):
         from learning_workbench.server import make_server,RunStore
         with tempfile.TemporaryDirectory() as d:

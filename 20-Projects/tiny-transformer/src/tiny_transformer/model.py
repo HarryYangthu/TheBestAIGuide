@@ -88,18 +88,40 @@ class Decoder(nn.Module):
 
     @torch.no_grad()
     def generate(self, ids, max_new_tokens=24):
+        """Greedy decoding for nonempty, equal-length, unpadded prompts.
+
+        Return [B, <= max_length]. Each row stops at its first generated EOS;
+        rows that finish early receive PAD while the other rows continue.
+        """
+        if ids.ndim != 2 or not ids.shape[0] or not ids.shape[1]:
+            raise ValueError('ids must be a nonempty [batch, length] tensor')
+        if not isinstance(max_new_tokens, int) or isinstance(max_new_tokens, bool) or max_new_tokens < 0:
+            raise ValueError('max_new_tokens must be a nonnegative integer')
+        if ids.shape[1] > self.cfg.max_length:
+            raise ValueError('context window exceeded')
+        if bool((ids == 0).any()):
+            raise ValueError('generate expects unpadded prompts; run unequal lengths separately')
         self.eval()
+        remaining = min(max_new_tokens, self.cfg.max_length - ids.shape[1])
+        finished = ids[:, -1] == 2
+        if remaining == 0 or bool(finished.all()):
+            return ids.clone()
         logits, cache = self(ids)
         out = ids
-        for _ in range(max_new_tokens):
+        for step in range(remaining):
             nxt = logits[:, -1].argmax(-1, keepdim=True)
+            # Finished rows stay finished even when the next model argmax is not EOS.
+            nxt = nxt.masked_fill(finished[:, None], 0)
             out = torch.cat([out, nxt], dim=1)
-            if bool((nxt == 2).all()) or out.shape[1] >= self.cfg.max_length: break
+            finished |= nxt[:, 0] == 2
+            if bool(finished.all()) or step + 1 == remaining:
+                break
             logits, cache = self(nxt, cache)
         return out
 
 
 class LoRAHead(nn.Module):
+    """Head-only LoRA; alpha=rank, so the usual alpha/rank factor is 1."""
     def __init__(self, base, rank=4):
         super().__init__()
         self.base, self.rank = base, rank
@@ -115,6 +137,11 @@ class LoRAHead(nn.Module):
 
 
 def supervised_batch(tokenizer, pairs):
+    """Right-pad teacher-forced [B,T] inputs; labels ignore prompt and padding.
+
+    Effective labels precede right padding, so the causal mask prevents them
+    from attending to PAD. This does not support left padding or packed rows.
+    """
     rows, labels = [], []
     for prompt, answer in pairs:
         prefix = tokenizer.encode(prompt, bos=True)
@@ -122,6 +149,8 @@ def supervised_batch(tokenizer, pairs):
         rows.append(ids[:-1])
         # Logit j predicts token j+1. The first answer label is at len(prefix)-1.
         labels.append([-100] * (len(prefix)-1) + ids[len(prefix):])
+    if not rows:
+        raise ValueError('at least one prompt/answer pair is required')
     n = max(map(len, rows))
     x = torch.tensor([row + [0]*(n-len(row)) for row in rows])
     y = torch.tensor([row + [-100]*(n-len(row)) for row in labels])

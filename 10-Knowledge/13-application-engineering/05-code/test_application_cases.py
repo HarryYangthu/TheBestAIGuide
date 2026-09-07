@@ -8,7 +8,7 @@ class ApplicationCases(unittest.TestCase):
         self.assertEqual(correct_price(100,.1),90)
         for amount, discount, expected in [(0,.5,0),(100,0,100),(100,1,0)]:
             self.assertEqual(correct_price(amount,discount),expected)
-        for amount,discount in [(-1,.1),(100,-.1),(100,1.1)]:
+        for amount,discount in [(-1,.1),(100,-.1),(100,1.1),(float("nan"),.1),(float("inf"),.1),(100,float("nan"))]:
             with self.assertRaises(ValueError): correct_price(amount,discount)
     def test_cross_tenant_and_principal(self):
         docs=[{'id':'a','tenant':'A','readers':['alice']},{'id':'b','tenant':'B','readers':['bob']}]

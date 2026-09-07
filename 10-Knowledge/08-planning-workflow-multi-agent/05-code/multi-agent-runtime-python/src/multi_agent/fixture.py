@@ -35,8 +35,9 @@ async def experiment():
     router = Router({"quality": quality_worker, "constraints": constraint_worker})
     rows, traces = [], {}
     for mode, concurrency in [("single_worker_serial", 1), ("two_workers_parallel", 2)]:
-        result = await Supervisor(router, concurrency).run(tasks())
-        merged = merge_results(result.results)
+        requested = tasks()
+        result = await Supervisor(router, concurrency).run(requested)
+        merged = merge_results(result.results, expected_task_ids=[task.task_id for task in requested])
         rows.append({"mode": mode, "selected": choose(merged), "calls": len(result.results),
                      "max_active": result.max_active, "elapsed_ms": result.trace[-1]["elapsed_ms"]})
         traces[mode] = result.trace

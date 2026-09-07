@@ -1,6 +1,6 @@
 # Agent之间传什么：任务、状态和产物
 
-> 状态：draft | 来源核验：2026-09-06 | A2A规范页面按核验日快照阅读；本库未实现完整A2A端点
+> 状态：draft | 来源核验：2026-09-07 | 配套实验固定 A2A 0.3.0 的本地子集，未声称完整协议一致性
 
 主Agent把“比较上下文压缩方法”交给研究Agent。对方可能要读多篇文章，中途需要补充限定范围，最后交付一张比较表。这比调用一个立即返回的`search`函数多了任务身份、持续状态、补充输入和产物版本的问题。
 
@@ -37,4 +37,22 @@ Agent通信协议要表达的核心是：委托什么目标，对方现在进行
 
 跨Agent传递的资料应尽量小：目标、必要证据、资源指针，而非整个主Agent上下文。模型摘要不能改变用户授权范围，接收方还需检查资源访问权限。
 
-内部调度实践见[多Agent领域](../../08-planning-workflow-multi-agent/README.md)，交换格式见[共享Schema](../05-code/shared-schemas/README.md)。一手来源：[A2A官方规范](https://a2a-protocol.org/latest/specification/)、[任务生命周期](https://a2a-protocol.org/latest/topics/life-of-a-task/)。
+## 实际交接一次，分清三个 ID
+
+从仓库根目录运行，无需模型与第三方 Python 包：
+
+```bash
+python scripts/run_python.py -m learning_workbench.a2a_demo
+```
+
+[实现](../../../20-Projects/learning-workbench/src/learning_workbench/a2a_demo.py)会启动两个本地 HTTP 端点。第一个收到 `NEED_INPUT` 后返回 `input-required`；调用方带上其 `taskId` 补充证据，任务才变成 `completed` 并给出 `artifacts`；随后把产物交给第二个端点。另一个待输入任务用 `tasks/cancel` 结束为 `canceled`。
+
+| 标识 | 识别什么 | 本例重发或补输入时怎样处理 |
+| --- | --- | --- |
+| JSON-RPC `id` | 单次请求与响应 | 每次 HTTP 调用用新的请求 ID |
+| `messageId` | 一条业务消息 | 同消息重复投递沿用 ID，由本例去重；新补充内容用新 ID |
+| `taskId` | 一项持续任务 | 补输入、查询、取消时引用原任务；不能用请求 ID 代替 |
+
+输出的 Trace 可以看见请求和响应。重复消息返回同一任务，是这个演示的去重实现，不应推断所有 A2A 服务都有相同保证。两个工作者只回传输入文本，第二个虽叫 `reviewer` 也没有进行语义审核；实验验证消息交接与状态，不验证研究能力。Agent Card 中的 `skills` 是能力描述对象，也不是上一节所说的 `SKILL.md` 文件包。
+
+内部调度实践见[多Agent领域](../../08-planning-workflow-multi-agent/README.md)，交换格式见[共享Schema](../05-code/shared-schemas/README.md)。一手来源：[A2A 0.3.0规范](https://a2a-protocol.org/v0.3.0/specification/)、[任务生命周期](https://a2a-protocol.org/latest/topics/life-of-a-task/)。

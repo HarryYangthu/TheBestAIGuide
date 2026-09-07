@@ -19,6 +19,11 @@ class PolicyTests(unittest.TestCase):
         token=self.rt.approve(self.user,'r',proposal)
         self.assertEqual(self.rt.execute(self.user,'r',Proposal('delete_record','a2',token)),{'deleted':'a2'})
         with self.assertRaises(Denied): self.rt.execute(self.user,'r',Proposal('delete_record','a2',token))
+        # 先重新放回同 ID 的资源，排除“只是因为对象已消失才拒绝”的假阳性。
+        self.rt.records['a2'] = {'tenant': 'A', 'text': '新创建的草稿'}
+        with self.assertRaises(Denied):
+            self.rt.execute(self.user, 'r', Proposal('delete_record', 'a2', token))
+        self.assertIn('a2', self.rt.records)
 
     def test_approval_bound_to_run_resource_and_user(self):
         token=self.rt.approve(self.user,'r',Proposal('delete_record','a2'))

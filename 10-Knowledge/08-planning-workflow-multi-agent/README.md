@@ -7,7 +7,7 @@
 | 学习问题 | 正文 | 对应实现 / 实验 |
 |---|---|---|
 | 怎么把目标变成能验收的子任务 | [规划与重规划](01-concepts/01-planning-and-replanning.md) | [任务契约](05-code/multi-agent-runtime-python/src/multi_agent/contracts.py) |
-| 下一步什么时候允许发生 | [状态机与 DAG](01-concepts/02-workflow-state-machines.md) | [协调器](05-code/multi-agent-runtime-python/src/multi_agent/supervisor.py) |
+| 下一步什么时候允许发生 | [状态机与 DAG](01-concepts/02-workflow-state-machines.md) | [独立 Worker 协调器](05-code/multi-agent-runtime-python/src/multi_agent/supervisor.py) / [依赖调度 Plan](../../20-Projects/learning-workbench/src/learning_workbench/planning.py) |
 | 谁决定下一步、为何要多 Agent | [协作拓扑](01-concepts/03-multi-agent-topologies.md) | [路由器](05-code/multi-agent-runtime-python/src/multi_agent/router.py) |
 | 子任务输入输出如何约定 | [交接契约](02-patterns/01-task-contract-and-handoff.md) | [测试](05-code/multi-agent-runtime-python/tests/test_runtime.py) |
 | 结果不一致或部分失败怎么办 | [共享状态与合并](02-patterns/02-shared-state-and-merge.md) | [合并器](05-code/multi-agent-runtime-python/src/multi_agent/merge.py) |
@@ -15,6 +15,8 @@
 
 [工程运行说明](05-code/multi-agent-runtime-python/README.md) · [实验入口](04-labs/README.md) · [来源](references.md) · [多 Agent 评测](../10-evaluation-observability/01-concepts/06-multi-agent-evaluation.md)
 
-## 配套项目扩展（2026-09-06）
+## 下一步：从并发控制走到依赖重算
 
-[动态 DAG 失效重算及多源角色比较](../../20-Projects/learning-workbench/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。
+先跟读[规划篇的局部重算例子](01-concepts/01-planning-and-replanning.md)：A 的测量从 40 改成 45 ms，哪些节点必须重做，为什么 B 不必重做？[Plan 源码](../../20-Projects/learning-workbench/src/learning_workbench/planning.py)与[结果](../../20-Projects/learning-workbench/artifacts/offline/planning.json)对应每次失效和执行。这个实验使用固定函数，说明调度机制。
+
+再看[真实模型角色输出](../../20-Projects/learning-workbench/artifacts/real-models/research-multi.json)，那里实际调用了 reader/writer，保留无效 JSON 和引用失败。固定分工、成功的依赖调度、模型能否完成研究是三项不同能力，应分别验收。完整运行命令见[项目说明](../../20-Projects/learning-workbench/README.md)。

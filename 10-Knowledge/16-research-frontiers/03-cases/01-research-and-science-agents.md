@@ -38,4 +38,4 @@ proposal = {"width":8, "parameter_budget":100, "expected_params":64,
 assert proposal['expected_params'] <= proposal['parameter_budget']
 ```
 
-这个检查只验证提案内部约束，真实系统仍需执行并测量。可先运行[研究算例](../05-code/research_checks.py)，再结合[应用科研案例](../../13-application-engineering/03-cases/domain-agents/science/README.md)理解代码组织。系统实际接入外部论文下载、模型提案和真实训练需另做集成验证；本案例不虚构这些步骤已执行。
+这个检查只验证提案内部约束，真实系统仍需执行并测量。可先运行[研究算例](../05-code/research_checks.py)，再结合[应用科研案例](../../13-application-engineering/03-cases/domain-agents/science/README.md)理解代码组织。本篇是接口层教学；配套[工作台](../../../20-Projects/learning-workbench/README.md)提供了更具体的两条路径：`research` 下载指定版本的两篇公开论文、记录页码/引文并可调用模型整理；`practice science` 实际拟合线性模型，保存固定划分的验证结果。它们尚未连成“从论文自动提出新假设并验证”的通用科研系统。

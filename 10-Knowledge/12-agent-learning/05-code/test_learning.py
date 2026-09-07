@@ -14,6 +14,8 @@ class LearningTests(unittest.TestCase):
         self.assertAlmostEqual(dpo_loss(-2,-3,-2,-3), math.log(2))
         self.assertLess(dpo_loss(-1,-4,-2,-3), math.log(2))
         self.assertEqual(group_advantages([1,1,1]), [0,0,0])
+        for epsilon in (float("nan"), float("inf")):
+            with self.assertRaises(ValueError): group_advantages([0, 1], epsilon=epsilon)
     def test_false_positive(self):
         fake = {'answer':'PASS','policy_allowed':True,'external_tests_passed':False}
         self.assertEqual(weak_reward(fake),1)

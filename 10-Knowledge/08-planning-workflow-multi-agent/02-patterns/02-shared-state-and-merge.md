@@ -34,10 +34,21 @@ owners.setdefault(key, []).append(result.task_id)
 
 Worker 的草稿、搜索历史和尝试错误属于私有状态；经过校验的证据是可提交的共享事实；最终决策由协调器拥有。本文代码不让 Worker 写共享对象，而是返回一个结果，等全部结果收集后统一合并。
 
-这种设计的好处是过程容易重放，代价是长任务的中间进展不能实时改变别人。如果业务确实需要实时协作，采用版本化提交：读取版本 \(v\)，提交时要求当前版本仍为 \(v\)，否则重新读取并合并。这叫乐观并发控制。它适合冲突不频繁的场景；冲突密集时需要更细的状态分区或单写者队列。
+这种设计的好处是过程容易重放，代价是长任务的中间进展不能实时改变别人。如果业务确实需要实时协作，采用版本化提交：读取版本 $v$，提交时要求当前版本仍为 $v$，否则重新读取并合并。这叫乐观并发控制。它适合冲突不频繁的场景；冲突密集时需要更细的状态分区或单写者队列。
 
 ## 部分成功不是最终成功
 
-合并器返回三个对象：`values`、`missing_tasks` 和 `owners`。`complete` 仅当没有失败任务时为真。候选选择函数首先检查它：约束评审超时，即使质量分数齐全，也不能按最高分直接输出 B，因为 B 可能违反硬约束。
+合并器返回三个对象：`values`、`missing_tasks` 和 `owners`。调用时应提供 `expected_task_ids`，这样不仅失败任务，连完全没返回的任务也会进入 `missing_tasks`；重复结果和未知任务结果会直接报错。若省略这个清单，`complete` 只表示传入的这些结果都成功，无法证明调用方没有遗漏任务。候选选择函数首先检查它：约束评审超时，即使质量分数齐全，也不能按最高分直接输出 B，因为 B 可能违反硬约束。
 
-这是一条可测试的业务不变量。Notebook 故意让一个 Worker 超时，展示剩余结果仍在，同时拒绝最终选择。继续读[单与多 Worker 对照案例](../03-cases/01-single-vs-multi-agent.md)。并发结果收集所依据的 API 语义见[Python 官方说明](https://docs.python.org/3/library/asyncio-task.html)。
+```python
+from multi_agent import WorkerResult, merge_results
+
+partial = merge_results(
+    [WorkerResult("quality", "ok", {"quality": {"A": 0.91}})],
+    expected_task_ids=["quality", "constraints"],
+)
+assert not partial.complete
+assert partial.missing_tasks == ["constraints"]
+```
+
+这里约束任务连错误结果都没返回，完整任务清单仍然能发现缺口。这是一条可测试的业务不变量。Notebook 故意让一个 Worker 超时，展示剩余结果仍在，同时拒绝最终选择。继续读[单与多 Worker 对照案例](../03-cases/01-single-vs-multi-agent.md)。并发结果收集所依据的 API 语义见[Python 官方说明](https://docs.python.org/3/library/asyncio-task.html)。

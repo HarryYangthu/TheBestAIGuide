@@ -9,7 +9,7 @@
 
 Checkpoint 是保存的运行状态，例如某个逻辑步骤已经完成、输入是 10、回执为哪一条记录。Resume 读取这个状态继续未完成的工作。Replay 根据已有事件重新计算状态或回答，用于追查和恢复投影。
 
-Replay 不应无条件重新调用所有工具。重放一次历史请求如果再次发送邮件或扣款，就改变了真实世界，也不再是“重看历史”。本例的 `replay(events)` 只是遍历 `prepared/completed/compensated` 事件，生成状态字典，完全不拿 Ledger 对象。
+Replay 不应无条件重新调用所有工具。重放一次历史请求如果再次发送邮件或扣款，就改变了真实世界，也不再是“重看历史”。本例的 `replay(events)` 只是遍历 `prepared/completed/compensated` 事件，生成状态字典，完全不拿 Ledger 对象。这里重建的是**已记录的确认状态**，不是实时查询外部世界：若在 `after_effect` 崩溃，Replay 仍是 pending，而账本已有扣款。这正是需要恢复核对的差距。
 
 ```python
 state = {}

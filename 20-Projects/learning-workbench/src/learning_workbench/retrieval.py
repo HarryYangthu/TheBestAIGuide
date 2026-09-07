@@ -50,8 +50,9 @@ def retrieval_comparison(documents, queries, encoder=None, ranker=None):
     return results
 
 
-def generated_answer(index, query, provider, *, tenant, version=None, limit=3):
-    hits = index.search(query, tenant=tenant, version=version, k=limit)
+def generated_answer(index, query, provider, *, tenant, product=None, version=None, limit=3):
+    """Use the caller's scope for generation as well as extractive retrieval."""
+    hits = index.search(query, tenant=tenant, product=product, version=version, k=limit)
     evidence = [{'id': h.chunk.chunk_id, 'doc_id': h.chunk.doc_id,
                  'version': h.chunk.version, 'text': h.chunk.text} for h in hits]
     if not evidence:

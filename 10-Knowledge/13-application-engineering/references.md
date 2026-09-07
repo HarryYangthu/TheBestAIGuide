@@ -6,7 +6,7 @@
 
 | 来源 | 定位 | 支持的内容 | 本库验证范围 |
 |---|---|---|---|
-| [WHATWG HTML：Server-sent events](https://html.spec.whatwg.org/multipage/server-sent-events.html) | EventSource、Last-Event-ID、事件解析 | 流协议与重连语义 | 本域接口为设计说明，未部署 SSE 后端 |
+| [WHATWG HTML：Server-sent events](https://html.spec.whatwg.org/multipage/server-sent-events.html) | EventSource、Last-Event-ID、事件解析 | 流协议与重连语义 | 工作台已实现本地 SSE；高级事件分类仍是设计 |
 | [PostgreSQL Row Security](https://www.postgresql.org/docs/current/ddl-rowsecurity.html) | 行策略、默认拒绝、角色绕过 | 数据库隔离边界 | 仅 Python 列表权限反例实际运行，SQL 未执行 |
 | [Playwright Auto-waiting](https://playwright.dev/docs/actionability) | fill/click 可操作性 | 动作等待、超时与定位 | Playwright 1.55.0 + Chromium 140 本地 E2E |
 | [Playwright Screenshots](https://playwright.dev/docs/screenshots) | page.screenshot | 截图证据生成 | PNG 实际生成并查看 |

@@ -13,10 +13,10 @@
 
 ```bash
 python scripts/run_python.py -m domain_research.cli --query ERR-12003 --run-id first
-python scripts/run_python.py 20-Projects/domain-research-agent/evaluation/run_eval.py
+python scripts/run_python.py 20-Projects/domain-research-agent/evaluation/run_eval.py --output .runs/research-eval
 ```
 
-第一条命令输出答案和引用，并把报告、Checkpoint、记忆和运行事件写到 `.runs/research/`。第二条用四个构造任务评测证据、拒答、租户隔离和恢复，报告写到 [evaluation/report/](evaluation/report/)。重复使用同一 `run-id` 和相同请求会返回已完成结果；更换问题时也应换 `run-id`。资料或版本变化时，会拒绝复用原请求标识。
+第一条命令输出答案和引用，并把报告、Checkpoint、记忆和运行事件写到 `.runs/research/`。第二条用四个构造任务评测证据、拒答、租户隔离和恢复，报告写到 `.runs/research-eval/`，仓库内的 [evaluation/report/](evaluation/report/) 保留先前运行证据。重复使用同一 `run-id` 和相同请求会返回已完成结果；更换问题时也应换 `run-id`。资料或版本变化时，会拒绝复用原请求标识。
 
 ## 实际复用了什么
 
@@ -27,6 +27,8 @@ python scripts/run_python.py 20-Projects/domain-research-agent/evaluation/run_ev
 | State / Memory | Checkpoint 保存进度；Memory 只保存已验证引用指针 | [状态与记忆](../../10-Knowledge/07-state-and-memory/05-code/state-memory-python/README.md) |
 | Runtime | 复用 SQLite `EventStore` 留下准备和完成事件；恢复以 Checkpoint 为准 | [恢复运行时](../../10-Knowledge/09-runtime-harness-environment/05-code/recoverable-runtime-python/README.md) |
 | Evaluation | 每个 Trial 创建独立工作目录；评分器核查回答字段和落盘状态 | [评测 Harness](../../10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/README.md) |
+
+核心只依赖标准库，但本项目**依赖仓库内其他领域组件**：不能只复制当前目录，再期待 `pip install .` 得到完整运行环境。请保留整个仓库并使用上面的运行脚本。
 
 入口代码是 [service.py](src/domain_research/service.py)。`scripts/run_python.py` 将各领域的 `src/` 加入导入路径，所以这里没有复制另一份 Agent、检索器或记忆库。
 
@@ -65,6 +67,8 @@ flowchart TD
 测试分别在步骤 1 后、步骤 2 后抛异常，关闭数据库、重建服务，再验证只有一份报告和一个记忆版本。这个方法依赖“同一键、相同内容的本地写入可重复”。外部支付、邮件等副作用需要接收方幂等键、状态对账或补偿，见 [Runtime 的副作用实验](../../10-Knowledge/09-runtime-harness-environment/05-code/recoverable-runtime-python/README.md)。
 
 本例限定单写者，文件写入未做断电级 `fsync`，也没有分布式事务。Checkpoint 与事件库不在同一事务，极端中断时可能缺少完成事件，因此恢复依据是 Checkpoint。这不是通用的“恰好一次”执行保证。
+
+还要区分两个重跑场景：已经写入 `prepared` 或 `completed` 时，沿同一 `run-id` 能继续；如果第一次在生成 `prepared` **之前**就失败，可能只留下 trace，重跑会因排他创建同名 trace 报错。这个教学项目不自动修复这种未准备运行；保留失败轨迹，换新的 `run-id` 重试。不要将“支持两个指定崩溃点恢复”理解为任意时刻中断都能恢复。
 
 ## 自己动手改三处
 

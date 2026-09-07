@@ -14,6 +14,8 @@
 
 [工程说明](05-code/recoverable-runtime-python/README.md) · [实验说明](04-labs/README.md) · [来源索引](references.md) · [State / Memory](../07-state-and-memory/README.md)
 
-## 配套项目扩展（2026-09-06）
+## 从本地恢复继续学服务生命周期
 
-[持久 Run API、审批、取消与事件补发](../../20-Projects/learning-workbench/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。
+先完成账本 Notebook，再进入 [Workbench Run 服务](../../20-Projects/learning-workbench/README.md)：创建一次 Run，读取版本号后批准，观察事件，再试取消与重连。[server.py](../../20-Projects/learning-workbench/src/learning_workbench/server.py)展示持久状态与事件补发；取消是协作式的，已经开始的只读计算可能继续，但不再发布完成结果。
+
+读完应能回答：pending 是否等于没有副作用？Replay 为什么可能仍显示 pending？相同 ID 重试与新建 Run 有什么区别？如果不能用账本行数与事件解释，回到持久执行的三个崩溃窗口再运行一次。

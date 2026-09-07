@@ -14,7 +14,7 @@ PowerShell先执行`$env:PYTHONPATH="src"`；或使用`python -m pip install -e 
 | --- | --- |
 | `CheckpointStore(path).save(run_id,state,expected_version=0)` | 接受JSON对象；成功返回新整数版本，冲突抛VersionConflict |
 | `load(run_id)` | 返回`(version,state)`；缺失为`(0,{})` |
-| `MemoryStore(path).put(subject,key,value,source,now,ttl=None,expected_version=None)` | 返回Memory对象；新记录默认版本0，更新须显式版本 |
+| `MemoryStore(path).put(subject,key,value,source,now,ttl=None,expected_version=None)` | 返回Memory对象；创建默认预期版本0，首次成功返回version=1，更新须显式旧版本 |
 | `get(subject,key,now)` | 返回有效Memory或None |
 | `retrieve(subject,query,now,limit=5)` | 主体/时间过滤后做key与value子串匹配 |
 | `forget(subject,key)` | 清空活动内容/来源，保留版本墓碑；返回是否实际删除 |

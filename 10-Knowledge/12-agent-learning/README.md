@@ -12,8 +12,8 @@
 | [验证器与奖励投机](01-concepts/04-verifiers-and-reward-hacking.md) | 构造伪造成功、越权成功反例 | [测试](05-code/test_learning.py) |
 | [评分到改进](02-patterns/01-feedback-to-improvement.md) | 按故障证据选择改动层 | [浏览器恢复案例](../13-application-engineering/03-cases/browser-agents/README.md) |
 
-[来源索引](references.md)固定 DPO、PPO、GRPO 等原论文版本。[代码说明](05-code/README.md)包含运行方法与结果。Notebook 的 CPU 计算已实际运行，但本库没有进行语言模型 SFT、DPO 或 RL 训练；文章保持 draft 等待内容终审。
+[来源索引](references.md)固定 DPO、PPO、GRPO 等原论文版本。[代码说明](05-code/README.md)包含运行方法与结果。本域 Notebook 用手填概率解释 loss；配套 Tiny Transformer 用真实小模型执行 SFT/LoRA/DPO，并演示一次两动作策略更新。这两个实践层次各有用途，均不能代替独立任务上的能力评测；文章保持 draft 等待人工终审。
 
-## 配套项目扩展（2026-09-06）
+## 从算清损失到更新参数
 
-[真实 SFT/LoRA/DPO 更新与正负优势 clipping](../../20-Projects/tiny-transformer/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。
+先跑本域 Notebook，回答“哪些位置计 loss、参考模型为什么固定、全失败组优势是多少”；再运行 [Tiny Transformer](../../20-Projects/tiny-transformer/README.md)，对照 [experiment.py](../../20-Projects/tiny-transformer/src/tiny_transformer/experiment.py) 找到 `backward`、优化器与冻结参数。先验算，再看真实更新，能避免把手动改小 loss 的数值例子误当成训练。

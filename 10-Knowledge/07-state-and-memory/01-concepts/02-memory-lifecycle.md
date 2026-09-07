@@ -19,7 +19,7 @@ Memory的本质是**为未来使用而选择性保留信息，并在再次使用
 
 写入链路通常是：获得观察→抽取候选→核查来源/主体/用途→去重或处理冲突→持久化。读取链路是：取得当前任务与可信身份→按主体、作用域和时效过滤→相关性检索→判断是否应进入Context。写进去只是获得候选资格，不代表以后每次都注入模型。
 
-本库一条Memory记录含 `subject,key,value,source,updated_at,expires_at,version`。`source`说明证据来自哪里，`version`避免旧写入覆盖新事实，`expires_at`控制读取时效。没有来源的模型猜测应先保留为待验证假设，不能直接升级为“用户说过”。
+本库一条Memory记录含 `subject,key,value,source,updated_at,expires_at,version`。`source`说明证据来自哪里，`version`拒绝基于旧记录版本的写入，`expires_at`控制读取时效。版本只保护并发更新，不判断内容真假或哪条证据更权威；即使携带正确版本，一条错误事实仍可能被成功写入。没有来源的模型猜测应先保留为待验证假设，不能直接升级为“用户说过”。
 
 ```python
 from state_memory import MemoryStore

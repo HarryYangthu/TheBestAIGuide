@@ -9,7 +9,7 @@ npm ci
 npm test
 ```
 
-`npm test`先编译，再执行Node内置测试；包含Runtime故障场景和共享Schema的12个正反例。首次安装依赖需要网络，运行测试不调用外部服务。Node要求22+。
+`npm test`先编译，再执行Node内置测试；包含Runtime故障场景和共享Schema的12个基础正反例和47个边界反例。首次安装依赖需要网络，运行测试不调用外部服务。Node要求22+。
 
 [contracts.ts](src/contracts.ts)定义数据对象，[registry.ts](src/registry.ts)编译输入输出Schema，[runtime.ts](src/runtime.ts)实施授权、执行、取消与进程内去重。调用方式：`new ToolRuntime(registry).execute(call, identity, timeoutMs, signal)`。业务handler收到`{identity,signal}`，主体身份必须由可信宿主提供。
 

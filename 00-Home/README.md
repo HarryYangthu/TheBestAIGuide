@@ -8,7 +8,7 @@
 | [知识领域](../10-Knowledge/README.md) | 16 个领域的局部导航 |
 | [完整知识地图](Knowledge-Map.md) | 对照理论范围，了解还可以深入哪些方向 |
 | [核心术语表](Glossary.md) | 分清 Context、State、Memory、Runtime、Harness 等边界 |
-| [综合项目](../20-Projects/domain-research-agent/README.md) | 看知识如何组合成可运行系统 |
+| [项目总表](../20-Projects/README.md) | 按目标选择组件、综合工作台或小模型训练 |
 | [知识库建设状态](Knowledge-Status.md) | 查看实际补全和验证范围 |
 
 ## 内容维护
@@ -21,3 +21,7 @@
 - [维护脚本](../scripts/README.md)：在修改后验证链接、Notebook 与源码。
 
 每个领域以自己的 README 为唯一局部导航。无需记住每个子目录：进入文章后，应能直接找到来源、实验与实现。
+
+## 学习者走读修订（2026-09-07）
+
+本次按阅读、计算、代码与实验逐项检查，修正知识跳步、过时说明和可复现的代码问题。具体例子与验证范围见[走读修订记录](Learner-Review.md)。

@@ -13,7 +13,7 @@
 | [EvalTask](eval-task.schema.json) | task_id、input、expected、metadata | 任务、验收期望及数据来源 |
 | [TrialResult](trial-result.schema.json) | task_id、trial_id、status、score、output、errors | 单次实验结果，score限制0到1 |
 
-每个对象有[正例与反例](examples/)。反例通过多余字段测试严格对象边界；Runtime测试另覆盖错类型、缺字段、输出错和非法动作。Schema校验仅检查数据形状，不保证引用正确、身份可信或任务成功。
+每个对象有[正例与反例](examples/)，共 12 个基础对象；另有 [47 个边界反例](examples/boundaries.json)，覆盖缺字段、错类型、空 ID、非法状态/分数与成功失败互斥。Python 和 TS 当前都读取这两组文件，共 59 项对象判定。Schema校验仅检查数据形状，不保证引用正确、身份可信或任务成功。
 
 从本目录运行`python validate_examples.py`（需安装`jsonschema`）。TS侧在[tool-runtime-typescript](../tool-runtime-typescript/README.md)运行`npm test`，共用相同JSON文件，不维护两份手写类型验证规则。
 

@@ -25,9 +25,10 @@ class Runner:
     def replay(self,run_id): return replay(self.store.events(run_id))
 
     def compensate(self,run_id,step_id,crash_after_refund=False):
+        """补偿已确认动作；不是取消 API，不能用它阻止尚未发生的动作。"""
         saved=self.store.step(run_id,step_id)
         if saved is None or saved["status"]=="pending":
-            raise ValueError("reconcile pending step through execute before compensation")
+            raise ValueError("pending effect is unknown; execute resumes the action, not cancellation")
         if saved["status"]=="compensated": return self.ledger.snapshot()
         receipt=self.ledger.refund(operation_key(run_id,step_id))
         if crash_after_refund: raise InjectedCrash("after_refund")

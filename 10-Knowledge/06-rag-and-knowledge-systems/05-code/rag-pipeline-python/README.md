@@ -51,12 +51,14 @@ index.delete("manual", tenant="alpha")
 
 `Index(embedder=..., reranker=...)` 接收两种可调用对象。embedder 输入 `[query, doc1, ...]`，返回同批量、同维度、有限浮点向量；查询和文档必须来自兼容空间。reranker 输入 `(query,[text1,...])`，返回等长分数列表，分数越大越相关。排序前已经过滤租户、产品、版本和编号。
 
-可用 Sentence Transformers 的 `encode_query/encode_document` 与 CrossEncoder `predict` 适配这些接口；具体参考 [官方 bi-encoder](https://sbert.net/docs/sentence_transformer/usage/usage.html)与 [cross-encoder](https://sbert.net/docs/cross_encoder/usage/usage.html) 文档。应固定安装版本、权重 revision、设备、归一化及截断配置并记录运行环境。
+适配时注意第一项是查询，其余项是文档：分别使用 Sentence Transformers 的 `encode_query(items[:1])`、`encode_document(items[1:])`，再按原顺序拼接向量；不要对整批都调用 `encode_query`。某些模型的查询与文档提示不同。CrossEncoder 则构造 `[(query, text) for text in texts]` 后调用 `predict`。可直接跟读上面进阶工程的适配器；具体参考 [官方 bi-encoder](https://sbert.net/docs/sentence_transformer/usage/usage.html)与 [cross-encoder](https://sbert.net/docs/cross_encoder/usage/usage.html) 文档。应固定安装版本、权重 revision、设备、归一化及截断配置并记录运行环境。
 
-本次没有下载权重或运行这些模型。单元测试仅用固定向量验证回调形状和权限边界，不构成语义质量实验。`mode="dense"` 未配置 embedder 会报错。当前回调对过滤后的全部候选编码/重排，属于小语料参考接口；大语料需要离线向量索引和候选 Top-M，不能直接复制其扫描成本。
+本工程的基础测试没有下载权重；其中固定向量只验证回调形状和权限边界，不构成语义质量实验。真实模型适配器已放在 [Learning Workbench retrieval.py](../../../../20-Projects/learning-workbench/src/learning_workbench/retrieval.py)，并有[实际输出](../../../../20-Projects/learning-workbench/artifacts/real-models/retrieval.json)。`mode="dense"` 未配置 embedder 会报错。当前回调对过滤后的全部候选编码/重排，属于小语料参考接口；大语料需要离线向量索引和候选 Top-M，不能直接复制其扫描成本。
 
 ## 结果与局限
 
 可回答查询 5 条，BM25/Hybrid Recall@3 均 0.8，Exact 0.4；跨语言 `airflow obstruction` 无法命中中文“风道堵塞”，保留为失败。3 条无答案/旧版本/无权限查询都返回空。所有数字都只对应本教学 fixture，数据说明见 [fixtures/README.md](fixtures/README.md)。
 
-`answer` 是原文抽取，不是 LLM 生成；有候选不表示足够回答。中文单字分词可能召回无关块。多编号文档按块中出现的编号匹配，避免把不同故障段落混入；没有显式元数据时会从正文提取编号，但规则不理解否定。单编号文档无编码段允许继承，复杂手册仍需节级上下文标注。默认 k 按块截断，`unit="document"` 在截断前按文档去重，文档以排名最高块代表；CLI/Notebook 指标使用后者。当前索引单进程、内存、不持久化，不提供并发事务。调用方必须从可信认证结果绑定 tenant。`verify_citation` 检查原文一致性，不检查语义蕴含或文档本身真假。PDF/OCR、数据库/图检索、模型生成和线上容量均未实现或验证。
+`answer` 是原文抽取，不是 LLM 生成；有候选不表示足够回答。中文单字分词可能召回无关块。多编号文档按块中出现的编号匹配，避免把不同故障段落混入；没有显式元数据时会从正文提取编号，但规则不理解否定。单编号文档无编码段允许继承，复杂手册仍需节级上下文标注。默认 k 按块截断，`unit="document"` 在截断前按文档去重，文档以排名最高块代表；CLI/Notebook 指标使用后者。当前索引单进程、内存、不持久化，不提供并发事务。调用方必须从可信认证结果绑定 tenant。`verify_citation` 检查原文一致性，不检查语义蕴含或文档本身真假。本包不实现 PDF/OCR、数据库/图检索、模型生成和线上容量；PDF 文本层与模型生成的扩展位于 Learning Workbench。
+
+`Hit.score` 保存的是 RRF 融合分数，即使 `mode="bm25"` 也不是原始 BM25 分；单通道时 RRF 不改变它的排名。配置 reranker 后，列表按重排分排序，但 `Hit.score` 仍保留原融合分，因此它可能不再随返回顺序递减。不要把该字段当作重排置信度，或者再次按它排序而撤销重排结果。

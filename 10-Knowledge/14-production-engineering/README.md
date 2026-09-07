@@ -12,6 +12,6 @@
 
 [代码说明](05-code/README.md)记录实跑范围；[来源索引](references.md)连接 Google SRE 与 Kubernetes 官方文档。本库没有部署生产服务，也没有把本地算例当作容量压测或真实事故。
 
-## 配套项目扩展（2026-09-06）
+## 看一次真实排队
 
-[实际本地队列、错误重试、p95 与拒绝率](../../20-Projects/learning-workbench/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。
+从仓库根目录运行 `python scripts/run_python.py -m learning_workbench.cli queue --output .runs/queue`，比较无界队列与短队列的输出。先检查 `completed + len(rejected) == arrivals`，再比较时延；拒掉大半请求后得到更低 p95，并不表示同样负载下服务能力提高。[实现](../../20-Projects/learning-workbench/src/learning_workbench/experiments.py)实际运行 asyncio Worker，但工作负载是固定等待与人工重试，测出的秒数不能作为模型吞吐指标。

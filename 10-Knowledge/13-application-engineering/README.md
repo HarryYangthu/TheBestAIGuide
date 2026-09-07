@@ -6,7 +6,7 @@
 
 | 主题 | 核心问题 | 对应实践 |
 |---|---|---|
-| [后端与流式事件](01-concepts/01-backend-and-streaming.md) | 断线后任务和事件如何恢复 | [浏览器 checkpoint](05-code/browser-agent-typescript/README.md) |
+| [后端与流式事件](01-concepts/01-backend-and-streaming.md) | 断线后任务和事件如何恢复 | [SQLite Run/SSE 服务](../../20-Projects/learning-workbench/src/learning_workbench/server.py) |
 | [人机交互](01-concepts/02-human-agent-interaction.md) | 计划、证据、批准与取消如何一致 | [浏览器案例](03-cases/browser-agents/README.md) |
 | [存储与多租户](01-concepts/03-storage-and-multitenancy.md) | 谁能读哪个对象 | [企业案例](03-cases/domain-agents/enterprise/README.md) |
 | [模型网关](01-concepts/04-model-gateways.md) | 能力约束、回退和成本如何统一 | [Python 选择算例](05-code/application_cases.py) |

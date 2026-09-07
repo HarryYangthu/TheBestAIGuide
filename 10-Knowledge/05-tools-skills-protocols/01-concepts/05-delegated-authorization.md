@@ -10,6 +10,8 @@ $$allow = authenticated \land scope\_allows(action) \land resource\_allows(subje
 
 这里三个量都是程序检查得到的布尔值。只有`docs:read` scope还不够：它可以表明允许读文档，但不说明允许读某位同事的私有文档。资源层还要核对拥有者、租户、共享名单等条件。
 
+例如 Alice 已登录且令牌含 `docs:read`，但目标属于 Bob 且未共享，则三个条件为 `True、True、False`，最终拒绝。`scope` 是令牌允许的动作类别，`subject` 是经过认证的主体，资源授权是“这个主体对这份具体资料”的检查。三者分别解决问题，不能用“已经登录”替代全部授权。
+
 ## 在工具调用的哪里检查
 
 本库TS Runtime的`Identity`由调用代码传入，含`subject`与`scopes`；调用参数只有业务字段。Runtime先查scope，再执行handler。真实文档服务应在handler中按subject过滤文档或向后端传递已验证的身份。示例只有公共教学语料，因此没有冒充完整多租户认证系统。

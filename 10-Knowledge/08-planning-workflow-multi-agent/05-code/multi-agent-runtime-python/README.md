@@ -18,7 +18,9 @@ Windows PowerShell 使用 `$env:PYTHONPATH="src"`，然后分别执行上述 `py
 | [supervisor.py](src/multi_agent/supervisor.py) | 总任务预算、并发名额、总期限、父子取消 |
 | [merge.py](src/multi_agent/merge.py) | 部分结果、字段来源和冲突拒绝 |
 | [fixture.py](src/multi_agent/fixture.py) | 可替换的教学 Worker、确定性与顺序/并行基线 |
-| [tests](tests/test_runtime.py) | 6 项用例，涵盖未知路由、契约错、隔离、超时、取消、冲突和预算 |
+| [tests](tests/test_runtime.py) | 7 项用例，涵盖未知路由、契约错、隔离、超时、取消、冲突、预算与完整任务清单 |
+
+使用 `merge_results(results, expected_task_ids=[...])` 合并时，清单必须来自实际委派任务；缺失结果会令 `complete=False`，重复/未知结果会被拒绝。省略清单只能检查已传入结果，不能发现调用方遗漏的任务。
 
 公开入口：`Task`、`WorkerResult`、`Router`、`Supervisor`、`merge_results`、`MergeConflict`。`await Supervisor(router).run(tasks)` 返回 `RunResult(results, trace, max_active)`。每次 run 内部状态独立；`last_trace` 是调试便捷入口，同一个 Supervisor 并发多次调用时不应用它区分任务。
 

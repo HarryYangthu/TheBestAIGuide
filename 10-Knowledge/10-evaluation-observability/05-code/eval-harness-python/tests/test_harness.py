@@ -60,6 +60,15 @@ class HarnessTests(unittest.TestCase):
             with self.assertRaises(ValueError):pass_at_k(*args)
         with self.assertRaises(ValueError):wilson(0,0)
 
+    def test_counts_and_quantile_must_be_valid_numbers(self):
+        for c, n, z in [(0.5, 1, 1.96), (True, 1, 1.96), (1, 2.5, 1.96),
+                        (1, 2, float("nan")), (1, 2, float("inf")), (1, 2, True)]:
+            with self.subTest(c=c, n=n, z=z), self.assertRaises(ValueError):
+                wilson(c, n, z)
+        for args in [(2.5, 1, 1), (2, True, 1), (2, 1, 1.5)]:
+            with self.subTest(args=args), self.assertRaises(ValueError):
+                pass_at_k(*args)
+
     def test_bad_grader_configuration_rejected_before_run(self):
         for expected in ({"output":["ok"]},{"state":[]},
                          {"forbidden_strings":"SECRET"},{"forbidden_strings":[None]},

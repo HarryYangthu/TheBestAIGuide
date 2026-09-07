@@ -24,9 +24,15 @@ plan = [("budget_docs", "预算"), ("compression_docs", "压缩")]
 artifacts = {}
 for task_id, query in plan:
     result = run_agent(EvidenceModel(), default_tools(), query, max_steps=3)
-    artifacts[task_id] = result.observations[0] if result.observations else None
-print({key: item["ok"] if item else False for key, item in artifacts.items()})
+    observation = result.observations[0] if result.observations else None
+    docs = observation["data"]["documents"] if observation and observation["ok"] else []
+    # 教学语料按子串检索；验收至少要求主题命中、ID和原文都存在。
+    accepted = any(doc.get("id") and query in doc.get("text", "") for doc in docs)
+    artifacts[task_id] = {"status": "accepted" if accepted else "missing_evidence", "documents": docs}
+print({key: item["status"] for key, item in artifacts.items()})
 ```
+
+原始两个子任务都应得到 `accepted`。把第二个查询改为语料中不存在的“量化误差”，搜索工具仍会 `ok=True`，但计划验收应返回 `missing_evidence`。`ok` 只说明函数成功执行；有资料、资料支持结论又是另外两层。这段验收仅适用于当前子串教学语料，实际比较文章还需要逐项检查证据支撑关系。
 
 这段固定计划组合了同一个最小Loop，没有伪装成模型自主规划。实际计划更新应保留已完成产物，取消尚未开始且不再需要的步骤；不要遇到一个失败就从头跑整条链。
 

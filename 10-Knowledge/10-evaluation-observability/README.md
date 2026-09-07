@@ -25,12 +25,18 @@
 
 - 正文已经区分 Task、Trial、Trajectory、Outcome、Grader 与 Harness。
 - Schema、阈值和门禁是设计模板，不是运行结果。
-- Lab 与 Eval Harness 已实现四任务教学实验；正文保持 `draft`，真实 Agent 与独立专家校准尚未完成。
+- Lab 与 Eval Harness 已实现四任务教学实验；正文保持 `draft`，表示尚未完成人工审阅。Workbench 另有真实模型结果；二者都没有独立专家校准证据。
 
 ## 完整实践
 
 [从任务数据到回归门禁](03-cases/01-from-task-dataset-to-regression.md)：一套带真实输出的教学案例，把数据构造、状态评分、失败定位、修复和回归接起来。
 
-## 配套项目扩展（2026-09-06）
+## 用已有结果练习判断，不急着再跑模型
 
-[开放文本 Judge、位置交换与 Task 配对 bootstrap](../../20-Projects/learning-workbench/README.md)已提供源码、输入数据、运行入口和实际结果。默认机制验证与可选真实模型结果分开记录，具体适用范围见项目说明。
+| 读什么 | 要判断的问题 | 核对位置 |
+|---|---|---|
+| [统计正文](01-concepts/04-statistics-and-reliability.md) | 为什么 9/12 和 45% 都对？超时算不算分母？ | 微/宏平均与成本算例 |
+| [评分正文](01-concepts/03-graders-and-scoring.md) | Judge 3/6 错在哪里？格式失败能否算顺序偏差？ | 已保存的真实模型报告 |
+| [Workbench](../../20-Projects/learning-workbench/README.md) | 怎样替换真实系统并保留同一评分口径？ | 模型适配、Task 配对 bootstrap、位置交换 |
+
+读完应能自己写一条 Task，指出标签由谁保存，运行后用 Outcome 验证而非相信自述，再说清分母、失败类型和下一步修改。四题全过只说明这四题的已知条件成立。
