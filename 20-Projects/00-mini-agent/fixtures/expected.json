@@ -1,0 +1,5 @@
+{
+  "auth": {"before": "X-API-Key", "after": "Authorization: Bearer", "line": 2},
+  "timeout": {"before": "30 秒", "after": "10 秒", "line": 3},
+  "retry": {"before": "3 次", "after": "0 次", "line": 4}
+}

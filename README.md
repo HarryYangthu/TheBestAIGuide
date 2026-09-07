@@ -8,7 +8,7 @@
 | --- | --- | --- |
 | 补齐数学与机器学习 | [AI 基础](10-Knowledge/01-ai-foundations/README.md) | 算梯度、观察过拟合、更新价值函数 |
 | 搞懂模型内部 | [基础模型](10-Knowledge/02-foundation-models/README.md) | 手算并运行 Attention，比较缩放、Mask 和 KV Cache |
-| 做出最小 Agent | [Agent Core](10-Knowledge/03-agent-core/README.md) | 观察工具调用、失败与停止原因 |
+| 做出最小 Agent | [项目 00：Mini Agent](20-Projects/00-mini-agent/README.md) | 七步写出 Agent，生成升级清单并对照参考报告验收 |
 | 设计信息链路 | [Context](10-Knowledge/04-context-engineering/README.md)、[RAG](10-Knowledge/06-rag-and-knowledge-systems/README.md)、[Memory](10-Knowledge/07-state-and-memory/README.md) | 改预算、查询、权限和过期时间，比较输出 |
 | 理解可靠执行 | [Tools](10-Knowledge/05-tools-skills-protocols/README.md)、[Workflow](10-Knowledge/08-planning-workflow-multi-agent/README.md)、[Runtime](10-Knowledge/09-runtime-harness-environment/README.md) | 故意制造超时、冲突和中断，再恢复 |
 | 判断系统是否改善 | [Evaluation](10-Knowledge/10-evaluation-observability/README.md) | 隔离任务、检查状态、跑回归门禁 |

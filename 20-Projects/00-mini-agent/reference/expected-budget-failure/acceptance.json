@@ -1,0 +1,11 @@
+{
+  "passed": false,
+  "mode": "unknown",
+  "checks": [
+    {
+      "check": "artifacts_readable_and_well_formed",
+      "passed": false
+    }
+  ],
+  "scope": "固定教学任务的值、版本、逐字引用及结束状态；不代表通用研究能力。"
+}

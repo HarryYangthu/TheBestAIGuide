@@ -1,9 +1,12 @@
 # 虚拟项目与学习工程总表
 
+**第一次学习 Agent，先做 [项目 00：Mini Agent](00-mini-agent/README.md)。** 它提供七步代码、使用教程、参考清单和一键验收；跑完后能直接检查自己是否完成。
+
 从这里可以找到完整工程，也能看清哪些只是解释单一机制的算例。代码保持原目录，通过链接统一导航，避免打断 Notebook 导入。
 
 | 类型 | 项目 | 任务与输入输出 | 运行和验收入口 |
 | --- | --- | --- | --- |
+| 入门项目 00 | [Mini Agent：从一个循环写起](00-mini-agent/README.md) | 对比资料→升级清单；逐步加入上下文、记忆、计划、并发与 Harness | README 一键运行；reference 参考报告；completion 总验收 |
 | 组件 | [工具调用循环](../10-Knowledge/03-agent-core/05-code/agent-loop-python/README.md) | 输入任务→State/Trace；限步、错误、工具结果 | 项目 README 的命令与测试 |
 | 组件 | [工具契约与授权](../10-Knowledge/05-tools-skills-protocols/05-code/tool-runtime-typescript/README.md) | 完整 ToolCall、参数校验、调用去重 | 项目 README 的命令与测试 |
 | 组件 | [MCP 工具服务](../10-Knowledge/05-tools-skills-protocols/05-code/mcp-server-typescript/README.md) | stdio 客户端/服务端；固定 SDK | 项目 README 的命令与测试 |
@@ -33,4 +36,4 @@
 | 结构证据与引用 | 机制实验或局部算例 | [15-multimodal-and-embodied](../10-Knowledge/15-multimodal-and-embodied/README.md) |
 | 研究假设与资源约束 | 机制实验或局部算例 | [16-research-frontiers](../10-Knowledge/16-research-frontiers/README.md) |
 
-建议学习顺序：Agent Loop → Tools → RAG → Memory → 学习工作台。关注模型底层时走 Tokenization → Attention → Tiny Transformer。所有完成范围与未声称的能力见[本轮记录](../00-Home/Round2-Completion.md)。
+建议学习顺序：Mini Agent 项目 00 → Agent Loop → Tools → RAG → Memory → 学习工作台。关注模型底层时走 Tokenization → Attention → Tiny Transformer。所有完成范围与未声称的能力见[本轮记录](../00-Home/Round2-Completion.md)。

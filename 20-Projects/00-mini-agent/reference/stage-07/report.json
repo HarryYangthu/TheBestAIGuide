@@ -1,0 +1,50 @@
+{
+  "format": "table",
+  "changes": [
+    {
+      "id": "auth",
+      "before": "X-API-Key",
+      "after": "Authorization: Bearer",
+      "old_source": {
+        "path": "v1.md",
+        "line": 2,
+        "quote": "认证：请求使用 X-API-Key。"
+      },
+      "source": {
+        "path": "v2.md",
+        "line": 2,
+        "quote": "认证：请求使用 Authorization: Bearer。"
+      }
+    },
+    {
+      "id": "timeout",
+      "before": "30 秒",
+      "after": "10 秒",
+      "old_source": {
+        "path": "v1.md",
+        "line": 3,
+        "quote": "超时：默认等待 30 秒。"
+      },
+      "source": {
+        "path": "v2.md",
+        "line": 3,
+        "quote": "超时：默认等待 10 秒。"
+      }
+    },
+    {
+      "id": "retry",
+      "before": "3 次",
+      "after": "0 次",
+      "old_source": {
+        "path": "v1.md",
+        "line": 4,
+        "quote": "重试：默认重试 3 次。"
+      },
+      "source": {
+        "path": "v2.md",
+        "line": 4,
+        "quote": "重试：默认重试 0 次；调用方必须显式配置。"
+      }
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "mode": "demo",
+  "receipts": [
+    {
+      "file": "v1.md",
+      "read_observed": true,
+      "finished": true
+    },
+    {
+      "file": "v2.md",
+      "read_observed": true,
+      "finished": true
+    }
+  ],
+  "passed": true,
+  "scope": "只验证独立上下文、受限读取与结束；不评估子 Agent 自然语言总结质量，不宣称优于单 Agent。"
+}

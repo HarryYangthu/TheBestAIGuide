@@ -1,0 +1,84 @@
+{
+  "mode": "demo",
+  "stages": [
+    {
+      "stage": 1,
+      "passed": true,
+      "mode": "demo"
+    },
+    {
+      "stage": 2,
+      "passed": true,
+      "mode": "demo"
+    },
+    {
+      "stage": 3,
+      "passed": true,
+      "mode": "demo"
+    },
+    {
+      "stage": 4,
+      "passed": true,
+      "mode": "demo"
+    },
+    {
+      "stage": 5,
+      "passed": true,
+      "mode": "demo"
+    },
+    {
+      "stage": 6,
+      "passed": true,
+      "mode": "demo"
+    },
+    {
+      "stage": 7,
+      "passed": true,
+      "mode": "demo"
+    }
+  ],
+  "experiments": {
+    "context": {
+      "before_chars": 4980,
+      "after_chars": 1128,
+      "removed_groups": 4,
+      "passed": true
+    },
+    "memory": {
+      "recalled": [
+        "bullets",
+        "memory"
+      ],
+      "current_override": [
+        "table",
+        "current_request"
+      ],
+      "after_delete": [
+        "table",
+        "default"
+      ],
+      "passed": true
+    },
+    "parallel": {
+      "same_results": true,
+      "serial_seconds": 0.0814105829995242,
+      "parallel_seconds": 0.04117661399504868,
+      "injected_delay_seconds": 0.04,
+      "note": "线程并发读取，不是多 Agent；耗时不作为通过阈值。",
+      "passed": true
+    },
+    "budget": {
+      "status": "budget_exhausted",
+      "passed": true
+    },
+    "citation_rejection": {
+      "failed_checks": [
+        "auth:source"
+      ],
+      "passed": true
+    }
+  },
+  "passed": true,
+  "live_model_validated": false,
+  "meaning": "PASS 代表教学机制与固定任务验收通过；真实模型能力需另行 live 运行。"
+}

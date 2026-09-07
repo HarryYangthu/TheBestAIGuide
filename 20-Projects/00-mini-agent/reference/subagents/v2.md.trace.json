@@ -1,0 +1,37 @@
+{
+  "assigned_file": "v2.md",
+  "mode": "demo",
+  "status": "completed",
+  "messages": [
+    {
+      "role": "system",
+      "content": "你只负责读取指定文件，提取认证、超时、重试原文。不得修改文件。"
+    },
+    {
+      "role": "user",
+      "content": "读取 v2.md，返回原文与行号。"
+    },
+    {
+      "role": "assistant",
+      "tool_calls": [
+        {
+          "id": "read-1",
+          "type": "function",
+          "function": {
+            "name": "read_file",
+            "arguments": "{\"path\": \"v2.md\"}"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "read-1",
+      "content": "{\"ok\": true, \"result\": {\"path\": \"v2.md\", \"lines\": [{\"line\": 1, \"text\": \"# Pine SDK v2（虚构教学产品）\"}, {\"line\": 2, \"text\": \"认证：请求使用 Authorization: Bearer。\"}, {\"line\": 3, \"text\": \"超时：默认等待 10 秒。\"}, {\"line\": 4, \"text\": \"重试：默认重试 0 次；调用方必须显式配置。\"}], \"next_start\": null}}"
+    },
+    {
+      "role": "assistant",
+      "content": "{\"ok\": true, \"result\": {\"path\": \"v2.md\", \"lines\": [{\"line\": 1, \"text\": \"# Pine SDK v2（虚构教学产品）\"}, {\"line\": 2, \"text\": \"认证：请求使用 Authorization: Bearer。\"}, {\"line\": 3, \"text\": \"超时：默认等待 10 秒。\"}, {\"line\": 4, \"text\": \"重试：默认重试 0 次；调用方必须显式配置。\"}], \"next_start\": null}}"
+    }
+  ]
+}

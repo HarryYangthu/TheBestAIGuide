@@ -1,0 +1,35 @@
+{
+  "stage": 7,
+  "mode": "demo",
+  "status": "budget_exhausted",
+  "format": "table",
+  "format_source": "default",
+  "model": "scripted-demo",
+  "model_calls": 1,
+  "tool_calls": 1,
+  "tool_errors": 0,
+  "usage": {},
+  "context": [
+    {
+      "before_chars": 398,
+      "after_chars": 398,
+      "removed_groups": 0
+    }
+  ],
+  "max_steps": 1,
+  "context_chars": 9000,
+  "elapsed_seconds": 0.0004035890015074983,
+  "plan": {
+    "steps": [
+      {
+        "task": "查找旧版和新版资料",
+        "status": "doing"
+      },
+      {
+        "task": "生成并检查清单",
+        "status": "pending"
+      }
+    ],
+    "reason": "先核对资料再写结论"
+  }
+}

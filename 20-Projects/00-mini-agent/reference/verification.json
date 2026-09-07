@@ -1,0 +1,15 @@
+{
+  "python": "3.12.13",
+  "mode": "demo",
+  "curriculum_passed": true,
+  "stages": 7,
+  "experiments": 5,
+  "subagent_receipts_passed": true,
+  "cross_process_memory_tested": true,
+  "live_model_validated": false,
+  "commands": [
+    "python 20-Projects/00-mini-agent/learn.py --output .runs/mini-agent-final",
+    "python 20-Projects/00-mini-agent/delegate.py --mode demo --output .runs/mini-agent-children",
+    "python -m unittest discover -s 20-Projects/00-mini-agent/tests -v"
+  ]
+}

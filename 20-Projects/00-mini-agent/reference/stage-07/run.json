@@ -1,0 +1,70 @@
+{
+  "stage": 7,
+  "mode": "demo",
+  "status": "completed",
+  "format": "table",
+  "format_source": "default",
+  "model": "scripted-demo",
+  "model_calls": 8,
+  "tool_calls": 7,
+  "tool_errors": 1,
+  "usage": {},
+  "context": [
+    {
+      "before_chars": 398,
+      "after_chars": 398,
+      "removed_groups": 0
+    },
+    {
+      "before_chars": 913,
+      "after_chars": 913,
+      "removed_groups": 0
+    },
+    {
+      "before_chars": 1187,
+      "after_chars": 1187,
+      "removed_groups": 0
+    },
+    {
+      "before_chars": 1507,
+      "after_chars": 1507,
+      "removed_groups": 0
+    },
+    {
+      "before_chars": 2092,
+      "after_chars": 2092,
+      "removed_groups": 0
+    },
+    {
+      "before_chars": 2878,
+      "after_chars": 2878,
+      "removed_groups": 0
+    },
+    {
+      "before_chars": 3945,
+      "after_chars": 3945,
+      "removed_groups": 0
+    },
+    {
+      "before_chars": 4470,
+      "after_chars": 4470,
+      "removed_groups": 0
+    }
+  ],
+  "max_steps": 16,
+  "context_chars": 9000,
+  "elapsed_seconds": 0.012718625999696087,
+  "plan": {
+    "steps": [
+      {
+        "task": "读取并比较两份正式说明",
+        "status": "done"
+      },
+      {
+        "task": "保存升级清单",
+        "status": "done"
+      }
+    ],
+    "reason": "清单已保存，是否正确由宿主独立验收"
+  }
+}

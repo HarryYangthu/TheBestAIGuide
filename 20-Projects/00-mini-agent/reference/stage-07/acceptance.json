@@ -1,0 +1,59 @@
+{
+  "passed": true,
+  "mode": "demo",
+  "checks": [
+    {
+      "check": "agent_finished",
+      "passed": true
+    },
+    {
+      "check": "markdown_exists",
+      "passed": true
+    },
+    {
+      "check": "exact_required_changes",
+      "passed": true
+    },
+    {
+      "check": "auth:values",
+      "passed": true
+    },
+    {
+      "check": "auth:old_source",
+      "passed": true
+    },
+    {
+      "check": "auth:source",
+      "passed": true
+    },
+    {
+      "check": "timeout:values",
+      "passed": true
+    },
+    {
+      "check": "timeout:old_source",
+      "passed": true
+    },
+    {
+      "check": "timeout:source",
+      "passed": true
+    },
+    {
+      "check": "retry:values",
+      "passed": true
+    },
+    {
+      "check": "retry:old_source",
+      "passed": true
+    },
+    {
+      "check": "retry:source",
+      "passed": true
+    },
+    {
+      "check": "format_matches_request",
+      "passed": true
+    }
+  ],
+  "scope": "固定教学任务的值、版本、逐字引用及结束状态；不代表通用研究能力。"
+}
