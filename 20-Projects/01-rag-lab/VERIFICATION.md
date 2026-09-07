@@ -28,10 +28,34 @@ python -m unittest discover -s 20-Projects/01-rag-lab/tests -v
 
 测试覆盖：答案归一化、yes/no规则、部分证据集合、分块来源映射、预算、检索排序、真实引用但错误答案、虚假引用、数据划分、完整出图、结果复算以及人为篡改检测。测试通过不代表真实模型完成任务。
 
-默认参考的 `prediction` 为 null，答案EM/F1为null，页面显示“未运行”。语义模型、Cross-Encoder、真实API回答和模型主动补查没有在本次环境完成端到端验证。模型效果、模型文件revision、硬件开销应在这些实际实验后补充，不填写占位成绩。
+默认参考的 `prediction` 为 null，答案EM/F1为null，页面显示“未运行”。真实 API 回答和模型主动补查尚未完成端到端验证，不填写占位成绩。9 项自动测试通过，新增接口格式检查、密钥不进入事件记录、主动补查调用上限及失败保留测试；这些模拟测试不代表真实生成效果。
 
 HTML内嵌数据和JSONL逐条一致；SVG与PNG由同一结果集合生成。参考目录只保存SVG，重新运行同时生成PNG。保留数据归属与CC-BY-SA说明，见 [数据许可](data/README.md)。
 
 ## 页面检查
 
 已检查导出图表的实际图像，并使用 DOM 环境执行页面脚本：3个方案、100道题；BM25缺证据筛选为62题，融合方案完整证据筛选为39题；未发现JavaScript异常。浏览器安装下载超时，因此本次未完成完整浏览器像素截图验证，DOM检查不冒充浏览器渲染验证。
+
+## 语义模型实际验收
+
+2026-09-07，同一批 100 道验收题 × 4 个方案，共 400 条记录；2 线程 CPU，未调用生成模型。模型 revision 见 [实验说明](NEURAL.md)，完整安装版本见 [environment.txt](reference-neural/environment.txt)。首次需要下载约 183 MB 模型文件；初始化与下载不计入检索耗时。计时包含各方案自己的编码，不共享其他方案的编码缓存。
+
+```bash
+python 20-Projects/01-rag-lab/run.py --methods bm25 dense neural-hybrid rerank --output .runs/rag-neural-100
+python 20-Projects/01-rag-lab/verify.py --output .runs/rag-neural-100
+```
+
+| 方案 | Recall@5 | 前20候选证据齐全 | 上下文证据齐全 | 比 BM25 改善 / 不变 / 退化的题数 |
+| --- | --- | --- | --- | --- |
+| BM25 | 69.48% | 80% | 38% | 对照 |
+| Dense | 64.73% | 68% | 34% | 21 / 47 / 32 |
+| Neural hybrid | 69.78% | 80% | 40% | 19 / 59 / 22 |
+| Rerank | 73.73% | 80% | 48% | 23 / 62 / 15 |
+
+逐题变化按 Recall@5 计算，不是答案正确率。重排平均召回提高 4.25 个百分点，但仍有 15 题下降；这不证明所有场景都适合重排。Dense 在本子集表现较弱，也不能推断所有语义编码器都弱于 BM25。
+
+[逐题记录](reference-neural/results.jsonl)、[汇总与工程验收](reference-neural/summary.json)、[逐题变化计数](reference-neural/paired-recall.json) 可独立核对。工程检查通过、400 条记录无异常，答案 EM/F1 保持 null。使用同样的数据、模型权重与参数应得到相近检索分数，硬件和数值计算差异可能影响近似并列项。不要把延迟绝对值作为跨机器验收门槛。
+
+![逐题变化](reference-neural/paired-recall.svg)
+
+新增语义实验页面通过 DOM 脚本检查：4 个方案、100 道题，重排方案完整证据筛选为 48 题，逐题变化图引用存在，未出现 JavaScript 异常；也已检查导出的逐题变化 PNG。

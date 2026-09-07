@@ -1,5 +1,6 @@
 import hashlib
 import json
+import sys
 from pathlib import Path
 from time import perf_counter
 from .retrieval import Index, chunks, fuse, assemble, Neural
@@ -38,13 +39,14 @@ def run(output, split='eval', methods=('bm25','tfidf','hybrid'), top_k=5, budget
     model=Model() if generation=='live' else None
     output.mkdir(parents=True)
     rows=[]
-    for item in data:
+    for task_number, item in enumerate(data, 1):
         documents=chunks(item['context'],chunk_size)
         index=Index(documents)
         gold=list(map(list,zip(item['supporting_facts']['title'], item['supporting_facts']['sent_id'])))
         for method in methods:
             start=perf_counter();queries=[item['question']];prediction=None;answer_metrics=None;error=None
             calls=model.calls if model else 0;usage=model.tokens if model else 0
+            event_start=len(getattr(model, 'events', []))
             bm=index.rank(item['question']) if method!='tfidf' else None
             before_rerank=None
             if method in ('bm25','active'): ranking=bm
@@ -88,10 +90,12 @@ def run(output, split='eval', methods=('bm25','tfidf','hybrid'), top_k=5, budget
                  'gold_evidence':[{'title':t,'sent_id':i,'text':lookup[t][i]} for t,i in gold],
                  'recall':recall,'candidate_complete':candidate,'selected_complete':pre,'context_complete':context,
                  'context_chars':used,'context':selected,'ranking':[dict(documents[i],score=float(score),initial_rank=initial.index(i)+1,in_context=any(tuple(f) in visible for f in documents[i]['facts'])) for i,score in ranking[:20]],
-                 'queries':queries,'rounds':rounds,'prediction':prediction,'answer_metrics':answer_metrics,'error':error,'diagnosis':diagnosis,
+                 'queries':queries,'rounds':rounds,'model_events':getattr(model, 'events', [])[event_start:],'prediction':prediction,'answer_metrics':answer_metrics,'error':error,'diagnosis':diagnosis,
                  'retrieval_ms':retrieval_ms,'elapsed_ms':(perf_counter()-start)*1000,'calls':model.calls-calls if model else 0,'tokens':model.tokens-usage if model else None}
             rows.append(row)
             with (output/'results.jsonl').open('a',encoding='utf-8') as stream: stream.write(json.dumps(row,ensure_ascii=False)+'\n')
+        if task_number % 10 == 0 or task_number == len(data):
+            print(f'Completed {task_number}/{len(data)} questions', file=sys.stderr, flush=True)
     summary={}
     for method in methods:
         group=[r for r in rows if r['method']==method];n=len(group)
@@ -103,7 +107,7 @@ def run(output, split='eval', methods=('bm25','tfidf','hybrid'), top_k=5, budget
     checks={'all_tasks_recorded':len(rows)==len(data)*len(methods),'unique_task_method':len({(r['id'],r['method']) for r in rows})==len(rows),
             'context_within_budget':all(r['context_chars']<=budget for r in rows),'generation_errors_absent':all(r['error'] is None for r in rows),
             'no_fabricated_predictions':all(r['prediction'] is None for r in rows) if not model else True}
-    bundle={'config':{'split':split,'questions':len(data),'scope':'HotpotQA distractor: per-question supplied documents','chunk_size':chunk_size,'top_k':top_k,'budget':budget,'generation':generation,'model':model.name if model else None},'summary':summary,'rows':rows,
+    bundle={'config':{'split':split,'questions':len(data),'scope':'HotpotQA distractor: per-question supplied documents','chunk_size':chunk_size,'top_k':top_k,'budget':budget,'generation':generation,'model':model.name if model else None,'neural':neural.metadata if neural else None},'summary':summary,'rows':rows,
             'acceptance':{'passed':all(checks.values()),'checks':checks,'meaning':'工程检查，不是答案全对或泛化能力通过'}}
     (output/'summary.json').write_text(json.dumps({k:v for k,v in bundle.items() if k!='rows'},ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     render(bundle,output)

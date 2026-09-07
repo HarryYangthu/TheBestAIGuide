@@ -68,16 +68,29 @@ def assemble(docs, ranking, top_k=5, budget=1800):
 class Neural:
     """Optional pretrained dense retrieval and cross-encoder; no lexical stand-in."""
     def __init__(self):
+        import os
+        import torch
+        torch.set_num_threads(int(os.environ.get('RAG_CPU_THREADS', '2')))
         from sentence_transformers import SentenceTransformer, CrossEncoder
-        self.encoder = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
-        self.reranker = CrossEncoder('cross-encoder/ms-marco-MiniLM-L6-v2')
+        self.encoder = SentenceTransformer(
+            os.environ.get('RAG_ENCODER_PATH', 'sentence-transformers/all-MiniLM-L6-v2'),
+            revision='1110a243fdf4706b3f48f1d95db1a4f5529b4d41', device='cpu')
+        self.metadata = {'encoder': 'sentence-transformers/all-MiniLM-L6-v2',
+                         'encoder_revision': '1110a243fdf4706b3f48f1d95db1a4f5529b4d41',
+                         'reranker': 'cross-encoder/ms-marco-MiniLM-L6-v2',
+                         'reranker_revision': '233902d25c440f23af6f7d6e94d2946bac0bee0a',
+                         'device': 'cpu', 'threads': torch.get_num_threads(),
+                         'local_override': bool(os.environ.get('RAG_ENCODER_PATH') or os.environ.get('RAG_RERANKER_PATH'))}
+        self.reranker = CrossEncoder(
+            os.environ.get('RAG_RERANKER_PATH', 'cross-encoder/ms-marco-MiniLM-L6-v2'),
+            revision='233902d25c440f23af6f7d6e94d2946bac0bee0a', device='cpu')
 
     def dense(self, query, docs):
-        vectors = self.encoder.encode([query] + [d['title'] + ' ' + d['text'] for d in docs], normalize_embeddings=True)
+        vectors = self.encoder.encode([query] + [d['title'] + ' ' + d['text'] for d in docs], normalize_embeddings=True, show_progress_bar=False, batch_size=32)
         return sorted(enumerate((vectors[1:] @ vectors[0]).tolist()), key=lambda x: (-x[1], x[0]))
 
     def rerank(self, query, docs, ranking):
         candidates = ranking[:20]
-        scores = self.reranker.predict([(query, docs[i]['title'] + ' ' + docs[i]['text']) for i, _ in candidates])
+        scores = self.reranker.predict([(query, docs[i]['title'] + ' ' + docs[i]['text']) for i, _ in candidates], show_progress_bar=False, batch_size=16)
         head = sorted([(candidate[0], float(score)) for candidate, score in zip(candidates, scores)], key=lambda x: (-x[1], x[0]))
         return head + ranking[20:]

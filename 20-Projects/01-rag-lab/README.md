@@ -14,6 +14,23 @@
 
 下载或克隆仓库后，用浏览器打开 `reference/index.html`，可以切换方案、筛选缺证据题、查看标注原文、候选排名和上下文。GitHub 文件页不直接运行 HTML；SVG 图可直接在上方和 GitHub 中查看。
 
+## 真实语义模型实验
+
+同一批 100 道题另跑了预训练编码器和重排器，完整记录在 `reference-neural/index.html`。
+
+| 方案 | Recall@5 | 上下文证据齐全 |
+| --- | --- | --- |
+| BM25 | 69.48% | 38% |
+| Dense | 64.73% | 34% |
+| BM25＋Dense RRF | 69.78% | 40% |
+| RRF 后重排 | 73.73% | 48% |
+
+![语义检索与重排实测](reference-neural/retrieval.svg)
+
+![逐题改善与退化](reference-neural/paired-recall.svg)
+
+重排相对 BM25 有 23 题 Recall@5 提高、15 题下降、62 题不变。学完应能解释为什么语义检索不一定胜过关键词，以及为什么重排无法找回候选池外的证据。算法、固定权重与复现步骤见 [语义检索实验](NEURAL.md)。这些仍是检索实验，没有调用生成模型。
+
 ## 一次运行生成自己的图表
 
 Python 3.11+，从仓库根目录执行；Windows 的命令相同。推荐新建虚拟环境，避免影响其他项目。
@@ -31,6 +48,7 @@ python 20-Projects/01-rag-lab/verify.py --output .runs/rag-first
 | `index.html` | 交互式整体结果、方案对比与逐题复盘；内嵌本次真实数据 |
 | `retrieval.svg` / `.png` | Recall@K、完整证据覆盖率、检索耗时分布，可导出分享 |
 | `evidence-loss.svg` / `.png` | 前20候选→Top-K→上下文的证据保留情况 |
+| `paired-recall.svg` / `.png` / `.json` | 有 BM25 对照时，逐题召回的改善、不变和退化数量 |
 | `results.jsonl` | 每题每方案的排名、上下文、分数、失败状态及模型预测 |
 | `summary.json` | 运行配置、逐方案指标、工程验收条件 |
 
@@ -53,11 +71,12 @@ python 20-Projects/01-rag-lab/verify.py --output .runs/rag-first
 ## 语义检索与重排入口
 
 ```bash
+python -m pip install torch==2.8.0 --index-url https://download.pytorch.org/whl/cpu
 python -m pip install -r 20-Projects/01-rag-lab/requirements-neural.txt
 python 20-Projects/01-rag-lab/run.py --split dev --methods bm25 dense neural-hybrid rerank --output .runs/rag-neural
 ```
 
-使用 `sentence-transformers/all-MiniLM-L6-v2` 与 `cross-encoder/ms-marco-MiniLM-L6-v2`。首次运行下载预训练模型，需要网络和额外内存；加载失败会明确报错，不降级成词项算法。当前参考结果**未运行这两个模型**，版本与模型资源应在实际 neural 实验后补充锁定与资源测量。依赖文件固定直接依赖，不是完整环境锁。
+使用 `sentence-transformers/all-MiniLM-L6-v2` 与 `cross-encoder/ms-marco-MiniLM-L6-v2`。首次运行下载预训练模型，需要网络和额外内存；加载失败会明确报错，不降级成词项算法。这两个模型已完成 100 题 CPU 实测，模型 revision 固定在代码中，见 [实测环境](reference-neural/environment.txt)。环境清单记录本次安装版本，不保证跨平台直接安装；CPU 默认为 2 线程。
 
 ## 模型生成与主动补查
 
@@ -76,7 +95,7 @@ python 20-Projects/01-rag-lab/run.py --split dev --limit 5 --methods bm25 active
 
 `active` 使用 BM25 起始检索，由模型提出后续查询，RRF 合并后再次装配上下文；模型返回 query=null 即停止补查。这是最多两轮的受限主动检索，不是开放互联网研究。每轮实际上下文保存在 `rounds`。
 
-本次交付**没有真实模型回答成绩**：默认页面显示 N/A。API、语义模型和主动检索入口已实现，但未执行真实模型端到端验证，不能把默认参考报告当作这些能力已通过。
+本次交付**没有真实模型回答成绩**：默认页面显示 N/A。语义检索与重排已实测；API 回答和主动补查仅通过模拟接口测试，尚未执行真实生成模型端到端验证。请求正文及原始响应保存在 `model_events`，不保存认证头；分享自己的报告前请检查其中的输入文档。
 
 ## 怎样验收
 

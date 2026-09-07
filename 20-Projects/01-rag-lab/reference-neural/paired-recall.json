@@ -1,0 +1,17 @@
+{
+  "dense": {
+    "improved": 21,
+    "same": 47,
+    "regressed": 32
+  },
+  "neural-hybrid": {
+    "improved": 19,
+    "same": 59,
+    "regressed": 22
+  },
+  "rerank": {
+    "improved": 23,
+    "same": 62,
+    "regressed": 15
+  }
+}

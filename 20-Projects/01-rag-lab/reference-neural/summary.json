@@ -1,0 +1,98 @@
+{
+  "config": {
+    "split": "eval",
+    "questions": 100,
+    "scope": "HotpotQA distractor: per-question supplied documents",
+    "chunk_size": 1,
+    "top_k": 5,
+    "budget": 1800,
+    "generation": "none",
+    "model": null,
+    "neural": {
+      "encoder": "sentence-transformers/all-MiniLM-L6-v2",
+      "encoder_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+      "reranker": "cross-encoder/ms-marco-MiniLM-L6-v2",
+      "reranker_revision": "233902d25c440f23af6f7d6e94d2946bac0bee0a",
+      "device": "cpu",
+      "threads": 2,
+      "local_override": false
+    }
+  },
+  "summary": {
+    "bm25": {
+      "recall": {
+        "1": 0.31116666666666665,
+        "3": 0.6103333333333333,
+        "5": 0.6948333333333333,
+        "10": 0.8123333333333334,
+        "20": 0.9205
+      },
+      "candidate_complete": 0.8,
+      "selected_complete": 0.38,
+      "context_complete": 0.38,
+      "answer_em": null,
+      "answer_f1": null,
+      "errors": 0,
+      "calls": 0
+    },
+    "dense": {
+      "recall": {
+        "1": 0.2866666666666667,
+        "3": 0.5278333333333333,
+        "5": 0.6473333333333333,
+        "10": 0.7456666666666666,
+        "20": 0.8576666666666667
+      },
+      "candidate_complete": 0.68,
+      "selected_complete": 0.34,
+      "context_complete": 0.34,
+      "answer_em": null,
+      "answer_f1": null,
+      "errors": 0,
+      "calls": 0
+    },
+    "neural-hybrid": {
+      "recall": {
+        "1": 0.3278333333333333,
+        "3": 0.6028333333333333,
+        "5": 0.6978333333333333,
+        "10": 0.8156666666666667,
+        "20": 0.9191666666666667
+      },
+      "candidate_complete": 0.8,
+      "selected_complete": 0.4,
+      "context_complete": 0.4,
+      "answer_em": null,
+      "answer_f1": null,
+      "errors": 0,
+      "calls": 0
+    },
+    "rerank": {
+      "recall": {
+        "1": 0.3295,
+        "3": 0.6548333333333334,
+        "5": 0.7373333333333334,
+        "10": 0.8251666666666666,
+        "20": 0.9191666666666667
+      },
+      "candidate_complete": 0.8,
+      "selected_complete": 0.48,
+      "context_complete": 0.48,
+      "answer_em": null,
+      "answer_f1": null,
+      "errors": 0,
+      "calls": 0
+    }
+  },
+  "acceptance": {
+    "passed": true,
+    "checks": {
+      "all_tasks_recorded": true,
+      "unique_task_method": true,
+      "context_within_budget": true,
+      "generation_errors_absent": true,
+      "no_fabricated_predictions": true
+    },
+    "meaning": "工程检查，不是答案全对或泛化能力通过"
+  }
+}

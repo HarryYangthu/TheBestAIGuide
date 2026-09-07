@@ -12,6 +12,7 @@ class Model:
             raise ValueError('HTTPS or loopback endpoint required')
         self.calls = 0
         self.tokens = 0
+        self.events = []
 
     def ask(self, question, selected, plan=False):
         task = ('Return JSON {"query": string|null}. If evidence is sufficient query=null, otherwise propose one follow-up search.' if plan else
@@ -23,7 +24,17 @@ class Model:
         req = urllib.request.Request(self.base + '/chat/completions', data=json.dumps(body).encode(),
                                      headers={'Content-Type': 'application/json', 'Authorization': 'Bearer ' + self.key})
         self.calls += 1
+        event = {'request': body, 'response_text': None}
+        self.events.append(event)  # No API key or request headers are retained.
         with urllib.request.urlopen(req, timeout=60) as response:
             obj = json.load(response)
         self.tokens += obj.get('usage', {}).get('total_tokens', 0)
-        return json.loads(obj['choices'][0]['message']['content'])
+        event['response_text'] = obj['choices'][0]['message']['content']
+        parsed = json.loads(event['response_text'])
+        if not isinstance(parsed, dict):
+            raise ValueError('model must return a JSON object')
+        if plan and 'query' not in parsed:
+            raise ValueError('planner response missing query')
+        if not plan and (not isinstance(parsed.get('answer'), str) or not isinstance(parsed.get('citations'), list)):
+            raise ValueError('answer response requires answer and citations')
+        return parsed

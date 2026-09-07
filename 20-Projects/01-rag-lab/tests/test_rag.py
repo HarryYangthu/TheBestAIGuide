@@ -49,6 +49,40 @@ class RAGTests(unittest.TestCase):
             for title,i in zip(row['supporting_facts']['title'],row['supporting_facts']['sent_id']):
                 self.assertTrue(0<=i<len(available[title]))
 
+    def test_generation_wire_contract_and_bad_planner(self):
+        from unittest.mock import patch
+        from io import BytesIO
+        from rag_lab.model import Model
+        with patch.dict('os.environ', {'RAG_MODEL':'test-model','RAG_API_KEY':'test-only'}):
+            model=Model()
+            payload={'choices':[{'message':{'content':'{}'}}]}
+            with patch('urllib.request.urlopen',return_value=BytesIO(json.dumps(payload).encode())) as transport:
+                with self.assertRaises(ValueError): model.ask('Question?',[],plan=True)
+            body=json.loads(transport.call_args.args[0].data)
+            user=json.loads(body['messages'][1]['content'])
+            self.assertEqual(set(user),{'question','evidence'})
+            self.assertEqual(model.calls,1)
+            self.assertEqual(model.events[0]['response_text'],'{}')
+            self.assertNotIn('test-only',json.dumps(model.events))
+
+    def test_active_iteration_budget_and_retained_failure(self):
+        from unittest.mock import patch
+        class FakeModel:
+            name='test-only-not-a-real-model'
+            calls=0
+            tokens=0
+            def ask(self,question,selected,plan=False):
+                self.calls+=1
+                if plan: return {'query':'follow-up query'}
+                raise ValueError('deliberate invalid output')
+        with tempfile.TemporaryDirectory() as temp, patch('rag_lab.pipeline.Model',FakeModel):
+            result=run(Path(temp)/'active',split='dev',methods=('active',),generation='live',limit=1)
+            self.assertEqual(result['rows'][0]['calls'],3)
+            self.assertEqual(len(result['rows'][0]['rounds']),3)
+            self.assertEqual(result['summary']['active']['answer_em'],0)
+            self.assertEqual(result['summary']['active']['errors'],1)
+            self.assertFalse(result['acceptance']['passed'])
+
     def test_end_to_end_and_tampering(self):
         with tempfile.TemporaryDirectory() as temp:
             path=Path(temp)/'run'
