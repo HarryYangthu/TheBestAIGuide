@@ -6,7 +6,7 @@
 | --- | --- | --- |
 | 1 | [AI 基础](01-ai-foundations/README.md) | 补齐数学统计、ML、DL、搜索规划、RL、可信 AI、计算基础；配四个小实验 |
 | 2 | [基础模型](02-foundation-models/README.md) | 补齐 Tokenizer、Transformer、训练对齐、推理、推理模型、选型；配输入/注意力与解码/缓存实验 |
-| 3 | [Agent Core](03-agent-core/README.md) | 完成边界、Loop、停止与错误处理、ReAct/Plan-and-Execute；实现最小 Python Agent |
+| 3 | [Agent Core](03-agent-core/README.md) | 按 [12 个核心组件与 3 个增强能力](03-agent-core/01-concepts/04-core-components.md) 理解系统；学习 Loop、停止与错误处理、ReAct/Plan-and-Execute |
 | 4 | [Context Engineering](04-context-engineering/README.md) | 选择哪些信息进入本轮模型调用，如何诊断八类失效；运行预算与压缩实验 |
 | 5 | [Tools / Skills / MCP](05-tools-skills-protocols/README.md) | 完成工具契约、Skills、MCP、Agent 协议和授权；实现 TypeScript Runtime、MCP Server 与共享 Schema |
 | 6 | [RAG](06-rag-and-knowledge-systems/README.md) | 完善已有案例；补解析、切块、索引更新、查询/图检索和引用；建立语料、标注集、Pipeline、消融实验 |

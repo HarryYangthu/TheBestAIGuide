@@ -4,6 +4,8 @@
 
 从这里可以找到完整工程，也能看清哪些只是解释单一机制的算例。代码保持原目录，通过链接统一导航，避免打断 Notebook 导入。
 
+项目之间共用的系统能力，按 [12 个核心组件与 3 个增强能力](../10-Knowledge/03-agent-core/01-concepts/04-core-components.md) 学习：先理解每个组件负责什么，再对照项目中的代码、产物和验收记录。该文末尾逐项列出 Mini Agent 与 RAG Lab 的实现范围。
+
 | 类型 | 项目 | 任务与输入输出 | 运行和验收入口 |
 | --- | --- | --- | --- |
 | 入门项目 00 | [Mini Agent：从一个循环写起](00-mini-agent/README.md) | 对比资料→升级清单；逐步加入上下文、记忆、计划、并发与 Harness | README 一键运行；reference 参考报告；completion 总验收 |
