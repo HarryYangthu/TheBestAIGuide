@@ -4,11 +4,12 @@
 
 从“检索资料并带证据回答”理解Agent。先掌握动作与状态如何变化，再增加计划、验证和恢复。
 
-**系统阅读入口：[Agent 的 12 个核心组件与 3 个增强能力](01-concepts/04-core-components.md)。** 按任务与协议、模型接入、执行循环、编排调度、通信交接、上下文、状态产物、工具环境、持久恢复、评估验收、Trace、权限资源逐项展开；再讲 Memory、Skills 与自进化。每项都有机制、失败场景、验收证据和已有项目入口，并区分架构要求与当前实现。
+**先读 [从一次读文件，理解 Agent 的各个组件](01-concepts/04-core-components.md)。** 跟着一个 SDK 升级任务看完整过程，再进入 12 个组件和 Memory、Skills、自进化的独立章节。各章用具体数据、消息变化、代码和练习展开，不要求先记住所有术语。Harness 另有一章，把这些程序放回同一次执行中讲解。
 
 | 阅读顺序 | 解决的问题 | 对应实践 |
 | --- | --- | --- |
 | [边界与组成](01-concepts/01-agent-boundaries.md) | 什么时候需要Agent，哪些控制仍应写成程序 | 目标、状态、动作字段 |
+| [任务与协议](01-concepts/05-task-contracts.md) | 一句要求怎样变成可以执行和检查的任务 | Pine SDK 任务、结果字段与错误示例 |
 | [Agent Loop](01-concepts/02-agent-loop.md) | 循环如何推进，怎么防止不停执行 | [Loop源码](05-code/agent-loop-python/src/agent_loop/loop.py) |
 | [模型适配器](01-concepts/03-model-adapters.md) | 如何把API输出接入执行器 | [动作与模型接口](05-code/agent-loop-python/src/agent_loop/models.py) |
 | [ReAct与计划执行](02-patterns/01-react-and-plan-execute.md) | 逐步探索与预先分解怎样选 | 同工具、同Loop组合子任务 |

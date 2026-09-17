@@ -1,47 +1,116 @@
-# 模型适配器：把生成结果变成可校验的动作
+# 模型适配器：一次请求怎样变成下一步动作
 
-> 状态：draft | 来源核验：2026-09-06
+> 状态：draft | 配套源码：[Mini Agent providers.py](../../../20-Projects/00-mini-agent/mini_agent/providers.py) | Pine SDK 为虚构教学产品；API 文档核对：2026-09-17
 
-运行时需要知道“调用哪个工具、传什么参数、什么时候完成”，模型API却可能返回文本、工具调用、拒绝或中断的流式片段。适配器的工作是把这些供应商格式转换成明确的内部动作，并保存失败语义。
+你已经写好 `read_file(path)`，也把“可以读取文件”写进提示词。模型回复：“我接下来读取 v2.md。”文件却没有被打开。缺的不是一句更强硬的提示词，而是把模型输出接到 Python 函数上的程序。
 
-本库最小接口只有 `decide(state) -> Action`。`Action(kind="tool", name="search", arguments={"query":"上下文"})` 提出工具动作；`Action(kind="finish", answer="...")` 提出结束。模型无法通过这两个动作修改允许的工具列表，也不能自行给自己补权限。
+模型适配器负责这条连接的前半段：把程序持有的消息、工具说明和配置发给模型服务，再把返回值转换成主循环看得懂的消息或动作。真正调用 `read_file` 的是运行时。沿着 Pine SDK 升级任务走一遍，就能看清这两部分各自做什么。
 
-| 边界 | 应检查什么 | 错误处理 |
-| --- | --- | --- |
-| API传输 | 连接超时、状态码、请求ID | 分类记录；是否重试取决于服务语义和预算 |
-| 完整响应 | 是否正常结束、被截断、拒绝 | 截断JSON不进入工具执行；拒绝不当作格式错误无限修复 |
-| 动作解析 | `kind/name/arguments` 类型与必填项 | 返回契约错误，最多有限修复 |
-| 工具执行前 | 工具存在、参数schema、主体权限 | 在运行时再检查，模型侧约束不能替代 |
-| 工具返回后 | 输出schema、来源、大小 | 大结果外置或裁剪，错误结果不能装成成功 |
+## 发出去的到底是什么
+
+第一次请求时，Mini Agent 有两条消息。`system` 消息说明如何使用证据和工具；`user` 消息要求比较 Pine SDK v1/v2，交付三项带出处的变化。除此以外，还要发送工具定义：工具名称、用途和参数格式。
+
+服务端看到的是 `read_file` 的说明以及 `path` 等参数定义，不是本机的 Python 函数体，也不会自动看到资料目录。想让模型知道 `v2.md` 第 3 行写了什么，必须先由程序执行读取，再把结果放进后续请求。
+
+模型配置回答另外三个问题：请求发给哪里，用哪个模型，以什么身份访问。项目分别从 `MINI_AGENT_BASE_URL`、`MINI_AGENT_MODEL`、`MINI_AGENT_API_KEY` 读取这些值。基础地址后面追加 `/chat/completions`；密钥放在认证请求头中，不放进对话内容。
+
+## 顺着真实代码走完一次调用
+
+下面截取 [LiveModel.respond](../../../20-Projects/00-mini-agent/mini_agent/providers.py) 的关键行；省略的异常处理在后文说明：
+
+```python
+payload = json.dumps({"model": self.model, "messages": messages,
+                      "tools": tools, "temperature": 0}).encode()
+request = urllib.request.Request(
+    self.base + "/chat/completions", data=payload,
+    headers={"Authorization": "Bearer " + self.key,
+             "Content-Type": "application/json"})
+with urllib.request.urlopen(request, timeout=60) as response:
+    data = json.load(response)
+message = data["choices"][0]["message"]
+return {
+    "role": "assistant", "content": message.get("content"),
+    **({"tool_calls": message["tool_calls"]} if message.get("tool_calls") else {})
+}, data.get("usage", {})
+```
+
+第一行把 Python 字典变成 JSON 文本，再编码为网络传输的字节。`tools` 与 `messages` 同时发送，所以模型在这次决策时知道有哪些操作可选。`timeout=60` 为底层网络等待设置超时，它不是整个研究任务的截止时间。
+
+`json.load` 把响应体重新变成字典，`choices[0]` 选取第一个候选回复。本接口按一个候选使用，不是让 Agent 从多个答案里自动投票。最后返回两样东西：主循环要追加的 assistant 消息，以及服务提供的用量数据。
+
+例如回复包含 `tool_calls=[...]`，其中函数名是 `read_file`，`arguments` 是字符串 `'{"path":"v2.md"}'`。适配器把这条请求交给主循环；主循环解析参数并执行文件读取。若回复只是普通文本，就没有工具操作。你在聊天框里看见“我会读文件”，并不能证明服务返回了 `tool_calls`。
 
 ## 为什么“返回JSON”还不够
 
-`{"name":"search","arguments":{"query":7}}` 是合法JSON，但查询参数类型错误。`{"query":"上下文","admin":true}` 也能解析，但多出来的字段可能意外触发后端分支。因此要区分三个层次：能解析的JSON、符合schema的对象、业务上允许的动作。结构化生成主要改善前两项；权限和业务限制仍由程序判断。
+假设模型给出 `{"path":7}`。它是合法 JSON，可以被 `json.loads` 解析，但 `path` 不是工具需要的字符串。再看 `{"path":"preview.md"}`：类型正确，文件也存在，但如果最终把预览稿当成正式版，任务仍然做错了。
 
-当供应商返回并行工具调用时，适配器不应偷偷只取第一项。要么内部Action明确支持列表，要么显式拒绝当前实现不支持的多调用。本例选择单调用契约，便于学习每一步状态变化。流式响应同理：参数没有接收完整之前只展示进度，不执行半个调用。
+因此解析、参数检查、结果验收分别发生在不同位置。适配器识别响应格式；运行时和工具确认名称、参数与访问范围；验收器核对最终报告。结构化输出可以减少字段格式错误，不能代替后两项。
+
+还要区别两种看起来相似的 JSON：一种是模型把 JSON 当普通文字写在 `content` 中，另一种是 API 的 `tool_calls` 字段。当前 Mini Agent 只把后者当工具请求。如果模型在普通回复中写了 `{"name":"read_file"}`，主循环不会搜索这段文字并尝试执行它。
+
+同一回复也可能包含两个工具请求，比如分别读 v1 和 v2。Mini Agent 保留整个列表，主循环逐个处理，最多允许 8 个。另一个[最小 Action 接口](../05-code/agent-loop-python/src/agent_loop/models.py)一次只能表达一个动作。把这两种接口连接起来时，必须明确增加动作列表或者拒绝不支持的多调用；只取第一项会悄悄漏掉工作。
+
+## 流式输出为什么不能来一段就执行一段
+
+当前 `LiveModel` 等完整响应返回，没有实现流式读取。要扩展它，先考虑工具参数可能这样到达：第一个片段给出调用编号、名称 `read_file` 和空参数；后续三个片段依次是 `{"path":`、`"v2.md"`、`}`。
+
+第二个片段到达时，参数还不是完整 JSON。即使某一时刻凑巧能解析，也不能据此判断整条调用已经结束。正确做法是先收集，确认本次调用完整结束，再解析和检查。
+
+若同一回复有多个工具调用，它们的片段还可能交错。需要按调用的 `index` 分别累加：`buffers[0]` 装 v1 的参数，`buffers[1]` 装 v2 的参数。不能把所有 `arguments` 拼成一个大字符串。调用 ID 和名称通常出现在初始片段，后续片段不重复，也不能因为字段缺失就覆盖掉已保存的值。这些字段规则见[官方函数调用的流式说明](https://developers.openai.com/api/docs/guides/function-calling#streaming)。
+
+除了“拼完内容”，还要知道“为什么结束”。正常结束、输出达到长度上限、服务拒绝请求、网络断开，需要分别处理。尤其是 `finish_reason="length"` 时，拿到的参数可能只是前半截；不能为了让程序继续，就猜测并补齐文件名。
+
+这里也有一个实际待补项：当前适配器没有保留 `finish_reason` 和拒绝字段，因此不能完整区分这些情况。阅读现有实现时，应把它理解为非流式兼容接口的教学起点，而不是已经完成全部响应状态处理的通用客户端。
+
+## 同一个失败，在哪一层发生很重要
+
+如果基础地址错误，HTTP 请求可能直接失败，尚未得到模型决策。项目将 HTTP 错误转成只含状态码的异常，将网络错误转成 `model_transport_error`，不把响应体和认证头写进教学轨迹。主循环最终记录 `status="error"`。此时改“请认真读取文档”的提示词没有用，应先修正连接配置。
+
+如果请求成功，但服务返回的 `choices` 为空或形状不符合预期，现有代码也会报错。这属于适配失败，不能算模型不会做 SDK 调查。
+
+如果模型正确返回了读取请求，但 `release-notes.md` 不存在，则应由工具把文件错误反馈给模型。模型可以根据目录改读 `v1.md`、`v2.md`，无需重发完全相同的模型请求。再往后，模型读对文件却把 10 秒写成 5 秒，才进入答案质量和验收的问题。
+
+当前网络适配器不自动重试。以后增加重试时，应先区分临时连接故障与固定的请求格式错误，再受次数和预算限制；反复提交服务不支持的参数不会让它突然受支持。换模型时同样要检查工具调用、结构化输出和参数兼容性，不能只改模型名称就默认其余行为一致。
+
+## 用量没有返回，不等于用了零个 token
+
+`usage` 是服务对本次请求用量的记录。Mini Agent 从中累加 `prompt_tokens`、`completion_tokens` 和 `total_tokens`；仅当字段存在且为整数时才计入。演示驱动返回 `{}`，因为它没有调用语言模型，不能拿它比较模型成本。
+
+真实服务没给 usage 时，也会得到空记录，但含义是“没有观测到”。例如流式连接提前断开，可能已经生成并计费，却没有收到最后的用量片段。官方接口也明确说明中断时最终 usage 可能缺失，不能把它补成 0。[接口说明](https://developers.openai.com/api/reference/resources/chat)
+
+还有更隐蔽的情况：五次请求只有三次返回 usage。直接累加这三次得到的是已知部分，不是本次运行的完整总用量。当前项目没有单独记录用量覆盖率；扩展时应增加“已计量请求数/全部请求数”，让读者知道总数是否完整。
+
+费用还需要模型价格和计费规则，不能直接把 `total_tokens` 当金额。本项目只保存供应商返回的计数，不估算费用。真实模型的名称、服务配置、提示词和工具定义也应该与实验一起保存，否则两次结果差异可能只是调用条件不同。
 
 ## 接入真实模型时替换哪一层
 
-```python
-from agent_loop import Action
+先不配置密钥，从仓库根目录观察统一接口：
 
-class MyModelAdapter:
-    def __init__(self, request):
-        self.request = request  # 由调用者注入已认证的API函数
-
-    def decide(self, state):
-        payload = self.request(state)  # 此处契约：返回完整的dict
-        if payload["kind"] == "tool":
-            return Action("tool", payload["name"], payload["arguments"])
-        if payload["kind"] == "finish":
-            return Action("finish", answer=payload["answer"])
-        raise ValueError("unsupported action")
+```bash
+python 20-Projects/00-mini-agent/run.py run --stage 1 --mode demo --output .runs/adapter-demo
+python -m unittest discover -s 20-Projects/00-mini-agent/tests -v
 ```
 
-这段是适配边界示例，不是某家API的完整调用器。真实连接还要绑定模型ID、参数、工具格式、超时、拒绝状态和usage；这些应以对应版本官方SDK为准。缺字段时这里会抛异常，由 Loop 归入 `invalid_model_output`；它没有实现自动修复。你可以先用 [ScriptedModel](../05-code/agent-loop-python/src/agent_loop/models.py) 输入错误动作，确认运行时如何处理，再接真实模型，避免把控制问题和模型问题混在一起。
+查看 `trace.jsonl` 的 `model_request` 与 `model_response`，你能看到输入消息和返回的工具调用。`DemoModel` 预先安排动作，`LiveModel` 请求远程服务，但二者都返回 `(message, usage)`；主循环因此无需知道是谁产生了回复。
 
-接着读 [workbench 的 providers.py](../../../20-Projects/learning-workbench/src/learning_workbench/providers.py)：`LocalChat` 执行本地模型，`ActionModel` 将响应解析为本章 Action；`ChatAPI` 提供可选远程接口。仓库已保存 [12 条教学任务的真实本地模型结果](../../../20-Projects/learning-workbench/artifacts/real-models/agent-comparison.json)。结果分别统计工具选择、流程完成和答案匹配，三项不能互相代替。远程 API 传输契约测试不等于付费模型质量验证，运行方式及边界见[项目说明](../../../20-Projects/learning-workbench/README.md)。
+测试中的网络接口检查使用预设响应，验证请求序列化和返回解析，不发起真实模型调用。`test_live_transport_serialization_without_external_request` 检查模型名、三个工具定义及 usage 的读取；测试通过不能推出真实模型会选对文件。
 
-不要在日志打印完整异常消息。SDK的异常可能带URL、请求内容或认证信息。本例仅记异常类型；进一步诊断时按字段脱敏保存请求ID、响应状态和可公开的错误码。
+要运行真实模型，按[项目的环境变量说明](../../../20-Projects/00-mini-agent/README.md#接入真实模型)完成配置，然后执行：
 
-下一步：[工具契约](../../05-tools-skills-protocols/01-concepts/01-structured-output-and-tool-contracts.md)。规范依据：[JSON Schema 对象语义](https://json-schema.org/understanding-json-schema/reference/object)。
+```bash
+python 20-Projects/00-mini-agent/run.py run --stage 1 --mode live --output .runs/adapter-live
+```
+
+检查 `run.json` 的 `mode`、`model` 和 `usage`，再看 `acceptance.json`。前者回答调用了什么和怎样停止，后者回答三项变更是否正确。没有配置时 live 会报错，不会改用演示结果。
+
+## 两道练习：不要把格式和能力混在一起
+
+**练习一：** 模型在 `content` 里回复“读取 v2.md”，同时没有 `tool_calls`。应改主循环去识别这句话，还是先检查模型接口？
+
+参考解释：先看请求是否发送工具定义、服务是否支持对应格式，再看返回值。自然语言中出现函数名不等于操作请求；让循环猜测并执行普通文字，会把边界变得不明确。若确实要采用文本动作协议，应单独设计解析器和验证规则。
+
+**练习二：** 一次请求只收到参数片段 `{"path":"v2` 后断线，usage 为空。能否补上 `.md"}` 执行，再记零成本？
+
+参考解释：两个做法都不成立。未收到完整调用，文件名不能由适配器猜测；usage 缺失只能记为未知。应记录不完整响应，按策略重新发起请求，并把第二次尝试与第一次分开记录。
+
+接着读 [Agent Loop](02-agent-loop.md)，看回复如何改变下一轮输入；返回[核心组件入口](04-core-components.md)。

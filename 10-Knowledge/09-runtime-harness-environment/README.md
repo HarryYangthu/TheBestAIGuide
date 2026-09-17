@@ -8,7 +8,7 @@
 |---|---|---|
 | Run、Step、Event 和 Harness 分别负责什么 | [运行对象与分层](01-concepts/01-runtime-and-harness.md) | [Runner](05-code/recoverable-runtime-python/src/recoverable_runtime/runner.py) |
 | 崩溃后该重做还是返回原结果 | [持久执行](01-concepts/02-durable-execution.md) | [Notebook](04-labs/01-recovery-and-idempotency.ipynb) |
-| 如何限制并发、排队与重试开销 | [并发和预算](01-concepts/03-concurrency-and-budgets.md) | [配套并发实现](../08-planning-workflow-multi-agent/05-code/multi-agent-runtime-python/README.md) |
+| 一次操作是否允许，多个任务怎样共用资源 | [权限、并发和预算](01-concepts/03-concurrency-and-budgets.md) | [配套并发实现](../08-planning-workflow-multi-agent/05-code/multi-agent-runtime-python/README.md) |
 | 目录、沙箱、产物怎么区分 | [执行环境](01-concepts/04-workspaces-sandboxes-and-artifacts.md) | [安全边界实验](../11-safety-security-governance/04-labs/01-policy-and-injection.ipynb) |
 | 如何处理未知结果和已提交动作 | [重试、幂等与补偿](02-patterns/01-retry-idempotency-compensation.md) | [恢复测试](05-code/recoverable-runtime-python/tests/test_recovery.py) |
 

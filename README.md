@@ -9,7 +9,7 @@
 | 补齐数学与机器学习 | [AI 基础](10-Knowledge/01-ai-foundations/README.md) | 算梯度、观察过拟合、更新价值函数 |
 | 搞懂模型内部 | [基础模型](10-Knowledge/02-foundation-models/README.md) | 手算并运行 Attention，比较缩放、Mask 和 KV Cache |
 | 做出最小 Agent | [项目 00：Mini Agent](20-Projects/00-mini-agent/README.md) | 七步写出 Agent，生成升级清单并对照参考报告验收 |
-| 系统理解 Agent 架构 | [12 个核心组件与 3 个增强能力](10-Knowledge/03-agent-core/01-concepts/04-core-components.md) | 按职责、运行机制、失败与验收逐项学习，并映射到已有项目 |
+| 系统理解 Agent 架构 | [从一次读文件开始学 Agent](10-Knowledge/03-agent-core/01-concepts/04-core-components.md) | 12 个组件与 3 个增强能力逐章讲解；看消息变化、读代码、做带解释的练习 |
 | 动手验证 RAG | [项目 01：RAG 实验室](20-Projects/01-rag-lab/README.md) | 真实数据检索、图表对比、逐题证据复盘 |
 | 设计信息链路 | [Context](10-Knowledge/04-context-engineering/README.md)、[RAG](10-Knowledge/06-rag-and-knowledge-systems/README.md)、[Memory](10-Knowledge/07-state-and-memory/README.md) | 改预算、查询、权限和过期时间，比较输出 |
 | 理解可靠执行 | [Tools](10-Knowledge/05-tools-skills-protocols/README.md)、[Workflow](10-Knowledge/08-planning-workflow-multi-agent/README.md)、[Runtime](10-Knowledge/09-runtime-harness-environment/README.md) | 故意制造超时、冲突和中断，再恢复 |

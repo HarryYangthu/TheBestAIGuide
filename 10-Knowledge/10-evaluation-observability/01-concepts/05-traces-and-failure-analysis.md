@@ -1,127 +1,121 @@
 # Trace 与失败归因
 
-> 状态：draft
+> 状态：draft。文中的时间线是教学演算；查询案例对应本库确定性代码。配套工程记录顺序事件，尚未实现完整 Span 树或 OpenTelemetry 导出。
+
+Pine SDK 清单把正式版超时写成了 5 秒，正确值应为 10 秒。看到最终答案，你可能猜测“模型记错了”，于是换模型再跑。可如果它实际读到的是废弃预览稿，或者正式版内容在构造上下文时被裁掉了，换模型并没有修到出错的位置。
+
+要判断是哪一种，需要把当时发生的事情连起来：检索返回了什么，哪些内容真正进入模型，模型申请了哪个工具，工具完成没有，最终写下什么。**Trace 就是把一次任务中的这些操作按关系关联起来的记录。** 它让失败有依据可查，而不是只留下一句“回答不准确”。
 
 ## Trace 的目的
 
-Trace 不是把所有文本永久保存，而是为以下问题提供最小充分证据：
+先画出一个待验证的失败假设：检索返回 `v2.md` 和 `preview.md`；上下文构造器只保留后者；模型据此输出 5 秒；引用检查失败。若实际 Trace 支持这条链，最早可观察到的问题就在上下文选择。
 
-- 发生了什么；
-- 哪个系统版本做的；
-- 最终环境变成什么；
-- 第一次偏离预期发生在哪里；
-- 是否能够重放、复现或解释；
-- 是否存在越权、泄露或成本异常。
+但“最早看到”还不等于根因已证实。上游文档可能被错误标了版本。下一步应固定任务与模型配置，只修正上下文输入，观察是否还出现同类失败。Trace 负责提供证据和缩小范围，受控复现负责检验判断。
 
 ## Trace、Span、Event 分别是什么
 
-| 名词 | 记录的对象 | 教学例子 |
-|---|---|---|
-| Trace | 一次请求跨组件的整条执行路径 | run-42 从收到任务到最终验收 |
-| Span | 一段有开始、结束和父子关系的操作 | 第一次调用检索服务，耗时 80 ms |
-| Event | 某个时刻发生的一件事 | 开始重试、权限拒绝、Checkpoint 提交 |
+把一次任务当作一段有层次的执行过程：整段是 **Trace**；其中一次模型请求、一次工具调用等有开始和结束的操作是 **Span**；某个操作内部发生的瞬间事实，比如“开始重试”，是 **Event**。Span 用父子关系说明“这次数据库查询属于哪次检索”，并保留状态与耗时。[OpenTelemetry 的 Trace 文档](https://opentelemetry.io/docs/concepts/signals/traces/)用这些结构连接跨组件的执行。
 
-一个工具动作重试三次，应保留同一逻辑 step 和不同 attempt；否则无法区分三次尝试与三个业务动作。计算本进程耗时用单调时钟，跨机器关联依赖 ID 与调用关系，不能只按墙钟时间排序推断先后因果。配套 Harness 的 `sequence/type/attributes` 是顺序事件列表，没有实现完整 Span 树。
+例如主任务派出两个资料 Agent，不能只让它们各自打印 `开始检索`。需要保留 `run_id`、父任务 ID、子任务 ID；各次操作再有独立的 span ID。否则两份日志混在一起后，无法判断哪个结果交回了哪个任务。
+
+同一个写操作超时后重试，也要保留同一 `operation_id` 和不同 `attempt_id`。只记“调用三次”分不清是一个动作试了三次，还是创建了三个不同业务动作。详见[持久执行](../../09-runtime-harness-environment/01-concepts/02-durable-execution.md)。
 
 ## 事件模型
 
-一次 Agent Run 可以作为根 Span，下面连接模型、工具、检索、工作流节点和环境操作：
+不用先搭一个庞大的监控平台。最小可用记录要能回答：哪次任务、哪个步骤、用什么版本、输入与输出在哪里、什么时候完成、失败类型是什么。下面是配套 Harness **实际采用的事件结构**示意：
 
-| 父 Span | 子操作示例 | 对应观察 |
-|---|---|---|
-| agent.run | context.build、model.invoke、tool.call、grader.evaluate | 每段耗时、状态和输入输出引用 |
-| tool.call | external.request | 下游请求 ID、attempt、错误与回执 |
-
-同名 `model.invoke` 可以出现多次，各自要有独立 Span ID；表中的名称只是本库结构示意。
-
-每个事件至少记录：
-
-- `run_id`、`task_id`、`trial_id`；
-- 父子关系、开始与结束时间；
-- 操作类型和版本；
-- 状态、错误类型与重试关系；
-- 输入输出的安全引用或摘要；
-- Token、延迟和成本口径；
-- 工具权限与副作用标记。
-
-OpenTelemetry 的 GenAI 语义约定仍在演进。采用时固定版本，并为未稳定字段提供内部兼容层，不要把当前字段名当成永久标准。
-
-## Outcome Snapshot
-
-对有状态任务，在 Trial 前后保存可比较快照，例如：
-
-- 文件树、内容哈希和测试结果；
-- 数据库关键行或事件日志；
-- 浏览器 DOM、截图和网络结果；
-- 外部 API 的测试环境记录；
-- 已创建的 Artifact 及其校验值。
-
-必须避免把生产密钥、完整 PII 或受限内容复制到评测存储。
-
-## 失败分类
-
-| 层 | 典型失败 |
-| --- | --- |
-| Task/Spec | 成功标准模糊、参考答案错误、非法唯一路径 |
-| Data/Fixture | 环境未重置、样本泄露、版本不匹配 |
-| Context/Retrieval | 必要证据缺失、错误片段进入、约束被截断 |
-| Model/Policy | 计划错误、错误理解、无法利用已有证据 |
-| Routing/Handoff | 路由到错误角色、交接丢失信息、责任循环 |
-| Tool/Runtime | Schema、权限、超时、重试、幂等或执行错误 |
-| Environment | 外部依赖、网络、时间或基础设施噪声 |
-| Outcome | 最终状态部分完成、污染其他状态或未持久化 |
-| Grader | 过严、漏判、Judge 漂移或被输出注入 |
-
-一个 Run 可以有多个标签，但应标出 `first_failure` 和后续传播关系。
-
-## 归因流程
-
-1. 先检查 Outcome 和硬门禁，确认真实失败。
-2. 找到第一个与预期不一致的可观察事件。
-3. 查看该事件当时的输入、权限、状态和工具结果。
-4. 判断错误是缺少信息、错误决策还是执行失败。
-5. 用最小修改构造反事实：只替换 Context、模型、工具或 Grader 中的一项。
-6. 能稳定复现后，将样本加入对应层的回归集。
-
-不要从最终一句错误回答直接推断“模型能力不够”。
-
-## 隐私与安全
-
-- 默认关闭完整 Prompt、Completion 和工具正文采集；
-- 仅在受控环境按需开启，并设置保留期限；
-- 记录数据分类、访问主体和审计日志；
-- 对密钥、身份信息和业务敏感字段做源头脱敏；
-- Trace UI 也要执行租户和角色隔离；
-- 模型 Judge 看到的 Trace 仍需经过最小化和授权。
-
-## 从失败到知识
-
-每个确认失败至少产出：
-
-```yaml
-failure_id: "..."
-first_failure_layer: "tool_runtime"
-symptom: "..."
-root_cause: "..."
-affected_versions: []
-minimal_reproduction: "..."
-fix: "..."
-regression_task: "..."
-remaining_risk: "..."
+```json
+{
+  "sequence": 1,
+  "type": "filter",
+  "attributes": {"authorized": false, "current": true}
+}
 ```
 
-这份记录应进入 Failure Postmortem 或 Eval 数据集，而不是只留在聊天和临时日志中。
+它表达“本次第 2 个事件是一次过滤判断，租户不匹配，版本匹配”。外层 Trial 记录保存任务 ID、版本、Trial 编号与耗时。这个简化实现没有逐事件时间、span ID 或完整父子调用树；不要把顺序号当成已经实现了分布式追踪。
 
-## 来源
-
-- [OpenTelemetry Semantic Conventions](https://opentelemetry.io/docs/specs/semconv/)
-- [OpenTelemetry GenAI conventions migration notice](https://opentelemetry.io/docs/specs/semconv/gen-ai/)
-- [Anthropic: Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)
+接真实模型时，还应记录模型/提示词版本、工具参数摘要、结果引用、实际用量和结束原因。大段文件可以单独保存，由 Trace 引用路径及内容哈希；读取时再校验版本。服务没返回 token 用量时写缺失，不要把字符数伪装成 token。需要解释的是可观察行为，不是记录模型未公开的隐藏思维链。
 
 ## 一条最小可用的失败轨迹
 
-[教学案例](../03-cases/01-from-task-dataset-to-regression.md)的越权任务记录：`trial_start → lookup(scope_checked=False) → trial_end(success=False)`。与候选版对比，首次差异是缺少 `filter(authorized=False)`，结合源码可确认候选版补了返回前的范围判断。因此先修这一逻辑；改回答文风解决不了返回了其他租户记录的问题。这里被测函数本来就持有完整 fixture，事件不证明存储层已按权限隔离读取。
+本库有一道 `wrong-tenant` 查询题：用户属于 `beta`，资料属于 `alpha`。正确结果是拒绝返回资料。基线直接返回内容，候选先判断租户与版本。用下面命令生成两版报告：
 
-这里事件由被测教学函数主动 emit，不能当独立审计事实。生产工具权限与副作用记录应由 Runtime 产生，防止被测 Agent 漏报。当前工程保留任务/Trial 的顺序事件，不自称完整 OpenTelemetry 导出器。
+```bash
+cd 10-Knowledge/10-evaluation-observability/05-code/eval-harness-python
+PYTHONPATH=src python -m eval_harness.cli
+```
 
-2026-09-06 核验发现 GenAI 约定文档已迁移到独立维护位置；应跟随[迁移入口](https://opentelemetry.io/docs/specs/semconv/gen-ai/)固定实际采用的仓库提交和 schema。实验使用自己的 `type/sequence/attributes` 字段，不声称这些是已稳定的 `gen_ai.*` 标准。
+PowerShell 先设置 `$env:PYTHONPATH="src"`。在同一目录执行下面的 Python 代码，只读取报告，不重新调用系统：
+
+```python
+import json
+from pathlib import Path
+
+for version in ("baseline", "candidate"):
+    path = Path("reports") / version / "trials.jsonl"
+    rows = [json.loads(line) for line in path.read_text().splitlines()]
+    trial = next(row for row in rows
+                 if row["task_id"] == "wrong-tenant" and row["trial_index"] == 0)
+    print(version, "success=", trial["success"])
+    for event in trial["events"]:
+        print(event["sequence"], event["type"], event["attributes"])
+    print("outcome=", trial["outcome"])
+```
+
+你应看到基线的 `trial_start → lookup → trial_end`；`lookup` 带有 `scope_checked=False`，结果失败。候选则是 `trial_start → filter → trial_end`，`filter` 显示 `authorized=False`，输出 `abstained=True`、`source_id=None`，验收通过。
+
+为什么候选没有 `lookup`？[实际函数](../05-code/eval-harness-python/src/eval_harness/cli.py)在发现未授权后已经返回，不会走后面的成功查询分支。要注意，它仍持有完整的教学 fixture，`lookups` 计数也已加 1；这只证明返回前补了过滤，**不证明底层存储已按权限隔离读取**。读 Trace 时应核对字段在代码里的真实含义。
+
+## Outcome Snapshot
+
+Trace 说“写入成功”仍不是最终验收。保留执行前后可比较的结果，才能发现写错文件、修改未提交、错误覆盖等情况。文件任务保存路径、内容哈希和测试结果；数据库任务保存相关记录的前后值；网页任务可以保存截图与服务端回执。它们组成 Outcome 的快照。
+
+上面的查询工程把 `outcome` 与最终 `state` 放进 `trials.jsonl`。拿事件与结果互相核对：若有 `claimed_complete`，状态却没变，就不能因为事件名称听起来成功而判成功。由 Agent 主动上报的事件也可能漏报；权限拒绝、工具结果与副作用记录，应尽量由实际执行它们的 Runtime 产生。
+
+## 耗时怎样算，为什么不能把所有操作相加
+
+以下是**教学时间线，单位毫秒，并非实测结果**。两个资料任务从同一时刻并行启动，然后汇总：
+
+| 操作 | 开始 | 结束 | 本操作耗时 |
+| --- | ---: | ---: | ---: |
+| 读取旧版 | 0 | 800 | 800 |
+| 读取新版 | 0 | 1000 | 1000 |
+| 装配上下文 | 1000 | 1020 | 20 |
+| 模型生成 | 1020 | 1800 | 780 |
+| 最终验收 | 1800 | 1820 | 20 |
+
+用户等待的是 `1820 - 0 = 1820 ms`。把操作耗时相加会得到 `2620 ms`，因为前两项有 800 ms 重叠。若再把父 Span 的总耗时加进去，还会重复统计一次。并行任务看完成依赖与最长路径；总工作量、费用和端到端等待时间要分别计算。本进程计时用单调时钟，跨机器因果关系依靠 ID 和调用关系，不能只按墙钟排序。
+
+## Trace、日志和指标分别看什么
+
+普通日志可以写“第 3 次请求超时”，便于查看单条现场；Trace 把这条超时关联到用户任务、父调用与后续恢复；指标把很多任务汇总为超时率、成功率、延迟分布。想知道“最近是否变差”，先看指标；想知道“这一题为什么坏了”，再点进 Trace。它们可以共享数据，并不是互相替代的三套事实。
+
+## 失败分类
+
+分类的用途是决定下一步检查哪里。引用错误可能来自 Task 的参考值错误、fixture 没重置、检索漏证据、上下文裁剪、模型误读、交接漏字段，也可能只是评分器不接受合法引用。工具层还会有参数错误、权限拒绝、超时与重复副作用。
+
+可以给同一次运行贴多个标签，但要分清首次偏离与后果。例如“裁掉版本说明 → 选错文档 → 答案错误”是传播链，不是三个互不相关的模型失败。把第一个已证实的问题记为 `first_failure`，暂时只能怀疑的原因明确写成假设。
+
+## 归因流程
+
+从失败结果反查通常比从头读完整日志更快：先确认哪一项验收失败，找到影响该项结果的操作，再查看操作当时的输入、工具结果和状态。形成假设后，只替换其中一项重跑。例如保留其余配置，只补回被裁掉的原文；如果问题消失，再增加一条长上下文回归题，防止下次压缩优化重新引入它。
+
+## 隐私与安全
+
+有用的 Trace 不等于把所有正文永久保存。默认保留必要的结构与安全引用；确需查看模型输入时，对受控样本按权限开启，设置保存期限。密钥和身份字段在进入日志前就应处理，Trace 页面也要做租户隔离。把未经处理的记录交给模型评分器，会把同一份敏感内容再传播一次。
+
+## 从失败到知识
+
+留下“症状、首次错误位置、复现输入、受影响版本、修复、回归题和未解决问题”，才方便后续复用。写“模型表现不稳定”无法让下一位开发者复现；写“超过某上下文长度时，v2 的版本标记被裁掉，见任务 X 的输入与裁剪事件”，才指向可操作的修改。
+
+## 检查自己是否理解
+
+**练习一：** 候选版只有 `filter(authorized=False)`，能否断言数据库没有读过未授权行？参考解释：不能。事件由教学函数发出，函数本身拿到了完整 fixture；要证明存储边界，需检查存储查询和独立执行记录。
+
+**练习二：** 两个子 Agent 同时启动，各运行 2 秒与 3 秒，汇总再花 1 秒，用户至少等多久？参考解释：在无额外排队和开销的设定下是 4 秒，不是 6 秒。若实际用了 6 秒，应检查是否真并行、是否存在隐藏依赖或资源排队。
+
+## 来源
+
+Trace、Span 的标准定义见上文 [OpenTelemetry 文档](https://opentelemetry.io/docs/concepts/signals/traces/)；GenAI 字段还需跟随[官方语义约定入口](https://opentelemetry.io/docs/specs/semconv/gen-ai/)固定版本，不能把本库的字段当作标准。本篇故障分析步骤是结合本库实验的工程讲解。
+
+继续读[评测模型](01-evaluation-model.md)，或返回 [Agent 核心组件总览](../../03-agent-core/01-concepts/04-core-components.md)。
