@@ -1,9 +1,9 @@
 name: Execute learning notebooks
 on:
   push:
-    paths: ['10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/**', '**/*.ipynb', '**/*.py', '**/*.ts', '**/package*.json', '**/tsconfig.json', 'requirements-dev.lock', 'requirements-learning.txt', '**/*.html', '**/fixtures/**', '.github/workflows/notebooks.yml']
+    paths: ['10-Knowledge/_archive/05-tools-skills-protocols/05-code/shared-schemas/**', '**/*.ipynb', '**/*.py', '**/*.ts', '**/package*.json', '**/tsconfig.json', 'requirements-dev.lock', '10-Knowledge/03-agent-loop/requirements.txt', 'requirements-learning.txt', '**/*.html', '**/fixtures/**', '.github/workflows/notebooks.yml']
   pull_request:
-    paths: ['10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/**', '**/*.ipynb', '**/*.py', '**/*.ts', '**/package*.json', '**/tsconfig.json', 'requirements-dev.lock', 'requirements-learning.txt', '**/*.html', '**/fixtures/**', '.github/workflows/notebooks.yml']
+    paths: ['10-Knowledge/_archive/05-tools-skills-protocols/05-code/shared-schemas/**', '**/*.ipynb', '**/*.py', '**/*.ts', '**/package*.json', '**/tsconfig.json', 'requirements-dev.lock', '10-Knowledge/03-agent-loop/requirements.txt', 'requirements-learning.txt', '**/*.html', '**/fixtures/**', '.github/workflows/notebooks.yml']
 permissions:
   contents: read
 jobs:
@@ -26,8 +26,8 @@ jobs:
           node-version: '22'
           cache: npm
           cache-dependency-path: |
-            10-Knowledge/05-tools-skills-protocols/05-code/tool-runtime-typescript/package-lock.json
-            10-Knowledge/05-tools-skills-protocols/05-code/mcp-server-typescript/package-lock.json
-      - run: npm ci --prefix 10-Knowledge/05-tools-skills-protocols/05-code/tool-runtime-typescript
-      - run: npm ci --prefix 10-Knowledge/05-tools-skills-protocols/05-code/mcp-server-typescript
-      - run: python scripts/check_notebooks.py --execute
+            10-Knowledge/_archive/05-tools-skills-protocols/05-code/tool-runtime-typescript/package-lock.json
+            10-Knowledge/_archive/05-tools-skills-protocols/05-code/mcp-server-typescript/package-lock.json
+      - run: npm ci --prefix 10-Knowledge/_archive/05-tools-skills-protocols/05-code/tool-runtime-typescript
+      - run: npm ci --prefix 10-Knowledge/_archive/05-tools-skills-protocols/05-code/mcp-server-typescript
+      - run: python scripts/check_notebooks.py --execute --skip-api

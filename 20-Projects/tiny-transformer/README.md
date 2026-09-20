@@ -2,9 +2,9 @@
 
 这个项目把分词、Embedding、多头 Attention、FFN、残差、训练和生成接在一起。模型只有约 3 万参数，用 CPU 学几句构造文本。你可以检查每个张量，也能看到 loss 下降；生成流畅度和真实任务能力不是这个实验的验收目标。
 
-先读[Attention 与 Transformer](../../10-Knowledge/02-foundation-models/01-concepts/transformer/README.md)，再打开 [model.py](src/tiny_transformer/model.py)。训练入口是 [experiment.py](src/tiny_transformer/experiment.py)，保存的实际结果在 [report.json](artifacts/report.json)。
+先读[Attention 与 Transformer](../../10-Knowledge/_archive/02-foundation-models/01-concepts/transformer/README.md)，再打开 [model.py](src/tiny_transformer/model.py)。训练入口是 [experiment.py](src/tiny_transformer/experiment.py)，保存的实际结果在 [report.json](artifacts/report.json)。
 
-初次学习按这个顺序：先在 [Notebook](01-train-and-inspect.ipynb)看输入 ID 与移位标签，再手动展开第一层 Attention，接着训练并检查参数变化，最后比较缓存与完整计算。需要掌握矩阵乘法、交叉熵和梯度下降；不熟悉时先看[数学与统计](../../10-Knowledge/01-ai-foundations/01-concepts/math-and-statistics/README.md)和[深度学习](../../10-Knowledge/01-ai-foundations/01-concepts/deep-learning/README.md)。
+初次学习按这个顺序：先在 [Notebook](01-train-and-inspect.ipynb)看输入 ID 与移位标签，再手动展开第一层 Attention，接着训练并检查参数变化，最后比较缓存与完整计算。需要掌握矩阵乘法、交叉熵和梯度下降；不熟悉时先看[数学与统计](../../10-Knowledge/_archive/01-ai-foundations/01-concepts/math-and-statistics/README.md)和[深度学习](../../10-Knowledge/_archive/01-ai-foundations/01-concepts/deep-learning/README.md)。
 
 ## 运行
 
@@ -119,4 +119,4 @@ $W_0$ 冻结，$A$ 和 $B$ 可训练。初始化 B 为零，所以起初输出�
 
 这些都是训练语料上的结果，主要说明实现能够学习并正确保存。需要区分训练改善和独立任务效果时，运行工作台的 [CPU 对照实验](../learning-workbench/artifacts/science/report.json)：它固定训练/验证划分，分别保存数据、配置和逐步 loss。
 
-原理出处：[Transformer](https://arxiv.org/abs/1706.03762)、[LoRA](https://arxiv.org/html/2106.09685v2)、[DPO](https://arxiv.org/html/2305.18290v3)、[PPO](https://arxiv.org/pdf/1707.06347v2)。DPO 差值、PPO 正负优势的逐项算例见[训练章节](../../10-Knowledge/02-foundation-models/01-concepts/training/README.md)。本项目是简化教学实现，未复现论文完整架构、训练规模或论文指标。
+原理出处：[Transformer](https://arxiv.org/abs/1706.03762)、[LoRA](https://arxiv.org/html/2106.09685v2)、[DPO](https://arxiv.org/html/2305.18290v3)、[PPO](https://arxiv.org/pdf/1707.06347v2)。DPO 差值、PPO 正负优势的逐项算例见[训练章节](../../10-Knowledge/_archive/02-foundation-models/01-concepts/training/README.md)。本项目是简化教学实现，未复现论文完整架构、训练规模或论文指标。

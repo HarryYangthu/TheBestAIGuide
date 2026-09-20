@@ -24,4 +24,4 @@ python 20-Projects/00-mini-agent/delegate.py --mode demo --output .runs/mini-chi
 
 **练习：** 对比 `parallel_read` 与两个 Reader 的轨迹，数一数模型调用次数。再把两个子任务改成有前后依赖的任务，解释为什么此时不能直接同时执行。没有对照结果之前，不声称多 Agent 更好。
 
-关联知识：[规划与多 Agent](../../../10-Knowledge/08-planning-workflow-multi-agent/README.md)。
+关联知识：[规划与多 Agent](../../../10-Knowledge/_archive/08-planning-workflow-multi-agent/README.md)。

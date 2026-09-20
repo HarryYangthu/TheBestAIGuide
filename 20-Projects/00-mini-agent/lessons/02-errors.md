@@ -18,4 +18,4 @@ python 20-Projects/00-mini-agent/run.py run --stage 2 --mode demo --max-steps 1 
 
 **练习：** 把限制改成 2、5、6，预测在哪一步停止，再对照记录。这个 demo 在 stage 2 需要 6 次模型调用；live 模型的调用次数不一定相同。删除单次轨迹中的错误反馈不是修复，修复必须反映在下一步动作和实际产物上。
 
-关联知识：[工具与协议](../../../10-Knowledge/05-tools-skills-protocols/README.md)。
+关联知识：[工具与协议](../../../10-Knowledge/_archive/05-tools-skills-protocols/README.md)。

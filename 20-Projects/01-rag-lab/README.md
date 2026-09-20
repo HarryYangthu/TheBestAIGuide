@@ -4,7 +4,7 @@
 
 本项目接在 [Mini Agent](../00-mini-agent/README.md) 之后。核心学习目标是检索与证据链；模型循环只在主动补查时使用。
 
-从系统角度理解本项目，可对照 [Agent 的 12 个核心组件与 3 个增强能力](../../10-Knowledge/03-agent-core/01-concepts/04-core-components.md)：重点看上下文、状态与产物、评估验收和 Trace；文末列出本项目当前实现与尚未覆盖的能力。
+从系统角度理解本项目，可对照 [Agent 的 12 个核心组件与 3 个增强能力](../../10-Knowledge/_archive/03-agent-core/01-concepts/04-core-components.md)：重点看上下文、状态与产物、评估验收和 Trace；文末列出本项目当前实现与尚未覆盖的能力。
 
 ## 先看结果
 

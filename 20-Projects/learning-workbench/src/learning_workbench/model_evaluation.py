@@ -7,7 +7,7 @@ from .providers import parse_object,ProviderError
 
 
 def injection(provider):
-    path=Path(__file__).resolve().parents[4]/'10-Knowledge/11-safety-security-governance/05-code/policy_lab.py'
+    path=Path(__file__).resolve().parents[4]/'10-Knowledge/_archive/11-safety-security-governance/05-code/policy_lab.py'
     import sys
     spec=importlib.util.spec_from_file_location('learning_policy_lab',path)
     policy=importlib.util.module_from_spec(spec);sys.modules[spec.name]=policy;spec.loader.exec_module(policy)

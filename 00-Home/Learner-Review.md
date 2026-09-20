@@ -9,10 +9,10 @@
 | 学习时遇到的断点 | 本次改动 | 可直接查看的例子 |
 | --- | --- | --- |
 | 不知道先装什么、运行后看什么 | 首页先跑有证据回答与拒答；环境按入门、Notebook、完整验证、可选模型拆开；学习路线增加检查问题与答案要点 | [首页](../README.md)、[运行说明](../scripts/README.md)、[连续路线](Learning-Paths.md) |
-| 能背公式，却对不上代码的位置 | 增加 SFT 的输入/目标/忽略标签逐格表、DPO 对数概率差、PPO 正负优势算例、LoRA 系数约定；Notebook 拆开 Attention 中间张量 | [训练篇](../10-Knowledge/02-foundation-models/01-concepts/training/README.md)、[Tiny 实验](../20-Projects/tiny-transformer/01-train-and-inspect.ipynb) |
-| 以为加了复杂组件就一定更好 | 用同一道实际检索题展示融合如何把正确证据排低，再解释重排为何改善；补回完整公式与符号 | [混合检索与重排](../10-Knowledge/06-rag-and-knowledge-systems/01-concepts/02-hybrid-retrieval-and-reranking.md) |
-| 记不清相邻概念的边界 | 区分存储与本轮 Context、版本冲突与事实真假、恢复与取消、模型离题与执行层拒绝、说话人归属与声源分离 | [Context](../10-Knowledge/04-context-engineering/README.md)、[Memory](../10-Knowledge/07-state-and-memory/README.md)、[Runtime](../10-Knowledge/09-runtime-harness-environment/README.md) |
-| 看到一个高分，无法判断是否真变好 | 补微/宏平均、任务配对重采样、超时与费用分母、Judge 混淆矩阵；讲清格式失败不是正确判断 | [统计与可靠性](../10-Knowledge/10-evaluation-observability/01-concepts/04-statistics-and-reliability.md) |
+| 能背公式，却对不上代码的位置 | 增加 SFT 的输入/目标/忽略标签逐格表、DPO 对数概率差、PPO 正负优势算例、LoRA 系数约定；Notebook 拆开 Attention 中间张量 | [训练篇](../10-Knowledge/_archive/02-foundation-models/01-concepts/training/README.md)、[Tiny 实验](../20-Projects/tiny-transformer/01-train-and-inspect.ipynb) |
+| 以为加了复杂组件就一定更好 | 用同一道实际检索题展示融合如何把正确证据排低，再解释重排为何改善；补回完整公式与符号 | [混合检索与重排](../10-Knowledge/_archive/06-rag-and-knowledge-systems/01-concepts/02-hybrid-retrieval-and-reranking.md) |
+| 记不清相邻概念的边界 | 区分存储与本轮 Context、版本冲突与事实真假、恢复与取消、模型离题与执行层拒绝、说话人归属与声源分离 | [Context](../10-Knowledge/_archive/04-context-engineering/README.md)、[Memory](../10-Knowledge/_archive/07-state-and-memory/README.md)、[Runtime](../10-Knowledge/_archive/09-runtime-harness-environment/README.md) |
+| 看到一个高分，无法判断是否真变好 | 补微/宏平均、任务配对重采样、超时与费用分母、Judge 混淆矩阵；讲清格式失败不是正确判断 | [统计与可靠性](../10-Knowledge/_archive/10-evaluation-observability/01-concepts/04-statistics-and-reliability.md) |
 | 旧文说没有实现，新项目却已经有 | 逐域修正训练、真实模型、PDF、DAG、SSE 等过时描述；将笼统工作台链接改为具体实验/源码/报告 | [项目总表](../20-Projects/README.md)、[工作台](../20-Projects/learning-workbench/README.md) |
 | Notebook 从不同目录启动失败，或只有大段 JSON | 修正仓库定位；工作台 Notebook 改为逐题对比、数值重算、错误引用分析、实际重开记忆库与自检 | [工作台 Notebook](../20-Projects/learning-workbench/01-evidence-and-model-results.ipynb) |
 | 公式在 GitHub 阅读入口不够稳妥 | 按官方支持的 `$` / `$$` 统一正文数学分隔符，保持代码块；核对表格列数 | [写作规范](Learning-Writing-Guide.md) |

@@ -12,4 +12,4 @@ python 20-Projects/00-mini-agent/run.py run --stage 5 --mode demo --output .runs
 
 **练习：** 把 demo 的最终计划状态改成 pending 再运行：事实清单仍可能通过。然后把报告的 `after` 改错再验收：即使计划全是 done，也应失败。分别说明计划状态、运行状态和任务验收结果的含义。
 
-关联知识：[规划与多 Agent](../../../10-Knowledge/08-planning-workflow-multi-agent/README.md)。
+关联知识：[规划与多 Agent](../../../10-Knowledge/_archive/08-planning-workflow-multi-agent/README.md)。

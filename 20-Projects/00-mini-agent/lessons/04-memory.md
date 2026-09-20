@@ -24,4 +24,4 @@ python 20-Projects/00-mini-agent/run.py run --stage 4 --mode demo --memory .runs
 
 **练习：** 将偏好设为 bullets，但当前明确要求 table。预测结果并解释“听从当前要求”为什么比机械复用记忆更合理。扩展其他偏好时，应同时增加允许值、应用位置、删除与覆盖测试。
 
-关联知识：[状态与记忆](../../../10-Knowledge/07-state-and-memory/README.md)。
+关联知识：[状态与记忆](../../../10-Knowledge/_archive/07-state-and-memory/README.md)。

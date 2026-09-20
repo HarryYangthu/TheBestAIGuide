@@ -22,11 +22,11 @@ python scripts/run_python.py 20-Projects/domain-research-agent/evaluation/run_ev
 
 | 学过的知识 | 本项目怎样用 | 跳到实现 |
 | --- | --- | --- |
-| Agent Loop | 策略先调用 `lookup`，收到观察后终止；Runtime 限定四步 | [Agent Loop](../../10-Knowledge/03-agent-core/05-code/agent-loop-python/README.md) |
-| RAG | 先过滤租户、产品和版本，再按完整编号和 BM25 检索，生成原文引用 | [RAG Pipeline](../../10-Knowledge/06-rag-and-knowledge-systems/05-code/rag-pipeline-python/README.md) |
-| State / Memory | Checkpoint 保存进度；Memory 只保存已验证引用指针 | [状态与记忆](../../10-Knowledge/07-state-and-memory/05-code/state-memory-python/README.md) |
-| Runtime | 复用 SQLite `EventStore` 留下准备和完成事件；恢复以 Checkpoint 为准 | [恢复运行时](../../10-Knowledge/09-runtime-harness-environment/05-code/recoverable-runtime-python/README.md) |
-| Evaluation | 每个 Trial 创建独立工作目录；评分器核查回答字段和落盘状态 | [评测 Harness](../../10-Knowledge/10-evaluation-observability/05-code/eval-harness-python/README.md) |
+| Agent Loop | 策略先调用 `lookup`，收到观察后终止；Runtime 限定四步 | [Agent Loop](../../10-Knowledge/_archive/03-agent-core/05-code/agent-loop-python/README.md) |
+| RAG | 先过滤租户、产品和版本，再按完整编号和 BM25 检索，生成原文引用 | [RAG Pipeline](../../10-Knowledge/_archive/06-rag-and-knowledge-systems/05-code/rag-pipeline-python/README.md) |
+| State / Memory | Checkpoint 保存进度；Memory 只保存已验证引用指针 | [状态与记忆](../../10-Knowledge/_archive/07-state-and-memory/05-code/state-memory-python/README.md) |
+| Runtime | 复用 SQLite `EventStore` 留下准备和完成事件；恢复以 Checkpoint 为准 | [恢复运行时](../../10-Knowledge/_archive/09-runtime-harness-environment/05-code/recoverable-runtime-python/README.md) |
+| Evaluation | 每个 Trial 创建独立工作目录；评分器核查回答字段和落盘状态 | [评测 Harness](../../10-Knowledge/_archive/10-evaluation-observability/05-code/eval-harness-python/README.md) |
 
 核心只依赖标准库，但本项目**依赖仓库内其他领域组件**：不能只复制当前目录，再期待 `pip install .` 得到完整运行环境。请保留整个仓库并使用上面的运行脚本。
 
@@ -64,7 +64,7 @@ flowchart TD
 2. 以 `run-id` 为稳定文件名，写临时文件，再原子替换。已有文件内容一致就复用，不一致就报冲突。
 3. 保存引用记忆，最后标记 `completed`。记忆键也是 `run-id`，恢复后检查已有内容，避免递增版本。
 
-测试分别在步骤 1 后、步骤 2 后抛异常，关闭数据库、重建服务，再验证只有一份报告和一个记忆版本。这个方法依赖“同一键、相同内容的本地写入可重复”。外部支付、邮件等副作用需要接收方幂等键、状态对账或补偿，见 [Runtime 的副作用实验](../../10-Knowledge/09-runtime-harness-environment/05-code/recoverable-runtime-python/README.md)。
+测试分别在步骤 1 后、步骤 2 后抛异常，关闭数据库、重建服务，再验证只有一份报告和一个记忆版本。这个方法依赖“同一键、相同内容的本地写入可重复”。外部支付、邮件等副作用需要接收方幂等键、状态对账或补偿，见 [Runtime 的副作用实验](../../10-Knowledge/_archive/09-runtime-harness-environment/05-code/recoverable-runtime-python/README.md)。
 
 本例限定单写者，文件写入未做断电级 `fsync`，也没有分布式事务。Checkpoint 与事件库不在同一事务，极端中断时可能缺少完成事件，因此恢复依据是 Checkpoint。这不是通用的“恰好一次”执行保证。
 

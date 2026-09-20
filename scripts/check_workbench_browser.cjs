@@ -1,5 +1,5 @@
 // Run from repository root after installing the browser-agent Playwright dependency.
-const { chromium } = require('../10-Knowledge/13-application-engineering/05-code/browser-agent-typescript/node_modules/playwright');
+const { chromium } = require('../10-Knowledge/_archive/13-application-engineering/05-code/browser-agent-typescript/node_modules/playwright');
 const { spawn } = require('node:child_process');
 const { mkdirSync } = require('node:fs');
 const assert = require('node:assert/strict');

@@ -47,11 +47,11 @@ python -m pip install -r requirements-learning.txt
 
 | 我想学会什么 | 先读知识 | 再读本页 |
 | --- | --- | --- |
-| 保存什么，当前要求如何覆盖旧记忆 | [记忆生命周期](../../10-Knowledge/07-state-and-memory/01-concepts/02-memory-lifecycle.md) | [跨会话记忆](#3-从一句话到下一次会话的记忆) |
-| 找到文档后，怎样避免错引和答非所问 | [引用与 Grounding](../../10-Knowledge/06-rag-and-knowledge-systems/01-concepts/07-citations-and-grounding.md) | [检索与生成](#2-检索生成和证据支持不能混为一谈) |
-| 工具已经调用，为什么任务还没完成 | [Agent Loop](../../10-Knowledge/03-agent-core/01-concepts/02-agent-loop.md) | [模型接入](#1-模型如何接入-agent-loop) |
-| 证据更新后，哪些工作要重做 | [规划与重规划](../../10-Knowledge/08-planning-workflow-multi-agent/01-concepts/01-planning-and-replanning.md) | [规划实验](#3-从一句话到下一次会话的记忆) |
-| 后端怎样等待批准并持续展示状态 | [后端与流式返回](../../10-Knowledge/13-application-engineering/01-concepts/01-backend-and-streaming.md) | [审批服务](#4-从任务状态到浏览器) |
+| 保存什么，当前要求如何覆盖旧记忆 | [记忆生命周期](../../10-Knowledge/_archive/07-state-and-memory/01-concepts/02-memory-lifecycle.md) | [跨会话记忆](#3-从一句话到下一次会话的记忆) |
+| 找到文档后，怎样避免错引和答非所问 | [引用与 Grounding](../../10-Knowledge/_archive/06-rag-and-knowledge-systems/01-concepts/07-citations-and-grounding.md) | [检索与生成](#2-检索生成和证据支持不能混为一谈) |
+| 工具已经调用，为什么任务还没完成 | [Agent Loop](../../10-Knowledge/_archive/03-agent-core/01-concepts/02-agent-loop.md) | [模型接入](#1-模型如何接入-agent-loop) |
+| 证据更新后，哪些工作要重做 | [规划与重规划](../../10-Knowledge/_archive/08-planning-workflow-multi-agent/01-concepts/01-planning-and-replanning.md) | [规划实验](#3-从一句话到下一次会话的记忆) |
+| 后端怎样等待批准并持续展示状态 | [后端与流式返回](../../10-Knowledge/_archive/13-application-engineering/01-concepts/01-backend-and-streaming.md) | [审批服务](#4-从任务状态到浏览器) |
 
 ## 项目地图
 

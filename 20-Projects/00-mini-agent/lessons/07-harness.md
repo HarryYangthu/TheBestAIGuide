@@ -24,4 +24,4 @@ python 20-Projects/00-mini-agent/learn.py --output .runs/mini-final
 
 项目完成需要三个层面的证据：机制运行通过、真实模型固定任务通过、你能解释并修正失败。第一层可以完全离线完成；后两层需要你自己的运行与实验报告。参考记录不替代自己的结果。
 
-关联知识：[Runtime 与 Harness](../../../10-Knowledge/09-runtime-harness-environment/README.md)、[评测与可观测性](../../../10-Knowledge/10-evaluation-observability/README.md)。
+关联知识：[Runtime 与 Harness](../../../10-Knowledge/_archive/09-runtime-harness-environment/README.md)、[评测与可观测性](../../../10-Knowledge/_archive/10-evaluation-observability/README.md)。

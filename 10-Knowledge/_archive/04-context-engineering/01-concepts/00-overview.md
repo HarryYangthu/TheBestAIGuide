@@ -1,0 +1,70 @@
+# Context Engineering
+
+> 状态：draft
+> 定位：专题总览；细节已按概念、模式、评测和实验拆到独立入口。
+
+## 定义
+
+Context Engineering 是为每一次模型调用选择、转换、排序和组织信息的系统工程。目标不是把可获得的信息全部塞进窗口，而是在权限、Token、延迟和可靠性约束下，为“下一步决策”提供足够且可信的输入。
+
+每轮从请求、状态、历史和检索结果中取得候选信息，按权限与当前任务筛选，再转换、排序、打包、校验。模型据此给出答案或工具动作；新的观察写回状态，供下一轮选择。注意两个边界：信息放在仓库里不等于模型已经读到；模型在文字中提出动作也不等于工具已经执行。
+
+![上下文工程从信息来源到下一步推理的示意图](../../../../assets/context-engineering-core.svg)
+
+## 与相邻概念的边界
+
+| 概念 | 主要问题 | 与 Context Engineering 的关系 |
+| --- | --- | --- |
+| Prompt Engineering | 指令如何表达得更清楚？ | Prompt 是上下文的一部分，不覆盖动态检索、状态和工具结果 |
+| RAG | 去哪里找到外部证据？ | RAG 产出候选证据，Context Builder 决定如何使用这些证据 |
+| Memory | 哪些信息应跨轮次或跨会话保存？ | Memory 负责持久化，Context Engineering 负责按需读取和注入 |
+| Tool Runtime | 动作如何校验、执行和返回？ | 工具结果会成为新上下文，但执行可靠性属于 Runtime |
+| Model Training | 模型参数中学到什么？ | Context Engineering 改变推理时输入，不直接改变模型参数 |
+
+## 五个核心问题
+
+1. **来源**：本轮可能需要哪些信息？
+2. **可信度**：信息来自系统策略、用户、工具还是不可信文档？
+3. **相关性**：哪些信息真正影响下一步决策？
+4. **表示**：应保留原文、结构化字段、摘要还是引用指针？
+5. **预算**：在窗口、延迟和成本限制下如何取舍？
+
+## 专题索引
+
+1. [上下文模型](01-context-model.md)：组成、生命周期、优先级与质量维度。
+2. [Context Builder](../02-patterns/01-context-builder.md)：输入契约、构建流程、输出 Schema 和测试点。
+3. [失败模式](02-failure-modes.md)：八类现象，包括中毒、干扰、混淆、冲突、腐化、溢出、泄露和注入。
+4. [优化策略](../02-patterns/02-optimization-strategies.md)：选择、检索、压缩、隔离、卸载与缓存。
+5. [评测方法](03-context-evaluation.md)：任务集、指标、消融、Trace 和回归。
+6. [资源索引](../references.md)：论文、官方文章和工程资料。
+
+## 核心原则
+
+- 上下文窗口是有限的决策界面，不是日志仓库。
+- 相关性、可信度和时效性比“信息量”更重要。
+- 系统指令、外部事实和不可信内容必须保持来源与信任边界。
+- 能用确定性代码过滤、校验和计算的内容，不必交给模型猜测。
+- 摘要是有损转换，应保留来源指针并允许回读原文。
+- 多 Agent 隔离能减少干扰，但会增加路由、同步和评测成本。
+- 上下文优化必须用任务结果验证，不能只用 Token 下降证明有效。
+
+## 一个最小闭环
+
+```text
+定义任务成功条件
+  -> 记录完整输入、选择过程和模型输出
+  -> 建立未优化基线
+  -> 每次只改变一种上下文策略
+  -> 比较任务成功率、可靠性、成本和失败类型
+  -> 将确认有效的策略固化为回归测试
+```
+
+两个配套 Notebook 已实现预算打包和结构化压缩并保存实际输出，见 [Context Engineering Labs](../04-labs/README.md)。实验未调用模型，不能据此声称已验证模型层注意力退化或真实任务成功率。
+
+## 主要来源
+
+- [Anthropic: Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
+- [LangChain: Context engineering for agents](https://blog.langchain.com/context-engineering-for-agents/)
+- [Lost in the Middle](https://arxiv.org/abs/2307.03172)
+
+更多来源及证据等级见[资源索引](../references.md)。

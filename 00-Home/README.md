@@ -1,27 +1,21 @@
 # 知识库首页
 
-建议从一个问题开始：模型怎样计算注意力？为什么检索到了文档却答错了？工具超时以后能不能重试？沿着领域入口进入正文，再运行配套实验，最后回到源码找对应机制。
+从 [Agent 组件总览](../10-Knowledge/README.md)进入当前主线。先阅读并运行[执行循环章节](../10-Knowledge/03-agent-loop/README.md)，再按任务需要补齐其他组件。
 
 | 入口 | 用途 |
-| --- | --- |
-| [连续学习路线](Learning-Paths.md) | 按前置知识安排阅读，并选择适合自己的起点 |
-| [知识领域](../10-Knowledge/README.md) | 16 个领域的局部导航 |
-| [完整知识地图](Knowledge-Map.md) | 对照理论范围，了解还可以深入哪些方向 |
-| [核心术语表](Glossary.md) | 分清 Context、State、Memory、Runtime、Harness 等边界 |
-| [项目总表](../20-Projects/README.md) | 按目标选择组件、综合工作台或小模型训练 |
-| [知识库建设状态](Knowledge-Status.md) | 查看实际补全和验证范围 |
+|---|---|
+| [连续学习路线](Learning-Paths.md) | 从模型调用逐步进入工具、状态、协作与恢复 |
+| [组件地图](Knowledge-Map.md) | 把运行中的问题对应到组件职责 |
+| [知识库建设状态](Knowledge-Status.md) | 区分已交付章节、待展开内容与历史记录 |
+| [旧知识库](../10-Knowledge/_archive/README.md) | 查阅原 16 个领域和已有实验 |
+| [项目总表](../20-Projects/README.md) | 选择跨组件的实践项目 |
+| [核心术语表](Glossary.md) | 对照 Context、State、Memory、Runtime 和 Harness 等概念 |
 
 ## 内容维护
 
-- [学习型写作规范](Learning-Writing-Guide.md)：机制、公式、数值例子、失败模式与代码怎样组织。
-- [目录与写作约定](Conventions.md)、[目录说明](Repository-Structure.md)：命名、链接、状态和证据规则。
-- [范围与边界](Scope.md)：知识库的收录范围。
-- [内容模板](templates/README.md)：创建概念、模式、案例、实验和来源卡。
-- [建设路线](Roadmap.md)、[完成与后续计划](待补充计划.md)、[更新记录](Changelog.md)：记录本次交付及持续维护任务。
-- [维护脚本](../scripts/README.md)：在修改后验证链接、Notebook 与源码。
+- [学习型写作规范](Learning-Writing-Guide.md)：用图、公式、代码与可检查的输出解释机制。
+- [目录与写作约定](Conventions.md)、[目录说明](Repository-Structure.md)：维护组件目录、链接和状态。
+- [范围与边界](Scope.md)、[内容模板](templates/README.md)：收录范围与写作参考。
+- [更新记录](Changelog.md)、[维护脚本](../scripts/README.md)：跟踪修改与验证。
 
-每个领域以自己的 README 为唯一局部导航。无需记住每个子目录：进入文章后，应能直接找到来源、实验与实现。
-
-## 学习者走读修订（2026-09-07）
-
-本次按阅读、计算、代码与实验逐项检查，修正知识跳步、过时说明和可复现的代码问题。具体例子与验证范围见[走读修订记录](Learner-Review.md)。
+原领域建设计划保存在 [Roadmap](Roadmap.md)、[待补充计划](待补充计划.md) 和各历史完成记录中；当前章节状态以组件总览为准。

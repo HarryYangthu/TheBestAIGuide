@@ -46,4 +46,4 @@ $$RRF(d)=\sum_j\frac{1}{60+rank_j(d)}.$$
 
 每次记录：代码版本、数据哈希、命令、模型与检索配置、图表、两条失败题ID、修改理由、修改前后指标和限制。最终要能回答“哪一条原文没有进入上下文，为什么”，而不只是展示一个好看的总分。
 
-关联知识：[RAG](../../10-Knowledge/06-rag-and-knowledge-systems/README.md)、[上下文工程](../../10-Knowledge/04-context-engineering/README.md)、[评测](../../10-Knowledge/10-evaluation-observability/README.md)。
+关联知识：[RAG](../../10-Knowledge/_archive/06-rag-and-knowledge-systems/README.md)、[上下文工程](../../10-Knowledge/_archive/04-context-engineering/README.md)、[评测](../../10-Knowledge/_archive/10-evaluation-observability/README.md)。

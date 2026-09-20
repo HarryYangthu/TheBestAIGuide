@@ -1,0 +1,173 @@
+{
+  "format_version": 1,
+  "repository": "OpenHands/software-agent-sdk",
+  "release": "v1.49.2",
+  "commit": "d128a786ee2ee570eb23ff5862ec148b43cfad0b",
+  "license": "MIT",
+  "license_file": "LICENSE.OpenHands",
+  "snapshot_path_base": "sources/",
+  "note": "Snapshots reused from previously saved pinned sources. SHA-256 and Git blob SHA recomputed locally. Remote tag/commit could not be freshly fetched in this run. Excerpts are exact inclusive 1-based line slices, preserve indentation and LF. No SDK/API run is claimed.",
+  "snapshots": [
+    {
+      "upstream_path": "openhands-sdk/openhands/sdk/agent/agent.py",
+      "git_blob_sha": "6f4a9db9890b6d0cb289fbfdbe50c8ee359cff37",
+      "snapshot_file": "upstream/openhands-sdk/openhands/sdk/agent/agent.py",
+      "sha256": "2fac0e0e106dbfe8b77850ecb3cd2f366a030686e2cb6ae7296683f39f5d11a0",
+      "source_url": "https://github.com/OpenHands/software-agent-sdk/blob/d128a786ee2ee570eb23ff5862ec148b43cfad0b/openhands-sdk/openhands/sdk/agent/agent.py"
+    },
+    {
+      "upstream_path": "openhands-sdk/openhands/sdk/conversation/impl/local_conversation.py",
+      "git_blob_sha": "665149d34d9bc63fb30b40b3ef54a777cbeab9f3",
+      "snapshot_file": "upstream/openhands-sdk/openhands/sdk/conversation/impl/local_conversation.py",
+      "sha256": "86ba67202d3a61cc6828922fcbe492937ad40ff8536210c6f94af7649ba538aa",
+      "source_url": "https://github.com/OpenHands/software-agent-sdk/blob/d128a786ee2ee570eb23ff5862ec148b43cfad0b/openhands-sdk/openhands/sdk/conversation/impl/local_conversation.py"
+    },
+    {
+      "upstream_path": "openhands-sdk/openhands/sdk/agent/response_dispatch.py",
+      "git_blob_sha": "7ba1ab2eb59768db296d723a39f6f41a90b14497",
+      "snapshot_file": "upstream/openhands-sdk/openhands/sdk/agent/response_dispatch.py",
+      "sha256": "6545ac97df0731be6462d78e4611cae1f769b754f379efc6b6ffe7586cf45212",
+      "source_url": "https://github.com/OpenHands/software-agent-sdk/blob/d128a786ee2ee570eb23ff5862ec148b43cfad0b/openhands-sdk/openhands/sdk/agent/response_dispatch.py"
+    },
+    {
+      "upstream_path": "openhands-sdk/openhands/sdk/conversation/state.py",
+      "git_blob_sha": "ed774175926db0f574d920f59fb096594b09d3dd",
+      "snapshot_file": "upstream/openhands-sdk/openhands/sdk/conversation/state.py",
+      "sha256": "7e488ee6cb483f35b852bcb0900f5f49e0490a2b5bf28d6387d869d207727360",
+      "source_url": "https://github.com/OpenHands/software-agent-sdk/blob/d128a786ee2ee570eb23ff5862ec148b43cfad0b/openhands-sdk/openhands/sdk/conversation/state.py"
+    },
+    {
+      "upstream_path": "openhands-sdk/openhands/sdk/tool/builtins/finish.py",
+      "git_blob_sha": "0bb12f849bd0c6365f5806f6ed7568b237d3ea7b",
+      "snapshot_file": "upstream/openhands-sdk/openhands/sdk/tool/builtins/finish.py",
+      "sha256": "a4fbff6ca0ce404e2c50af65361d47d650dac5abc7a338cec0b088b98adbe36e",
+      "source_url": "https://github.com/OpenHands/software-agent-sdk/blob/d128a786ee2ee570eb23ff5862ec148b43cfad0b/openhands-sdk/openhands/sdk/tool/builtins/finish.py"
+    },
+    {
+      "upstream_path": "openhands-sdk/openhands/sdk/agent/critic_mixin.py",
+      "git_blob_sha": "6473c1284bc1990884f6dc3beff396fe9d837713",
+      "snapshot_file": "upstream/openhands-sdk/openhands/sdk/agent/critic_mixin.py",
+      "sha256": "d70de96971c3cb037b7ee40a7a4576afb652b4009cd48173f38e0f1f7ce02c0f",
+      "source_url": "https://github.com/OpenHands/software-agent-sdk/blob/d128a786ee2ee570eb23ff5862ec148b43cfad0b/openhands-sdk/openhands/sdk/agent/critic_mixin.py"
+    }
+  ],
+  "excerpts": [
+    {
+      "id": "run_step",
+      "upstream_path": "openhands-sdk/openhands/sdk/conversation/impl/local_conversation.py",
+      "git_blob_sha": "665149d34d9bc63fb30b40b3ef54a777cbeab9f3",
+      "start_line": 1989,
+      "end_line": 1996,
+      "source_url": "https://github.com/OpenHands/software-agent-sdk/blob/d128a786ee2ee570eb23ff5862ec148b43cfad0b/openhands-sdk/openhands/sdk/conversation/impl/local_conversation.py#L1989-L1996",
+      "excerpt_file": "excerpts/run_step.py",
+      "excerpt_sha256": "65b1572d414e0f6d5beeb410bd32aa3499b0c8cb556d75363335b92fb6267170",
+      "document": "../06-openhands-source.md",
+      "begin_marker": "<!-- source-snippet:run_step:begin -->",
+      "end_marker": "<!-- source-snippet:run_step:end -->"
+    },
+    {
+      "id": "pending_actions",
+      "upstream_path": "openhands-sdk/openhands/sdk/agent/agent.py",
+      "git_blob_sha": "6f4a9db9890b6d0cb289fbfdbe50c8ee359cff37",
+      "start_line": 652,
+      "end_line": 661,
+      "source_url": "https://github.com/OpenHands/software-agent-sdk/blob/d128a786ee2ee570eb23ff5862ec148b43cfad0b/openhands-sdk/openhands/sdk/agent/agent.py#L652-L661",
+      "excerpt_file": "excerpts/pending_actions.py",
+      "excerpt_sha256": "7eacbb4099a7a7367519af2931f0f4f8091922358dc5547826d16bf7463649b9",
+      "document": "../06-openhands-source.md",
+      "begin_marker": "<!-- source-snippet:pending_actions:begin -->",
+      "end_marker": "<!-- source-snippet:pending_actions:end -->"
+    },
+    {
+      "id": "condensation",
+      "upstream_path": "openhands-sdk/openhands/sdk/agent/agent.py",
+      "git_blob_sha": "6f4a9db9890b6d0cb289fbfdbe50c8ee359cff37",
+      "start_line": 688,
+      "end_line": 695,
+      "source_url": "https://github.com/OpenHands/software-agent-sdk/blob/d128a786ee2ee570eb23ff5862ec148b43cfad0b/openhands-sdk/openhands/sdk/agent/agent.py#L688-L695",
+      "excerpt_file": "excerpts/condensation.py",
+      "excerpt_sha256": "62f36dbdbac5bb64dcfb34d8c3f212cadd3b5e3fbdbdfae186b6de6fa5172ee7",
+      "document": "../06-openhands-source.md",
+      "begin_marker": "<!-- source-snippet:condensation:begin -->",
+      "end_marker": "<!-- source-snippet:condensation:end -->"
+    },
+    {
+      "id": "classify_response",
+      "upstream_path": "openhands-sdk/openhands/sdk/agent/response_dispatch.py",
+      "git_blob_sha": "7ba1ab2eb59768db296d723a39f6f41a90b14497",
+      "start_line": 65,
+      "end_line": 78,
+      "source_url": "https://github.com/OpenHands/software-agent-sdk/blob/d128a786ee2ee570eb23ff5862ec148b43cfad0b/openhands-sdk/openhands/sdk/agent/response_dispatch.py#L65-L78",
+      "excerpt_file": "excerpts/classify_response.py",
+      "excerpt_sha256": "1937e16b8f5881278deeeef5c6a3aa991ecb2661d30d56632573b9dd6135feb3",
+      "document": "../06-openhands-source.md",
+      "begin_marker": "<!-- source-snippet:classify_response:begin -->",
+      "end_marker": "<!-- source-snippet:classify_response:end -->"
+    },
+    {
+      "id": "observation_event",
+      "upstream_path": "openhands-sdk/openhands/sdk/agent/agent.py",
+      "git_blob_sha": "6f4a9db9890b6d0cb289fbfdbe50c8ee359cff37",
+      "start_line": 1440,
+      "end_line": 1446,
+      "source_url": "https://github.com/OpenHands/software-agent-sdk/blob/d128a786ee2ee570eb23ff5862ec148b43cfad0b/openhands-sdk/openhands/sdk/agent/agent.py#L1440-L1446",
+      "excerpt_file": "excerpts/observation_event.py",
+      "excerpt_sha256": "199cf39596da716a81d2279ceef922242728f300f6586df7650a13f97e1688c9",
+      "document": "../06-openhands-source.md",
+      "begin_marker": "<!-- source-snippet:observation_event:begin -->",
+      "end_marker": "<!-- source-snippet:observation_event:end -->"
+    },
+    {
+      "id": "confirmation_resume",
+      "upstream_path": "openhands-sdk/openhands/sdk/conversation/impl/local_conversation.py",
+      "git_blob_sha": "665149d34d9bc63fb30b40b3ef54a777cbeab9f3",
+      "start_line": 1977,
+      "end_line": 1984,
+      "source_url": "https://github.com/OpenHands/software-agent-sdk/blob/d128a786ee2ee570eb23ff5862ec148b43cfad0b/openhands-sdk/openhands/sdk/conversation/impl/local_conversation.py#L1977-L1984",
+      "excerpt_file": "excerpts/confirmation_resume.py",
+      "excerpt_sha256": "8d981d2917e674e19b637b64ca9891e475746cf9d0e751fb926f8b31351262c7",
+      "document": "../06-openhands-source.md",
+      "begin_marker": "<!-- source-snippet:confirmation_resume:begin -->",
+      "end_marker": "<!-- source-snippet:confirmation_resume:end -->"
+    },
+    {
+      "id": "finish_transition",
+      "upstream_path": "openhands-sdk/openhands/sdk/agent/agent.py",
+      "git_blob_sha": "6f4a9db9890b6d0cb289fbfdbe50c8ee359cff37",
+      "start_line": 355,
+      "end_line": 371,
+      "source_url": "https://github.com/OpenHands/software-agent-sdk/blob/d128a786ee2ee570eb23ff5862ec148b43cfad0b/openhands-sdk/openhands/sdk/agent/agent.py#L355-L371",
+      "excerpt_file": "excerpts/finish_transition.py",
+      "excerpt_sha256": "8dbbae20835e2a3a838ccacc36f37078a65c2b07d0895c2a0f72d549f5b7be85",
+      "document": "../06-openhands-source.md",
+      "begin_marker": "<!-- source-snippet:finish_transition:begin -->",
+      "end_marker": "<!-- source-snippet:finish_transition:end -->"
+    },
+    {
+      "id": "iteration_limit",
+      "upstream_path": "openhands-sdk/openhands/sdk/conversation/impl/local_conversation.py",
+      "git_blob_sha": "665149d34d9bc63fb30b40b3ef54a777cbeab9f3",
+      "start_line": 2020,
+      "end_line": 2042,
+      "source_url": "https://github.com/OpenHands/software-agent-sdk/blob/d128a786ee2ee570eb23ff5862ec148b43cfad0b/openhands-sdk/openhands/sdk/conversation/impl/local_conversation.py#L2020-L2042",
+      "excerpt_file": "excerpts/iteration_limit.py",
+      "excerpt_sha256": "2f1ca15daca1ad7469fd3ff2201c3aabeb713642f5e5b439358f046a4f19836c",
+      "document": "../06-openhands-source.md",
+      "begin_marker": "<!-- source-snippet:iteration_limit:begin -->",
+      "end_marker": "<!-- source-snippet:iteration_limit:end -->"
+    }
+  ],
+  "verification": {
+    "date": "2026-09-20",
+    "snapshot_source": "previously saved local pinned snapshot",
+    "remote_revalidated": false,
+    "sdk_executed": false,
+    "method": [
+      "SHA-256",
+      "Git blob SHA-1",
+      "exact line-slice comparison",
+      "Markdown excerpt comparison"
+    ]
+  },
+  "license_sha256": "14a9b631c658eee682c6c2973525fbdf808c3457176bc47513052c559cc5ce86"
+}

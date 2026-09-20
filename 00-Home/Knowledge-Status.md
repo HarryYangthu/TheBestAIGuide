@@ -1,5 +1,22 @@
 # 知识库建设状态
 
+## 当前组件目录（2026-09-20）
+
+| 范围 | 当前状态 |
+|---|---|
+| 12 个核心组件与 3 个增强能力 | 已建立目录、职责范围和阅读路线 |
+| [03 Agent 执行循环](../10-Knowledge/03-agent-loop/README.md) | 已接入六份阅读文件、实际输入、v0—v4 代码、API 配置和源码快照 |
+| 其余 14 个组件 | README 已建立；新的分章正文与实验待展开，已有参考资料链接到归档 |
+| [旧知识库](../10-Knowledge/_archive/README.md) | 原 16 个领域完整归档，项目继续复用其配套实现 |
+
+第 03 章默认通过 OpenAI SDK 调用所配置的真实 API。本地验证覆盖循环分支、SDK 模拟传输和产物保存；当前未配置密钥，未执行真实模型请求。
+
+本次迁移检查：2,168 个本地链接、21 本 Notebook 格式、18 本归档 Notebook 的初始化单元、源码快照校验通过；Python 共 135 项测试，129 项通过，6 项因未安装可选 CPU PyTorch 跳过。
+
+## 历史领域建设记录
+
+下面保留原领域建设时的统计和执行证据，日期与测试数量均对应原记录。
+
 > 更新日期：2026-09-06；原始基线：`f9729ba319a5cf0911b009c863a4796a888d8306`。
 
 本轮将脚手架补成可以沿“机制 → 公式/算例 → 源码 → 实验”学习的第一版。原有 Context、RAG、Evaluation 的 20 篇正文保留并补充解释和实现链接；基础两域的 13 个概念入口改成教程，其余领域按盘点计划新增 58 篇专题与案例。
@@ -12,22 +29,22 @@
 
 | 领域 | 正文文件 | Notebook | 证据入口 |
 | --- | --- | --- | --- |
-| [AI 基础](../10-Knowledge/01-ai-foundations/README.md) | 7 | 4 | [来源](../10-Knowledge/01-ai-foundations/references.md) |
-| [基础模型](../10-Knowledge/02-foundation-models/README.md) | 6 | 2 | [来源](../10-Knowledge/02-foundation-models/references.md) |
-| [Agent Core](../10-Knowledge/03-agent-core/README.md) | 5 | 1 | [来源](../10-Knowledge/03-agent-core/references.md) |
-| [Context Engineering](../10-Knowledge/04-context-engineering/README.md) | 6 | 2 | [来源](../10-Knowledge/04-context-engineering/references.md) |
-| [Tools / Skills / MCP](../10-Knowledge/05-tools-skills-protocols/README.md) | 6 | 1 | [来源](../10-Knowledge/05-tools-skills-protocols/references.md) |
-| [RAG](../10-Knowledge/06-rag-and-knowledge-systems/README.md) | 10 | 1 | [来源](../10-Knowledge/06-rag-and-knowledge-systems/references.md) |
-| [State / Memory](../10-Knowledge/07-state-and-memory/README.md) | 5 | 1 | [来源](../10-Knowledge/07-state-and-memory/references.md) |
-| [Planning / Workflow / Multi-Agent](../10-Knowledge/08-planning-workflow-multi-agent/README.md) | 6 | 1 | [来源](../10-Knowledge/08-planning-workflow-multi-agent/references.md) |
-| [Runtime / Harness](../10-Knowledge/09-runtime-harness-environment/README.md) | 5 | 1 | [来源](../10-Knowledge/09-runtime-harness-environment/references.md) |
-| [Evaluation / Observability](../10-Knowledge/10-evaluation-observability/README.md) | 10 | 1 | [来源](../10-Knowledge/10-evaluation-observability/references.md) |
-| [Safety / Security / Governance](../10-Knowledge/11-safety-security-governance/README.md) | 4 | 1 | [来源](../10-Knowledge/11-safety-security-governance/references.md) |
-| [Agent Learning](../10-Knowledge/12-agent-learning/README.md) | 5 | 1 | [来源](../10-Knowledge/12-agent-learning/references.md) |
-| [应用工程](../10-Knowledge/13-application-engineering/README.md) | 9 | 0 | [来源](../10-Knowledge/13-application-engineering/references.md) |
-| [生产工程](../10-Knowledge/14-production-engineering/README.md) | 5 | 0 | [来源](../10-Knowledge/14-production-engineering/references.md) |
-| [多模态与具身](../10-Knowledge/15-multimodal-and-embodied/README.md) | 4 | 1 | [来源](../10-Knowledge/15-multimodal-and-embodied/references.md) |
-| [研究前沿](../10-Knowledge/16-research-frontiers/README.md) | 5 | 0 | [来源](../10-Knowledge/16-research-frontiers/references.md) |
+| [AI 基础](../10-Knowledge/_archive/01-ai-foundations/README.md) | 7 | 4 | [来源](../10-Knowledge/_archive/01-ai-foundations/references.md) |
+| [基础模型](../10-Knowledge/_archive/02-foundation-models/README.md) | 6 | 2 | [来源](../10-Knowledge/_archive/02-foundation-models/references.md) |
+| [Agent Core](../10-Knowledge/_archive/03-agent-core/README.md) | 5 | 1 | [来源](../10-Knowledge/_archive/03-agent-core/references.md) |
+| [Context Engineering](../10-Knowledge/_archive/04-context-engineering/README.md) | 6 | 2 | [来源](../10-Knowledge/_archive/04-context-engineering/references.md) |
+| [Tools / Skills / MCP](../10-Knowledge/_archive/05-tools-skills-protocols/README.md) | 6 | 1 | [来源](../10-Knowledge/_archive/05-tools-skills-protocols/references.md) |
+| [RAG](../10-Knowledge/_archive/06-rag-and-knowledge-systems/README.md) | 10 | 1 | [来源](../10-Knowledge/_archive/06-rag-and-knowledge-systems/references.md) |
+| [State / Memory](../10-Knowledge/_archive/07-state-and-memory/README.md) | 5 | 1 | [来源](../10-Knowledge/_archive/07-state-and-memory/references.md) |
+| [Planning / Workflow / Multi-Agent](../10-Knowledge/_archive/08-planning-workflow-multi-agent/README.md) | 6 | 1 | [来源](../10-Knowledge/_archive/08-planning-workflow-multi-agent/references.md) |
+| [Runtime / Harness](../10-Knowledge/_archive/09-runtime-harness-environment/README.md) | 5 | 1 | [来源](../10-Knowledge/_archive/09-runtime-harness-environment/references.md) |
+| [Evaluation / Observability](../10-Knowledge/_archive/10-evaluation-observability/README.md) | 10 | 1 | [来源](../10-Knowledge/_archive/10-evaluation-observability/references.md) |
+| [Safety / Security / Governance](../10-Knowledge/_archive/11-safety-security-governance/README.md) | 4 | 1 | [来源](../10-Knowledge/_archive/11-safety-security-governance/references.md) |
+| [Agent Learning](../10-Knowledge/_archive/12-agent-learning/README.md) | 5 | 1 | [来源](../10-Knowledge/_archive/12-agent-learning/references.md) |
+| [应用工程](../10-Knowledge/_archive/13-application-engineering/README.md) | 9 | 0 | [来源](../10-Knowledge/_archive/13-application-engineering/references.md) |
+| [生产工程](../10-Knowledge/_archive/14-production-engineering/README.md) | 5 | 0 | [来源](../10-Knowledge/_archive/14-production-engineering/references.md) |
+| [多模态与具身](../10-Knowledge/_archive/15-multimodal-and-embodied/README.md) | 4 | 1 | [来源](../10-Knowledge/_archive/15-multimodal-and-embodied/references.md) |
+| [研究前沿](../10-Knowledge/_archive/16-research-frontiers/README.md) | 5 | 0 | [来源](../10-Knowledge/_archive/16-research-frontiers/references.md) |
 
 ## 本轮执行范围
 

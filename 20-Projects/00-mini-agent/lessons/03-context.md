@@ -14,4 +14,4 @@ python 20-Projects/00-mini-agent/run.py run --stage 3 --mode demo --output .runs
 
 **练习：** 修改 `context.py` 中保留策略，尝试额外保留最近一次目录列表。比较请求长度与文件定位表现，并记录真实结果。不要把 `json.dumps` 的字符数称为 token 数：中文、英文和标点的 token 切分不相同。
 
-关联知识：[上下文工程](../../../10-Knowledge/04-context-engineering/README.md)。
+关联知识：[上下文工程](../../../10-Knowledge/_archive/04-context-engineering/README.md)。

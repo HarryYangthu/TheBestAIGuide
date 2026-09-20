@@ -1,33 +1,83 @@
-# 知识领域
+# Agent 组件学习路线
 
-按领域聚合概念、模式、案例、Notebook 和源码。每一行的 README 给出具体阅读顺序；详细执行记录见[建设状态](../00-Home/Knowledge-Status.md)。
+知识库按 12 个核心组件与 3 个增强能力组织。先从一次模型调用走到完整执行循环，再逐步加入上下文、工具、状态、验收与协作能力。
 
-| 顺序 | 领域 | 学习问题与实践 |
-| --- | --- | --- |
-| 1 | [AI 基础](01-ai-foundations/README.md) | 补齐数学统计、ML、DL、搜索规划、RL、可信 AI、计算基础；配四个小实验 |
-| 2 | [基础模型](02-foundation-models/README.md) | 补齐 Tokenizer、Transformer、训练对齐、推理、推理模型、选型；配输入/注意力与解码/缓存实验 |
-| 3 | [Agent Core](03-agent-core/README.md) | 按 [12 个核心组件与 3 个增强能力](03-agent-core/01-concepts/04-core-components.md) 理解系统；学习 Loop、停止与错误处理、ReAct/Plan-and-Execute |
-| 4 | [Context Engineering](04-context-engineering/README.md) | 选择哪些信息进入本轮模型调用，如何诊断八类失效；运行预算与压缩实验 |
-| 5 | [Tools / Skills / MCP](05-tools-skills-protocols/README.md) | 完成工具契约、Skills、MCP、Agent 协议和授权；实现 TypeScript Runtime、MCP Server 与共享 Schema |
-| 6 | [RAG](06-rag-and-knowledge-systems/README.md) | 完善已有案例；补解析、切块、索引更新、查询/图检索和引用；建立语料、标注集、Pipeline、消融实验 |
-| 7 | [State / Memory](07-state-and-memory/README.md) | 补状态事务、Checkpoint、记忆生命周期、冲突遗忘与评测；实现存储与恢复实验 |
-| 8 | [Planning / Workflow / Multi-Agent](08-planning-workflow-multi-agent/README.md) | 补规划、状态图、协作拓扑、交接合并；实现协作 Runtime 与单 Agent 基线 |
-| 9 | [Runtime / Harness](09-runtime-harness-environment/README.md) | 补运行生命周期、持久执行、并发预算、环境与 Harness 职责；验证恢复/回放/幂等 |
-| 10 | [Evaluation / Observability](10-evaluation-observability/README.md) | 如何构造任务、选择分母、判分与解释差异；配手算、评分器、Trace 和回归报告 |
-| 11 | [Safety / Security / Governance](11-safety-security-governance/README.md) | 完成威胁边界、授权、数据与供应链；用本地任务验证越权拒绝及合法请求通过 |
-| 12 | [Agent Learning](12-agent-learning/README.md) | 完成轨迹数据、SFT/偏好优化、Agentic RL、Verifier/奖励与反馈闭环；小规模可复现实验 |
-| 13 | [应用工程](13-application-engineering/README.md) | 完成 API/流式事件/交互/存储/模型网关；补 Coding、Browser、企业、运维、科研案例与浏览器测试工程 |
-| 14 | [生产工程](14-production-engineering/README.md) | 完成部署容量、SLO/成本、发布回滚；补有出处的系统分析与本地故障复盘 |
-| 15 | [多模态与具身](15-multimodal-and-embodied/README.md) | 完成视觉文档、语音视频、多模态 RAG/上下文、VLA/具身；配文档结构与引用实验 |
-| 16 | [研究前沿](16-research-frontiers/README.md) | 形成有日期和论文版本的长程、自进化、世界模型、神经符号、Test-time Learning、AI for Science 知识快照 |
+```mermaid
+flowchart TD
+    T["01 任务与协议"] --> S["04 编排与调度"]
+    S <--> H["05 通信与交接"]
+    S --> C
+    subgraph LOOP["03 Agent 执行循环"]
+        C["06 上下文管理"] --> M["02 模型接入"]
+        M --> D{"继续还是结束"}
+        D -->|工具请求| X["08 工具与执行环境"]
+        X --> A["07 状态与产物"]
+        A --> C
+    end
+    D -->|交付产物| E["10 评估与验收"]
+    E -->|需要修订且预算允许| C
+    R["09 持久化与恢复"] -.恢复.-> A
+    A --> O["11 Trace 与可观测性"]
+    P["12 权限与资源"] -.执行前检查.-> X
+    MEM["13 Memory"] --> C
+    SK["14 Skills"] --> C
+    E --> I["15 自进化"]
+    I -.更新方法.-> SK
+```
 
-## 领域内怎么找
+图展示各组件在完整系统中的关系；本次接入的第 03 章实现其中的单 Agent 循环。其他目录先明确范围与展开顺序，旧版正文保留为阅读参考。
 
-- `01-concepts/`：定义、机制、公式与失败原因。
-- `02-patterns/`：适用条件、设计步骤和代价。
-- `03-cases/`：真实来源分析或明确标注的构造案例。
-- `04-labs/`：输入、执行过程、中间量、结果和练习。
-- `05-code/`：文章和实验复用的完整实现、样例与测试。
-- `references.md`：一手来源、版本和证据范围。
+## 从执行循环开始
 
-[连续学习路线](../00-Home/Learning-Paths.md)按前置知识安排顺序，[综合项目](../20-Projects/domain-research-agent/README.md)展示组件如何一起运行。
+进入 [03-agent-loop](03-agent-loop/README.md)，按 01—06 阅读：一次模型调用 → 工具与观察 → 历史与停止 → 错误与重试 → 实验对照 → OpenHands 源码。
+
+在仓库根目录运行：
+
+```bash
+cd 10-Knowledge/03-agent-loop
+python code/inspect_input.py
+```
+
+标准输出：
+
+```text
+本周完成了工具接入与循环日志。
+saved=runs/input-preview.txt
+```
+
+程序还会保存 `runs/input-preview.txt`。真实模型配置与后续命令见[章节 README](03-agent-loop/README.md#三个配置项决定真实模型的调用目标)。
+
+## 12 个核心组件
+
+| 编号 | 组件目录 | 负责什么 | 当前内容 |
+|---|---|---|---|
+| 01 | [任务与协议](01-task-contracts/README.md) | 把目标、输入、约束和验收条件写成可检查的任务约定。 | 范围与阅读路线；正文待展开 |
+| 02 | [模型接入](02-model-adapters/README.md) | 用统一配置发送请求，接回文本、工具调用、错误与用量。 | 范围与阅读路线；正文待展开 |
+| 03 | [Agent 执行循环](03-agent-loop/README.md) | 把模型决策、工具执行和观察结果连成循环，并设置退出条件。 | 已接入完整章节、代码与 Notebook |
+| 04 | [编排与调度](04-orchestration-and-scheduling/README.md) | 按依赖安排任务，管理串并行执行、等待、失败与重规划。 | 范围与阅读路线；正文待展开 |
+| 05 | [通信与交接](05-communication-and-handoff/README.md) | 让执行者传递任务、证据与结果，并明确下一步由谁负责。 | 范围与阅读路线；正文待展开 |
+| 06 | [上下文管理](06-context-management/README.md) | 选择本轮模型实际能看到的信息，控制长度、来源和版本。 | 范围与阅读路线；正文待展开 |
+| 07 | [状态与产物管理](07-state-and-artifacts/README.md) | 保存当前进度和实际成果，关联任务、版本与依赖。 | 范围与阅读路线；正文待展开 |
+| 08 | [工具与执行环境](08-tools-and-environment/README.md) | 将工具请求转换成可执行操作，返回可关联的结果与错误。 | 范围与阅读路线；正文待展开 |
+| 09 | [持久化与故障恢复](09-persistence-and-recovery/README.md) | 在进程退出或动作结果不明时，恢复进度并避免重复副作用。 | 范围与阅读路线；正文待展开 |
+| 10 | [评估与验收](10-evaluation-and-acceptance/README.md) | 检查当前产物是否达标，并用同一组任务比较系统版本。 | 范围与阅读路线；正文待展开 |
+| 11 | [Trace 与可观测性](11-trace-and-observability/README.md) | 关联模型、工具、上下文和验收记录，定位最早可见的错误。 | 范围与阅读路线；正文待展开 |
+| 12 | [权限与资源控制](12-permissions-and-resources/README.md) | 在动作执行前检查权限，并控制调用次数、并发、时间和费用。 | 范围与阅读路线；正文待展开 |
+
+## 3 个增强能力
+
+| 编号 | 组件目录 | 负责什么 | 当前内容 |
+|---|---|---|---|
+| 13 | [长期记忆 Memory](13-memory/README.md) | 跨任务保存并检索有来源、适用范围与有效期的信息。 | 范围与阅读路线；正文待展开 |
+| 14 | [技能库 Skills](14-skills/README.md) | 把可复用的方法整理成技能包，在适合的任务中按需加载。 | 范围与阅读路线；正文待展开 |
+| 15 | [自进化](15-self-improvement/README.md) | 从失败记录提出系统修改，经对照评测决定采用、回退或继续实验。 | 范围与阅读路线；正文待展开 |
+
+Harness 表示这些组件围绕一次运行的组合方式。沿用[旧版 Harness 走读](_archive/09-runtime-harness-environment/01-concepts/01-runtime-and-harness.md)作为补充阅读。
+
+## 旧资料与综合项目
+
+- [旧知识库归档](_archive/README.md)：保留原 16 个领域及其代码、Notebook、来源和历史输出。
+- [连续学习路线](../00-Home/Learning-Paths.md)：按任务进展安排组件阅读顺序。
+- [项目入口](../20-Projects/README.md)：组合多个组件完成端到端实践。
+
+后续正文沿用第 03 章的组织方式：每章先给总览图，再按编号文件逐步实现，代码旁注明输入、标准输出和产物位置。

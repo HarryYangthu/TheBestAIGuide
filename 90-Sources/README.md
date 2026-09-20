@@ -17,11 +17,11 @@
 
 | 基础与模型 | Agent 系统 | 应用与运行 |
 | --- | --- | --- |
-| [AI 基础](../10-Knowledge/01-ai-foundations/references.md) | [Agent Core](../10-Knowledge/03-agent-core/references.md) | [评测与可观测性](../10-Knowledge/10-evaluation-observability/references.md) |
-| [基础模型](../10-Knowledge/02-foundation-models/references.md) | [上下文工程](../10-Knowledge/04-context-engineering/references.md) | [安全与治理](../10-Knowledge/11-safety-security-governance/references.md) |
-| [检索与知识系统](../10-Knowledge/06-rag-and-knowledge-systems/references.md) | [工具、Skill 与协议](../10-Knowledge/05-tools-skills-protocols/references.md) | [应用工程](../10-Knowledge/13-application-engineering/references.md) |
-| [Agent 学习](../10-Knowledge/12-agent-learning/references.md) | [状态与记忆](../10-Knowledge/07-state-and-memory/references.md) | [生产工程](../10-Knowledge/14-production-engineering/references.md) |
-| [研究前沿](../10-Knowledge/16-research-frontiers/references.md) | [规划、工作流与多 Agent](../10-Knowledge/08-planning-workflow-multi-agent/references.md) | [多模态与具身](../10-Knowledge/15-multimodal-and-embodied/references.md) |
-| | [运行时与 Harness](../10-Knowledge/09-runtime-harness-environment/references.md) | |
+| [AI 基础](../10-Knowledge/_archive/01-ai-foundations/references.md) | [Agent Core](../10-Knowledge/_archive/03-agent-core/references.md) | [评测与可观测性](../10-Knowledge/_archive/10-evaluation-observability/references.md) |
+| [基础模型](../10-Knowledge/_archive/02-foundation-models/references.md) | [上下文工程](../10-Knowledge/_archive/04-context-engineering/references.md) | [安全与治理](../10-Knowledge/_archive/11-safety-security-governance/references.md) |
+| [检索与知识系统](../10-Knowledge/_archive/06-rag-and-knowledge-systems/references.md) | [工具、Skill 与协议](../10-Knowledge/_archive/05-tools-skills-protocols/references.md) | [应用工程](../10-Knowledge/_archive/13-application-engineering/references.md) |
+| [Agent 学习](../10-Knowledge/_archive/12-agent-learning/references.md) | [状态与记忆](../10-Knowledge/_archive/07-state-and-memory/references.md) | [生产工程](../10-Knowledge/_archive/14-production-engineering/references.md) |
+| [研究前沿](../10-Knowledge/_archive/16-research-frontiers/references.md) | [规划、工作流与多 Agent](../10-Knowledge/_archive/08-planning-workflow-multi-agent/references.md) | [多模态与具身](../10-Knowledge/_archive/15-multimodal-and-embodied/references.md) |
+| | [运行时与 Harness](../10-Knowledge/_archive/09-runtime-harness-environment/references.md) | |
 
 新增来源时使用 [来源卡模板](../00-Home/templates/source.md)。如何区分“打开过页面”“读过方法”和“实际复现”，见 [来源记录说明](source-notes/README.md)。

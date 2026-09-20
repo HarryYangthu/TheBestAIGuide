@@ -19,8 +19,8 @@ def main():
         print(result.stdout + result.stderr, flush=True)
         failed += bool(result.returncode)
     examples = [
-        '10-Knowledge/14-production-engineering/05-code/production_checks.py',
-        '10-Knowledge/16-research-frontiers/05-code/research_checks.py',
+        '10-Knowledge/_archive/14-production-engineering/05-code/production_checks.py',
+        '10-Knowledge/_archive/16-research-frontiers/05-code/research_checks.py',
     ]
     for example in examples:
         result = subprocess.run([sys.executable, str(ROOT / example)], env=env, text=True, capture_output=True)

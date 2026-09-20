@@ -18,4 +18,4 @@ for call in message.get("tool_calls") or []:
 
 **练习：** 用真实模型把任务改为“只列出资料文件名”。预期模型可以正常结束，但现有升级清单验收应 FAIL，因为它没有完成本项目规定的升级任务。尝试自行说明“执行正常”为什么不等于“验收通过”。没有模型时，对照测试中的 `test_early_model_finish_does_not_pass` 观察同一个现象。
 
-关联知识：[Agent Core](../../../10-Knowledge/03-agent-core/README.md)。
+关联知识：[Agent Core](../../../10-Knowledge/_archive/03-agent-core/README.md)。

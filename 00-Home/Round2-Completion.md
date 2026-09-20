@@ -8,11 +8,11 @@
 
 | 编号 | 补齐内容 | 文件/实际证据 | 验收与范围 |
 | --- | --- | --- | --- |
-| A1 | 完整 ToolCall 外壳校验 | [查看](../10-Knowledge/05-tools-skills-protocols/05-code/tool-runtime-typescript/test/runtime.test.ts) | 10 项 TS 测试含异常输入；畸形调用不执行 handler |
-| A2 | 引用 JSON 往返 | [查看](../10-Knowledge/15-multimodal-and-embodied/05-code/test_evidence.py) | JSON 规范化；有效往返通过，篡改拒绝 |
+| A1 | 完整 ToolCall 外壳校验 | [查看](../10-Knowledge/_archive/05-tools-skills-protocols/05-code/tool-runtime-typescript/test/runtime.test.ts) | 10 项 TS 测试含异常输入；畸形调用不执行 handler |
+| A2 | 引用 JSON 往返 | [查看](../10-Knowledge/_archive/15-multimodal-and-embodied/05-code/test_evidence.py) | JSON 规范化；有效往返通过，篡改拒绝 |
 | A3 | Schema 变更触发 CI | [查看](../.github/workflows/python.yml) | Python/TS/Notebook 均监听共享 Schema |
-| A4 | 搜索启发式违例边 | [查看](../10-Knowledge/01-ai-foundations/04-labs/search-and-rl/01-search-and-value-learning.ipynb) | 改为 S→A、B→A，并重新执行 |
-| A5 | 世界模型实现表述 | [查看](../10-Knowledge/16-research-frontiers/01-concepts/03-world-models-and-neuro-symbolic.md) | 更正为资源过滤；不再声称已有状态转移代码 |
+| A4 | 搜索启发式违例边 | [查看](../10-Knowledge/_archive/01-ai-foundations/04-labs/search-and-rl/01-search-and-value-learning.ipynb) | 改为 S→A、B→A，并重新执行 |
+| A5 | 世界模型实现表述 | [查看](../10-Knowledge/_archive/16-research-frontiers/01-concepts/03-world-models-and-neuro-symbolic.md) | 更正为资源过滤；不再声称已有状态转移代码 |
 | B1 | 真实语义检索与重排 | [查看](../20-Projects/learning-workbench/artifacts/real-models/retrieval.json) | 固定 2 个模型；6 题×4 模式；另附 Notebook |
 | B2 | 生成式 RAG 与审阅 | [查看](../20-Projects/learning-workbench/artifacts/real-models/generation-review.json) | 真实输出、拒答、引用身份与语义支持分开；本次小模型质量未通过 |
 | B3 | 跨会话记忆闭环 | [查看](../20-Projects/learning-workbench/artifacts/offline/memory.json) | 8 个独立任务；固定概念回答的格式偏好，不是通用聊天 |
@@ -25,7 +25,7 @@
 | B10 | 完整证据比较 Skill | [查看](../20-Projects/learning-workbench/artifacts/offline/skill-cases.json) | 主说明、脚本、模板、四类案例；宿主自动路由未冒称实测 |
 | B11 | Context 故障练习 | [查看](../20-Projects/learning-workbench/fixtures/context-faults.jsonl) | 8 类索引；真实模板计数、冲突/过期/去重；位置探针单列 |
 | B12 | A2A 本地交接 | [查看](../20-Projects/learning-workbench/artifacts/offline/a2a.json) | 两个 HTTP 端点，固定 0.3.0 text 子集，非完整协议认证 |
-| B13 | 跨语言边界矩阵 | [查看](../10-Knowledge/05-tools-skills-protocols/05-code/shared-schemas/examples/boundaries.json) | Python/Ajv 读取同一缺字段、错类型、范围、互斥样本 |
+| B13 | 跨语言边界矩阵 | [查看](../10-Knowledge/_archive/05-tools-skills-protocols/05-code/shared-schemas/examples/boundaries.json) | Python/Ajv 读取同一缺字段、错类型、范围、互斥样本 |
 | B14 | 结构切分与 PDF | [查看](../20-Projects/learning-workbench/artifacts/offline/documents.json) | 原文偏移、完整代码/表格、父段落、原始 PDF 解析 |
 | B15 | 多版本证据查询 | [查看](../20-Projects/learning-workbench/artifacts/offline/versions.json) | 逐版本查询；缺少一侧时停止比较 |
 | B16 | 独立记忆评测集 | [查看](../20-Projects/learning-workbench/fixtures/memory-tasks.jsonl) | JSONL 输入/标签与执行器分离；有/无记忆对照 |
