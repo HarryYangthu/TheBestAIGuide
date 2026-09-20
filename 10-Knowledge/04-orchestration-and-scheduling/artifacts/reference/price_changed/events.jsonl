@@ -1,0 +1,41 @@
+{"seq": 1, "kind": "ready", "task_id": "policy", "plan_version": 1}
+{"seq": 2, "kind": "start", "task_id": "policy", "plan_version": 1, "role": "reader", "active": 1, "input_version": "1"}
+{"seq": 3, "kind": "ready", "task_id": "prices", "plan_version": 1}
+{"seq": 4, "kind": "start", "task_id": "prices", "plan_version": 1, "role": "reader", "active": 2, "input_version": "1"}
+{"seq": 5, "kind": "ready", "task_id": "stock", "plan_version": 1}
+{"seq": 6, "kind": "cleanup", "task_id": "policy", "plan_version": 1, "role": "reader"}
+{"seq": 7, "kind": "succeeded", "task_id": "policy", "plan_version": 1}
+{"seq": 8, "kind": "start", "task_id": "stock", "plan_version": 1, "role": "reader", "active": 2, "input_version": "1"}
+{"seq": 9, "kind": "cleanup", "task_id": "prices", "plan_version": 1, "role": "reader"}
+{"seq": 10, "kind": "cleanup", "task_id": "stock", "plan_version": 1, "role": "reader"}
+{"seq": 11, "kind": "succeeded", "task_id": "prices", "plan_version": 1}
+{"seq": 12, "kind": "succeeded", "task_id": "stock", "plan_version": 1}
+{"seq": 13, "kind": "ready", "task_id": "quote", "plan_version": 1}
+{"seq": 14, "kind": "start", "task_id": "quote", "plan_version": 1, "role": "calculator", "active": 1, "input_version": "1"}
+{"seq": 15, "kind": "cleanup", "task_id": "quote", "plan_version": 1, "role": "calculator"}
+{"seq": 16, "kind": "succeeded", "task_id": "quote", "plan_version": 1}
+{"seq": 17, "kind": "ready", "task_id": "review", "plan_version": 1}
+{"seq": 18, "kind": "start", "task_id": "review", "plan_version": 1, "role": "reviewer", "active": 1, "input_version": "1"}
+{"seq": 19, "kind": "cleanup", "task_id": "review", "plan_version": 1, "role": "reviewer"}
+{"seq": 20, "kind": "succeeded", "task_id": "review", "plan_version": 1}
+{"seq": 21, "kind": "ready", "task_id": "publish", "plan_version": 1}
+{"seq": 22, "kind": "start", "task_id": "publish", "plan_version": 1, "role": "reviewer", "active": 1, "input_version": "1"}
+{"seq": 23, "kind": "cleanup", "task_id": "publish", "plan_version": 1, "role": "reviewer"}
+{"seq": 24, "kind": "succeeded", "task_id": "publish", "plan_version": 1}
+{"seq": 25, "kind": "replan", "task_id": null, "plan_version": 2, "invalidated": ["prices", "publish", "quote", "review"], "retained": ["policy", "stock"]}
+{"seq": 26, "kind": "ready", "task_id": "prices", "plan_version": 2}
+{"seq": 27, "kind": "start", "task_id": "prices", "plan_version": 2, "role": "reader", "active": 1, "input_version": "2"}
+{"seq": 28, "kind": "cleanup", "task_id": "prices", "plan_version": 2, "role": "reader"}
+{"seq": 29, "kind": "succeeded", "task_id": "prices", "plan_version": 2}
+{"seq": 30, "kind": "ready", "task_id": "quote", "plan_version": 2}
+{"seq": 31, "kind": "start", "task_id": "quote", "plan_version": 2, "role": "calculator", "active": 1, "input_version": "1"}
+{"seq": 32, "kind": "cleanup", "task_id": "quote", "plan_version": 2, "role": "calculator"}
+{"seq": 33, "kind": "succeeded", "task_id": "quote", "plan_version": 2}
+{"seq": 34, "kind": "ready", "task_id": "review", "plan_version": 2}
+{"seq": 35, "kind": "start", "task_id": "review", "plan_version": 2, "role": "reviewer", "active": 1, "input_version": "1"}
+{"seq": 36, "kind": "cleanup", "task_id": "review", "plan_version": 2, "role": "reviewer"}
+{"seq": 37, "kind": "succeeded", "task_id": "review", "plan_version": 2}
+{"seq": 38, "kind": "ready", "task_id": "publish", "plan_version": 2}
+{"seq": 39, "kind": "start", "task_id": "publish", "plan_version": 2, "role": "reviewer", "active": 1, "input_version": "1"}
+{"seq": 40, "kind": "cleanup", "task_id": "publish", "plan_version": 2, "role": "reviewer"}
+{"seq": 41, "kind": "succeeded", "task_id": "publish", "plan_version": 2}

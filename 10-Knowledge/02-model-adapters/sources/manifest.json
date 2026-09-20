@@ -1,0 +1,27 @@
+{
+  "distribution": "openai",
+  "version": "3.16.2",
+  "provenance": "installed Python distribution; not remote commit verification",
+  "entries": [
+    {
+      "file": "chat_completion_message_function_tool_call.py",
+      "upstream_path": "openai/types/chat/chat_completion_message_function_tool_call.py",
+      "sha256": "37e08a2bbf210badaa9a9bc709b6e9ef73e9137ef58913e5927c5b8e4fd30b89"
+    },
+    {
+      "file": "chat_completion_chunk.py",
+      "upstream_path": "openai/types/chat/chat_completion_chunk.py",
+      "sha256": "44bc28a96e088a6aa176b9426c495649d52b708fd7dab7f652cad75cf188bb08"
+    },
+    {
+      "file": "completion_usage.py",
+      "upstream_path": "openai/types/completion_usage.py",
+      "sha256": "505975694e13d13a3cac7e9b2eff707ef8b125f0de91e32ccc89fc4b7c2161a2"
+    },
+    {
+      "file": "_streaming.py",
+      "upstream_path": "openai/_streaming.py",
+      "sha256": "97f1eb3ddf6719aec25ae65928267d50c35a2623858f2714d63d7be5a4802fff"
+    }
+  ]
+}

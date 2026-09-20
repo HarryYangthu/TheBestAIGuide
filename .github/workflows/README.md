@@ -13,4 +13,4 @@
 
 第二轮新增：共享 Schema/边界 JSON 改动会触发 Python、TypeScript 与 Notebook 工作流；Python/Notebook 安装 CPU PyTorch 与 PDF 依赖，避免新增测试仅以 skip 通过。浏览器矩阵同时验收学习工作台的审批/取消网页流程。预训练模型下载与长模型评测不在每次 PR 强制执行，已固定版本的本地真实结果保存在项目 artifacts。
 
-Agent 执行循环的 Python 入口通过 SDK 模拟传输检查，不请求真实模型；Python 工作流安装该章依赖并核对源码快照。Notebook 工作流使用 `--skip-api`，真实 API 实验由读者配置后运行。
+模型接入与执行循环的 Python 入口通过 SDK 模拟传输检查，不请求真实模型；工作流安装 `requirements-components.txt` 中的章节依赖以及 RAG 报告绘图依赖，并核对源码快照。Notebook 工作流使用 `--skip-api`，真实 API 实验由读者配置后运行。上下文实验首次初始化 tokenizer 时会下载固定编码的词表，随后可复用缓存。

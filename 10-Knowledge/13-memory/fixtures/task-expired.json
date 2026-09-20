@@ -1,0 +1,21 @@
+{
+  "id": "review-20",
+  "service": "checkout",
+  "environment": "production",
+  "user": "alice",
+  "as_of": "2026-10-02",
+  "instruction": "为 checkout production 的下一次发布复用已验证条件。本次使用英文。",
+  "current_instructions": {
+    "language": "en"
+  },
+  "signals": {
+    "phase": "rollback",
+    "error_code": "ACCESS_DENIED"
+  },
+  "requested_keys": [
+    "timeout_ms",
+    "language",
+    "rollback_steps",
+    "rollback_permission"
+  ]
+}

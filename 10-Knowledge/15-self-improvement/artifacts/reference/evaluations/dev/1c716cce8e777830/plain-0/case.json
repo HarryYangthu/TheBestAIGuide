@@ -1,0 +1,9 @@
+{
+  "id": "plain",
+  "input": "plain.csv",
+  "expected": {
+    "total_cents": 1250,
+    "paid_rows": 2,
+    "rejected_rows": []
+  }
+}

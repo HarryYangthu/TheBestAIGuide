@@ -1,0 +1,65 @@
+$ python code/run_minimal.py
+a1=allowed
+b1=resource_denied
+artifacts=runs/minimal
+
+$ python code/run_experiments.py --output runs/experiments
+checks=12 passed=12
+artifacts=runs/experiments
+
+$ python -m unittest discover -s code -p test_*.py -v
+test_approval_binding_expiry_and_replay (test_control.ControlTests.test_approval_binding_expiry_and_replay) ... ok
+test_approval_binds_content_at_write (test_control.ControlTests.test_approval_binds_content_at_write) ... ok
+test_approval_binds_content_before_execution (test_control.ControlTests.test_approval_binds_content_before_execution) ... ok
+test_atomic_reservation (test_control.ControlTests.test_atomic_reservation) ... ok
+test_cancellation_after_partial_work_settles (test_control.ControlTests.test_cancellation_after_partial_work_settles) ... ok
+test_cost_and_call_limits (test_control.ControlTests.test_cost_and_call_limits) ... ok
+test_data_scope_and_projection (test_control.ControlTests.test_data_scope_and_projection) ... ok
+test_deadline_includes_queue (test_control.ControlTests.test_deadline_includes_queue) ... ok
+test_settlement_once_and_negative (test_control.ControlTests.test_settlement_once_and_negative) ... ok
+test_unknown_stays_reserved (test_control.ControlTests.test_unknown_stays_reserved) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.093s
+
+OK
+
+$ python code/approval_cli.py --output runs/approval-accepted [stdin fixture]
+{
+  "subject": "alice",
+  "tenant": "A",
+  "action": {
+    "id": "publish-approved",
+    "tool": "publish_record",
+    "resource": "a1",
+    "steps": 1,
+    "delay_ms": 0
+  },
+  "payload": {
+    "title": "七天补货结果",
+    "daily_delivery": 4
+  },
+  "fingerprint": "131d06ec4ae40e93d7933f22e3d8842c14e4c25dafb657c370584a24c2c024b8",
+  "effect": "write these exact values to a1.json"
+}
+Type APPROVE to write this file; anything else rejects: status=completed artifacts=runs/approval-accepted
+
+$ python code/approval_cli.py --output runs/approval-rejected [stdin fixture]
+{
+  "subject": "alice",
+  "tenant": "A",
+  "action": {
+    "id": "publish-approved",
+    "tool": "publish_record",
+    "resource": "a1",
+    "steps": 1,
+    "delay_ms": 0
+  },
+  "payload": {
+    "title": "七天补货结果",
+    "daily_delivery": 4
+  },
+  "fingerprint": "131d06ec4ae40e93d7933f22e3d8842c14e4c25dafb657c370584a24c2c024b8",
+  "effect": "write these exact values to a1.json"
+}
+Type APPROVE to write this file; anything else rejects: status=approval_required artifacts=runs/approval-rejected

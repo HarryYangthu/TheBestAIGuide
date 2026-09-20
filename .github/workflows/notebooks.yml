@@ -1,9 +1,9 @@
 name: Execute learning notebooks
 on:
   push:
-    paths: ['10-Knowledge/_archive/05-tools-skills-protocols/05-code/shared-schemas/**', '**/*.ipynb', '**/*.py', '**/*.ts', '**/package*.json', '**/tsconfig.json', 'requirements-dev.lock', '10-Knowledge/03-agent-loop/requirements.txt', 'requirements-learning.txt', '**/*.html', '**/fixtures/**', '.github/workflows/notebooks.yml']
+    paths: ['10-Knowledge/_archive/05-tools-skills-protocols/05-code/shared-schemas/**', '**/*.ipynb', '**/*.py', '**/*.ts', '**/package*.json', '**/tsconfig.json', 'requirements-dev.lock', 'requirements-components.txt', '**/requirements.txt', 'requirements-learning.txt', '**/*.html', '**/fixtures/**', '.github/workflows/notebooks.yml']
   pull_request:
-    paths: ['10-Knowledge/_archive/05-tools-skills-protocols/05-code/shared-schemas/**', '**/*.ipynb', '**/*.py', '**/*.ts', '**/package*.json', '**/tsconfig.json', 'requirements-dev.lock', '10-Knowledge/03-agent-loop/requirements.txt', 'requirements-learning.txt', '**/*.html', '**/fixtures/**', '.github/workflows/notebooks.yml']
+    paths: ['10-Knowledge/_archive/05-tools-skills-protocols/05-code/shared-schemas/**', '**/*.ipynb', '**/*.py', '**/*.ts', '**/package*.json', '**/tsconfig.json', 'requirements-dev.lock', 'requirements-components.txt', '**/requirements.txt', 'requirements-learning.txt', '**/*.html', '**/fixtures/**', '.github/workflows/notebooks.yml']
 permissions:
   contents: read
 jobs:
@@ -16,8 +16,13 @@ jobs:
         with:
           python-version: '3.12'
           cache: pip
-          cache-dependency-path: requirements-dev.lock
+          cache-dependency-path: |
+            requirements-dev.lock
+            requirements-components.txt
+            10-Knowledge/*/requirements.txt
+            20-Projects/01-rag-lab/requirements.txt
       - run: pip install -r requirements-dev.lock
+      - run: pip install -r requirements-components.txt -r 20-Projects/01-rag-lab/requirements.txt
       - run: pip install torch==2.8.0 --index-url https://download.pytorch.org/whl/cpu
       - run: pip install pypdf==6.1.0 reportlab==4.4.3
       - run: python -m ipykernel install --sys-prefix --name python3

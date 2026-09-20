@@ -1,0 +1,7 @@
+[
+  {
+    "event": "result",
+    "id": "publish-approved",
+    "status": "approval_required"
+  }
+]

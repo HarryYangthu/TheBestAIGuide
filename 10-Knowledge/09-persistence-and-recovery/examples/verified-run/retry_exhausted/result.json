@@ -1,0 +1,9 @@
+{
+  "acceptance": false,
+  "attempts": 3,
+  "effect_count": 0,
+  "item_commits": 3,
+  "next_index": 3,
+  "operation_status": "retryable",
+  "status": "failed"
+}

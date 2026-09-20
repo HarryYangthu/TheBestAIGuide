@@ -1,0 +1,9 @@
+{
+  "acceptance": true,
+  "attempts": 2,
+  "effect_count": 1,
+  "item_commits": 3,
+  "next_index": 3,
+  "operation_status": "confirmed",
+  "status": "completed"
+}

@@ -1,0 +1,3 @@
+{"action": "initialize", "from_version": null, "to_version": "1c716cce8e777830", "reason": "fixed baseline", "at": "2026-09-20T16:12:57.816411+00:00"}
+{"action": "adopt", "from_version": "1c716cce8e777830", "to_version": "b2758a1d687174c7", "reason": "all predeclared evaluation gates passed", "at": "2026-09-20T16:12:57.853981+00:00"}
+{"action": "rollback", "from_version": "b2758a1d687174c7", "to_version": "1c716cce8e777830", "reason": "explicit rollback demonstration", "at": "2026-09-20T16:12:57.856420+00:00"}

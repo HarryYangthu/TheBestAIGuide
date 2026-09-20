@@ -1,6 +1,6 @@
 # 连续学习路线
 
-先做完一次“模型提出动作、程序执行、结果回到模型”的循环，再逐步加入其他组件。目录编号用于定位组件；初次阅读可以直接从已有完整教程的第 03 章开始。
+先做完一次“模型提出动作、程序执行、结果回到模型”的循环，再逐步加入其他组件。目录编号用于定位组件；初次阅读可以直接从第 03 章开始，也可以先运行无需密钥的第 01 章任务验收。
 
 ```mermaid
 flowchart TD
@@ -24,6 +24,6 @@ flowchart TD
 | 保证持续执行 | [09 故障恢复](../10-Knowledge/09-persistence-and-recovery/README.md)、[11 Trace](../10-Knowledge/11-trace-and-observability/README.md)、[12 权限资源](../10-Knowledge/12-permissions-and-resources/README.md) | 从哪里恢复，怎样定位错误，动作何时被拒绝 |
 | 跨任务积累 | [13 Memory](../10-Knowledge/13-memory/README.md)、[14 Skills](../10-Knowledge/14-skills/README.md)、[15 自进化](../10-Knowledge/15-self-improvement/README.md) | 保存什么经验，如何复用，修改是否有证据支持 |
 
-目前第 03 章提供完整分章教程，其余组件通过各自 README 进入归档参考资料。需要补数学、模型原理或完整 RAG 专题时，查阅[旧知识库](../10-Knowledge/_archive/README.md)。
+15 个组件均从各自 README 进入递进正文与实验。需要补数学、模型原理或完整 RAG 专题时，查阅[旧知识库](../10-Knowledge/_archive/README.md)。
 
 实践项目见[项目总表](../20-Projects/README.md)，环境与仓库检查命令见[运行说明](../scripts/README.md)。

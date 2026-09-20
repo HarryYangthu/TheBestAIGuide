@@ -1,0 +1,121 @@
+[
+  {
+    "id": "fact-timeout-v3",
+    "kind": "fact",
+    "key": "timeout_ms",
+    "value": 3000,
+    "service": "checkout",
+    "environment": "production",
+    "user": "*",
+    "source_id": "policy-v3",
+    "valid_from": "2026-09-01",
+    "expires_at": "2026-10-01",
+    "conditions": {},
+    "supersedes": []
+  },
+  {
+    "id": "pref-language",
+    "kind": "preference",
+    "key": "language",
+    "value": "zh",
+    "service": "checkout",
+    "environment": "production",
+    "user": "alice",
+    "source_id": "user-confirmation-42",
+    "valid_from": "2026-09-01",
+    "expires_at": "2027-01-01",
+    "conditions": {},
+    "supersedes": []
+  },
+  {
+    "id": "procedure-rollback",
+    "kind": "procedure",
+    "key": "rollback_steps",
+    "value": [
+      "check_role",
+      "rollback_dry_run",
+      "inspect_exit_code"
+    ],
+    "service": "checkout",
+    "environment": "production",
+    "user": "*",
+    "source_id": "dry-run-17",
+    "valid_from": "2026-09-01",
+    "expires_at": "2026-10-01",
+    "conditions": {},
+    "supersedes": []
+  },
+  {
+    "id": "failure-permission",
+    "kind": "failure",
+    "key": "rollback_permission",
+    "value": "request rollback-runner role before retry",
+    "service": "checkout",
+    "environment": "production",
+    "user": "*",
+    "source_id": "incident-17",
+    "valid_from": "2026-09-01",
+    "expires_at": "2026-10-01",
+    "conditions": {
+      "phase": "rollback",
+      "error_code": "ACCESS_DENIED"
+    },
+    "supersedes": []
+  },
+  {
+    "id": "fact-expired",
+    "kind": "fact",
+    "key": "legacy_batch_size",
+    "value": 20,
+    "service": "checkout",
+    "environment": "production",
+    "user": "*",
+    "source_id": "policy-v2",
+    "valid_from": "2026-09-01",
+    "expires_at": "2026-09-18",
+    "conditions": {},
+    "supersedes": []
+  },
+  {
+    "id": "rumor-timeout",
+    "kind": "fact",
+    "key": "timeout_ms",
+    "value": 4000,
+    "service": "checkout",
+    "environment": "production",
+    "user": "*",
+    "source_id": "chat-unchecked",
+    "valid_from": "2026-09-01",
+    "expires_at": "2026-10-01",
+    "conditions": {},
+    "supersedes": []
+  },
+  {
+    "id": "other-user-pref",
+    "kind": "preference",
+    "key": "language",
+    "value": "ja",
+    "service": "checkout",
+    "environment": "production",
+    "user": "bob",
+    "source_id": "bob-confirmation",
+    "valid_from": "2026-09-01",
+    "expires_at": "2026-10-01",
+    "conditions": {},
+    "supersedes": []
+  },
+  {
+    "id": "other-service",
+    "kind": "fact",
+    "key": "timeout_ms",
+    "value": 700,
+    "service": "search",
+    "environment": "production",
+    "user": "*",
+    "source_id": "search-policy",
+    "valid_from": "2026-09-01",
+    "expires_at": "2026-10-01",
+    "conditions": {},
+    "supersedes": []
+  }
+]

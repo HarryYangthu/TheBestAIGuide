@@ -1,0 +1,44 @@
+{
+  "python": "3.12.14",
+  "commands": [
+    {
+      "command": "python examples/skills/release-comparison/scripts/compare.py --old examples/inputs/v1.json --new examples/inputs/v2.json --old-version 1.0 --new-version 2.0 --units examples/skills/release-comparison/references/units.json --template examples/skills/release-comparison/assets/report.md --output runs/direct",
+      "returncode": 0,
+      "passed": true
+    },
+    {
+      "command": "python code/validate_output.py --output runs/direct --old examples/inputs/v1.json --new examples/inputs/v2.json",
+      "returncode": 0,
+      "passed": true
+    },
+    {
+      "command": "python code/host.py --task compare --output runs/host",
+      "returncode": 0,
+      "passed": true
+    },
+    {
+      "command": "python code/host.py --task polish --output runs/polish",
+      "returncode": 0,
+      "passed": true
+    },
+    {
+      "command": "python code/run_experiments.py --output runs/experiments",
+      "returncode": 0,
+      "passed": true
+    },
+    {
+      "command": "python code/package_manifest.py --output runs/package-manifest.json",
+      "returncode": 0,
+      "passed": true
+    },
+    {
+      "command": "python -m unittest discover -s code -p test_*.py -v",
+      "returncode": 0,
+      "passed": true
+    }
+  ],
+  "unit_tests": 10,
+  "all_passed": true,
+  "model_api_used": false,
+  "external_sources_verified_on": "2026-09-20"
+}

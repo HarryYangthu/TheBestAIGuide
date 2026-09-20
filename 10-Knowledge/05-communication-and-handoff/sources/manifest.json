@@ -1,0 +1,12 @@
+{
+  "runtime": "CPython 3.12.14",
+  "origin": "installed standard library",
+  "module": "asyncio.queues",
+  "original_path": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/queues.py",
+  "upstream_path": "Lib/asyncio/queues.py",
+  "remote_bytes_verified": false,
+  "files": {
+    "queues.py": "8f020744ebd1f557dcb051a1530b504447660df906c2127a94bbcc8450ea7ef9",
+    "LICENSE.Python.txt": "3b2f81fe21d181c499c59a256c8e1968455d6689d269aa85373bfb6af41da3bf"
+  }
+}

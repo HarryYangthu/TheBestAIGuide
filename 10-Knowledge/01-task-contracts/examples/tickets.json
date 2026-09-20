@@ -1,0 +1,7 @@
+[
+  {"id": "T-101", "status": "done", "hours": 2.5},
+  {"id": "T-102", "status": "done", "hours": 1.5},
+  {"id": "T-103", "status": "in_progress", "hours": 8.0},
+  {"id": "T-104", "status": "done", "hours": 2.0},
+  {"id": "T-105", "status": "cancelled", "hours": 3.0}
+]

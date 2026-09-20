@@ -1,0 +1,18 @@
+{
+  "task": "compare",
+  "selected": {
+    "name": "release-comparison",
+    "description": "比较指定产品的两个正式版本，生成单位一致且保留双侧原文的参数变更表；仅润色现有文字时不适用。",
+    "version": "1.1.0"
+  },
+  "status": "script_rejected",
+  "acceptance": false,
+  "loaded_bytes": 2961,
+  "loaded_files": [
+    "catalog",
+    "SKILL.md",
+    "old.json",
+    "new.json",
+    "assets/report.md"
+  ]
+}

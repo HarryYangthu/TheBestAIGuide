@@ -1,0 +1,122 @@
+{
+  "summary": {
+    "days": 7,
+    "total": 29,
+    "maximum": 6
+  },
+  "alternatives": {
+    "2": {
+      "lost": 11,
+      "ending": 0,
+      "history": [
+        {
+          "day": 1,
+          "demand": 3,
+          "sold": 3,
+          "lost": 0,
+          "ending": 3
+        },
+        {
+          "day": 2,
+          "demand": 5,
+          "sold": 5,
+          "lost": 0,
+          "ending": 0
+        },
+        {
+          "day": 3,
+          "demand": 4,
+          "sold": 2,
+          "lost": 2,
+          "ending": 0
+        },
+        {
+          "day": 4,
+          "demand": 6,
+          "sold": 2,
+          "lost": 4,
+          "ending": 0
+        },
+        {
+          "day": 5,
+          "demand": 2,
+          "sold": 2,
+          "lost": 0,
+          "ending": 0
+        },
+        {
+          "day": 6,
+          "demand": 5,
+          "sold": 2,
+          "lost": 3,
+          "ending": 0
+        },
+        {
+          "day": 7,
+          "demand": 4,
+          "sold": 2,
+          "lost": 2,
+          "ending": 0
+        }
+      ]
+    },
+    "4": {
+      "lost": 0,
+      "ending": 3,
+      "history": [
+        {
+          "day": 1,
+          "demand": 3,
+          "sold": 3,
+          "lost": 0,
+          "ending": 5
+        },
+        {
+          "day": 2,
+          "demand": 5,
+          "sold": 5,
+          "lost": 0,
+          "ending": 4
+        },
+        {
+          "day": 3,
+          "demand": 4,
+          "sold": 4,
+          "lost": 0,
+          "ending": 4
+        },
+        {
+          "day": 4,
+          "demand": 6,
+          "sold": 6,
+          "lost": 0,
+          "ending": 2
+        },
+        {
+          "day": 5,
+          "demand": 2,
+          "sold": 2,
+          "lost": 0,
+          "ending": 4
+        },
+        {
+          "day": 6,
+          "demand": 5,
+          "sold": 5,
+          "lost": 0,
+          "ending": 3
+        },
+        {
+          "day": 7,
+          "demand": 4,
+          "sold": 4,
+          "lost": 0,
+          "ending": 3
+        }
+      ]
+    }
+  },
+  "selected": 4,
+  "acceptance": true,
+  "calls": 6
+}

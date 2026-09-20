@@ -1,0 +1,5 @@
+{
+  "normalize_status": false,
+  "invalid_amount": "reject",
+  "include_negative": true
+}

@@ -1,0 +1,25 @@
+[
+  {
+    "path": "examples/skills-v1/release-comparison",
+    "name": "release-comparison",
+    "description": "比较指定产品的两个正式版本，生成单位一致且保留双侧原文的参数变更表；仅润色现有文字时不适用。",
+    "version": "1.0.0",
+    "files": {
+      "SKILL.md": "bc360a38348190812f1eb7d6446fd3704437f1a766822e7af69ff17ba8a2a32d",
+      "assets/report.md": "e5075c13020788dcf29b6f48c1b9b315a0071bf0f508b08f71b7e3746e1f0c24",
+      "scripts/compare.py": "8aa34ff8938a1ed63c107bcea637a957584b725404a303ee700bb2a9c8e858ab"
+    }
+  },
+  {
+    "path": "examples/skills/release-comparison",
+    "name": "release-comparison",
+    "description": "比较指定产品的两个正式版本，生成单位一致且保留双侧原文的参数变更表；仅润色现有文字时不适用。",
+    "version": "1.1.0",
+    "files": {
+      "SKILL.md": "5a35edf771efee959936febf53d669d981abfe0b843819daae37b7b6bef17188",
+      "assets/report.md": "e5075c13020788dcf29b6f48c1b9b315a0071bf0f508b08f71b7e3746e1f0c24",
+      "references/units.json": "3f4a51288c71c34fa1c8560c97da098221b408c5134cbeb8c75cf2272867aa25",
+      "scripts/compare.py": "8aa34ff8938a1ed63c107bcea637a957584b725404a303ee700bb2a9c8e858ab"
+    }
+  }
+]

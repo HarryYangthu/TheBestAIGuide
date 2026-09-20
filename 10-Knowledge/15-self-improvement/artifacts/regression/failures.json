@@ -1,0 +1,23 @@
+[
+  {
+    "task_id": "whitespace",
+    "reason": "unrecognized_status",
+    "evidence": [
+      {
+        "order_id": "o1",
+        "status": " paid "
+      }
+    ],
+    "input_sha256": "bca44c21669e3a94c96b511e185ec036a0cee65a6ed2149a6a9c31e47190d741",
+    "result_file": "evaluations/dev/1c716cce8e777830/whitespace-0/result.json"
+  },
+  {
+    "task_id": "invalid",
+    "reason": "invalid_amount",
+    "evidence": [
+      "invalid_amount: order=o2"
+    ],
+    "input_sha256": "8f496dd37f224efd5b074c7cdd6e1bf38ad781f9e0cf008493b4b6cfe9d8a898",
+    "result_file": "evaluations/dev/1c716cce8e777830/invalid-0/result.json"
+  }
+]

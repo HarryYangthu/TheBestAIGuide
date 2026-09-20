@@ -1,0 +1,462 @@
+{
+  "permissions": [
+    {
+      "event": "reserved",
+      "request": "allowed",
+      "spent_units": 0,
+      "reserved_units": 1,
+      "available_units": 19,
+      "spent_cost_micros": 0,
+      "reserved_cost_micros": 3,
+      "available_cost_micros": 57,
+      "calls": 1,
+      "unknown": []
+    },
+    {
+      "event": "started",
+      "request": "allowed",
+      "active": 1
+    },
+    {
+      "event": "released",
+      "request": "allowed",
+      "active": 0
+    },
+    {
+      "event": "settled",
+      "request": "allowed",
+      "spent_units": 1,
+      "reserved_units": 0,
+      "available_units": 19,
+      "spent_cost_micros": 3,
+      "reserved_cost_micros": 0,
+      "available_cost_micros": 57,
+      "calls": 1,
+      "unknown": []
+    },
+    {
+      "event": "result",
+      "id": "allowed",
+      "status": "completed",
+      "data": {
+        "title": "七天补货结果",
+        "daily_delivery": 4
+      }
+    },
+    {
+      "event": "result",
+      "id": "cross",
+      "status": "resource_denied"
+    },
+    {
+      "event": "result",
+      "id": "delete",
+      "status": "tool_denied"
+    },
+    {
+      "event": "result",
+      "id": "publish",
+      "status": "approval_required"
+    },
+    {
+      "event": "approval_granted",
+      "request": "publish",
+      "fingerprint": "baf211bcd1b53b77948f257b66478cf6e1e8fb98246daa6b251d0ae6991f5f3c",
+      "source": "experiment_fixture"
+    },
+    {
+      "event": "result",
+      "id": "publish",
+      "status": "approval_mismatch"
+    },
+    {
+      "event": "reserved",
+      "request": "publish",
+      "spent_units": 1,
+      "reserved_units": 1,
+      "available_units": 18,
+      "spent_cost_micros": 3,
+      "reserved_cost_micros": 3,
+      "available_cost_micros": 54,
+      "calls": 2,
+      "unknown": []
+    },
+    {
+      "event": "started",
+      "request": "publish",
+      "active": 1
+    },
+    {
+      "event": "released",
+      "request": "publish",
+      "active": 0
+    },
+    {
+      "event": "settled",
+      "request": "publish",
+      "spent_units": 2,
+      "reserved_units": 0,
+      "available_units": 18,
+      "spent_cost_micros": 6,
+      "reserved_cost_micros": 0,
+      "available_cost_micros": 54,
+      "calls": 2,
+      "unknown": []
+    },
+    {
+      "event": "result",
+      "id": "publish",
+      "status": "completed",
+      "data": {
+        "artifact": "a1.json"
+      }
+    },
+    {
+      "event": "result",
+      "id": "publish",
+      "status": "approval_used"
+    }
+  ],
+  "reservation": [
+    {
+      "event": "reserved",
+      "request": "A",
+      "spent_units": 0,
+      "reserved_units": 8,
+      "available_units": 2,
+      "spent_cost_micros": 0,
+      "reserved_cost_micros": 24,
+      "available_cost_micros": 6,
+      "calls": 1,
+      "unknown": []
+    },
+    {
+      "event": "settled",
+      "request": "A",
+      "spent_units": 3,
+      "reserved_units": 0,
+      "available_units": 7,
+      "spent_cost_micros": 9,
+      "reserved_cost_micros": 0,
+      "available_cost_micros": 21,
+      "calls": 1,
+      "unknown": []
+    },
+    {
+      "event": "reserved",
+      "request": "B",
+      "spent_units": 3,
+      "reserved_units": 6,
+      "available_units": 1,
+      "spent_cost_micros": 9,
+      "reserved_cost_micros": 18,
+      "available_cost_micros": 3,
+      "calls": 2,
+      "unknown": []
+    },
+    {
+      "event": "settled",
+      "request": "B",
+      "spent_units": 7,
+      "reserved_units": 0,
+      "available_units": 3,
+      "spent_cost_micros": 21,
+      "reserved_cost_micros": 0,
+      "available_cost_micros": 9,
+      "calls": 2,
+      "unknown": []
+    }
+  ],
+  "unknown_usage": [
+    {
+      "event": "reserved",
+      "request": "remote",
+      "spent_units": 0,
+      "reserved_units": 8,
+      "available_units": 2,
+      "spent_cost_micros": 0,
+      "reserved_cost_micros": 24,
+      "available_cost_micros": 6,
+      "calls": 1,
+      "unknown": []
+    },
+    {
+      "event": "usage_unknown",
+      "request": "remote",
+      "spent_units": 0,
+      "reserved_units": 8,
+      "available_units": 2,
+      "spent_cost_micros": 0,
+      "reserved_cost_micros": 24,
+      "available_cost_micros": 6,
+      "calls": 1,
+      "unknown": [
+        "remote"
+      ]
+    }
+  ],
+  "concurrency": [
+    {
+      "event": "reserved",
+      "request": "worker-0",
+      "spent_units": 0,
+      "reserved_units": 2,
+      "available_units": 28,
+      "spent_cost_micros": 0,
+      "reserved_cost_micros": 6,
+      "available_cost_micros": 84,
+      "calls": 1,
+      "unknown": []
+    },
+    {
+      "event": "started",
+      "request": "worker-0",
+      "active": 1
+    },
+    {
+      "event": "reserved",
+      "request": "worker-1",
+      "spent_units": 0,
+      "reserved_units": 4,
+      "available_units": 26,
+      "spent_cost_micros": 0,
+      "reserved_cost_micros": 12,
+      "available_cost_micros": 78,
+      "calls": 2,
+      "unknown": []
+    },
+    {
+      "event": "started",
+      "request": "worker-1",
+      "active": 2
+    },
+    {
+      "event": "released",
+      "request": "worker-0",
+      "active": 1
+    },
+    {
+      "event": "settled",
+      "request": "worker-0",
+      "spent_units": 2,
+      "reserved_units": 2,
+      "available_units": 26,
+      "spent_cost_micros": 6,
+      "reserved_cost_micros": 6,
+      "available_cost_micros": 78,
+      "calls": 2,
+      "unknown": []
+    },
+    {
+      "event": "result",
+      "id": "worker-0",
+      "status": "completed",
+      "data": {
+        "title": "七天补货结果",
+        "daily_delivery": 4
+      }
+    },
+    {
+      "event": "released",
+      "request": "worker-1",
+      "active": 0
+    },
+    {
+      "event": "settled",
+      "request": "worker-1",
+      "spent_units": 4,
+      "reserved_units": 0,
+      "available_units": 26,
+      "spent_cost_micros": 12,
+      "reserved_cost_micros": 0,
+      "available_cost_micros": 78,
+      "calls": 2,
+      "unknown": []
+    },
+    {
+      "event": "result",
+      "id": "worker-1",
+      "status": "completed",
+      "data": {
+        "title": "七天补货结果",
+        "daily_delivery": 4
+      }
+    },
+    {
+      "event": "reserved",
+      "request": "worker-2",
+      "spent_units": 4,
+      "reserved_units": 2,
+      "available_units": 24,
+      "spent_cost_micros": 12,
+      "reserved_cost_micros": 6,
+      "available_cost_micros": 72,
+      "calls": 3,
+      "unknown": []
+    },
+    {
+      "event": "started",
+      "request": "worker-2",
+      "active": 1
+    },
+    {
+      "event": "reserved",
+      "request": "worker-3",
+      "spent_units": 4,
+      "reserved_units": 4,
+      "available_units": 22,
+      "spent_cost_micros": 12,
+      "reserved_cost_micros": 12,
+      "available_cost_micros": 66,
+      "calls": 4,
+      "unknown": []
+    },
+    {
+      "event": "started",
+      "request": "worker-3",
+      "active": 2
+    },
+    {
+      "event": "released",
+      "request": "worker-2",
+      "active": 1
+    },
+    {
+      "event": "settled",
+      "request": "worker-2",
+      "spent_units": 6,
+      "reserved_units": 2,
+      "available_units": 22,
+      "spent_cost_micros": 18,
+      "reserved_cost_micros": 6,
+      "available_cost_micros": 66,
+      "calls": 4,
+      "unknown": []
+    },
+    {
+      "event": "result",
+      "id": "worker-2",
+      "status": "completed",
+      "data": {
+        "title": "七天补货结果",
+        "daily_delivery": 4
+      }
+    },
+    {
+      "event": "released",
+      "request": "worker-3",
+      "active": 0
+    },
+    {
+      "event": "settled",
+      "request": "worker-3",
+      "spent_units": 8,
+      "reserved_units": 0,
+      "available_units": 22,
+      "spent_cost_micros": 24,
+      "reserved_cost_micros": 0,
+      "available_cost_micros": 66,
+      "calls": 4,
+      "unknown": []
+    },
+    {
+      "event": "result",
+      "id": "worker-3",
+      "status": "completed",
+      "data": {
+        "title": "七天补货结果",
+        "daily_delivery": 4
+      }
+    }
+  ],
+  "queue_deadline": [
+    {
+      "event": "reserved",
+      "request": "holder",
+      "spent_units": 0,
+      "reserved_units": 1,
+      "available_units": 19,
+      "spent_cost_micros": 0,
+      "reserved_cost_micros": 3,
+      "available_cost_micros": 57,
+      "calls": 1,
+      "unknown": []
+    },
+    {
+      "event": "started",
+      "request": "holder",
+      "active": 1
+    },
+    {
+      "event": "result",
+      "id": "queued",
+      "status": "deadline_exceeded"
+    },
+    {
+      "event": "released",
+      "request": "holder",
+      "active": 0
+    },
+    {
+      "event": "settled",
+      "request": "holder",
+      "spent_units": 1,
+      "reserved_units": 0,
+      "available_units": 19,
+      "spent_cost_micros": 3,
+      "reserved_cost_micros": 0,
+      "available_cost_micros": 57,
+      "calls": 1,
+      "unknown": []
+    },
+    {
+      "event": "result",
+      "id": "holder",
+      "status": "completed",
+      "data": {
+        "title": "七天补货结果",
+        "daily_delivery": 4
+      }
+    }
+  ],
+  "cancellation": [
+    {
+      "event": "reserved",
+      "request": "cancel",
+      "spent_units": 0,
+      "reserved_units": 10,
+      "available_units": 10,
+      "spent_cost_micros": 0,
+      "reserved_cost_micros": 30,
+      "available_cost_micros": 30,
+      "calls": 1,
+      "unknown": []
+    },
+    {
+      "event": "started",
+      "request": "cancel",
+      "active": 1
+    },
+    {
+      "event": "released",
+      "request": "cancel",
+      "active": 0
+    },
+    {
+      "event": "cancelled",
+      "request": "cancel"
+    },
+    {
+      "event": "settled",
+      "request": "cancel",
+      "spent_units": 0,
+      "reserved_units": 0,
+      "available_units": 20,
+      "spent_cost_micros": 0,
+      "reserved_cost_micros": 0,
+      "available_cost_micros": 60,
+      "calls": 1,
+      "unknown": []
+    }
+  ]
+}

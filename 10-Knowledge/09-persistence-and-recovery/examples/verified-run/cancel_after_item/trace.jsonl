@@ -1,0 +1,4 @@
+{"detail": "{\"run_id\":\"batch-1\"}", "kind": "created", "seq": 1}
+{"detail": "{\"index\":0,\"mean\":3.0}", "kind": "item_completed", "seq": 2}
+{"detail": "{}", "kind": "cancel_requested", "seq": 3}
+{"detail": "{}", "kind": "cancelled", "seq": 4}

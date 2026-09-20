@@ -1,0 +1,24 @@
+{
+  "task_id": "plain",
+  "version": "1c716cce8e777830",
+  "trial": 1,
+  "accepted": true,
+  "actual": {
+    "total_cents": 1250,
+    "paid_rows": 2,
+    "rejected_rows": []
+  },
+  "expected": {
+    "total_cents": 1250,
+    "paid_rows": 2,
+    "rejected_rows": []
+  },
+  "error": null,
+  "error_type": null,
+  "input_sha256": "d74e4cc9e9d6b422930747dcf0947069617051c38a857fcabb8426826cc0ea10",
+  "checker_version": "order-contract-v1",
+  "elapsed_ms": 0.3143959984299727,
+  "tool_calls": 1,
+  "model_cost_usd": null,
+  "cost_source": "not_instrumented"
+}

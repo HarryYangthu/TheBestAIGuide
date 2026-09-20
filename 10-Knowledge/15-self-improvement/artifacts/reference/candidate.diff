@@ -1,0 +1,10 @@
+--- baseline/policy.json
++++ candidate/policy.json
+@@ -1,5 +1,5 @@
+ {
+-  "normalize_status": false,
+-  "invalid_amount": "reject",
++  "normalize_status": true,
++  "invalid_amount": "skip_and_record",
+   "include_negative": true
+ }

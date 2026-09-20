@@ -39,7 +39,7 @@ flowchart TD
 | 请求结束当前任务 | [finish.py](sources/upstream/openhands-sdk/openhands/sdk/tool/builtins/finish.py) | `FinishAction`、`FinishExecutor` |
 | 判断结束前是否继续修订 | [critic_mixin.py](sources/upstream/openhands-sdk/openhands/sdk/agent/critic_mixin.py) | `_check_iterative_refinement()` |
 
-**证据范围：**本轮对本地快照重算了 SHA-256 和 Git blob SHA，并逐段校验摘录与原文件行号。固定提交的远端抓取受限，本轮未重新核验发布标签，也没有运行 OpenHands 真实模型任务。校验记录见 [sources/README.md](sources/README.md) 和 [source-manifest.json](sources/source-manifest.json)。
+**证据范围：**六个原文件及许可证与固定提交的远端内容一致，发布标签指向上述提交；八处摘录与原文件行号逐段核对。本章未运行 OpenHands 真实模型任务。校验记录见 [sources/README.md](sources/README.md) 和 [source-manifest.json](sources/source-manifest.json)。
 
 本篇两种代码块有明确标注：
 

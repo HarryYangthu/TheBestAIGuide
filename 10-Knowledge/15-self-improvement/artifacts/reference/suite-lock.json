@@ -1,0 +1,17 @@
+{
+  "dev_sha256": "11a8d0e0a66fd09b4cad39333dd537301c9ce7c48ebd61ae65430ee245e5b62f",
+  "holdout_sha256": "aee70698ab6c7c4f62b782eb7cd967ff4b53151fd74eb0ed7a42efe43abdc50e",
+  "trial_count": 2,
+  "engine_sha256": "b5744a46c2952a7ff7bea8e1d7ca3978f5ed6704fc1404af9931ce2a62bd88c3",
+  "controller_sha256": "9b71fd571057a58853e7ca50017cde9958e4ce4920616acba650d1cbdba3d84f",
+  "inputs": {
+    "invalid.csv": "8f496dd37f224efd5b074c7cdd6e1bf38ad781f9e0cf008493b4b6cfe9d8a898",
+    "negative.csv": "4f5cac943e45762ecf5c5b12de8643842e59481be848ec578d1133452b46f11a",
+    "empty.csv": "f4ad87e1925a39f350b619bacddbc360ff7696ae2fb8f43bcb5e918f78ddf822",
+    "uppercase.csv": "d2a84f2ba1feb7d5f2286f04bbf1266873317220f8bcd1aade5a316e3bcff232",
+    "whitespace.csv": "bca44c21669e3a94c96b511e185ec036a0cee65a6ed2149a6a9c31e47190d741",
+    "cents.csv": "49e325f997d09d2f48ab9b40458333018b8bb7546ac394f422a5cf4e3a3273bd",
+    "pending.csv": "aa85332529250a7a26a2ccff1f977a4e47ff5e34867eb666a34a0029c1499ecd",
+    "plain.csv": "d74e4cc9e9d6b422930747dcf0947069617051c38a857fcabb8426826cc0ea10"
+  }
+}

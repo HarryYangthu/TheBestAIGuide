@@ -1,0 +1,14 @@
+{
+  "run_id": "run-5165767ca1434c23b20d3899f6d70e26",
+  "task_id": null,
+  "task_version": null,
+  "attempt": 1,
+  "status": "failed",
+  "acceptance": null,
+  "error": {
+    "code": "invalid_json",
+    "stage": "input",
+    "detail": "文件不是有效的 UTF-8 JSON",
+    "retryable": false
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "run_id": "run-35fad83b73974d8188f765cde29ff8d1",
+  "task_id": "weekly-ticket-hours",
+  "task_version": 1,
+  "attempt": 1,
+  "status": "failed",
+  "acceptance": null,
+  "error": {
+    "code": "empty_selection",
+    "stage": "execute",
+    "detail": "没有已完成工单，平均工时没有定义",
+    "retryable": false
+  }
+}

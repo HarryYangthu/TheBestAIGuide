@@ -1,0 +1,8 @@
+[
+  {
+    "op_key": "[\"tenant-a/reports/v1\",\"batch-1\",\"publish\",1]",
+    "payload": "[{\"item_id\":\"A\",\"item_index\":0,\"mean\":3.0},{\"item_id\":\"B\",\"item_index\":1,\"mean\":0.0},{\"item_id\":\"C\",\"item_index\":2,\"mean\":10.0}]",
+    "receipt": "{\"publication_id\":\"caee05db0f44de22\",\"request_hash\":\"05dc243d01c67dea136d85710603c7c2daed13ce916f4913e9897a811128c2e6\"}",
+    "request_hash": "05dc243d01c67dea136d85710603c7c2daed13ce916f4913e9897a811128c2e6"
+  }
+]

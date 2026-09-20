@@ -1,0 +1,21 @@
+{
+  "repository": "https://github.com/openai/tiktoken",
+  "version": "0.12.0",
+  "files": [
+    {
+      "path": "upstream/tiktoken/core.py",
+      "url": "https://raw.githubusercontent.com/openai/tiktoken/0.12.0/tiktoken/core.py",
+      "sha256": "4c2c0e4657adb5997e75ae7962ca79d9394b935f27283e9eeb643fd19140e34e"
+    },
+    {
+      "path": "upstream/tiktoken/registry.py",
+      "url": "https://raw.githubusercontent.com/openai/tiktoken/0.12.0/tiktoken/registry.py",
+      "sha256": "edf92d65b27529c9bcb15c968047c8cbe6717d4bdc5eea4b50d5ca3df486c105"
+    },
+    {
+      "path": "upstream/LICENSE",
+      "url": "https://raw.githubusercontent.com/openai/tiktoken/0.12.0/LICENSE",
+      "sha256": "418cb499b436128d653d79941333a5437b7be2ea9213dcc2f04d15d5d2c51d86"
+    }
+  ]
+}

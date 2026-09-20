@@ -1,0 +1,32 @@
+{
+  "order.json": {
+    "case_id": "order-017",
+    "sku": "pen",
+    "quantity": 3,
+    "customer_request": "希望本周收到3支笔。"
+  },
+  "inventory-unavailable.json": {
+    "version": "stock-1",
+    "status": "unavailable",
+    "reason": "库存快照尚未就绪"
+  },
+  "inventory-ready.json": {
+    "version": "stock-2",
+    "status": "ready",
+    "stock": {
+      "pen": 2,
+      "notebook": 10
+    }
+  },
+  "policy.json": {
+    "allowed_actions": [
+      "draft_options"
+    ],
+    "constraints": [
+      "不能承诺补货日期",
+      "不能自动退款",
+      "草稿须由客户确认后再执行"
+    ],
+    "next_action": "draft_options"
+  }
+}
