@@ -1,0 +1,37 @@
+{
+  "python": "3.12.14",
+  "commands": [
+    {
+      "command": "python code/run_minimal.py",
+      "returncode": 0,
+      "passed": true
+    },
+    {
+      "command": "python code/run_experiments.py --output runs/experiments",
+      "returncode": 0,
+      "passed": true
+    },
+    {
+      "command": "python -m unittest discover -s code -p test_*.py -v",
+      "returncode": 0,
+      "passed": true
+    },
+    {
+      "command": "python code/approval_cli.py --output runs/approval-accepted",
+      "input_source": "stdin_fixture",
+      "expected_status": "completed",
+      "passed": true
+    },
+    {
+      "command": "python code/approval_cli.py --output runs/approval-rejected",
+      "input_source": "stdin_fixture",
+      "expected_status": "approval_required",
+      "passed": true
+    }
+  ],
+  "unit_tests": 10,
+  "all_passed": true,
+  "model_api_used": false,
+  "external_sources_verified_on": "2026-09-20",
+  "human_terminal_approval_executed": false
+}

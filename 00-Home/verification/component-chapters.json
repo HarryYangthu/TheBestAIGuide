@@ -1,0 +1,395 @@
+{
+  "date": "2026-09-20",
+  "base_commit": "18d9789f67d93a9feae33442f2de51a93bc02c11",
+  "chapters": [
+    {
+      "chapter": "01-task-contracts",
+      "markdown_articles": 3,
+      "notebooks": 0,
+      "test_count": 6,
+      "reader_walkthrough": "passed_after_revision"
+    },
+    {
+      "chapter": "02-model-adapters",
+      "markdown_articles": 4,
+      "notebooks": 0,
+      "test_count": 12,
+      "reader_walkthrough": "passed_after_revision"
+    },
+    {
+      "chapter": "03-agent-loop",
+      "markdown_articles": 5,
+      "notebooks": 1,
+      "test_count": 20,
+      "reader_walkthrough": "passed_after_revision"
+    },
+    {
+      "chapter": "04-orchestration-and-scheduling",
+      "markdown_articles": 4,
+      "notebooks": 0,
+      "test_count": 9,
+      "reader_walkthrough": "passed_after_revision"
+    },
+    {
+      "chapter": "05-communication-and-handoff",
+      "markdown_articles": 4,
+      "notebooks": 0,
+      "test_count": 12,
+      "reader_walkthrough": "passed_after_revision"
+    },
+    {
+      "chapter": "06-context-management",
+      "markdown_articles": 4,
+      "notebooks": 0,
+      "test_count": 9,
+      "reader_walkthrough": "passed_after_revision"
+    },
+    {
+      "chapter": "07-state-and-artifacts",
+      "markdown_articles": 4,
+      "notebooks": 0,
+      "test_count": 4,
+      "reader_walkthrough": "passed_after_revision"
+    },
+    {
+      "chapter": "08-tools-and-environment",
+      "markdown_articles": 4,
+      "notebooks": 0,
+      "test_count": 8,
+      "reader_walkthrough": "passed_after_revision"
+    },
+    {
+      "chapter": "09-persistence-and-recovery",
+      "markdown_articles": 4,
+      "notebooks": 0,
+      "test_count": 9,
+      "reader_walkthrough": "passed_after_revision"
+    },
+    {
+      "chapter": "10-evaluation-and-acceptance",
+      "markdown_articles": 3,
+      "notebooks": 0,
+      "test_count": 6,
+      "reader_walkthrough": "passed_after_revision"
+    },
+    {
+      "chapter": "11-trace-and-observability",
+      "markdown_articles": 3,
+      "notebooks": 0,
+      "test_count": 4,
+      "reader_walkthrough": "passed_after_revision"
+    },
+    {
+      "chapter": "12-permissions-and-resources",
+      "markdown_articles": 4,
+      "notebooks": 0,
+      "test_count": 10,
+      "reader_walkthrough": "passed_after_revision"
+    },
+    {
+      "chapter": "13-memory",
+      "markdown_articles": 4,
+      "notebooks": 0,
+      "test_count": 7,
+      "reader_walkthrough": "passed_after_revision"
+    },
+    {
+      "chapter": "14-skills",
+      "markdown_articles": 4,
+      "notebooks": 0,
+      "test_count": 10,
+      "reader_walkthrough": "passed_after_revision"
+    },
+    {
+      "chapter": "15-self-improvement",
+      "markdown_articles": 3,
+      "notebooks": 0,
+      "test_count": 8,
+      "reader_walkthrough": "passed_after_revision"
+    }
+  ],
+  "python": {
+    "command": "python scripts/run_python_tests.py",
+    "suite_count": 31,
+    "tests": 249,
+    "passed": 243,
+    "skipped": 6,
+    "skip_reason": "optional CPU PyTorch absent locally; installed by GitHub Actions",
+    "failed_groups": 0,
+    "assertion_examples": 2,
+    "suites": [
+      {
+        "suite": "10-Knowledge/01-task-contracts/code",
+        "returncode": 0,
+        "tests": 6,
+        "skipped": 0
+      },
+      {
+        "suite": "10-Knowledge/02-model-adapters/code",
+        "returncode": 0,
+        "tests": 12,
+        "skipped": 0
+      },
+      {
+        "suite": "10-Knowledge/03-agent-loop/code",
+        "returncode": 0,
+        "tests": 20,
+        "skipped": 0
+      },
+      {
+        "suite": "10-Knowledge/04-orchestration-and-scheduling/code",
+        "returncode": 0,
+        "tests": 9,
+        "skipped": 0
+      },
+      {
+        "suite": "10-Knowledge/05-communication-and-handoff/code",
+        "returncode": 0,
+        "tests": 12,
+        "skipped": 0
+      },
+      {
+        "suite": "10-Knowledge/06-context-management/code",
+        "returncode": 0,
+        "tests": 9,
+        "skipped": 0
+      },
+      {
+        "suite": "10-Knowledge/07-state-and-artifacts/code",
+        "returncode": 0,
+        "tests": 4,
+        "skipped": 0
+      },
+      {
+        "suite": "10-Knowledge/08-tools-and-environment/code",
+        "returncode": 0,
+        "tests": 8,
+        "skipped": 0
+      },
+      {
+        "suite": "10-Knowledge/09-persistence-and-recovery/code",
+        "returncode": 0,
+        "tests": 9,
+        "skipped": 0
+      },
+      {
+        "suite": "10-Knowledge/10-evaluation-and-acceptance/code",
+        "returncode": 0,
+        "tests": 6,
+        "skipped": 0
+      },
+      {
+        "suite": "10-Knowledge/11-trace-and-observability/code",
+        "returncode": 0,
+        "tests": 4,
+        "skipped": 0
+      },
+      {
+        "suite": "10-Knowledge/12-permissions-and-resources/code",
+        "returncode": 0,
+        "tests": 10,
+        "skipped": 0
+      },
+      {
+        "suite": "10-Knowledge/13-memory/code",
+        "returncode": 0,
+        "tests": 7,
+        "skipped": 0
+      },
+      {
+        "suite": "10-Knowledge/14-skills/code",
+        "returncode": 0,
+        "tests": 10,
+        "skipped": 0
+      },
+      {
+        "suite": "10-Knowledge/15-self-improvement/code",
+        "returncode": 0,
+        "tests": 8,
+        "skipped": 0
+      },
+      {
+        "suite": "10-Knowledge/_archive/03-agent-core/05-code/agent-loop-python/tests",
+        "returncode": 0,
+        "tests": 9,
+        "skipped": 0
+      },
+      {
+        "suite": "10-Knowledge/_archive/06-rag-and-knowledge-systems/05-code/rag-pipeline-python/tests",
+        "returncode": 0,
+        "tests": 9,
+        "skipped": 0
+      },
+      {
+        "suite": "10-Knowledge/_archive/07-state-and-memory/05-code/state-memory-python/tests",
+        "returncode": 0,
+        "tests": 4,
+        "skipped": 0
+      },
+      {
+        "suite": "10-Knowledge/_archive/08-planning-workflow-multi-agent/05-code/multi-agent-runtime-python/tests",
+        "returncode": 0,
+        "tests": 7,
+        "skipped": 0
+      },
+      {
+        "suite": "10-Knowledge/_archive/09-runtime-harness-environment/05-code/recoverable-runtime-python/tests",
+        "returncode": 0,
+        "tests": 7,
+        "skipped": 0
+      },
+      {
+        "suite": "10-Knowledge/_archive/10-evaluation-observability/05-code/eval-harness-python/tests",
+        "returncode": 0,
+        "tests": 8,
+        "skipped": 0
+      },
+      {
+        "suite": "10-Knowledge/_archive/11-safety-security-governance/05-code",
+        "returncode": 0,
+        "tests": 5,
+        "skipped": 0
+      },
+      {
+        "suite": "10-Knowledge/_archive/12-agent-learning/05-code",
+        "returncode": 0,
+        "tests": 4,
+        "skipped": 0
+      },
+      {
+        "suite": "10-Knowledge/_archive/13-application-engineering/05-code",
+        "returncode": 0,
+        "tests": 5,
+        "skipped": 0
+      },
+      {
+        "suite": "10-Knowledge/_archive/15-multimodal-and-embodied/05-code",
+        "returncode": 0,
+        "tests": 5,
+        "skipped": 0
+      },
+      {
+        "suite": "20-Projects/00-mini-agent/tests",
+        "returncode": 0,
+        "tests": 11,
+        "skipped": 0
+      },
+      {
+        "suite": "20-Projects/01-rag-lab/tests",
+        "returncode": 0,
+        "tests": 11,
+        "skipped": 0
+      },
+      {
+        "suite": "20-Projects/domain-research-agent/tests",
+        "returncode": 0,
+        "tests": 6,
+        "skipped": 0
+      },
+      {
+        "suite": "20-Projects/learning-workbench/tests",
+        "returncode": 0,
+        "tests": 15,
+        "skipped": 0
+      },
+      {
+        "suite": "20-Projects/tiny-transformer/tests",
+        "returncode": 0,
+        "tests": 6,
+        "skipped": 6
+      },
+      {
+        "suite": "scripts/tests",
+        "returncode": 0,
+        "tests": 3,
+        "skipped": 0
+      }
+    ]
+  },
+  "mermaid": {
+    "diagram_count": 85,
+    "parser": "mermaid 11.12.0 with jsdom 26.1.0",
+    "errors": []
+  },
+  "notebooks": {
+    "format_valid": 21,
+    "local_command": "python scripts/check_notebooks.py",
+    "api_notebook_execution": "not_run_no_configuration",
+    "non_api_execution": "performed by GitHub Actions; see commit checks"
+  },
+  "not_run": [
+    "Real model API requests: URL/API key/model not configured",
+    "Optional Docker isolation experiment: Docker unavailable"
+  ],
+  "reader_review": "00-Home/Component-Chapters-Review.md",
+  "links": {
+    "documents": 404,
+    "local_targets_checked": 2690,
+    "external_urls_not_requested": 217,
+    "errors": []
+  },
+  "metadata": {
+    "articles_checked": 80,
+    "errors": [],
+    "note": "This validates metadata, not factual accuracy or human review."
+  },
+  "source_snapshots": {
+    "checks": [
+      {
+        "chapter": "01-task-contracts",
+        "script": "code/verify_sources.py",
+        "returncode": 0,
+        "output": "sources=3 version=4.26.0 matched=true"
+      },
+      {
+        "chapter": "02-model-adapters",
+        "script": "code/verify_sources.py",
+        "returncode": 0,
+        "output": "sources=4 version=3.16.2 matched=true"
+      },
+      {
+        "chapter": "03-agent-loop",
+        "script": "sources/verify_sources.py",
+        "returncode": 0,
+        "output": "PASS: 6 source files; 8 excerpts; matching Markdown; MIT license.\nThis is local integrity verification, not remote provenance or SDK execution verification."
+      },
+      {
+        "chapter": "04-orchestration-and-scheduling",
+        "script": "sources/verify_sources.py",
+        "returncode": 0,
+        "output": "verified=2 runtime=CPython 3.12.14"
+      },
+      {
+        "chapter": "05-communication-and-handoff",
+        "script": "sources/verify_sources.py",
+        "returncode": 0,
+        "output": "verified=2 runtime=CPython 3.12.14"
+      },
+      {
+        "chapter": "06-context-management",
+        "script": "sources/verify_sources.py",
+        "returncode": 0,
+        "output": "verified=3"
+      },
+      {
+        "chapter": "07-state-and-artifacts",
+        "script": "sources/verify_sources.py",
+        "returncode": 0,
+        "output": "verified=1 tag=v3.12.10"
+      },
+      {
+        "chapter": "09-persistence-and-recovery",
+        "script": "sources/verify_sources.py",
+        "returncode": 0,
+        "output": "verified=2 tag=v3.12.10"
+      },
+      {
+        "chapter": "13-memory",
+        "script": "sources/verify_sources.py",
+        "returncode": 0,
+        "output": "verified=2"
+      }
+    ],
+    "failed": 0
+  }
+}

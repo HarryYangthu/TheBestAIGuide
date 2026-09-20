@@ -1,9 +1,9 @@
 name: Python teaching components
 on:
   push:
-    paths: ['10-Knowledge/_archive/05-tools-skills-protocols/05-code/shared-schemas/**', '**/*.py', '**/pyproject.toml', 'requirements-dev.lock', '10-Knowledge/03-agent-loop/requirements.txt', 'requirements-learning.txt', '**/*.html', '**/fixtures/**', '.github/workflows/python.yml']
+    paths: ['10-Knowledge/_archive/05-tools-skills-protocols/05-code/shared-schemas/**', '**/*.py', '**/pyproject.toml', 'requirements-dev.lock', 'requirements-components.txt', '**/requirements.txt', 'requirements-learning.txt', '**/*.html', '**/fixtures/**', '.github/workflows/python.yml']
   pull_request:
-    paths: ['10-Knowledge/_archive/05-tools-skills-protocols/05-code/shared-schemas/**', '**/*.py', '**/pyproject.toml', 'requirements-dev.lock', '10-Knowledge/03-agent-loop/requirements.txt', 'requirements-learning.txt', '**/*.html', '**/fixtures/**', '.github/workflows/python.yml']
+    paths: ['10-Knowledge/_archive/05-tools-skills-protocols/05-code/shared-schemas/**', '**/*.py', '**/pyproject.toml', 'requirements-dev.lock', 'requirements-components.txt', '**/requirements.txt', 'requirements-learning.txt', '**/*.html', '**/fixtures/**', '.github/workflows/python.yml']
 permissions:
   contents: read
 jobs:
@@ -17,12 +17,14 @@ jobs:
           cache: pip
           cache-dependency-path: |
             requirements-dev.lock
-            10-Knowledge/03-agent-loop/requirements.txt
+            requirements-components.txt
+            10-Knowledge/*/requirements.txt
+            20-Projects/01-rag-lab/requirements.txt
       - run: pip install -r requirements-dev.lock
-      - run: pip install -r 10-Knowledge/03-agent-loop/requirements.txt
+      - run: pip install -r requirements-components.txt -r 20-Projects/01-rag-lab/requirements.txt
       - run: pip install torch==2.8.0 --index-url https://download.pytorch.org/whl/cpu
       - run: pip install pypdf==6.1.0 reportlab==4.4.3
       - run: python 10-Knowledge/_archive/05-tools-skills-protocols/05-code/shared-schemas/validate_examples.py
       - run: python scripts/run_python_tests.py
-      - run: python 10-Knowledge/03-agent-loop/sources/verify_sources.py
+      - run: python scripts/check_component_sources.py
       - run: python scripts/run_python.py 20-Projects/domain-research-agent/evaluation/run_eval.py --output .runs/evaluation

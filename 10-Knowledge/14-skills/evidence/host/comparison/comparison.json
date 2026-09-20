@@ -1,0 +1,70 @@
+{
+  "product": "Pine Example SDK",
+  "old_version": "1.0",
+  "new_version": "2.0",
+  "rows": [
+    {
+      "axis": "timeout",
+      "old": 30.0,
+      "new": 10.0,
+      "unit": "s",
+      "changed": true,
+      "old_evidence": {
+        "source": "manual-v1",
+        "version": "1.0",
+        "value": 30,
+        "unit": "s",
+        "quote": "timeout = 30 s"
+      },
+      "new_evidence": {
+        "source": "manual-v2",
+        "version": "2.0",
+        "value": 10000,
+        "unit": "ms",
+        "quote": "timeout = 10000 ms"
+      }
+    },
+    {
+      "axis": "retry_limit",
+      "old": 3.0,
+      "new": 2.0,
+      "unit": "attempts",
+      "changed": true,
+      "old_evidence": {
+        "source": "manual-v1",
+        "version": "1.0",
+        "value": 3,
+        "unit": "attempts",
+        "quote": "retry_limit = 3 attempts"
+      },
+      "new_evidence": {
+        "source": "manual-v2",
+        "version": "2.0",
+        "value": 2,
+        "unit": "attempts",
+        "quote": "retry_limit = 2 attempts"
+      }
+    },
+    {
+      "axis": "batch_size",
+      "old": 100.0,
+      "new": 200.0,
+      "unit": "items",
+      "changed": true,
+      "old_evidence": {
+        "source": "manual-v1",
+        "version": "1.0",
+        "value": 100,
+        "unit": "items",
+        "quote": "batch_size = 100 items"
+      },
+      "new_evidence": {
+        "source": "manual-v2",
+        "version": "2.0",
+        "value": 200,
+        "unit": "items",
+        "quote": "batch_size = 200 items"
+      }
+    }
+  ]
+}

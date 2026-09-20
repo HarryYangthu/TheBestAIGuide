@@ -1,24 +1,81 @@
-# 08｜工具与执行环境
-
-> 状态：seed｜已建立组件范围与阅读路线；分章正文、代码与实验待补充。
-
-将工具请求转换成可执行操作，返回可关联的结果与错误。
-
-## 按这个顺序展开
-
-| 顺序 | 要实现和观察的内容 |
-|---|---|
-| 01 | 定义工具名称、参数和执行函数 |
-| 02 | 检查参数、派发调用并关联工具结果 |
-| 03 | 接入 MCP 与运行环境，观察超时和隔离边界 |
-
-每一步将用可运行的示例说明输入、中间数据、标准输出和产物，完整教程采用 [Agent 执行循环](../03-agent-loop/README.md) 的逐步展开方式。
-
-## 现有参考资料
-
-以下正文已随原知识库归档，可先用于理解本组件：
-
-- [工具运行时](../_archive/05-tools-skills-protocols/02-patterns/01-tool-runtime.md)
-- [Tools 与 MCP](../_archive/05-tools-skills-protocols/README.md)
+# 08｜工具与执行环境：完成一次七天补货实验
 
 [组件总览](../README.md) · [上一组件：状态与产物管理](../07-state-and-artifacts/README.md) · [下一组件：持久化与故障恢复](../09-persistence-and-recovery/README.md)
+
+工具请求只有名称和参数；真正读取什么、运行哪段代码、失败后返回什么，要由执行层决定。本章用一个小店任务贯穿这些动作：找到补货规则，读取七天需求，用 Python 汇总，再比较每天到货 2 件和 4 件，保存有逐日记录的结果。
+
+```mermaid
+flowchart TD
+    A["01 从搜索到工具契约"] --> B["02 搜索、文件、代码、仿真"]
+    B --> C["03 子进程、容器与 MCP"]
+    C --> D["04 同题实验与产物验收"]
+    B --> E["trace 与补货报告"]
+    D --> E
+```
+
+本章只需要基础 Python。工具是否由模型选择，不改变校验、执行和返回的机制，因此这里直接提交请求字典，不增加模型调用。任务脚本里的步骤由程序明确编排；接入模型时，可以将 [03 的工具派发](../03-agent-loop/02-tools-and-observations.md)指向这里的 `Registry.call()`。
+
+| 顺序 | 阅读文件 | 完整入口 | 新增机制 |
+|---|---|---|---|
+| 01 | [把一次搜索注册成工具](01-contract-and-dispatch.md) | `code/run_minimal.py`、`code/runtime.py` | 名称、参数约束、执行函数、结果关联 |
+| 02 | [连接四类实际操作](02-four-tools.md) | `code/run_task.py` | 文件读写、Python 子进程、库存仿真 |
+| 03 | [运行环境与 MCP 接口](03-environment-and-mcp.md) | `code/mcp_stdio.py`、`code/run_container.py` | 本机边界、容器限制、跨进程发现与调用 |
+| 04 | [从失败案例检查工具契约](04-experiments.md) | `code/run_experiments.py`、`code/test_runtime.py` | 正反例、守恒关系、独立产物核对 |
+
+## 准备与运行
+
+工作目录为 `10-Knowledge/08-tools-and-environment/`。本章只用 Python 标准库，Python 3.10+ 可运行；实际验证版本为 3.12.14，无须 API Key。以下是完整运行顺序：
+
+```bash
+python code/run_minimal.py
+python code/run_task.py --output runs/task
+python code/mcp_stdio.py --output runs/mcp
+python code/run_experiments.py --output runs/experiments
+python -m unittest discover -s code -p 'test_*.py' -v
+```
+
+`run_minimal.py` 更新 `runs/minimal.txt`。其他入口要求输出目录尚不存在；重复运行时把 `runs/task` 换成 `runs/task-2`，旧输入副本与记录会保留。路径都相对于上述工作目录。
+
+标准输出中可核对的部分：
+
+```text
+policy.md:3: 初始库存为 4，比较每天补货 2 件与 4 件。
+saved=runs/minimal.txt
+selected=4 calls=6 acceptance=True
+artifacts=runs/task
+protocol=2025-06-18 tools=5 valid_call=True invalid_call=True
+artifacts=runs/mcp
+cases=8 passed=8
+artifacts=runs/experiments
+```
+
+测试有 8 项；耗时由机器决定。容器入口独立运行，需要已启动的 Docker：
+
+```bash
+docker pull python:3.12-slim
+python code/run_container.py --image python:3.12-slim --output runs/container
+```
+
+镜像标签会变化；需要复现相同运行镜像时，用本机取得的 `python@sha256:…` 传给 `--image`。程序记录实际传入的镜像引用，不虚构摘要。
+
+## 输入和结果都可直接打开
+
+| 文件 | 内容 |
+|---|---|
+| [examples/corpus/policy.md](examples/corpus/policy.md) | 初始库存、到货顺序与选择条件 |
+| [examples/corpus/glossary.md](examples/corpus/glossary.md) | 仿真字段的含义 |
+| [examples/demand.csv](examples/demand.csv) | 7 天需求：3、5、4、6、2、5、4 |
+| [examples/compute.py](examples/compute.py) | 已审阅的 CSV 汇总脚本 |
+| `runs/task/workspace/` | 本次输入副本与 `report.md` |
+| `runs/task/trace.jsonl` | 六次请求及对应结果 |
+| `runs/task/schemas.json` | 实际注册的输入与输出约束 |
+| `runs/task/result.json` | 两种方案的逐日状态和验收结果 |
+| `runs/mcp/messages.json` | 初始化、工具发现、合法与非法调用 |
+
+已执行产物保存在 [evidence/task/result.json](evidence/task/result.json)、[补货报告](evidence/task/workspace/report.md)、[MCP 消息](evidence/mcp/messages.json)、[错误实验](evidence/experiments/report.md)。运行时会产生新的 `runs/`，不会改写这些样本。
+
+## 验证范围
+
+本机五个工具、stdio 子进程、8 个单元测试和全部离线命令已执行。Docker CLI 在编写环境中不存在，容器入口只做代码检查，未运行容器；[验证记录](evidence/validation.json)明确区分这一点。`-I`、目录检查和 Python 子进程均不等于操作系统隔离。官方接口依据及执行边界集中见第三篇。
+
+从 [01｜把一次搜索注册成工具](01-contract-and-dispatch.md)开始。

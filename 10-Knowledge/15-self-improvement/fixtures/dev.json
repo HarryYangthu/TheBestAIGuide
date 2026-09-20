@@ -1,0 +1,40 @@
+[
+  {
+    "id": "plain",
+    "input": "plain.csv",
+    "expected": {
+      "total_cents": 1250,
+      "paid_rows": 2,
+      "rejected_rows": []
+    }
+  },
+  {
+    "id": "whitespace",
+    "input": "whitespace.csv",
+    "expected": {
+      "total_cents": 400,
+      "paid_rows": 1,
+      "rejected_rows": []
+    }
+  },
+  {
+    "id": "negative",
+    "input": "negative.csv",
+    "expected": {
+      "total_cents": 800,
+      "paid_rows": 2,
+      "rejected_rows": []
+    }
+  },
+  {
+    "id": "invalid",
+    "input": "invalid.csv",
+    "expected": {
+      "total_cents": 200,
+      "paid_rows": 1,
+      "rejected_rows": [
+        "o2"
+      ]
+    }
+  }
+]

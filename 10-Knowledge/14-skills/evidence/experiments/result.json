@@ -1,0 +1,79 @@
+{
+  "checks": {
+    "old_version_rejects_units": true,
+    "updated_version_accepts": true,
+    "polish_loads_only_catalog": true,
+    "preview_rejected": true
+  },
+  "runs": [
+    {
+      "case": "v1_units",
+      "task": "compare",
+      "selected": {
+        "name": "release-comparison",
+        "description": "比较指定产品的两个正式版本，生成单位一致且保留双侧原文的参数变更表；仅润色现有文字时不适用。",
+        "version": "1.0.0"
+      },
+      "status": "script_rejected",
+      "acceptance": false,
+      "loaded_bytes": 1998,
+      "loaded_files": [
+        "catalog",
+        "SKILL.md",
+        "old.json",
+        "new.json",
+        "assets/report.md"
+      ]
+    },
+    {
+      "case": "v11_units",
+      "task": "compare",
+      "selected": {
+        "name": "release-comparison",
+        "description": "比较指定产品的两个正式版本，生成单位一致且保留双侧原文的参数变更表；仅润色现有文字时不适用。",
+        "version": "1.1.0"
+      },
+      "status": "completed",
+      "acceptance": true,
+      "loaded_bytes": 3152,
+      "loaded_files": [
+        "catalog",
+        "SKILL.md",
+        "old.json",
+        "new.json",
+        "references/units.json",
+        "assets/report.md"
+      ]
+    },
+    {
+      "case": "polish",
+      "task": "polish",
+      "selected": null,
+      "status": "skipped",
+      "acceptance": null,
+      "loaded_bytes": 209,
+      "loaded_files": [
+        "catalog"
+      ]
+    },
+    {
+      "case": "preview",
+      "task": "compare",
+      "selected": {
+        "name": "release-comparison",
+        "description": "比较指定产品的两个正式版本，生成单位一致且保留双侧原文的参数变更表；仅润色现有文字时不适用。",
+        "version": "1.1.0"
+      },
+      "status": "script_rejected",
+      "acceptance": false,
+      "loaded_bytes": 2961,
+      "loaded_files": [
+        "catalog",
+        "SKILL.md",
+        "old.json",
+        "new.json",
+        "assets/report.md"
+      ]
+    }
+  ]
+}

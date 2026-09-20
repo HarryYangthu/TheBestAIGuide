@@ -1,0 +1,10 @@
+{
+  "acceptance": "not_run",
+  "budget": 3,
+  "next_step": "verify",
+  "refs": {},
+  "schema_version": 1,
+  "status": "running",
+  "task_id": "repair-mean",
+  "version": 3
+}

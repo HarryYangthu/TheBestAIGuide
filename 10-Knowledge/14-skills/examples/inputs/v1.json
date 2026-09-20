@@ -1,0 +1,12 @@
+{
+  "product": "Pine Example SDK",
+  "version": "1.0",
+  "status": "stable",
+  "source_id": "manual-v1",
+  "body": "timeout = 30 s\nretry_limit = 3 attempts\nbatch_size = 100 items\n",
+  "fields": {
+    "timeout": {"value": 30, "unit": "s", "quote": "timeout = 30 s"},
+    "retry_limit": {"value": 3, "unit": "attempts", "quote": "retry_limit = 3 attempts"},
+    "batch_size": {"value": 100, "unit": "items", "quote": "batch_size = 100 items"}
+  }
+}

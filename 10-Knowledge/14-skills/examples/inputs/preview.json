@@ -1,0 +1,12 @@
+{
+  "product": "Pine Example SDK",
+  "version": "2.0-preview",
+  "status": "preview",
+  "source_id": "preview-v2",
+  "body": "timeout = 5 s\nretry_limit = 1 attempts\nbatch_size = 400 items\n",
+  "fields": {
+    "timeout": {"value": 5, "unit": "s", "quote": "timeout = 5 s"},
+    "retry_limit": {"value": 1, "unit": "attempts", "quote": "retry_limit = 1 attempts"},
+    "batch_size": {"value": 400, "unit": "items", "quote": "batch_size = 400 items"}
+  }
+}

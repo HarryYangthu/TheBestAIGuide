@@ -1,0 +1,94 @@
+{
+  "mode": "explicit_protocol_replay",
+  "scenarios": [
+    {
+      "case": "interleaved_tools",
+      "expected": "none",
+      "observed": "none",
+      "matched": true,
+      "usage_known": true
+    },
+    {
+      "case": "missing_finish",
+      "expected": "incomplete_response",
+      "observed": "incomplete_response",
+      "matched": true,
+      "usage_known": false
+    },
+    {
+      "case": "missing_usage",
+      "expected": "none",
+      "observed": "none",
+      "matched": true,
+      "usage_known": false
+    },
+    {
+      "case": "length_limit",
+      "expected": "output_truncated",
+      "observed": "output_truncated",
+      "matched": true,
+      "usage_known": false
+    },
+    {
+      "case": "broken_arguments",
+      "expected": "invalid_arguments",
+      "observed": "invalid_arguments",
+      "matched": true,
+      "usage_known": false
+    }
+  ],
+  "normalized": {
+    "content": null,
+    "tool_calls": [
+      {
+        "id": "call_a",
+        "name": "read_file",
+        "arguments": {
+          "path": "notes.txt"
+        }
+      },
+      {
+        "id": "call_b",
+        "name": "read_file",
+        "arguments": {
+          "path": "notes.txt"
+        }
+      }
+    ],
+    "finish_reason": "tool_calls",
+    "usage": {
+      "prompt_tokens": 8,
+      "completion_tokens": 2,
+      "total_tokens": 10
+    }
+  },
+  "usage": {
+    "request_count": 3,
+    "fully_metered_requests": 1,
+    "fields": {
+      "prompt_tokens": {
+        "known_sum": 12,
+        "reported_requests": 2,
+        "missing_requests": 1
+      },
+      "completion_tokens": {
+        "known_sum": 2,
+        "reported_requests": 1,
+        "missing_requests": 2
+      },
+      "total_tokens": {
+        "known_sum": 10,
+        "reported_requests": 1,
+        "missing_requests": 2
+      }
+    }
+  },
+  "structured_schema_passed": true,
+  "structured_acceptance": {
+    "passed": false,
+    "checks": {
+      "completed": false,
+      "pending": false
+    }
+  }
+}

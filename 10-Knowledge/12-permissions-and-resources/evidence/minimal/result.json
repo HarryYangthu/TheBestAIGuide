@@ -1,0 +1,10 @@
+[
+  {
+    "resource": "a1",
+    "status": "allowed"
+  },
+  {
+    "resource": "b1",
+    "status": "resource_denied"
+  }
+]

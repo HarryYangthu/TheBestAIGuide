@@ -1,0 +1,12 @@
+{
+  "runtime": "CPython 3.12.14",
+  "origin": "installed standard library",
+  "module": "graphlib",
+  "original_path": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/graphlib.py",
+  "upstream_path": "Lib/graphlib.py",
+  "remote_bytes_verified": false,
+  "files": {
+    "graphlib.py": "2a29e0adee584dc76251afef1236d7bedf250aca27911f91a4d442133ce81117",
+    "LICENSE.Python.txt": "3b2f81fe21d181c499c59a256c8e1968455d6689d269aa85373bfb6af41da3bf"
+  }
+}

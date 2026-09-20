@@ -1,0 +1,45 @@
+[
+  {
+    "event": "loaded",
+    "kind": "catalog",
+    "path": "catalog",
+    "context_bytes": 209,
+    "sha256": "a9ce51d8ea90f97f5de87010126890eae4f78d2c65e6863c77ffe59f3c2c8a5b"
+  },
+  {
+    "event": "loaded",
+    "kind": "method",
+    "path": "SKILL.md",
+    "context_bytes": 1646,
+    "sha256": "d8040097f5ab71afaf06f35aaf329f733f2548f8aa66b4abf9c062be1fa8085d"
+  },
+  {
+    "event": "loaded",
+    "kind": "input",
+    "path": "old.json",
+    "context_bytes": 419,
+    "sha256": "61e79b8599bc994421cc8e19d4003a0146d10669058427d6bd8c606f62392eaf"
+  },
+  {
+    "event": "loaded",
+    "kind": "input",
+    "path": "new.json",
+    "context_bytes": 426,
+    "sha256": "cddd4d5b1e14367cda233534fa0aeada009e4b4d0d00dcc0409d805982daeecb"
+  },
+  {
+    "event": "loaded",
+    "kind": "template",
+    "path": "assets/report.md",
+    "context_bytes": 261,
+    "sha256": "e5075c13020788dcf29b6f48c1b9b315a0071bf0f508b08f71b7e3746e1f0c24"
+  },
+  {
+    "event": "executed",
+    "path": "scripts/compare.py",
+    "sha256": "8aa34ff8938a1ed63c107bcea637a957584b725404a303ee700bb2a9c8e858ab",
+    "returncode": 2,
+    "stdout": "status=rejected reason=release_mismatch\n",
+    "stderr": ""
+  }
+]

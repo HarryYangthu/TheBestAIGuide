@@ -1,0 +1,6 @@
+{
+  "s": {"canonical": "s", "scale": 1},
+  "ms": {"canonical": "s", "scale": 0.001},
+  "attempts": {"canonical": "attempts", "scale": 1},
+  "items": {"canonical": "items", "scale": 1}
+}

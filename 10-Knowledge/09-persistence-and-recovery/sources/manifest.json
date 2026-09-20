@@ -1,0 +1,20 @@
+{
+  "project": "CPython",
+  "tag": "v3.12.10",
+  "retrieved": "2026-09-20",
+  "license": "LICENSE.CPython",
+  "files": [
+    {
+      "local": "subprocess.py",
+      "upstream_path": "Lib/subprocess.py",
+      "url": "https://raw.githubusercontent.com/python/cpython/v3.12.10/Lib/subprocess.py",
+      "sha256": "85d29b2bf0249f5436838298c9a60ee93508b1102e9ac43b001f8a7e7ae8f375"
+    },
+    {
+      "local": "futures_base.py",
+      "upstream_path": "Lib/concurrent/futures/_base.py",
+      "url": "https://raw.githubusercontent.com/python/cpython/v3.12.10/Lib/concurrent/futures/_base.py",
+      "sha256": "8c6d5f09f7c535d40fa1c30ebfcb35e0601c2abf32286a82cf151af7ddf72473"
+    }
+  ]
+}

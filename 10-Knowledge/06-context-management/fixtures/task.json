@@ -1,0 +1,5 @@
+{
+  "service": "checkout",
+  "environment": "production",
+  "instruction": "审核 checkout 的 production 灰度发布。确认 timeout_ms、错误率回滚阈值、允许租户及回滚演练结果；缺证据时停止判断。"
+}

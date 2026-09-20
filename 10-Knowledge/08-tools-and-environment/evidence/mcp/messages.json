@@ -1,0 +1,402 @@
+{
+  "requests": [
+    {
+      "jsonrpc": "2.0",
+      "id": 1,
+      "method": "initialize",
+      "params": {
+        "protocolVersion": "2025-06-18",
+        "capabilities": {},
+        "clientInfo": {
+          "name": "chapter-client",
+          "version": "1.0.0"
+        }
+      }
+    },
+    {
+      "jsonrpc": "2.0",
+      "method": "notifications/initialized"
+    },
+    {
+      "jsonrpc": "2.0",
+      "id": 2,
+      "method": "tools/list"
+    },
+    {
+      "jsonrpc": "2.0",
+      "id": 3,
+      "method": "tools/call",
+      "params": {
+        "name": "search_docs",
+        "arguments": {
+          "query": "初始库存",
+          "limit": 5
+        }
+      }
+    },
+    {
+      "jsonrpc": "2.0",
+      "id": 4,
+      "method": "tools/call",
+      "params": {
+        "name": "search_docs",
+        "arguments": {
+          "query": "初始库存",
+          "limit": 200
+        }
+      }
+    }
+  ],
+  "responses": [
+    {
+      "jsonrpc": "2.0",
+      "id": 1,
+      "result": {
+        "protocolVersion": "2025-06-18",
+        "capabilities": {
+          "tools": {}
+        },
+        "serverInfo": {
+          "name": "inventory-tools",
+          "version": "1.0.0"
+        }
+      }
+    },
+    {
+      "jsonrpc": "2.0",
+      "id": 2,
+      "result": {
+        "tools": [
+          {
+            "name": "search_docs",
+            "description": "在本地规则语料中逐行匹配查询词",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                "limit": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 20
+                }
+              },
+              "required": [
+                "query",
+                "limit"
+              ],
+              "additionalProperties": false
+            },
+            "outputSchema": {
+              "type": "object",
+              "properties": {
+                "matches": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "path": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 200
+                      },
+                      "line": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 1000000
+                      },
+                      "text": {
+                        "type": "string",
+                        "maxLength": 16000
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "line",
+                      "text"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "total": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1000000
+                },
+                "truncated": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "matches",
+                "total",
+                "truncated"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "read_file",
+            "description": "读取本次工作目录中的小型 UTF-8 文件",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "path": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "additionalProperties": false
+            },
+            "outputSchema": {
+              "type": "object",
+              "properties": {
+                "path": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                },
+                "text": {
+                  "type": "string",
+                  "maxLength": 16000
+                }
+              },
+              "required": [
+                "path",
+                "text"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "write_file",
+            "description": "写入本次工作目录中的 UTF-8 文件",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "path": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                },
+                "text": {
+                  "type": "string",
+                  "maxLength": 16000
+                }
+              },
+              "required": [
+                "path",
+                "text"
+              ],
+              "additionalProperties": false
+            },
+            "outputSchema": {
+              "type": "object",
+              "properties": {
+                "path": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                },
+                "bytes": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1000000
+                }
+              },
+              "required": [
+                "path",
+                "bytes"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "run_python",
+            "description": "执行已审阅的 compute.py 并传入 CSV",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "script": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                },
+                "input_path": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                }
+              },
+              "required": [
+                "script",
+                "input_path"
+              ],
+              "additionalProperties": false
+            },
+            "outputSchema": {
+              "type": "object",
+              "properties": {
+                "exit_code": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1000000
+                },
+                "stdout": {
+                  "type": "string",
+                  "maxLength": 16000
+                },
+                "stderr": {
+                  "type": "string",
+                  "maxLength": 16000
+                }
+              },
+              "required": [
+                "exit_code",
+                "stdout",
+                "stderr"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "simulate_inventory",
+            "description": "按先到货后售出的规则运行每日库存仿真",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "input_path": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                },
+                "initial": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1000
+                },
+                "daily_delivery": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1000
+                }
+              },
+              "required": [
+                "input_path",
+                "initial",
+                "daily_delivery"
+              ],
+              "additionalProperties": false
+            },
+            "outputSchema": {
+              "type": "object",
+              "properties": {
+                "lost": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 36500000
+                },
+                "ending": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1000000
+                },
+                "history": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "day": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 1000000
+                      },
+                      "demand": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 1000000
+                      },
+                      "sold": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 1000000
+                      },
+                      "lost": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 1000000
+                      },
+                      "ending": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 1000000
+                      }
+                    },
+                    "required": [
+                      "day",
+                      "demand",
+                      "sold",
+                      "lost",
+                      "ending"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "lost",
+                "ending",
+                "history"
+              ],
+              "additionalProperties": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "jsonrpc": "2.0",
+      "id": 3,
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"matches\": [{\"path\": \"policy.md\", \"line\": 3, \"text\": \"初始库存为 4，比较每天补货 2 件与 4 件。\"}], \"total\": 1, \"truncated\": false}"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "matches": [
+            {
+              "path": "policy.md",
+              "line": 3,
+              "text": "初始库存为 4，比较每天补货 2 件与 4 件。"
+            }
+          ],
+          "total": 1,
+          "truncated": false
+        }
+      }
+    },
+    {
+      "jsonrpc": "2.0",
+      "id": 4,
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"code\": \"invalid_arguments\", \"message\": \"arguments.limit: outside bounds\", \"retryable\": false}"
+          }
+        ],
+        "isError": true
+      }
+    }
+  ]
+}

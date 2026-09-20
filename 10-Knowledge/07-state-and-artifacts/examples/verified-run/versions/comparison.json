@@ -1,0 +1,72 @@
+{
+  "after": {
+    "cases": [
+      {
+        "input": [
+          2,
+          4
+        ],
+        "observed": 3.0,
+        "passed": true
+      },
+      {
+        "input": [
+          -2,
+          2
+        ],
+        "observed": 0.0,
+        "passed": true
+      },
+      {
+        "input": [
+          10
+        ],
+        "observed": 10.0,
+        "passed": true
+      },
+      {
+        "input": [],
+        "observed": "ValueError",
+        "passed": true
+      }
+    ],
+    "passed": true
+  },
+  "before": {
+    "cases": [
+      {
+        "input": [
+          2,
+          4
+        ],
+        "observed": 2.0,
+        "passed": false
+      },
+      {
+        "input": [
+          -2,
+          2
+        ],
+        "observed": 0.0,
+        "passed": true
+      },
+      {
+        "input": [
+          10
+        ],
+        "observed": 5.0,
+        "passed": false
+      },
+      {
+        "input": [],
+        "observed": 0.0,
+        "passed": false
+      }
+    ],
+    "passed": false
+  },
+  "old_evidence": "4ce7d4f0ffb960d353032ec21f3e53e6ef5a0d91a457c6baa3bd435b5dd2be81",
+  "stale_dependencies": [
+    "code"
+  ]
+}

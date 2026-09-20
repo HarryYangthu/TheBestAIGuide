@@ -1,24 +1,75 @@
-# 12｜权限与资源控制
-
-> 状态：seed｜已建立组件范围与阅读路线；分章正文、代码与实验待补充。
-
-在动作执行前检查权限，并控制调用次数、并发、时间和费用。
-
-## 按这个顺序展开
-
-| 顺序 | 要实现和观察的内容 |
-|---|---|
-| 01 | 定义文件、工具和数据的访问范围 |
-| 02 | 执行前校验权限，并预留并发与预算 |
-| 03 | 结算实际用量，拒绝越权或超限的操作 |
-
-每一步将用可运行的示例说明输入、中间数据、标准输出和产物，完整教程采用 [Agent 执行循环](../03-agent-loop/README.md) 的逐步展开方式。
-
-## 现有参考资料
-
-以下正文已随原知识库归档，可先用于理解本组件：
-
-- [权限、并发与预算](../_archive/09-runtime-harness-environment/01-concepts/03-concurrency-and-budgets.md)
-- [安全与治理](../_archive/11-safety-security-governance/README.md)
+# 12｜权限与资源控制：让执行许可成为程序条件
 
 [组件总览](../README.md) · [上一组件：Trace 与可观测性](../11-trace-and-observability/README.md) · [下一组件：长期记忆 Memory](../13-memory/README.md)
+
+本章继续处理补货结果，但加入两个门店 A、B。A 组的 Alice 可以读取自己的结果，发布前需要批准；同时多个任务会争用并发名额、调用次数、时间和计算费用。程序必须在读取或写入之前拒绝越权动作，在执行前预留额度，结束后结算真实用量。
+
+```mermaid
+flowchart TD
+    A["01 身份、工具与数据范围"] --> B["02 预留和结算预算"]
+    B --> C["03 并发、截止与取消"]
+    C --> D["04 批准与实验核对"]
+    A --> E["操作与拒绝事件"]
+    B --> E
+    C --> E
+    D --> F["发布文件与验收结果"]
+```
+
+这组机制由程序执行，不需要模型判断。你可以将模型请求交给同一入口，但模型输出的“已批准”“我是管理员”不会改变 `Principal` 或批准存储。
+
+| 顺序 | 正文 | 入口与主要观察 |
+|---|---|---|
+| 01 | [从读取范围开始强制权限](01-permissions-and-data.md) | `run_minimal.py`：a1 允许、b1 拒绝，返回字段受限 |
+| 02 | [先预留再结算预算](02-reservation-and-settlement.md) | `control.py` 的 `Budget`：并发预留、费用、未知用量 |
+| 03 | [并发名额、deadline 与取消](03-concurrency-deadline-cancel.md) | `Runtime.execute()`：等待也计时、取消后释放 |
+| 04 | [人工批准与完整实验](04-approval-and-experiments.md) | `approval_cli.py`、`run_experiments.py`：绑定具体动作与真实文件 |
+
+## 从章节目录运行
+
+工作目录为 `10-Knowledge/12-permissions-and-resources/`。使用 Python 3.11+，因为代码使用 `asyncio.timeout_at()`；已验证 Python 3.12.14。只依赖标准库，无模型配置。
+
+```bash
+python code/run_minimal.py
+python code/run_experiments.py --output runs/experiments
+python -m unittest discover -s code -p 'test_*.py' -v
+```
+
+确定性的标准输出为：
+
+```text
+a1=allowed
+b1=resource_denied
+artifacts=runs/minimal
+checks=12 passed=12
+artifacts=runs/experiments
+```
+
+测试共 10 项。实验目录要求尚不存在，重复运行改用 `runs/experiments-2`。单个最小例子会更新 `runs/minimal/result.json`。
+
+人工批准入口单独运行：
+
+```bash
+python code/approval_cli.py --output runs/approval
+```
+
+先查看屏幕上的主体、租户、具体动作、指纹和文件效果。输入 `APPROVE` 才签发一次性批准；输入其他内容得到 `approval_required`，不会生成 a1.json。这里“发布”只指把本地 JSON 写到指定输出目录，未连接邮件、聊天或外部发布服务。
+
+## 输入与实际产物
+
+| 位置 | 内容 |
+|---|---|
+| [examples/records.json](examples/records.json) | a1 属于 A，b1 属于 B，各含可公开字段和 private_note |
+| [code/control.py](code/control.py) | 权限、批准、预算账本、并发和执行入口 |
+| `runs/experiments/events.json` | 预留、开始、释放、结算、拒绝与批准事件 |
+| `runs/experiments/result.json` | 12 个验收项及各场景状态 |
+| `runs/experiments/permissions/a1.json` | 获得批准后实际写出的字段投影 |
+| `runs/experiments/report.md` | 从本次结果生成的检查表 |
+| `runs/approval/` | 人工入口的决定、事件以及可能写出的文件 |
+
+可先打开 [已执行报告](evidence/experiments/report.md)、[完整结果](evidence/experiments/result.json)、[事件](evidence/experiments/events.json)和[发布文件](evidence/experiments/permissions/a1.json)。其中自动实验的批准来源是 `experiment_fixture`；标准输入测试记为 `stdin_fixture`，没有声称真人已经批准。
+
+## 验证边界
+
+最小入口、12 项集成检查、10 项单元测试、批准 CLI 的接受与拒绝输入均已执行，见 [validation.json](evidence/validation.json)。程序是单进程协程实现，使用内存身份、批准和账本；跨进程部署需要共享事务存储。费用采用本地服务的“每完成 1 单位收 3 微积分”规则，微积分是本例计费单位，与任何供应商价格无关。调用额度按成功预留计数，哪怕随后取消也不返还次数。
+
+从 [01｜从读取范围开始强制权限](01-permissions-and-data.md)开始。

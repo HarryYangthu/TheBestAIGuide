@@ -1,0 +1,25 @@
+{
+  "distribution": "jsonschema",
+  "version": "4.26.0",
+  "provenance": "installed Python distribution; inspected source, not remote commit verification",
+  "entries": [
+    {
+      "file": "required.py.txt",
+      "module": "jsonschema._keywords",
+      "symbol": "required",
+      "sha256": "56681ce071a7fd4b6fdfd7d3aef78f3398c3b9c8129daf5e33a48e65891d2bd9"
+    },
+    {
+      "file": "type.py.txt",
+      "module": "jsonschema._keywords",
+      "symbol": "type",
+      "sha256": "aa2ddb789910afe8316561ec9344e8d17284580e97350d4060aa236a8c2c1558"
+    },
+    {
+      "file": "additionalProperties.py.txt",
+      "module": "jsonschema._keywords",
+      "symbol": "additionalProperties",
+      "sha256": "500c00dac931d1a62a4b421ce0a5740ca0641844521be170360577daced573fc"
+    }
+  ]
+}

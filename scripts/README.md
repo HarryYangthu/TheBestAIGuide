@@ -33,6 +33,7 @@ python -m venv .venv
 
 ```bash
 python -m pip install -r requirements-dev.lock
+python -m pip install -r requirements-components.txt -r 20-Projects/01-rag-lab/requirements.txt
 python -m ipykernel install --sys-prefix --name python3
 ```
 
@@ -69,9 +70,9 @@ python scripts/check_notebooks.py --execute --skip-api
 ```bash
 python scripts/check_links.py
 python scripts/check_metadata.py
-python -m pip install -r 10-Knowledge/03-agent-loop/requirements.txt
+python -m pip install -r requirements-components.txt -r 20-Projects/01-rag-lab/requirements.txt
 python scripts/run_python_tests.py
-python 10-Knowledge/03-agent-loop/sources/verify_sources.py
+python scripts/check_component_sources.py
 ```
 
 | 脚本 | 检查或执行内容 | 如何理解通过结果 |
@@ -80,6 +81,7 @@ python 10-Knowledge/03-agent-loop/sources/verify_sources.py
 | [check_metadata.py](check_metadata.py) | 一级标题、概念/模式/案例状态字段 | 格式有效，不等于事实已审查 |
 | [check_notebooks.py](check_notebooks.py) | 格式、代码单元和错误输出；加 `--execute` 才重跑，`--skip-api` 排除需密钥的实验 | 区分 `format-valid` 与 `executed`；每格默认超时 180 秒 |
 | [run_python_tests.py](run_python_tests.py) | 各工程 `unittest` 及指定算例断言 | 看实际失败和 skip；依赖缺失导致跳过不算对应功能已验证 |
+| [check_component_sources.py](check_component_sources.py) | 逐章执行已提供的源码快照校验 | 核对本地快照、片段与指定版本；检查范围由各章说明 |
 | [run_python.py](run_python.py) | 按本仓库源码路径运行模块或脚本 | 只提供导入路径，不自动安装库或覆盖版本 |
 
 TypeScript 工程各自在项目目录运行 `npm ci`、`npm run build`、`npm test`；[浏览器工程](../10-Knowledge/_archive/13-application-engineering/05-code/browser-agent-typescript/README.md)还需要安装 Chromium。对应自动检查见 [workflows](../.github/workflows/README.md)，实际结果以具体提交的 Actions 为准。

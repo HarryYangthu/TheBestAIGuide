@@ -1,0 +1,1 @@
+{"cases":[{"input":[2,4],"observed":2.0,"passed":false},{"input":[-2,2],"observed":0.0,"passed":true},{"input":[10],"observed":5.0,"passed":false},{"input":[],"observed":0.0,"passed":false}],"passed":false}

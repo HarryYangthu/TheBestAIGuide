@@ -1,0 +1,110 @@
+{
+  "python": "3.12.14",
+  "commands": 9,
+  "complete_snippets": 5,
+  "records": [
+    {
+      "kind": "command",
+      "command": "python code/v1_quote.py",
+      "returncode": 0,
+      "stdout": "order=event-001 total_cents=5200\nartifacts=runs/v1\n",
+      "stderr": ""
+    },
+    {
+      "kind": "command",
+      "command": "python code/v2_schedule.py",
+      "returncode": 0,
+      "stdout": "accepted=True total_cents=5200\nexecutions=6 peak_active=2\nartifacts=runs/v2\n",
+      "stderr": ""
+    },
+    {
+      "kind": "command",
+      "command": "python code/v2_schedule.py --missing-price --output runs/v2-missing",
+      "returncode": 0,
+      "stdout": "accepted=False total_cents=None\nexecutions=3 peak_active=2\nartifacts=runs/v2-missing\n",
+      "stderr": ""
+    },
+    {
+      "kind": "command",
+      "command": "python code/v3_replan.py",
+      "returncode": 0,
+      "stdout": "before_cents=5200 after_cents=5800\ninvalidated=prices,publish,quote,review\nexecutions=10 retained=policy,stock\nartifacts=runs/v3\n",
+      "stderr": ""
+    },
+    {
+      "kind": "command",
+      "command": "python code/v3_replan.py --add-shipping --output runs/v3-shipping",
+      "returncode": 0,
+      "stdout": "before_cents=5200 after_cents=6000\ninvalidated=prices,publish,quote,review,shipping\nexecutions=11 retained=policy,stock\nartifacts=runs/v3-shipping\n",
+      "stderr": ""
+    },
+    {
+      "kind": "command",
+      "command": "python code/experiments.py",
+      "returncode": 0,
+      "stdout": "serial: accepted=True total_cents=5200 executions=6 peak_active=1\nparallel: accepted=True total_cents=5200 executions=6 peak_active=2\nmissing_price: accepted=False total_cents=None executions=3 peak_active=2\nprice_changed: accepted=True total_cents=5800 executions=10 peak_active=2\nplan_changed: accepted=True total_cents=6000 executions=11 peak_active=2\ncancelled: accepted=False total_cents=None executions=2 peak_active=2\nartifacts=runs/experiments\n",
+      "stderr": ""
+    },
+    {
+      "kind": "command",
+      "command": "python -m unittest discover -s code -p 'test_*.py' -v",
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "test_budget_blocks_unfinished_work (test_scheduler.SchedulerTests.test_budget_blocks_unfinished_work) ... ok\ntest_cancellation_and_active_replan (test_scheduler.SchedulerTests.test_cancellation_and_active_replan) ... ok\ntest_child_self_cancel_is_not_parent_cancel (test_scheduler.SchedulerTests.test_child_self_cancel_is_not_parent_cancel) ... ok\ntest_context_is_a_copy (test_scheduler.SchedulerTests.test_context_is_a_copy) ... ok\ntest_failure_blocks_only_descendants (test_scheduler.SchedulerTests.test_failure_blocks_only_descendants) ... ok\ntest_parallel_dependencies_and_role_limits (test_scheduler.SchedulerTests.test_parallel_dependencies_and_role_limits) ... ok\ntest_plan_validation (test_scheduler.SchedulerTests.test_plan_validation) ... ok\ntest_replan_preserves_unaffected_results (test_scheduler.SchedulerTests.test_replan_preserves_unaffected_results) ... ok\ntest_timeout_releases_role (test_scheduler.SchedulerTests.test_timeout_releases_role) ... ok\n\n----------------------------------------------------------------------\nRan 9 tests in 0.219s\n\nOK\n"
+    },
+    {
+      "kind": "command",
+      "command": "python sources/verify_sources.py",
+      "returncode": 0,
+      "stdout": "verified=2 runtime=CPython 3.12.14\n",
+      "stderr": ""
+    },
+    {
+      "kind": "command",
+      "command": "python code/experiments.py --output artifacts/reference",
+      "returncode": 0,
+      "stdout": "serial: accepted=True total_cents=5200 executions=6 peak_active=1\nparallel: accepted=True total_cents=5200 executions=6 peak_active=2\nmissing_price: accepted=False total_cents=None executions=3 peak_active=2\nprice_changed: accepted=True total_cents=5800 executions=10 peak_active=2\nplan_changed: accepted=True total_cents=6000 executions=11 peak_active=2\ncancelled: accepted=False total_cents=None executions=2 peak_active=2\nartifacts=artifacts/reference\n",
+      "stderr": ""
+    },
+    {
+      "kind": "complete_snippet",
+      "document": "01-task-graph-and-roles.md",
+      "block": 1,
+      "returncode": 0,
+      "stdout": "5200\n",
+      "stderr": ""
+    },
+    {
+      "kind": "complete_snippet",
+      "document": "01-task-graph-and-roles.md",
+      "block": 3,
+      "returncode": 0,
+      "stdout": "{'stock': [], 'prices': [], 'policy': [], 'quote': ['stock', 'prices'], 'review': ['quote', 'policy'], 'publish': ['review']}\n",
+      "stderr": ""
+    },
+    {
+      "kind": "complete_snippet",
+      "document": "04-experiments-and-source.md",
+      "block": 1,
+      "returncode": 0,
+      "stdout": "dependency_order=True overlapping_children=2\n",
+      "stderr": ""
+    },
+    {
+      "kind": "complete_snippet",
+      "document": "04-experiments-and-source.md",
+      "block": 2,
+      "returncode": 0,
+      "stdout": "succeeded failed blocked\nFalse ValueError: over budget\n",
+      "stderr": ""
+    },
+    {
+      "kind": "complete_snippet",
+      "document": "04-experiments-and-source.md",
+      "block": 3,
+      "returncode": 0,
+      "stdout": "['prices', 'stock']\n[]\n['quote']\n",
+      "stderr": ""
+    }
+  ]
+}
