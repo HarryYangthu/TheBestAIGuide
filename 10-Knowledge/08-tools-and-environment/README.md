@@ -1,30 +1,32 @@
-# 08｜工具与执行环境：完成一次七天补货实验
+# 08｜工具与执行环境
 
 [组件总览](../README.md) · [上一组件：状态与产物管理](../07-state-and-artifacts/README.md) · [下一组件：持久化与故障恢复](../09-persistence-and-recovery/README.md)
 
-工具请求只有名称和参数；真正读取什么、运行哪段代码、失败后返回什么，要由执行层决定。本章用一个小店任务贯穿这些动作：找到补货规则，读取七天需求，用 Python 汇总，再比较每天到货 2 件和 4 件，保存有逐日记录的结果。
+执行层接收工具名称和参数，执行操作并返回结果或错误。示例任务使用本地补货规则与七天需求，比较每天到货 2 件和 4 件，保存逐日库存与结果报告。
+
+本章总览图如下：
 
 ```mermaid
 flowchart TD
-    A["01 从搜索到工具契约"] --> B["02 搜索、文件、代码、仿真"]
-    B --> C["03 子进程、容器与 MCP"]
-    C --> D["04 同题实验与产物验收"]
+    A["01 工具定义与参数校验"] --> B["02 搜索、文件、代码与仿真"]
+    B --> C["03 执行环境与 MCP"]
+    C --> D["04 工具实验"]
     B --> E["trace 与补货报告"]
     D --> E
 ```
 
-本章只需要基础 Python。工具是否由模型选择，不改变校验、执行和返回的机制，因此这里直接提交请求字典，不增加模型调用。任务脚本里的步骤由程序明确编排；接入模型时，可以将 [03 的工具派发](../03-agent-loop/02-tools-and-observations.md)指向这里的 `Registry.call()`。
+示例只需基础 Python。任务脚本直接提交请求字典，按固定顺序调用工具；接入模型时，可将 [03 的工具派发](../03-agent-loop/02-tools-and-observations.md)指向 `Registry.call()`。
 
 | 顺序 | 阅读文件 | 完整入口 | 新增机制 |
 |---|---|---|---|
-| 01 | [把一次搜索注册成工具](01-contract-and-dispatch.md) | `code/run_minimal.py`、`code/runtime.py` | 名称、参数约束、执行函数、结果关联 |
-| 02 | [连接四类实际操作](02-four-tools.md) | `code/run_task.py` | 文件读写、Python 子进程、库存仿真 |
-| 03 | [运行环境与 MCP 接口](03-environment-and-mcp.md) | `code/mcp_stdio.py`、`code/run_container.py` | 本机边界、容器限制、跨进程发现与调用 |
-| 04 | [从失败案例检查工具契约](04-experiments.md) | `code/run_experiments.py`、`code/test_runtime.py` | 正反例、守恒关系、独立产物核对 |
+| 01 | [工具定义与参数校验](01-contract-and-dispatch.md) | `code/run_minimal.py`、`code/runtime.py` | 名称、参数约束、执行函数、结果关联 |
+| 02 | [搜索、文件、代码与仿真](02-four-tools.md) | `code/run_task.py` | 文件读写、Python 子进程、库存仿真 |
+| 03 | [执行环境与 MCP](03-environment-and-mcp.md) | `code/mcp_stdio.py`、`code/run_container.py` | 本机边界、容器限制、跨进程发现与调用 |
+| 04 | [工具实验](04-experiments.md) | `code/run_experiments.py`、`code/test_runtime.py` | 正反例、守恒关系、独立产物核对 |
 
-## 准备与运行
+## 运行环境
 
-工作目录为 `10-Knowledge/08-tools-and-environment/`。本章只用 Python 标准库，Python 3.10+ 可运行；实际验证版本为 3.12.14，无须 API Key。以下是完整运行顺序：
+工作目录为 `10-Knowledge/08-tools-and-environment/`。本章只用 Python 标准库，Python 3.10+ 可运行；实际验证版本为 3.12.14，无须 API Key。运行命令：
 
 ```bash
 python code/run_minimal.py
@@ -58,7 +60,7 @@ python code/run_container.py --image python:3.12-slim --output runs/container
 
 镜像标签会变化；需要复现相同运行镜像时，用本机取得的 `python@sha256:…` 传给 `--image`。程序记录实际传入的镜像引用，不虚构摘要。
 
-## 输入和结果都可直接打开
+## 输入与产物
 
 | 文件 | 内容 |
 |---|---|
@@ -76,6 +78,4 @@ python code/run_container.py --image python:3.12-slim --output runs/container
 
 ## 验证范围
 
-本机五个工具、stdio 子进程、8 个单元测试和全部离线命令已执行。Docker CLI 在编写环境中不存在，容器入口只做代码检查，未运行容器；[验证记录](evidence/validation.json)明确区分这一点。`-I`、目录检查和 Python 子进程均不等于操作系统隔离。官方接口依据及执行边界集中见第三篇。
-
-从 [01｜把一次搜索注册成工具](01-contract-and-dispatch.md)开始。
+本机五个工具、stdio 子进程、8 个单元测试和全部离线命令已执行。Docker CLI 在编写环境中不存在，容器入口只做代码检查，未运行容器；[验证记录](evidence/validation.json)明确区分这一点。`-I`、目录检查和 Python 子进程均不等于操作系统隔离。接口依据与执行边界见[执行环境与 MCP](03-environment-and-mcp.md)。

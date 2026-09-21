@@ -1,8 +1,10 @@
-# 11｜Trace 与可观测性：沿着关联找到失败位置
+# 11｜Trace 与可观测性
 
 [组件总览](../README.md) · [上一章：评估与验收](../10-evaluation-and-acceptance/README.md) · [下一章：权限与资源控制](../12-permissions-and-resources/README.md)
 
-仍然处理订单汇总，这次把东、西两个分区交给并行子任务。东区正常生成报表，西区的坏金额让工具抛出异常。我们需要知道异常出在哪个文件、哪一行、哪个子任务，以及父任务看到的错误是否只是向上传播。
+订单汇总任务并行处理东、西两个分区。东区生成报表，西区因坏金额失败；Trace 记录模型边界、交接、工具和验收的关联、耗时与错误。
+
+本章总览图如下：
 
 ```mermaid
 flowchart TD
@@ -15,15 +17,15 @@ flowchart TD
 
 | 阅读顺序 | 增加的机制 | 代码位置 |
 |---|---|---|
-| [01｜先把调用连起来](01-linked-spans.md) | 从一次计时到父子 span、任务与交接关联 | `Recorder.span`、`work` |
-| [02｜记录时间、用量和版本](02-time-usage-and-versions.md) | 并行区间、明确来源的 usage、成本覆盖率与版本 | `replay_plan`、`union_ms` |
-| [03｜沿失败轨迹找最早偏离](03-failure-investigation.md) | 区分直接异常与传播、重建链路、用图核对 | `validate`、`build_report` |
+| [01｜Trace、Span 与任务关联](01-linked-spans.md) | 从一次计时到父子 span、任务与交接关联 | `Recorder.span`、`work` |
+| [02｜时间、用量与版本](02-time-usage-and-versions.md) | 并行区间、明确来源的 usage、成本覆盖率与版本 | `replay_plan`、`union_ms` |
+| [03｜失败定位](03-failure-investigation.md) | 区分直接异常与传播、重建链路、用图核对 | `validate`、`build_report` |
 
 完整实现位于 [code/trace_demo.py](code/trace_demo.py)。Python 3.10+；只有画图使用 `matplotlib`，本地处理和 trace 写入使用标准库。
 
-## 从输入运行到结果
+## 运行命令
 
-以下命令全部以章节目录为工作目录，是正文逐步解释的同一条路线，无需重复执行已跑过的命令：
+以下命令以章节目录为工作目录，与正文中的命令相同，无需重复执行：
 
 ```bash
 cd 10-Knowledge/11-trace-and-observability
@@ -48,9 +50,9 @@ artifacts=runs/parallel
 | [example-rates.json](fixtures/example-rates.json) | 演示计价公式的任意样例费率，不是供应商报价 |
 | [expected.json](fixtures/expected.json) | 独立文件验收的预期 |
 
-模型边界明确选择 `fixture_replay`，没有请求模型，也没有伪造 API 实跑记录。两个工具任务、失败、文件验收、线程调度、区间计时均为真实本地执行；读取工具中明确注入 60ms 延迟，让快速磁盘上的并行区间也容易观察。
+模型边界使用 `fixture_replay` 回放协议样本，未请求外部模型。两个工具任务、失败、文件验收、线程调度、区间计时均为真实本地执行；读取工具中明确注入 60ms 延迟，让快速磁盘上的并行区间也容易观察。
 
-## 已生成的证据
+## 参考产物
 
 | 产物 | 检查入口 |
 |---|---|
@@ -62,4 +64,4 @@ artifacts=runs/parallel
 | `artifacts/reference/summary-east.json` | 东区真实计算并验收的结果 |
 | `artifacts/reference/manifest.json` | 版本、输入哈希、代码哈希和延迟配置 |
 
-本次运行了完整本地链路及 4 项关键行为测试。先打开 [01](01-linked-spans.md)，从一次最小计时逐步还原这些记录。
+本次运行了完整本地链路及 4 项关键行为测试。

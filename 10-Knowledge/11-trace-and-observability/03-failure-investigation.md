@@ -1,6 +1,8 @@
-# 03｜沿失败轨迹找最早偏离
+# 03｜失败定位
 
-[上一篇](02-time-usage-and-versions.md) · [阅读路线](README.md)
+[上一篇：02｜时间、用量与版本](02-time-usage-and-versions.md) · [阅读路线](README.md)
+
+本章总览图如下：
 
 ```mermaid
 flowchart TD
@@ -12,13 +14,13 @@ flowchart TD
     F --> G["保留失败复现材料"]
 ```
 
-## 0. 先看最后的结果，但不要停在最后一行
+## 0. 任务结果
 
 完整运行的 [results.json](artifacts/reference/results.json) 有两个子任务：东区通过，西区失败。西区错误消息是 `invalid_amount: file=west.csv row=3 order=w2`。此时可以知道结果失败，但还要确认它是读取失败、解析失败、交接错误，还是最终验收没通过。
 
 仅搜索 `status=error` 会找到多条：汇总工具、西区任务、西区交接和根任务都可能失败。它们不是四个独立故障，而是同一异常影响了几层工作。
 
-## 1. 第一次捕获异常时记下源头
+## 1. 异常来源
 
 下面是 [Recorder.span](code/trace_demo.py) 的实际函数节选。`span_id` 是当前操作 ID，捕获的 `exc` 继续向外抛出；片段不独立执行，也不打印内容：
 
@@ -40,7 +42,7 @@ except Exception as exc:
 
 “最早直接异常”只表示日志中最早观察到的异常位置。错误设计、错误输入来源或漏掉的数据校验可能发生得更早；如果此前没有记录，trace 不能凭空证明根因。本例能直接核对的事实是：读取完成，随后在金额转换处遇到了字符串 `oops`。
 
-## 2. 从源头回溯到父任务
+## 2. 父任务回溯
 
 在章节目录执行以下完整 Python 片段，输入为已生成的参考 trace，只打印直接错误，不写文件：
 
@@ -62,7 +64,7 @@ tool.aggregate
 invalid_amount: file=west.csv row=3 order=w2
 ```
 
-下一步在同一条记录查看 `attributes.failed_row=3`、`order_id=w2`、`input_file=west.csv`；沿 `parent_span_id` 找到 `task.west`，再找到 `handoff.west` 和 `task.batch`。[实际报告](artifacts/reference/report.md) 已保存这条 ID 链，重跑时 ID 分配顺序可能受线程调度影响，但父子关系应保持正确。
+在同一条记录查看 `attributes.failed_row=3`、`order_id=w2`、`input_file=west.csv`；沿 `parent_span_id` 找到 `task.west`，再找到 `handoff.west` 和 `task.batch`。[实际报告](artifacts/reference/report.md) 已保存这条 ID 链，重跑时 ID 分配顺序可能受线程调度影响，但父子关系应保持正确。
 
 | 观察顺序 | 具体证据 | 可以得出的判断 |
 |---|---|---|
@@ -74,7 +76,7 @@ invalid_amount: file=west.csv row=3 order=w2
 
 保留的 `west.csv` 是本次读取的副本，不依赖以后会不会修改根输入。这样失败复现有确定的材料，而不只是一个不稳定的线上文件路径。
 
-## 3. 用时间图检查一个容易误读的结论
+## 3. 时间图
 
 ![真实区间图](artifacts/reference/timeline.png)
 
@@ -84,7 +86,7 @@ invalid_amount: file=west.csv row=3 order=w2
 
 本次根任务墙钟小于两个子任务时长之和，正是重叠的直接证据。根时间也包含模型样本读取、任务提交、结果保存和线程收尾，因此通常略大于子任务区间并集。若根时间反而小于它，首先检查跨进程时钟或父子包含关系是否用错。
 
-## 4. 对记录器做必要的破坏实验
+## 4. 故障实验
 
 在章节目录运行完整命令。测试用临时文件构造真实嵌套与异常，结束后自动清理：
 
@@ -94,6 +96,6 @@ python -m unittest discover -s code -p 'test_*.py' -v
 
 标准结果是 `Ran 4 tests`、`OK`。关键行为包括父子任务关联、孤立 span 拒绝、错误区间拒绝、区间并集合并，以及同一异常逐层传播后仍只有一个直接来源。
 
-可以进一步将西区输入的 `oops` 改为 `4.00`，同时将 `expected.json` 中西区预期改为总额 700、有效行 2，再以新目录运行。预期变为两个任务成功，没有直接异常，且出现 `summary-west.json`。如果只改 CSV，不改独立验收预期，则新的直接失败应该出现在 `acceptance.summary`，而不是金额解析。这项实验区分“工具能运行”和“文件达到任务要求”，也将本章重新连接到第10章。
+可以进一步将西区输入的 `oops` 改为 `4.00`，同时将 `expected.json` 中西区预期改为总额 700、有效行 2，再以新目录运行。预期变为两个任务成功，没有直接异常，且出现 `summary-west.json`。如果只改 CSV，不改独立验收预期，则新的直接失败应该出现在 `acceptance.summary`，而不是金额解析。这项实验区分工具执行成功与产物验收通过。
 
 当前记录器在 span 结束时写入一行，适合解释已经完成的嵌套操作。若进程被强制终止，尚未结束的操作不会落盘；需要定位这类中断时，应增加开始事件、定期刷新和恢复时的未闭合记录检查，而不是把当前格式描述成已经具备持久恢复能力。

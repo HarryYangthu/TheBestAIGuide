@@ -1,14 +1,12 @@
-# 06｜对照 OpenHands 拆解执行循环
+# 06｜OpenHands 执行循环源码
 
 > 状态：draft
 
-[← 05｜通过实验观察执行循环](05-loop-experiments.ipynb) · [返回阅读路线](README.md)
+[← 05｜执行循环实验](05-loop-experiments.ipynb) · [返回阅读路线](README.md)
 
-前四份文件已经把一个程序从“调用模型”推进到了“管理工具、历史、预算和错误”。现在打开成熟项目，就可以带着具体问题找代码：**谁在重复执行？工具结果在哪里写回？程序凭什么停止？**
+本篇分析 OpenHands Software Agent SDK 的同步、本地执行路径，涉及 `Conversation`、`Agent`、事件与工具执行器。相关源码已随章保存，无需安装 SDK。
 
-本篇沿 OpenHands Software Agent SDK 的同步、本地执行路径阅读。你不需要先理解整个项目，也不需要安装 SDK；配套包保留了相关原文件。异步执行、远程 Agent Server、完整沙箱和持久化恢复不在本篇展开。
-
-读完后，你应当能够解释：同样是“模型 → 工具 → 反馈”，为什么真实实现要分成 `Conversation`、`Agent`、事件和工具执行器；哪些额外机制改变了循环的行为。
+本章总览图如下：
 
 ```mermaid
 flowchart TD
@@ -24,9 +22,7 @@ flowchart TD
     H --> I["12—13 对照源码并保存校验结果"]
 ```
 
-下面沿着图中的调用顺序找入口、读分支、核对事件，最后生成一份本地源码校验记录。
-
-## 1. 固定源码版本可以让讲解与代码保持对应
+## 1. 源码版本与文件
 
 本篇使用之前保存的 **v1.49.2 源码快照**，提交为 `d128a786ee2ee570eb23ff5862ec148b43cfad0b`。所有上游链接固定到这个提交，不跟随 `main` 漂移。
 
@@ -50,7 +46,7 @@ flowchart TD
 
 原始源码采用 MIT 许可证，完整版权与许可声明保存在 [LICENSE.OpenHands](sources/LICENSE.OpenHands)。
 
-## 2. 熟悉的执行循环被拆成了几个职责明确的对象
+## 2. 核心对象
 
 先回忆前面写过的代码。`model(messages, tools)` 返回统一字典，循环检查 `tool_calls`，执行工具，再把结果加入 `messages`。OpenHands 仍然完成这些工作，只是把它们分到了不同位置。
 
@@ -78,7 +74,7 @@ flowchart TD
 
 图中的 `LLM` 和工具不是两个互相独立的循环。它们都由 `step` 调用；外层 `run` 决定是否还要再推进一步。下面就沿这条调用路径往里读。
 
-## 3. 外层 run 负责重复调用 step 并检查运行状态
+## 3. 外层循环：run
 
 `run()` 定义在 `LocalConversation` 中。它先准备 Agent，再进入 `while True`，检查状态并调用 `self.agent.step(...)`。下面只取出最关键的调用位置。
 
@@ -109,7 +105,7 @@ flowchart TD
 
 原方法还有暂停、卡住检测、预算与错误处理，阅读时先把它们理解为外层“能否继续”的检查。完整控制流见 [run() 原文件](https://github.com/OpenHands/software-agent-sdk/blob/d128a786ee2ee570eb23ff5862ec148b43cfad0b/openhands-sdk/openhands/sdk/conversation/impl/local_conversation.py#L1905-L2071)。
 
-## 4. 一步执行会先处理历史中尚未收到结果的动作
+## 4. 单步执行：step
 
 进入 `Agent.step()` 后，它会建立流式上下文，再调用 `_step()`。`_step()` 的第一项重要工作是查找待执行动作。
 
@@ -152,7 +148,7 @@ flowchart TD
 
 第二行不表示“整个系统没有模型费用”：如果使用模型来做摘要，压缩本身仍可能消耗模型调用。准确说法是**没有继续走到当前 `_step()` 中的主决策 `self.llm.generate()`**。
 
-## 5. 历史记录会先转成模型输入而上下文压缩可以单独占据一步
+## 5. 上下文组装与压缩
 
 前面的循环把 `messages` 交给模型适配器，再转换成 API 消息。OpenHands 会从 `state.view` 准备模型消息，并让配置的 Condenser 判断是否需要压缩。
 
@@ -193,7 +189,7 @@ response = decision_model(prepared.messages, tool_definitions)
 
 原代码还会先解析当前模型的运行元信息，使压缩判断能够参考实际端点限制；本篇只跟踪它如何影响循环，不展开压缩算法。[输入准备与模型调用](https://github.com/OpenHands/software-agent-sdk/blob/d128a786ee2ee570eb23ff5862ec148b43cfad0b/openhands-sdk/openhands/sdk/agent/agent.py#L677-L735)。
 
-## 6. 模型响应会先分类再进入不同处理分支
+## 6. 响应分类
 
 走到 `self.llm.generate(...)` 后，模型拿到 `_messages` 和 `self.tools_map` 中的工具定义。返回结果先提取成 `Message`，再交给 `classify_response()`。
 
@@ -241,7 +237,7 @@ flowchart TD
 
 原处理函数分别见 [文本结束分支](https://github.com/OpenHands/software-agent-sdk/blob/d128a786ee2ee570eb23ff5862ec148b43cfad0b/openhands-sdk/openhands/sdk/agent/response_dispatch.py#L248-L261) 与 [无可见内容分支](https://github.com/OpenHands/software-agent-sdk/blob/d128a786ee2ee570eb23ff5862ec148b43cfad0b/openhands-sdk/openhands/sdk/agent/response_dispatch.py#L263-L284)。
 
-## 7. 工具请求会经过参数校验再产生动作与结果事件
+## 7. 工具执行
 
 拿到 `tool_calls` 并不意味着立刻执行字符串。`_handle_tool_calls()` 会对每个请求调用 `_get_action_event()`，把模型生成的请求转换成经过校验的动作。
 
@@ -291,7 +287,7 @@ record(ObservationEvent(observation, action_id=action.id))
 # 下一次 step 才从更新后的状态准备 messages。
 ```
 
-## 8. 动作与结果的关联让程序能够识别尚未闭合的请求
+## 8. 动作与结果关联
 
 有 `tool_call_id`，就能回答“这个结果属于哪次工具调用”；有内部 `action_id`，就能进一步回答“这项动作是否已经留下结果”。
 
@@ -309,7 +305,7 @@ record(ObservationEvent(observation, action_id=action.id))
 
 **没有结果记录，只能说明记录没有闭合。** 比如工具已经写入文件，但进程在写 observation 前崩溃，仅凭“没有 observation”不能断言文件没变。第四份文件讨论的幂等、检查实际状态、未知结果，在成熟系统里仍然成立。这个配对函数没有提供外部副作用的“恰好一次”保证。
 
-## 9. 等待确认会返回调用方而再次 run 在此版本中表示隐式批准
+## 9. 等待确认与恢复调用
 
 当确认策略认为需要用户确认，`_requires_user_confirmation()` 把状态设为 `WAITING_FOR_CONFIRMATION`，工具 handler 返回；外层 `run()` 检测到这个状态后也会退出，让调用方有机会展示待执行动作。[确认策略分支](https://github.com/OpenHands/software-agent-sdk/blob/d128a786ee2ee570eb23ff5862ec148b43cfad0b/openhands-sdk/openhands/sdk/agent/agent.py#L1046-L1087)。
 
@@ -345,7 +341,7 @@ flowchart TD
 
 这是对本地同步路径的源码说明，不能直接推广成所有 SDK、所有远程协议的恢复语义。读到 `resume`、`continue`、`run` 这样的名字时，要进一步确认：它只是恢复调度，还是同时表达了授权。
 
-## 10. 请求结束后可能继续修订而 FINISHED 仍然不等于业务验收
+## 10. 结束请求与修订
 
 在本版本中，至少有两条需要区分的结束路径。
 
@@ -404,7 +400,7 @@ flowchart TD
 
 注意 FinishTool 的描述也允许 Agent 在缺少信息、技术限制等情况下交回控制权。因而看到 `FINISHED`，不能直接宣称“代码修复成功”。前面 Notebook 里的 `acceptance` 仍需独立检查：最终文件是什么、测试覆盖了什么、结果对应哪个版本。
 
-## 11. 迭代上限和异常分支保留了不同的退出原因
+## 11. 迭代上限与异常
 
 第三份阅读文件用 `max_steps` 限制模型调用次数，并通过结果字段 `model_calls` 报告计数；第四份沿用这个参数，将失败请求和重试也计入模型请求尝试次数。这里的参数虽叫 steps，每次循环恰好尝试一次模型请求。OpenHands 的 `max_iteration_per_run` 位于更外层，限制的是本次 `run()` 的 `step` 次数，二者不能直接按字段名比较。
 
@@ -453,7 +449,7 @@ flowchart TD
 
 内层会把部分可修正错误转成反馈，例如非法函数调用参数；工具执行位置会把 `ValueError` 转成 `AgentErrorEvent`。不能把它概括成“捕获所有错误并继续”。外层未处理异常则设置 `ERROR`、保留错误事件，并抛出 `ConversationRunError`。[工具异常处理](https://github.com/OpenHands/software-agent-sdk/blob/d128a786ee2ee570eb23ff5862ec148b43cfad0b/openhands-sdk/openhands/sdk/agent/agent.py#L1427-L1438)，[外层异常处理](https://github.com/OpenHands/software-agent-sdk/blob/d128a786ee2ee570eb23ff5862ec148b43cfad0b/openhands-sdk/openhands/sdk/conversation/impl/local_conversation.py#L2043-L2069)。
 
-## 12. 对照本文代码可以把源码阅读变成可检验的理解
+## 12. 实现对照
 
 再回到前面自己写过的四个版本。这里的对应关系是“同一个职责在工程里放到了哪里”，不是说阅读文件复制了 SDK。
 
@@ -477,7 +473,7 @@ flowchart TD
 
 [← 返回 05 号实验](05-loop-experiments.ipynb) · [返回 README 阅读路线](README.md)
 
-## 13. 校验命令把源码与摘录的对应关系保存为文件
+## 13. 源码校验
 
 在章节目录运行：
 

@@ -1,8 +1,10 @@
-# 02｜模型接入：从一次请求到可使用的响应
+# 02｜模型接入
 
 [组件总览](../README.md) · [上一组件：任务与协议](../01-task-contracts/README.md) · [下一组件：Agent 执行循环](../03-agent-loop/README.md)
 
-本章只处理一份周报笔记：完成了“工具接入、循环日志”，待办是“错误重试”。先把笔记直接发送给模型，再让模型请求读取笔记，随后处理流式片段、结构化结果和用量。运行时使用官方 `openai` SDK；模型接入代码集中在 [adapter.py](code/adapter.py)，工具执行和文件验收在 [live.py](code/live.py)。
+本章使用官方 `openai` SDK 汇总一份周报笔记，内容包含“工具接入、循环日志”两项已完成工作和“错误重试”一项待办。模型接入代码在 [adapter.py](code/adapter.py)，工具执行和文件验收在 [live.py](code/live.py)。
+
+本章总览图如下：
 
 ```mermaid
 flowchart TD
@@ -14,16 +16,16 @@ flowchart TD
     F --> G["04 对照固定SDK源码"]
 ```
 
-## 四篇正文围绕同一份输入
+## 阅读路线
 
 | 顺序 | 阅读文件 | 新增机制 | 运行入口 |
 |---|---|---|---|
-| 01 | [配置客户端并接回一次回答](01-configuration-and-response.md) | 配置、请求、响应字段转换 | `python code/live.py --mode text` |
+| 01 | [API 配置与响应](01-configuration-and-response.md) | 配置、请求、响应字段转换 | `python code/live.py --mode text` |
 | 02 | [工具调用与流式片段](02-tools-and-streaming.md) | 工具参数、调用 ID、流式文本和交错工具参数 | `--mode tool`、`--mode stream`、`--mode stream-tools` |
-| 03 | [结构化结果、错误与用量](03-structured-output-and-usage.md) | Schema、事实验收、缺失用量与累计、失败分类 | `--mode structured`、`code/experiments.py` |
-| 04 | [对照官方 SDK 的响应与流处理](04-sdk-source.md) | 固定版本字段和 SSE 分支走读 | `code/verify_sources.py` |
+| 03 | [结构化输出、错误与用量](03-structured-output-and-usage.md) | Schema、事实验收、缺失用量与累计、失败分类 | `--mode structured`、`code/experiments.py` |
+| 04 | [OpenAI SDK 源码](04-sdk-source.md) | 固定版本字段和 SSE 分支走读 | `code/verify_sources.py` |
 
-## 环境只配置一次
+## 环境与 API 配置
 
 以下命令均在 `10-Knowledge/02-model-adapters/` 执行，使用 Python 3.10 或更新版本：
 
@@ -53,9 +55,9 @@ OPENAI_MODEL=你的服务支持的模型名
 
 环境变量优先于 `.env`。缺失配置时入口保存 `configuration` 错误，退出码为 1；它不会自动使用协议样本代替真实模型。兼容服务不支持某个选项时会返回错误，应根据服务能力选择运行模式。
 
-## 最小路径和进阶路径
+## 运行模式
 
-先运行一次文本请求，再逐步增加机制：
+文本、工具、流式和结构化输出分别使用以下命令：
 
 ```bash
 python code/live.py --mode text
@@ -72,7 +74,7 @@ status=completed code=none
 artifacts=<本次运行目录>
 ```
 
-`stream` 模式还会先实时打印模型文本，具体措辞不固定。`tool` 与 `stream-tools` 正常完成时发起两次模型请求，其他模式发起一次。前者请求读文件，后者依据工具结果回答；这里只展示一次往返，下一组件再扩展为执行循环。
+`stream` 模式还会先实时打印模型文本，具体措辞不固定。`tool` 与 `stream-tools` 正常完成时发起两次模型请求，其他模式发起一次。第一次请求读取笔记，第二次依据工具结果回答。
 
 | 输入或产物 | 用来核对什么 |
 |---|---|
@@ -84,7 +86,7 @@ artifacts=<本次运行目录>
 | `runs/.../summary.json` | 结构化模式的 JSON 结果 |
 | `runs/.../run.json` | 状态、错误、用量覆盖率；结构化模式还包含事实验收 |
 
-## 无网络的实验与源码对照
+## 离线实验与源码核对
 
 这组命令使用明确标注的协议样本和 MockTransport，不需要密钥：
 
@@ -104,8 +106,8 @@ requests=3 fully_metered=1
 
 随后打印本次产物目录。可先打开已执行的 [comparison.md](reports/protocol-experiments/comparison.md) 与 [comparison.json](reports/protocol-experiments/comparison.json)，其中包含交错参数、流中断、长度上限、缺失 usage 和结构正确但事实错误的对照。
 
-## 已执行的读者路径
+## 验证范围
 
 已运行五场景协议实验、12 项 unittest、4 个源码文件对照和[缺配置真实入口检查](reports/configuration-check/run.json)。测试通过官方 SDK 的 MockTransport 覆盖全部五种入口、两次工具往返、SSE 与流中断，未发起外部 API 请求。环境使用 Python 3.12.14、openai 3.16.2、python-dotenv 1.2.3、jsonschema 4.26.0、httpx2 2.13.0。当前无 API Key，真实模型响应需读者配置后生成；报告没有预填模型成功率或费用。SDK 快照取自已安装分发包，未声称验证远端提交。旧资料见[归档模型适配器](../_archive/03-agent-core/01-concepts/03-model-adapters.md)。
 
-开始阅读：[01｜配置客户端并接回一次回答](01-configuration-and-response.md)。
+开始阅读：[01｜API 配置与响应](01-configuration-and-response.md)。

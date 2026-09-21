@@ -1,6 +1,8 @@
-# 02｜记录时间、用量和版本
+# 02｜时间、用量与版本
 
-[上一篇](01-linked-spans.md) · [阅读路线](README.md) · [下一篇](03-failure-investigation.md)
+[上一篇：01｜Trace、Span 与任务关联](01-linked-spans.md) · [阅读路线](README.md) · [下一篇：03｜失败定位](03-failure-investigation.md)
+
+本章总览图如下：
 
 ```mermaid
 flowchart TD
@@ -15,7 +17,7 @@ flowchart TD
     G --> H
 ```
 
-## 0. 先看两个区间为什么不能直接相加
+## 0. 并行区间
 
 假设工具 A 从第 0ms 工作到第 10ms，工具 B 从第 5ms 工作到第 12ms。工作时长之和为 `10 + 7 = 17ms`，但从开始到最后一个完成只经过 12ms。重叠的 5ms 被加了两次。
 
@@ -33,7 +35,7 @@ print(union_ms(intervals))
 
 标准输出为两行 `17` 和 `12`。`union_ms` 将重叠区间合并后再求长度。本章并行任务的实际结果使用同一个算法，输入来自保存的 trace。
 
-## 1. 真正运行两个重叠的读取任务
+## 1. 并行读取实验
 
 以下完整命令在章节目录执行，输入为东、西 CSV；两个线程在屏障汇合后各等待 60ms，再读取文件。等待是显式注入的观察条件，不是测出来的生产服务时延：
 
@@ -54,9 +56,9 @@ python code/trace_demo.py --out runs/parallel --delay-ms 60
 
 本机起止间隔用 `perf_counter_ns`，避免系统时钟校准影响区间。`start_utc` 另存可读时间，便于人工定位和跨系统大致关联；不能用不同机器的单调起点计算跨进程时差。
 
-## 2. usage 的数值和来源一起保存
+## 2. 用量来源与费用
 
-主线不需要生成模型回答，因此明确回放 [provider-response.json](fixtures/provider-response.json)，观察真实接口边界常见的记录位置。该文件开头写明是手写协议样本，包含 `input_tokens=36`、`output_tokens=18` 和两个分区计划。
+本实验回放 [provider-response.json](fixtures/provider-response.json)，记录模型边界的用量字段。该文件开头写明是手写协议样本，包含 `input_tokens=36`、`output_tokens=18` 和两个分区计划。
 
 模型 span 记录以下字段：
 
@@ -79,7 +81,7 @@ $$
 
 `illustrative_cost_usd=0.000072` 只用于演示计算；`cost_usd=null`、`cost_source=no_live_invoice` 才是本次实际费用字段。两者分开，避免图表将协议样本变成虚假的账单。
 
-## 3. 汇总只在叶子调用上计算一次
+## 3. 费用汇总
 
 假设真实远程调用已提供用量，子模型 span 可以负责保存 token 和费用；父任务聚合时读取这些叶子 span。不要让父任务再复制一份同样的 token 后一起求和。
 
@@ -87,7 +89,7 @@ $$
 
 使用缓存 token、推理 token 或分层费率的供应商时，应按返回字段和实际价格规则单独处理。这里的两项公式只覆盖样本定义的输入、输出两类计价，不宜直接套到所有供应商账单。
 
-## 4. 版本让“同样的输入”真正可核对
+## 4. 版本与输入哈希
 
 每条 span 都带本次代码定义的 `engine`、`tool`、`policy`、`prompt` 版本；根目录的 `manifest.json` 还保存运行脚本和全部输入文件的 SHA-256。版本名回答“我们给它起了什么名字”，哈希回答“当时的内容是什么”。两者配合可以发现名字未变、内容却改了的情况。
 

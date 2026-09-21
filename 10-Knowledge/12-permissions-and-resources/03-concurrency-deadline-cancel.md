@@ -1,6 +1,8 @@
-# 03｜并发名额、deadline 与取消
+# 03｜并发、截止与取消
 
-[阅读路线](README.md) · [上一篇](02-reservation-and-settlement.md) · [下一篇](04-approval-and-experiments.md)
+[阅读路线](README.md) · [上一篇：预算预留与结算](02-reservation-and-settlement.md) · [下一篇：人工批准与验收](04-approval-and-experiments.md)
+
+本章总览图如下：
 
 ```mermaid
 flowchart TD
@@ -15,7 +17,7 @@ flowchart TD
 
 预算限制整项任务的总消耗，并发限制此刻有多少动作正在执行。即使总预算足够，也可能只有两个连接或两个本地工作位置；已经排队的任务也在消耗用户愿意等待的时间。
 
-## 先用信号量限制同时运行数
+## 并发额度
 
 `Runtime` 初始化一个 `asyncio.Semaphore(concurrency)`。进入 `async with self.semaphore` 时占用名额，离开时归还。真正开始执行后才增加 active，并用 peak 记录观察到的最大值。
 
@@ -36,7 +38,7 @@ async with asyncio.timeout_at(deadline):
 
 这里省略号表示未展示的实际执行段，不是待补代码；完整函数已实现读记录、发布文件与逐步回执。信号量本身只管数量，不限制每秒请求频率。本章实验一次提交固定的 4 个任务，没有实现接收队列容量或速率限制；服务面对持续请求时还应在受理层控制积压。
 
-## deadline 应从受理开始，而不是取得名额后
+## 截止时间
 
 `deadline` 使用 `asyncio.get_running_loop().time()` 的单调时钟。同一个绝对截止值可以传给多个步骤；每进入下一步都不能重新获得完整五秒。
 
@@ -52,7 +54,7 @@ result = await runtime.execute(actor, request, deadline=deadline)
 
 实验用一个名额：holder 执行 80 毫秒，queued 的 deadline 只剩 10 毫秒。queued 应返回 deadline_exceeded，且 events 中没有它的 started 或 reserved。用户期限结束前，它没有获得执行机会，因此调用账本仍只有 holder 的一次预留。操作系统调度影响实际毫秒数，验收检查状态与事件，而不是某个精确耗时。
 
-## 取消必须让清理发生
+## 取消与资源释放
 
 协程收到取消时通常在 await 处抛出 `CancelledError`。执行入口记录 cancelled，然后继续抛出，调用者仍能观察到任务被取消。释放 active 和结算放在 finally 中：
 
@@ -70,7 +72,7 @@ finally:
 
 `asyncio.timeout_at()` 在上下文外转换超时为 TimeoutError；外部显式取消仍是 CancelledError。它们是不同的停止来源，实验分别记录。阻塞事件循环的同步代码无法在 await 点接受取消；写文件已经发生后，取消也不会撤销文件。[Python 3.12 任务与取消文档](https://docs.python.org/3.12/library/asyncio-task.html)
 
-## 从实际事件中恢复执行关系
+## 执行事件
 
 在章节目录运行完整入口：
 
@@ -78,7 +80,7 @@ finally:
 python code/run_experiments.py --output runs/experiments
 ```
 
-本篇对应 result.json 的三个区域：
+`result.json` 中的三个场景：
 
 | 场景 | 确定性观察值 | events.json 应对应的证据 |
 |---|---|---|
@@ -90,4 +92,4 @@ python code/run_experiments.py --output runs/experiments
 
 尝试将 concurrency 从 2 改为 1，再运行到新目录。peak 应变成 1，总已用仍为 8；因此吞吐方式变了，工作量没有变。deadline 案例若给 queued 足够时间，它会进入执行，调用次数相应增加。用这些计数解释变化，比只比较终端里的总耗时更稳定。
 
-[下一篇：人工批准与完整实验](04-approval-and-experiments.md)
+[下一篇：人工批准与验收](04-approval-and-experiments.md)
