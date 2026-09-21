@@ -1,6 +1,8 @@
-# 04｜运行对照实验并走读事务边界
+# 04｜实验与事务
 
-[阅读路线](README.md) · [上一篇](03-concurrent-updates.md) · [下一组件](../08-tools-and-environment/README.md)
+[阅读路线](README.md) · [上一篇：并发更新](03-concurrent-updates.md) · [下一组件](../08-tools-and-environment/README.md)
+
+本章总览图如下：
 
 ```mermaid
 flowchart TD
@@ -14,9 +16,9 @@ flowchart TD
     F --> G["对照源码确认事务范围"]
 ```
 
-这次把三个入口放在同一个实验目录。先观察机制改变了哪些事实，再对照 Python 的 SQLite 实现，判断哪些保证来自数据库，哪些仍然是业务程序的责任。
+实验比较最小保存、版本验收和并发更新，三个场景分别保存产物。
 
-## 1. 一次运行，保留三个可单独检查的场景
+## 1. 对照实验
 
 在章节目录执行：
 
@@ -44,7 +46,7 @@ artifacts=runs/experiments-1
 
 `4/4` 是这四个明确用例的结果，不是对所有浮点输入、迭代器或任意数值类型的正确性证明。扩大函数需求时，也要版本化对应的用例集。
 
-## 2. 沿当前引用找出真实交付文件
+## 2. 产物定位
 
 下面的**完整片段**在章节目录执行，输入是刚生成的 `runs/experiments-1/versions/state.json`，不写文件：
 
@@ -73,7 +75,7 @@ def mean(values):
 
 注意实际生成文件使用单引号，正文中的等价函数展示使用双引号；哈希对应实际文件字节。这个例子也说明：给读者的产物引用应可解析到文件，不能只展示一个看不见内容的哈希值。
 
-## 3. 四个测试各自保护一条容易破坏的关系
+## 3. 回归测试
 
 执行：
 
@@ -92,7 +94,7 @@ python -m unittest discover -s code -p 'test_*.py' -v
 
 改变输入后的检查方法也很明确：在 `fixtures/cases.json` 增加 `{"values": [1, 2, 3], "expected": 2}`，换新输出目录运行。修复后的通过数应由 4 变为 5；用例产物 ID、证据 ID、实验结果 ID 都应改变，原始输入和先前产物仍保留。
 
-## 4. 固定版本源码：Python 的 commit 实际做了什么
+## 4. SQLite 事务源码
 
 本章保存的是 CPython `v3.12.10` 的 [Modules/_sqlite/connection.c](https://github.com/python/cpython/blob/v3.12.10/Modules/_sqlite/connection.c)，本地副本为 [sources/connection.c](sources/connection.c)。原文从固定 tag 的 raw 地址取得，文件 SHA-256 与获取日期保存在 [manifest.json](sources/manifest.json)，许可证见 [LICENSE.CPython](sources/LICENSE.CPython)。运行环境可以更新；源码走读固定在该 tag。
 
@@ -117,8 +119,8 @@ python sources/verify_sources.py
 
 准确输出 `verified=1 tag=v3.12.10`。校验器只检查本地文件是否与已登记哈希相符；固定远端来源已在编写时下载核对，不会在每次运行时联网。
 
-## 5. 状态一致还不足以保证外部动作不重复
+## 5. 外部副作用
 
 设状态已保存 `next_step=publish`，代码接着发布报告。报告已到接收方，但进程在保存回执之前退出。SQLite 事务无法撤销接收方已收到的报告，文件哈希也回答不了报告是否已经送达。
 
-本章解决的是“当前进度和哪些版本相互对应”。第 09 组件会在两个独立数据库之间保留这个故障窗口，实际退出子进程，再用稳定操作身份恢复它。检查点保存足够继续执行的数据，trace 用来解释发生顺序，两者在那个实验中也会单独保存。
+检查点保存恢复所需数据，trace 记录执行顺序。外部副作用的恢复还需要稳定操作身份，见[持久化与故障恢复](../09-persistence-and-recovery/README.md)。

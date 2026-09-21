@@ -1,6 +1,8 @@
-# 03｜结构化结果、错误与用量
+# 03｜结构化输出、错误与用量
 
-[阅读路线](README.md) · [上一篇](02-tools-and-streaming.md) · [下一篇](04-sdk-source.md)
+[阅读路线](README.md) · [上一篇：工具调用与流式片段](02-tools-and-streaming.md) · [下一篇：OpenAI SDK 源码](04-sdk-source.md)
+
+本章总览图如下：
 
 ```mermaid
 flowchart TD
@@ -14,9 +16,9 @@ flowchart TD
     G --> H["运行固定协议实验"]
 ```
 
-上一份程序已经可以拿到文本和工具请求。如果下一步要把完成项写进表格，就需要稳定的字段；如果要比较多次调用的消耗，就需要明确 token 计数是否完整。两件事都要求保留“缺失”与“失败”，不能用看起来正常的默认值遮住它们。
+结构化输出为完成项和待办项提供固定字段；用量记录保留 token 计数及其缺失状态，支持跨请求累计。
 
-## 1. 让结果按 completed 与 pending 两个字段返回
+## 1. 结构化输出
 
 同一份笔记的目标结果是两个字符串数组：
 
@@ -55,7 +57,7 @@ python code/live.py --mode structured
 
 成功时保存 `answer.txt` 与 `summary.json`。前者是收到的文本，后者是解析后的对象序列化结果，`run.json` 记录验收。措辞、顺序或结果可能变化，因此控制台只给出状态与产物路径。
 
-## 2. 字段合法之后，仍要核对笔记
+## 2. Schema 校验与事实验收
 
 [parse_structured](code/adapter.py) 接收已经完成的本文响应字典和 Schema，返回 Python 字典。它先要求 `finish_reason="stop"` 且没有工具调用，再解析 JSON，最后用 `Draft202012Validator` 检查结构。
 
@@ -100,7 +102,7 @@ print(summary_acceptance(value, notes))
 {'passed': False, 'checks': {'completed': False, 'pending': False}}
 ```
 
-## 3. 把一次请求的 usage 读清楚
+## 3. usage 字段
 
 常见的原生 usage 包含三个整数：`prompt_tokens`、`completion_tokens`、`total_tokens`。本文保留这三个服务计数，不把它们转换成费用。费用还涉及模型、价格与缓存等计费规则，不能只乘一个通用单价。
 
@@ -115,7 +117,7 @@ print(summary_acceptance(value, notes))
 
 流式请求尤其容易漏用量：完成文本或工具内容后，服务可能再发送一个 `choices=[]` 的 usage 事件。所以 `StreamAccumulator.feed` 先处理 usage，再判断有没有 choices。若先写 `chunk["choices"][0]`，最后一段就会越界。
 
-## 4. 一条流的快照与多次请求的累计不同
+## 4. 用量快照与跨请求累计
 
 同一请求里的 usage 是本次请求快照。若收到两个用量快照，应该更新该请求的值，而不是把两份都加起来。[StreamAccumulator](code/adapter.py) 使用：
 
@@ -154,7 +156,7 @@ print(summary["fields"]["total_tokens"])
 
 `known_sum=10` 是已知部分，不是三个请求的完整总消耗。这里 `total_tokens` 只覆盖 1/3 个请求，`prompt_tokens` 覆盖 2/3；单独给一个“已计量请求数”还不足以解释部分字段缺失，所以每个字段也保留覆盖数量。
 
-## 5. 请求失败与结果失败分别处理
+## 5. 错误分类
 
 `AdapterError` 保存稳定错误码、简短详情与是否可重试。API Key、认证头与服务异常原文不会被主动写入错误摘要；原始请求记录也只保存业务 payload。
 
@@ -170,9 +172,9 @@ print(summary["fields"]["total_tokens"])
 | `output_schema` | 结果字段 | 不进入事实验收 |
 | `acceptance_failed` | 已保存结构化结果 | 保留失败项，任务未达标 |
 
-这里“可重试”只是供上层策略使用的字段，适配器没有自动重试。对工具操作是否可以重做、重试预算多少，下一组件会在执行循环里处理。
+这里“可重试”只是供上层策略使用的字段，适配器没有自动重试。工具重做策略与重试预算由执行循环控制。
 
-## 6. 用五个固定场景验证机制
+## 6. 协议实验
 
 在章节目录运行：
 

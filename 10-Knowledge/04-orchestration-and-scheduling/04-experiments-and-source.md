@@ -1,6 +1,8 @@
-# 04｜实验与标准库对照
+# 04｜调度实验与标准库源码
 
-[阅读路线](README.md) · [上一篇](03-results-and-replanning.md)
+[阅读路线](README.md) · [上一篇：03｜结果合并与重规划](03-results-and-replanning.md)
+
+本章总览图如下：
 
 ```mermaid
 flowchart TD
@@ -13,9 +15,9 @@ flowchart TD
     E --> F["核对依赖、额度和失效范围"]
 ```
 
-这一篇不换任务，而是每次改变一个调度条件。实验记录来自执行结果；完成顺序可能变化的地方使用依赖关系检查，不把某个耗时当作固定答案。
+实验记录来自实际执行结果。对于可变的完成顺序，检查节点间的依赖关系；耗时不作为固定答案。
 
-## 1. 运行六种条件，先比较工作是否做对
+## 1. 实验场景
 
 在本章目录运行以下完整命令，依赖标准库、读取 `fixtures/`，输出各场景子目录及总表：
 
@@ -47,7 +49,7 @@ artifacts=runs/experiments
 
 已经生成的[参考报告](artifacts/reference/report.md)可以直接打开。用 `--output` 可选择自己的目录，输出最后一行会相应改变。
 
-## 2. 从事件证明并发没有破坏依赖
+## 2. 事件顺序检查
 
 下面是完整可运行片段。在本章目录、运行上述实验后执行，依赖 `runs/experiments/parallel/result.json`。它读取真实事件，无文件产物，成功时准确打印一行：
 
@@ -66,9 +68,9 @@ assert sum(event["kind"] == "start" and event["seq"] < first_success for event i
 print("dependency_order=True overlapping_children=2")
 ```
 
-标准输出是 `dependency_order=True overlapping_children=2`。这比看到程序较快就认定“并发成功”更直接：两个活动任务重叠，同时所有必要前驱又确实先完成。
+标准输出是 `dependency_order=True overlapping_children=2`。这些事件说明两个活动任务存在重叠，同时所有必要前驱都先于后继完成。
 
-## 3. 改一个预算，观察执行成功与验收失败
+## 3. 预算验收
 
 下面的完整片段在本章目录运行，标准库即可；只修改内存副本，不覆盖 `fixtures/policy.json`。输入使用版本 2 的价格，产物写入 `runs/over-budget/`：
 
@@ -100,7 +102,7 @@ False ValueError: over budget
 
 把 5700 改为 5800 后，三者都应 `succeeded`，第二行变成 `True no_error`。金额未变，改变的是验收条件；原始 fixture 保持不变，产物中的 `input.json` 能证明本次采用哪个阈值。
 
-## 4. 对照标准库怎样释放后继
+## 4. TopologicalSorter 源码
 
 本章保存了当前 CPython **3.12.14** 运行时中的完整 [graphlib.py](sources/graphlib.py)，并附 [Python 许可证](sources/LICENSE.Python.txt)和[来源清单](sources/manifest.json)。这些是原文件，不是本章调度器的改写版。哈希锁定了本次读到的字节；[来源说明](sources/README.md)区分本地核对与远端核对。
 
@@ -137,7 +139,7 @@ print(list(graph.get_ready()))
 
 这段代码只管理依赖，没有启动协程。因此本文继续保留显式状态调度器，用它展示失败阻塞、取消和结果缓存；两者职责的连接点是“前驱何时可以被认定完成”。[graphlib 官方接口](https://docs.python.org/3.11/library/graphlib.html)
 
-## 5. 自动检查关注哪些容易做错的分支
+## 5. 验证范围
 
 在本章目录运行：
 
@@ -152,6 +154,6 @@ python sources/verify_sources.py
 verified=2 runtime=CPython 3.12.14
 ```
 
-测试实际检查前驱先完成、角色额度、缺价后只阻塞后继、新增运费后的五节点重算、超时归还名额、父取消清理、子任务自身取消与逆序依赖阻塞、执行预算、输入副本，以及未知前驱和环。通过这些分支以后，剩余的边界很清楚：图由本章代码给定，程序不会自动发现业务目标变化；接入会规划的模型时，模型可以提交候选图，而程序继续验证图、控制额度、验收结果。
+测试实际检查前驱先完成、角色额度、缺价后只阻塞后继、新增运费后的五节点重算、超时归还名额、父取消清理、子任务自身取消与逆序依赖阻塞、执行预算、输入副本，以及未知前驱和环。任务图由代码给定，程序不会自动发现业务目标变化；接入会规划的模型时，模型可以提交候选图，而程序继续验证图、控制额度、验收结果。
 
-下一组件进入另一种变化：同一任务的回复可能被重发或晚到，执行者之间还可能移交后续责任。[继续：通信与交接](../05-communication-and-handoff/README.md)。
+[下一组件：通信与交接](../05-communication-and-handoff/README.md)。

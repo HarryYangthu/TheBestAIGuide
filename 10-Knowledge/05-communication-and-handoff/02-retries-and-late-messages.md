@@ -1,6 +1,8 @@
-# 02｜失败、重发与迟到消息
+# 02｜消息重试与结果合并
 
-[阅读路线](README.md) · [上一篇](01-delegation-and-results.md) · [下一篇](03-context-and-ownership.md)
+[阅读路线](README.md) · [上一篇：01｜任务委派与消息协议](01-delegation-and-results.md) · [下一篇：03｜控制权交接](03-context-and-ownership.md)
+
+本章总览图如下：
 
 ```mermaid
 flowchart TD
@@ -13,9 +15,9 @@ flowchart TD
     T -->|是| E["检查证据并保存结果或失败"]
 ```
 
-网络与进程可能造成重发和乱序，本章用本地队列显式注入这些情况。输入仍然是 `order-017`；变化只在库存快照是否就绪，以及消息何时被接收。
+实验使用本地队列注入重发和乱序消息，输入仍是订单 `order-017`。
 
-## 1. 失败也需要回传足够信息
+## 1. 失败回执
 
 [inventory-unavailable.json](fixtures/inventory-unavailable.json) 是一份真实 fixture：`status` 为 `unavailable`。执行者读取它之后返回下面的失败正文。这是 `failure.payload` 的格式示例，不是可执行脚本：
 
@@ -37,9 +39,9 @@ flowchart TD
 
 这和“库存为 0”完全不同。库存为 0 是成功检查后的事实；快照不可用表示还不知道库存。把两者都返回 `{}`，协调者就无法选择下一步。
 
-`Case.delegate` 只允许在上次状态为 `failed` 且 `retryable=True` 时再次执行，并把 `attempt` 加一；默认最多两次尝试。成功结果不能因为调用方没看见就再执行一次；重发应该走下节的缓存回执。失败回执格式与发送方会被检查，具体重试策略仍由负责者决定。
+`Case.delegate` 只允许在上次状态为 `failed` 且 `retryable=True` 时再次执行，并把 `attempt` 加一；默认最多两次尝试。成功结果不能因为调用方没看见就再执行一次；重发应返回缓存回执。失败回执格式与发送方会被检查，具体重试策略仍由负责者决定。
 
-## 2. 同一条消息重发，不等于重新做一次工作
+## 2. 消息去重
 
 [protocol.py](code/protocol.py) 的 `Inbox` 保存已经收到的消息内容。下面是完整方法定义的节选，依赖 `canonical` 和字典 `self.seen`；调用返回 `new/duplicate/conflicting_message`，没有标准输出：
 
@@ -72,9 +74,9 @@ async with bus.worker_lock:
 
 这段节选保留了实际判断，注释处的业务代码见完整文件；不能单独执行。锁覆盖登记、执行与缓存，防止同一事件循环中两个重复投递都穿过“尚未处理”的检查。当前库存检查是只读动作，缓存存在内存里；外部付款、发邮件等副作用需要在操作层另设幂等键和持久事务，不能靠这个进程内字典宣称跨崩溃恰好执行一次。
 
-## 3. 新消息也可能属于旧执行
+## 3. 迟到消息
 
-下面沿同一个订单走一遍实际实验：
+消息顺序与接收决定如下：
 
 | 顺序 | 实际发生什么 | 接收方处理 |
 |---:|---|---|
@@ -101,7 +103,7 @@ if message["correlation_id"] != request["correlation_id"]:
 
 版本核对还必须覆盖真实输入，不能只比较消息头。请求绑定 stock-2，而文件在执行前变成 stock-3 时，执行者返回 `input_version_changed` 失败，要求重新委派；接收器也独立检查当前文档版本是否等于请求的 `input_version`。即使某个执行者漏掉前一层检查，stock-3 的证据仍会被拒绝为 `stale_input`。这里约定版本标识对应不可变快照，修改内容时必须更新版本。
 
-## 4. 合并必须知道出发时期待哪些任务
+## 4. 结果合并
 
 假设库存结果成功返回两次，政策结果一次都没来。消息数为 2，仍不代表两项工作都完成。`Case.merge(expected_tasks)` 按逻辑任务名核对：
 
@@ -115,7 +117,7 @@ return {"complete": not missing, "missing_tasks": missing,
 
 验证证据也在合并前做。假设回执把 `shortage` 改成 0，接收器根据原请求的订单和库存重算得到 1，于是返回 `invalid_evidence`，任务保持未完成。这说明消息格式正确、传输成功、结果达标分别是不同检查。
 
-## 5. 运行重发与迟到场景
+## 5. 消息实验
 
 在本章目录运行完整实验入口，依赖标准库和原始 fixture：
 
@@ -134,6 +136,6 @@ artifacts=runs/experiments
 
 本篇对应 `delivery/` 子目录：`messages.jsonl` 中包含请求重发、同 ID 改内容、旧 attempt、旧输入版本和错误关联 ID；`result.json` 的 `checks` 保存每条实际决定及预期。两次执行分别是一次快照不可用和一次正常读取，重复请求没有增加第三次执行。有效库存结果只有一份，缺口仍为 1。
 
-`handoff/` 子目录对应下一篇的责任移交。先确认本篇的消息没有改变 `delivery/result.json` 中的负责人：它仍是 `coordinator`，epoch 仍为 1。完成委派与移交控制权，是两件需要分别实现的事。
+`delivery/result.json` 中的负责人仍为 `coordinator`，epoch 为 1；委派没有转移控制权。交接记录保存在 `handoff/` 子目录。
 
-[下一篇：03｜交接上下文与控制权](03-context-and-ownership.md)
+[下一篇：03｜控制权交接](03-context-and-ownership.md)

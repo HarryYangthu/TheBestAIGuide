@@ -1,6 +1,8 @@
-# 03｜宿主怎样逐步加载与执行
+# 03｜渐进加载
 
-[阅读路线](README.md) · [上一篇](02-package-and-script.md) · [下一篇](04-validation-and-versioning.md)
+[阅读路线](README.md) · [上一篇：技能结构与脚本](02-package-and-script.md) · [下一篇：技能验收与版本管理](04-validation-and-versioning.md)
+
+本章总览图如下：
 
 ```mermaid
 flowchart TD
@@ -14,9 +16,9 @@ flowchart TD
     G --> H["验收并保存加载轨迹"]
 ```
 
-如果每次任务都先读取全部技能正文、参考表和脚本源码，宿主会把大量无关方法装进上下文。实际需求很小：先知道有哪些方法；确定本题需要哪个后再读步骤；步骤遇到单位差异时才取换算表。
+宿主先读取技能元数据，选中后读取方法正文，需要单位换算时再加载参考表，避免将无关内容加入上下文。
 
-## 第一层只读取名称和适用描述
+## 元数据加载
 
 [host.py](code/host.py) 的 `header()` 打开 SKILL.md，从开头读取到第二个 `---` 就停止。它提取 name、description、version，不读取后面的方法正文。
 
@@ -35,7 +37,7 @@ print(metadata["name"], metadata["version"])
 
 目录项用于选择，但不会执行包。当前选择规则很直接：task=compare 选择 release-comparison；task=polish 跳过。这个显式标签隔离了加载机制，未让一个预设字符串选择器伪装成模型语义判断。
 
-## 第二层读取选中方法，而不是所有方法
+## 方法加载
 
 `run()` 选中包后读取 SKILL.md 的 Markdown 正文。随后载入本次两份输入，保留 old.json、new.json 副本。记录同时保存文件内容的 SHA-256 与上下文字节数：
 
@@ -52,7 +54,7 @@ context_bytes 是 UTF-8 大小，不是 tokenizer 的 token 数。哈希用于�
 
 输入副本属于任务资料，方法属于可复用包。两者同时进入 trace，但 kind 分别为 input 与 method，便于检查哪一部分发生变化。
 
-## 第三层只在遇到差异时读取参考表
+## 附件加载
 
 宿主对比三个字段的 unit，只要有一处不同，就尝试加载 references/units.json 并把路径传给脚本。若旧包没有参考表，不会悄悄从新包借用；脚本随后返回 unit_conversion_required。这保证对比两个版本时实际使用的是各自完整的包。
 
@@ -60,7 +62,7 @@ context_bytes 是 UTF-8 大小，不是 tokenizer 的 token 数。哈希用于�
 
 实现中先根据单位差异决定是否读取参考表，再读取模板并执行。trace 中可以直接检查这个顺序，判断某个附件是否真的进入本次运行。
 
-## 对照 compare 和 polish 两条实际路径
+## 任务路由
 
 章节目录下的完整命令：
 
@@ -83,7 +85,7 @@ python code/host.py --task polish --output runs/polish
 
 polish 没有生成比较报告，是正确的跳过，而非任务失败。宿主在真实产品里还应把这一任务交给其他方法；本章的入口仅负责判断本技能是否加载。
 
-## 改成相同单位，再核对附件是否消失
+## 加载条件实验
 
 复制 v2.json 到新的输入文件，把 body 中的 `10000 ms` 改成 `10 s`，同时把 timeout 的 value、unit、quote 改成 10、s、`timeout = 10 s`。保存为 `runs/v2-seconds.json` 后执行：
 
@@ -93,6 +95,6 @@ python code/host.py --new runs/v2-seconds.json --output runs/same-units
 
 标准结果仍为 completed、acceptance=True，但 loaded_files 不再包含 references/units.json。数值结果应完全相同。`test_unchanged_units_skip_reference` 已在临时目录实际执行这个实验。
 
-这才是可观察的按需加载：本次没有需要该附件的步骤，因此没有读取它。节省多少字节由 trace 相加得到，不用虚构一个 token 节约比例。下一篇比较包版本，并检查加载了方法之后结果是否真的正确。
+相同单位不需要参考表，因此本次未加载该附件。加载字节数由 trace 统计，不能直接当作 token 数。
 
-[下一篇：验收、版本更新与回归实验](04-validation-and-versioning.md)
+[下一篇：技能验收与版本管理](04-validation-and-versioning.md)

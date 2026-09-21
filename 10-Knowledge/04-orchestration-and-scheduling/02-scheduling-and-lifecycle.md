@@ -1,6 +1,8 @@
-# 02｜就绪队列与子任务生命周期
+# 02｜任务状态与并发调度
 
-[阅读路线](README.md) · [上一篇](01-task-graph-and-roles.md) · [下一篇](03-results-and-replanning.md)
+[阅读路线](README.md) · [上一篇：01｜任务图与角色选择](01-task-graph-and-roles.md) · [下一篇：03｜结果合并与重规划](03-results-and-replanning.md)
+
+本章总览图如下：
 
 ```mermaid
 flowchart TD
@@ -13,9 +15,9 @@ flowchart TD
     F --> B["blocked 阻塞后继"]
 ```
 
-这一篇使用 [scheduler.py](code/scheduler.py) 与 [v2_schedule.py](code/v2_schedule.py)。工作目录、依赖与输入沿用 README：Python 3.11+、标准库、`fixtures/` 中的订单资料。代码节选展示新增的控制步骤，完整运行不需要手动拼接片段。
+实现见 [scheduler.py](code/scheduler.py) 与 [v2_schedule.py](code/v2_schedule.py)。运行环境为 Python 3.11+ 和标准库，工作目录为本章目录，输入为 `fixtures/` 中的订单资料。
 
-## 1. 有空位之前，先判断工作能不能开始
+## 1. 就绪条件
 
 库存、价格、政策互不依赖，可以先执行；报价要等库存和价格都成功。下列是 `Scheduler.run` 的节选，依赖已有的 `self.plan` 与 `self.states`，返回局部变量 `ready`，本身不打印：
 
@@ -30,7 +32,7 @@ ready = sorted(key for key, node in self.plan.items()
 
 这里检查的是前驱的**成功状态**。只检查“字典里有没有东西”会让 `{"error": "price missing"}` 也被误当作可用价格。实际业务函数应该按约定返回成功结果，或抛出明确异常，由调度器记录失败。
 
-## 2. 创建协程句柄以后，父任务仍然负责它
+## 2. 任务句柄与并发额度
 
 仅仅调用异步函数会得到协程对象；`asyncio.create_task` 才将其安排进事件循环。本章保留每个句柄对应的节点和角色，随后才能收集异常、归还名额与取消工作。[Python asyncio 任务文档](https://docs.python.org/3.11/library/asyncio-task.html#creating-tasks)
 
@@ -51,7 +53,7 @@ self.emit("start", key, role=role.name, active=len(self.running),
 
 `executions` 记录真正启动的节点次数。它和最大并发数不是同一个数字，也不是模型调用次数。一个真实子 Agent 节点内部可能调用模型多次，预算应同时在子循环中约束。本章额外使用 `max_executions=20`，防止整个计划跨重算无限启动节点。
 
-## 3. 每个执行者拿到自己的依赖结果
+## 3. 依赖结果快照
 
 一个执行者如果直接修改父任务中的嵌套字典，会悄悄污染其他分支。执行入口先复制直接前驱的结果，再包上超时和清理：
 
@@ -67,11 +69,11 @@ async def execute_child(self, node, role):
         self.emit("cleanup", node.task_id, role=role.name)
 ```
 
-这是完整实现中的方法定义，依赖该文件导入的 `asyncio`、`deepcopy` 与 `Scheduler` 字段；定义方法没有输出。调用返回执行者结果字典，或传播异常。`cleanup` 是这里已进入清理阶段的记录；当前业务函数只有内存与读取操作，没有需要关闭的长连接。接入客户端、临时目录等资源时，应把真正的释放动作放在相应 `finally` 或上下文管理器中。
+这是完整实现中的方法定义，依赖该文件导入的 `asyncio`、`deepcopy` 与 `Scheduler` 字段；定义方法没有输出。调用返回执行者结果字典，或传播异常。`cleanup` 是这里已进入清理阶段的记录；当前业务函数只有内存与读取操作，没有需要关闭的长连接。使用网络连接、临时目录等资源时，应把真正的释放动作放在相应 `finally` 或上下文管理器中。
 
 `context` 是该节点的输入快照，不是操作系统沙箱。`OrderWorker` 另外持有本次 fixture 的副本；它不是读取任意路径的模型。接入上一章的循环时，可将“任务说明 + 前驱结果”转换为独立消息历史，并让适配函数等待循环结束后返回同样的结果字典。调度器无需因此学会处理供应商的响应协议。
 
-## 4. 谁先完成，就先回收谁
+## 4. 结果回收
 
 如果总要等一批任务全部结束，快速任务释放出的空位也会闲置。本章等待任意任务完成，再重新检查依赖和空位。以下为 `run` 中的控制代码节选：
 
@@ -118,7 +120,7 @@ artifacts=runs/v2
 
 打开 `runs/v2/events.jsonl`，两个 `start` 会在第一条 `succeeded` 之前出现，表示父任务确实同时持有两个活动句柄。每个 `quote` 的 `start` 前都能找到 `stock` 和 `prices` 的 `succeeded`。具体哪些完成事件先后相邻受事件循环时序影响，不要用整份日志逐字比较；检查这些偏序关系即可。
 
-## 5. 超时、父任务取消，都需要归还名额
+## 5. 超时与取消
 
 单个节点超时由 `wait_for` 传播为异常，父任务将该节点标为 `failed`，角色计数已经减一。父任务整体取消则走另一条路径：把取消请求传给尚未完成的子句柄，再等待它们清理。
 
@@ -138,6 +140,6 @@ for handle in handles:
 
 `cancel()` 发出请求；`gather` 等待协程回应并结束。协程需要在可取消的等待点协作，超时也不是强行终止一段阻塞 CPU 代码。对于 CPU 密集或不可信工作，应使用可隔离管理的进程执行环境，这不由角色名称或 `async` 关键字自动完成。
 
-第四篇的取消实验会等任务确实启动后取消父任务，并检查子句柄已清空。当前篇完成了“谁能开始、谁正在执行、结束后谁负责回收”；下一篇继续决定结果是否可以合并，以及变化后哪些结果应该作废。
+[调度实验与标准库源码](04-experiments-and-source.md)中的取消场景在子任务启动后取消父任务，并检查子句柄已清空。
 
-[下一篇：03｜汇总、失败与局部重规划](03-results-and-replanning.md)
+[下一篇：03｜结果合并与重规划](03-results-and-replanning.md)

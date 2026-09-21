@@ -1,14 +1,14 @@
-# 01｜从一次模型调用到最小 Agent 循环
+# 01｜模型调用与最小 Agent 循环
 
 > 状态：draft
 
-[阅读路线](README.md) · 下一篇：[02｜为执行循环接入工具](02-tools-and-observations.md)
+[阅读路线](README.md) · 下一篇：[02｜工具调用](02-tools-and-observations.md)
 
-先看我们要完成的过程：程序把任务交给模型，执行模型提出的读取请求，再把文件内容交回模型。下面各节会从一次普通调用开始，逐步写出这张图。
+本章总览图如下：
 
 ```mermaid
 flowchart TD
-    A["1 配置客户端并输入 prompt"] --> B["2 模型生成 response"]
+    A["1 设置 API 参数与 prompt"] --> B["2 模型生成 response"]
     B --> C{"3 响应包含工具请求吗"}
     C -->|是| D["4 读取 notes.txt"]
     D --> E["5 请求和 observation 写入历史"]
@@ -22,7 +22,7 @@ flowchart TD
 
 **输出位置：** `runs/v0-…/`、`runs/v1-…/`。
 
-## 1. 配置客户端后就可以发起第一次模型调用
+## 1. API 配置与模型调用
 
 按 [README 的配置步骤](README.md) 安装依赖并填写 `.env`：
 
@@ -32,7 +32,7 @@ OPENAI_API_KEY=你的实际密钥
 OPENAI_MODEL=你的模型名
 ```
 
-URL 是基础地址，例如 `https://api.openai.com/v1`；SDK 会补上接口路径。下面的完整片段可以在章节目录的 Python 中执行：
+代码从 `.env` 读取 URL、API Key 和模型名。`OpenAI(...)` 创建用于发送 API 请求的 SDK 对象，赋给变量 `client`。URL 填基础地址，SDK 会补上接口路径。下面的完整片段在章节目录执行：
 
 ```python
 import os
@@ -61,7 +61,7 @@ print(response.choices[0].message.content)
 | 对象 | 在这段代码中表示什么 |
 |---|---|
 | prompt | 本次交给模型的输入，包含 `messages` 中的问题 |
-| `client` | 配好地址和密钥的 OpenAI 客户端 |
+| `client` | `OpenAI(...)` 创建的 SDK 对象，用于发送 API 请求 |
 | `response` | API 返回的完整响应对象 |
 | `response.choices[0].message` | 第一条候选回答的消息对象 |
 | `message.content` | 回答正文 |
@@ -82,7 +82,7 @@ artifacts=<本次运行目录>
 
 打开该目录的 `requests.jsonl`，能看到最初的问题；打开 `responses.jsonl`，能看到完整响应；`answer.md` 保存回答正文。
 
-## 2. 真实文件让模型有了可以读取的外部信息
+## 2. 输入文件
 
 根目录已经有一份 `notes.txt`，内容是：
 
@@ -122,9 +122,9 @@ saved=runs/input-preview.txt
 
 接下来把任务交给模型：“读取 `notes.txt`，告诉我本周完成了什么。”这一次，模型需要请求程序提供文件内容。
 
-## 3. 工具定义让模型能够提出读取请求
+## 3. 工具定义
 
-给模型的工具定义描述名称、用途和参数。下面使用 Chat Completions 的函数工具格式，代码可接在第 1 节的客户端初始化之后：
+给模型的工具定义描述名称、用途和参数。下面使用 Chat Completions 的函数工具格式，代码可接在第 1 节创建 `client` 之后：
 
 ```python
 tools = [{
@@ -173,7 +173,7 @@ print(message.model_dump_json(indent=2))
 
 `call_xxx` 由服务生成，实际值会不同。这里还没有文件内容，只有“请读取哪个文件”的请求。[OpenAI 工具调用文档](https://developers.openai.com/api/docs/guides/function-calling)
 
-## 4. 程序解析参数并执行真实的文件读取
+## 4. 参数解析与工具执行
 
 `function.arguments` 是一段 JSON **字符串**，需要用 `json.loads` 转成 Python 字典，才能取出 `path`。以下代码接在上一段之后：
 
@@ -210,7 +210,7 @@ dict
 
 observation 就是操作后的观察结果。本例是文本，执行测试时可以换成检查结果，查询数据库时可以换成记录。
 
-## 5. 请求和观察结果一起进入下一次模型输入
+## 5. 结果回传
 
 模型生成的请求与程序执行的结果，需要一起保留：
 
@@ -245,7 +245,7 @@ print(response.choices[0].message.content)
 
 **第二行参考输出：** `本周完成了工具接入与循环日志。`
 
-第二次调用通过 `tool_choice="none"` 要求模型直接回答。这样我们手动走完了总览图里的一个完整往返。
+第二次调用通过 `tool_choice="none"` 要求模型直接回答。模型将根据回传的文件内容生成回答。
 
 | 顺序 | 消息角色 | 保存的信息 |
 |---:|---|---|
@@ -275,7 +275,7 @@ python code/v1_minimal_loop.py --manual
 
 成功时，控制台显示 `reason=manual_two_calls`。此入口同样为两次请求配置了工具选择规则；打开 `requests.jsonl` 的第 2 行，应能找到文件内容。
 
-## 6. 本文用一个响应字典连接 API 与执行循环
+## 6. 响应格式转换
 
 随着代码变长，我们把 SDK 字段读取集中到 `openai_model.py`。本文循环中的 `response` 是一个 Python 字典：
 
@@ -319,7 +319,7 @@ def normalize_message(message):
 
 下一次请求 API 时，`api_messages()` 再把工具名放回 `function.name`，用 `json.dumps` 把参数转回 JSON 字符串。`requests.jsonl` 保存发给 API 的格式，`messages.json` 保存本文循环使用的格式，可并排打开比较。
 
-## 7. 一个循环可以替代不断增加的手动调用
+## 7. 最小执行循环
 
 手动版本只处理一次工具调用。如果模型还要继续操作，就需要重复“请求模型 → 执行工具 → 追加结果”。下面是 `v1_minimal_loop.py` 的核心函数，所需导入和工具定义在同一文件中：
 
@@ -363,7 +363,7 @@ artifacts=<本次运行目录>
 
 本版把“没有工具请求”作为退出规则，并用调用上限防止无限循环。第三篇会增加明确的结束信号，第四篇再处理空响应等情况。
 
-## 8. 修改输入后可以对照模型看到的内容与最终回答
+## 8. 运行结果
 
 打开本次目录，按下面顺序查看：
 
@@ -377,6 +377,6 @@ artifacts=<本次运行目录>
 
 将根目录 `notes.txt` 改成“本周完成了参数校验，但还没有加入错误重试。”，再运行 v1。比较两个运行目录的输入副本、后续请求和回答。
 
-这时，总览图中的每个节点都有了对应代码与文件。下一篇会在同一条循环里加入写入和检查工具，完成 `stats.py` 的修复任务。
+下一篇加入写入和检查工具，完成 `stats.py` 的修复任务。
 
-[下一篇：02｜为执行循环接入工具](02-tools-and-observations.md)
+[下一篇：02｜工具调用](02-tools-and-observations.md)
