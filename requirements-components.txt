@@ -1,0 +1,9 @@
+# Dependencies for the 15 Agent component chapters (Python 3.12 in CI).
+# Individual readers can install only their chapter's requirements.txt.
+-r 10-Knowledge/01-task-contracts/requirements.txt
+-r 10-Knowledge/02-model-adapters/requirements.txt
+-r 10-Knowledge/03-agent-loop/requirements.txt
+-r 10-Knowledge/06-context-management/requirements.txt
+-r 10-Knowledge/10-evaluation-and-acceptance/requirements.txt
+-r 10-Knowledge/11-trace-and-observability/requirements.txt
+-r 10-Knowledge/15-self-improvement/requirements.txt

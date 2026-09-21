@@ -1,0 +1,16 @@
+{
+  "repository": "https://github.com/python/cpython",
+  "version": "v3.12.8",
+  "files": [
+    {
+      "path": "upstream/Modules/_sqlite/connection.c",
+      "url": "https://raw.githubusercontent.com/python/cpython/v3.12.8/Modules/_sqlite/connection.c",
+      "sha256": "c33db9525cbc9887293c1cbdc03e0d8a3a3201e7dae98392452a40196e850070"
+    },
+    {
+      "path": "upstream/LICENSE",
+      "url": "https://raw.githubusercontent.com/python/cpython/v3.12.8/LICENSE",
+      "sha256": "3b2f81fe21d181c499c59a256c8e1968455d6689d269aa85373bfb6af41da3bf"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "checks": {
+    "report_title": true,
+    "versions": true,
+    "product": true,
+    "stable": true,
+    "axes": true,
+    "timeout_old": true,
+    "timeout_old_report": true,
+    "timeout_new": true,
+    "timeout_new_report": true,
+    "timeout_changed": true,
+    "timeout_report_values": true,
+    "retry_limit_old": true,
+    "retry_limit_old_report": true,
+    "retry_limit_new": true,
+    "retry_limit_new_report": true,
+    "retry_limit_changed": true,
+    "retry_limit_report_values": true,
+    "batch_size_old": true,
+    "batch_size_old_report": true,
+    "batch_size_new": true,
+    "batch_size_new_report": true,
+    "batch_size_changed": true,
+    "batch_size_report_values": true
+  }
+}

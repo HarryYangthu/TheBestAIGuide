@@ -6,7 +6,7 @@
   "license": "MIT",
   "license_file": "LICENSE.OpenHands",
   "snapshot_path_base": "sources/",
-  "note": "Snapshots reused from previously saved pinned sources. SHA-256 and Git blob SHA recomputed locally. Remote tag/commit could not be freshly fetched in this run. Excerpts are exact inclusive 1-based line slices, preserve indentation and LF. No SDK/API run is claimed.",
+  "note": "Pinned source snapshots and MIT license re-fetched from the upstream commit on 2026-09-20; SHA-256 matches all local copies. Remote v1.49.2 tag resolves to the recorded commit. Excerpts preserve exact inclusive 1-based line slices and LF. No SDK/API run is claimed.",
   "snapshots": [
     {
       "upstream_path": "openhands-sdk/openhands/sdk/agent/agent.py",
@@ -160,14 +160,19 @@
   "verification": {
     "date": "2026-09-20",
     "snapshot_source": "previously saved local pinned snapshot",
-    "remote_revalidated": false,
+    "remote_revalidated": true,
     "sdk_executed": false,
     "method": [
       "SHA-256",
       "Git blob SHA-1",
       "exact line-slice comparison",
-      "Markdown excerpt comparison"
-    ]
+      "Markdown excerpt comparison",
+      "upstream raw source SHA-256 comparison",
+      "git ls-remote pinned release tag"
+    ],
+    "remote_tag_commit": "d128a786ee2ee570eb23ff5862ec148b43cfad0b",
+    "remote_files_matched": 6,
+    "remote_license_matched": true
   },
   "license_sha256": "14a9b631c658eee682c6c2973525fbdf808c3457176bc47513052c559cc5ce86"
 }

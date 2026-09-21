@@ -1,0 +1,44 @@
+[
+  {
+    "case": "serial",
+    "accepted": true,
+    "total_cents": 5200,
+    "executions": 6,
+    "peak_active": 1
+  },
+  {
+    "case": "parallel",
+    "accepted": true,
+    "total_cents": 5200,
+    "executions": 6,
+    "peak_active": 2
+  },
+  {
+    "case": "missing_price",
+    "accepted": false,
+    "total_cents": null,
+    "executions": 3,
+    "peak_active": 2
+  },
+  {
+    "case": "price_changed",
+    "accepted": true,
+    "total_cents": 5800,
+    "executions": 10,
+    "peak_active": 2
+  },
+  {
+    "case": "plan_changed",
+    "accepted": true,
+    "total_cents": 6000,
+    "executions": 11,
+    "peak_active": 2
+  },
+  {
+    "case": "cancelled",
+    "accepted": false,
+    "total_cents": null,
+    "executions": 2,
+    "peak_active": 2
+  }
+]

@@ -1,0 +1,14 @@
+{
+  "project": "CPython",
+  "tag": "v3.12.10",
+  "retrieved": "2026-09-20",
+  "license": "LICENSE.CPython",
+  "files": [
+    {
+      "local": "connection.c",
+      "upstream_path": "Modules/_sqlite/connection.c",
+      "url": "https://raw.githubusercontent.com/python/cpython/v3.12.10/Modules/_sqlite/connection.c",
+      "sha256": "3f231359af5c4c7c48579015892ee66e22a4136e407be5a830254f3a70c84037"
+    }
+  ]
+}

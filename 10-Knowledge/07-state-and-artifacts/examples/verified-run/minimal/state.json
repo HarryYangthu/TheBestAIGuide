@@ -1,0 +1,11 @@
+{
+  "acceptance": "not_run",
+  "budget": 4,
+  "next_step": "check",
+  "refs": {
+    "code_path": "stats.py"
+  },
+  "schema_version": 1,
+  "status": "running",
+  "task_id": "repair-mean"
+}

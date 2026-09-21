@@ -1,0 +1,3 @@
+service=search
+owner=search-platform
+timeout_ms=700

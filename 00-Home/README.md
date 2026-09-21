@@ -6,7 +6,7 @@
 |---|---|
 | [连续学习路线](Learning-Paths.md) | 从模型调用逐步进入工具、状态、协作与恢复 |
 | [组件地图](Knowledge-Map.md) | 把运行中的问题对应到组件职责 |
-| [知识库建设状态](Knowledge-Status.md) | 区分已交付章节、待展开内容与历史记录 |
+| [知识库建设状态](Knowledge-Status.md) | 查看章节验证范围与历史记录 |
 | [旧知识库](../10-Knowledge/_archive/README.md) | 查阅原 16 个领域和已有实验 |
 | [项目总表](../20-Projects/README.md) | 选择跨组件的实践项目 |
 | [核心术语表](Glossary.md) | 对照 Context、State、Memory、Runtime 和 Harness 等概念 |

@@ -1,0 +1,9 @@
+{
+  "after_passed": 4,
+  "before_passed": 1,
+  "stale_dependencies": [
+    "code"
+  ],
+  "state_version": 5,
+  "status": "completed"
+}

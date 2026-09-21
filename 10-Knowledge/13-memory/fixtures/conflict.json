@@ -1,0 +1,14 @@
+{
+  "id": "fact-timeout-conflict",
+  "kind": "fact",
+  "key": "timeout_ms",
+  "value": 4000,
+  "service": "checkout",
+  "environment": "production",
+  "user": "*",
+  "source_id": "policy-ambiguous",
+  "valid_from": "2026-09-20",
+  "expires_at": "2026-10-01",
+  "conditions": {},
+  "supersedes": []
+}

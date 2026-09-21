@@ -9,7 +9,9 @@ from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
-SKIP = {'.git', '.venv', 'node_modules', '__pycache__', 'dist', 'build'}
+# Generated run workspaces can contain copied code and model-authored Markdown.
+# They are outputs to inspect, not additional source documents or test suites.
+SKIP = {'.git', '.venv', 'node_modules', '__pycache__', 'dist', 'build', 'runs', '.runs'}
 
 def visible_markdown(text):
     lines = []

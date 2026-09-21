@@ -1,0 +1,9 @@
+{
+  "acceptance": "not_run",
+  "budget": 3,
+  "next_step": "inspect",
+  "refs": {},
+  "schema_version": 1,
+  "status": "running",
+  "task_id": "repair-mean"
+}

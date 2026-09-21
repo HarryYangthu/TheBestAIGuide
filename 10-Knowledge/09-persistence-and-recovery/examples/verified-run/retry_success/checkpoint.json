@@ -1,0 +1,34 @@
+{
+  "operation": {
+    "attempts": 3,
+    "id": 1,
+    "op_key": "[\"tenant-a/reports/v1\",\"batch-1\",\"publish\",1]",
+    "payload": "[{\"item_id\":\"A\",\"item_index\":0,\"mean\":3.0},{\"item_id\":\"B\",\"item_index\":1,\"mean\":0.0},{\"item_id\":\"C\",\"item_index\":2,\"mean\":10.0}]",
+    "receipt": "{\"publication_id\":\"caee05db0f44de22\",\"request_hash\":\"05dc243d01c67dea136d85710603c7c2daed13ce916f4913e9897a811128c2e6\"}",
+    "status": "confirmed"
+  },
+  "results": [
+    {
+      "item_id": "A",
+      "item_index": 0,
+      "mean": 3.0
+    },
+    {
+      "item_id": "B",
+      "item_index": 1,
+      "mean": 0.0
+    },
+    {
+      "item_id": "C",
+      "item_index": 2,
+      "mean": 10.0
+    }
+  ],
+  "task": {
+    "cancel_requested": 0,
+    "config": "{\"code_sha256\":\"dfd049f6a0288945fa7d70b91dce8ca05c01ab62315cc020df80c0cd77439804\",\"expires_at\":null,\"input_sha256\":\"ea1cd085b905b6d2392da2ca22b5501a8720111f9d6bf8b60f7a4741ca860084\",\"max_attempts\":3,\"run_id\":\"batch-1\",\"schema_version\":1,\"scope\":\"tenant-a/reports/v1\"}",
+    "id": 1,
+    "next_index": 3,
+    "status": "completed"
+  }
+}

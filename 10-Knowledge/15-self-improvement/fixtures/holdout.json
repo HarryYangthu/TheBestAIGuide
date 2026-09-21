@@ -1,0 +1,38 @@
+[
+  {
+    "id": "uppercase",
+    "input": "uppercase.csv",
+    "expected": {
+      "total_cents": 600,
+      "paid_rows": 1,
+      "rejected_rows": []
+    }
+  },
+  {
+    "id": "empty",
+    "input": "empty.csv",
+    "expected": {
+      "total_cents": 0,
+      "paid_rows": 0,
+      "rejected_rows": []
+    }
+  },
+  {
+    "id": "pending",
+    "input": "pending.csv",
+    "expected": {
+      "total_cents": 0,
+      "paid_rows": 0,
+      "rejected_rows": []
+    }
+  },
+  {
+    "id": "cents",
+    "input": "cents.csv",
+    "expected": {
+      "total_cents": 30,
+      "paid_rows": 2,
+      "rejected_rows": []
+    }
+  }
+]

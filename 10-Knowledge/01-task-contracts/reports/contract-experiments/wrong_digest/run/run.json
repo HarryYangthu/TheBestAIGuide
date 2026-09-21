@@ -1,0 +1,26 @@
+{
+  "run_id": "run-2bb92b0a8e204a608c55caacca0e7e85",
+  "task_id": "weekly-ticket-hours",
+  "task_version": 1,
+  "attempt": 1,
+  "status": "failed",
+  "acceptance": {
+    "passed": false,
+    "checks": {
+      "task_identity": true,
+      "run_identity": true,
+      "source_digest": false,
+      "exact_ids": true,
+      "count": true,
+      "minimum_done": true,
+      "total_hours": true,
+      "mean_hours": true
+    }
+  },
+  "error": {
+    "code": "acceptance_failed",
+    "stage": "accept",
+    "detail": "source_digest",
+    "retryable": false
+  }
+}

@@ -1,0 +1,78 @@
+[
+  {
+    "id": "e1",
+    "role": "user",
+    "text": "先考虑 alpha 和 beta 两个租户。",
+    "fact": {
+      "key": "allowed_tenants",
+      "value": "alpha,beta"
+    }
+  },
+  {
+    "id": "e2",
+    "role": "assistant",
+    "text": "已检查旧方案的服务启动日志；下一步查看当前生产发布条件。"
+  },
+  {
+    "id": "e3",
+    "role": "assistant",
+    "text": "已检查旧方案的服务启动日志；下一步查看当前生产发布条件。"
+  },
+  {
+    "id": "e4",
+    "role": "assistant",
+    "text": "已检查旧方案的服务启动日志；下一步查看当前生产发布条件。"
+  },
+  {
+    "id": "e5",
+    "role": "assistant",
+    "text": "已检查旧方案的服务启动日志；下一步查看当前生产发布条件。"
+  },
+  {
+    "id": "e6",
+    "role": "assistant",
+    "text": "已检查旧方案的服务启动日志；下一步查看当前生产发布条件。"
+  },
+  {
+    "id": "e7",
+    "role": "assistant",
+    "text": "已检查旧方案的服务启动日志；下一步查看当前生产发布条件。"
+  },
+  {
+    "id": "e8",
+    "role": "assistant",
+    "text": "已检查旧方案的服务启动日志；下一步查看当前生产发布条件。"
+  },
+  {
+    "id": "e9",
+    "role": "assistant",
+    "text": "已检查旧方案的服务启动日志；下一步查看当前生产发布条件。"
+  },
+  {
+    "id": "e10",
+    "role": "user",
+    "text": "更正：本次只允许 alpha，beta 不进入灰度。",
+    "fact": {
+      "key": "allowed_tenants",
+      "value": "alpha"
+    }
+  },
+  {
+    "id": "e11",
+    "role": "tool",
+    "text": "当前生产政策 v3 的超时为 3000 毫秒。",
+    "fact": {
+      "key": "timeout_ms",
+      "value": 3000
+    }
+  },
+  {
+    "id": "e12",
+    "role": "tool",
+    "text": "当前生产政策 v3：错误率超过 2% 必须回滚。",
+    "fact": {
+      "key": "rollback_errors_pct",
+      "value": 2
+    }
+  }
+]

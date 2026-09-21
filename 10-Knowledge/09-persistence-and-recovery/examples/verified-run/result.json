@@ -1,0 +1,272 @@
+{
+  "key_scope": {
+    "changed_payload_rejected": true,
+    "effects_after_new_run_id": 2,
+    "same_key_same_receipt": true
+  },
+  "python": "3.12.14",
+  "scenarios": [
+    {
+      "after": {
+        "acceptance": true,
+        "attempts": 1,
+        "effect_count": 1,
+        "item_commits": 3,
+        "next_index": 3,
+        "operation_status": "confirmed",
+        "status": "completed"
+      },
+      "before": {
+        "acceptance": true,
+        "attempts": 1,
+        "effect_count": 1,
+        "item_commits": 3,
+        "next_index": 3,
+        "operation_status": "confirmed",
+        "status": "completed"
+      },
+      "exit_code": 0,
+      "scenario": "normal"
+    },
+    {
+      "after": {
+        "acceptance": true,
+        "attempts": 1,
+        "effect_count": 1,
+        "item_commits": 3,
+        "next_index": 3,
+        "operation_status": "confirmed",
+        "status": "completed"
+      },
+      "before": {
+        "acceptance": false,
+        "attempts": 0,
+        "effect_count": 0,
+        "item_commits": 1,
+        "next_index": 1,
+        "operation_status": null,
+        "status": "running"
+      },
+      "exit_code": 71,
+      "scenario": "after_item"
+    },
+    {
+      "after": {
+        "acceptance": true,
+        "attempts": 1,
+        "effect_count": 1,
+        "item_commits": 3,
+        "next_index": 3,
+        "operation_status": "confirmed",
+        "status": "completed"
+      },
+      "before": {
+        "acceptance": false,
+        "attempts": 0,
+        "effect_count": 0,
+        "item_commits": 3,
+        "next_index": 3,
+        "operation_status": "prepared",
+        "status": "running"
+      },
+      "exit_code": 70,
+      "scenario": "after_prepare"
+    },
+    {
+      "after": {
+        "acceptance": true,
+        "attempts": 1,
+        "effect_count": 1,
+        "item_commits": 3,
+        "next_index": 3,
+        "operation_status": "confirmed",
+        "status": "completed"
+      },
+      "before": {
+        "acceptance": false,
+        "attempts": 1,
+        "effect_count": 1,
+        "item_commits": 3,
+        "next_index": 3,
+        "operation_status": "inflight",
+        "status": "running"
+      },
+      "exit_code": 72,
+      "scenario": "after_effect"
+    },
+    {
+      "after": {
+        "acceptance": true,
+        "attempts": 1,
+        "effect_count": 1,
+        "item_commits": 3,
+        "next_index": 3,
+        "operation_status": "confirmed",
+        "status": "completed"
+      },
+      "before": {
+        "acceptance": false,
+        "attempts": 1,
+        "effect_count": 1,
+        "item_commits": 3,
+        "next_index": 3,
+        "operation_status": "confirmed",
+        "status": "running"
+      },
+      "exit_code": 73,
+      "scenario": "after_receipt"
+    },
+    {
+      "after": {
+        "acceptance": true,
+        "attempts": 3,
+        "effect_count": 1,
+        "item_commits": 3,
+        "next_index": 3,
+        "operation_status": "confirmed",
+        "status": "completed"
+      },
+      "before": {
+        "acceptance": true,
+        "attempts": 3,
+        "effect_count": 1,
+        "item_commits": 3,
+        "next_index": 3,
+        "operation_status": "confirmed",
+        "status": "completed"
+      },
+      "scenario": "retry_success"
+    },
+    {
+      "after": {
+        "acceptance": false,
+        "attempts": 3,
+        "effect_count": 0,
+        "item_commits": 3,
+        "next_index": 3,
+        "operation_status": "retryable",
+        "status": "failed"
+      },
+      "before": {
+        "acceptance": false,
+        "attempts": 3,
+        "effect_count": 0,
+        "item_commits": 3,
+        "next_index": 3,
+        "operation_status": "retryable",
+        "status": "failed"
+      },
+      "scenario": "retry_exhausted"
+    },
+    {
+      "after": {
+        "acceptance": true,
+        "attempts": 2,
+        "effect_count": 1,
+        "item_commits": 3,
+        "next_index": 3,
+        "operation_status": "confirmed",
+        "status": "completed"
+      },
+      "before": {
+        "acceptance": false,
+        "attempts": 1,
+        "effect_count": 0,
+        "item_commits": 3,
+        "next_index": 3,
+        "operation_status": "inflight",
+        "status": "running"
+      },
+      "scenario": "timeout",
+      "termination": {
+        "killed": true,
+        "returncode": -9
+      }
+    },
+    {
+      "after": {
+        "acceptance": false,
+        "attempts": 0,
+        "effect_count": 0,
+        "item_commits": 0,
+        "next_index": 0,
+        "operation_status": null,
+        "status": "timed_out"
+      },
+      "before": {
+        "acceptance": false,
+        "attempts": 0,
+        "effect_count": 0,
+        "item_commits": 0,
+        "next_index": 0,
+        "operation_status": null,
+        "status": "timed_out"
+      },
+      "scenario": "expired"
+    },
+    {
+      "after": {
+        "acceptance": false,
+        "attempts": 0,
+        "effect_count": 0,
+        "item_commits": 0,
+        "next_index": 0,
+        "operation_status": null,
+        "status": "cancelled"
+      },
+      "before": {
+        "acceptance": false,
+        "attempts": 0,
+        "effect_count": 0,
+        "item_commits": 0,
+        "next_index": 0,
+        "operation_status": null,
+        "status": "running"
+      },
+      "scenario": "cancel_before"
+    },
+    {
+      "after": {
+        "acceptance": false,
+        "attempts": 0,
+        "effect_count": 0,
+        "item_commits": 1,
+        "next_index": 1,
+        "operation_status": null,
+        "status": "cancelled"
+      },
+      "before": {
+        "acceptance": false,
+        "attempts": 0,
+        "effect_count": 0,
+        "item_commits": 1,
+        "next_index": 1,
+        "operation_status": null,
+        "status": "running"
+      },
+      "scenario": "cancel_after_item"
+    },
+    {
+      "after": {
+        "acceptance": false,
+        "attempts": 1,
+        "effect_count": 1,
+        "item_commits": 3,
+        "next_index": 3,
+        "operation_status": "confirmed",
+        "status": "cancelled"
+      },
+      "before": {
+        "acceptance": false,
+        "attempts": 1,
+        "effect_count": 1,
+        "item_commits": 3,
+        "next_index": 3,
+        "operation_status": "inflight",
+        "status": "running"
+      },
+      "scenario": "cancel_after_effect"
+    }
+  ],
+  "sqlite": "3.53.1"
+}

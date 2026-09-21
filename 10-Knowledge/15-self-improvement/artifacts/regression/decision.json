@@ -1,0 +1,104 @@
+{
+  "passed": false,
+  "checks": {
+    "dev_no_regressions": false,
+    "dev_resource_budget": true,
+    "holdout_no_regressions": true,
+    "holdout_resource_budget": true,
+    "dev_has_improvement": true,
+    "holdout_all_pass": true
+  },
+  "pairs": {
+    "dev": [
+      {
+        "task_id": "invalid",
+        "trial": 0,
+        "delta": 1
+      },
+      {
+        "task_id": "invalid",
+        "trial": 1,
+        "delta": 1
+      },
+      {
+        "task_id": "negative",
+        "trial": 0,
+        "delta": -1
+      },
+      {
+        "task_id": "negative",
+        "trial": 1,
+        "delta": -1
+      },
+      {
+        "task_id": "plain",
+        "trial": 0,
+        "delta": 0
+      },
+      {
+        "task_id": "plain",
+        "trial": 1,
+        "delta": 0
+      },
+      {
+        "task_id": "whitespace",
+        "trial": 0,
+        "delta": 1
+      },
+      {
+        "task_id": "whitespace",
+        "trial": 1,
+        "delta": 1
+      }
+    ],
+    "holdout": [
+      {
+        "task_id": "cents",
+        "trial": 0,
+        "delta": 0
+      },
+      {
+        "task_id": "cents",
+        "trial": 1,
+        "delta": 0
+      },
+      {
+        "task_id": "empty",
+        "trial": 0,
+        "delta": 0
+      },
+      {
+        "task_id": "empty",
+        "trial": 1,
+        "delta": 0
+      },
+      {
+        "task_id": "pending",
+        "trial": 0,
+        "delta": 0
+      },
+      {
+        "task_id": "pending",
+        "trial": 1,
+        "delta": 0
+      },
+      {
+        "task_id": "uppercase",
+        "trial": 0,
+        "delta": 1
+      },
+      {
+        "task_id": "uppercase",
+        "trial": 1,
+        "delta": 1
+      }
+    ]
+  },
+  "budget": {
+    "max_tool_calls_per_run": 1
+  },
+  "cost_comparison": "unavailable: model_cost_usd not instrumented",
+  "baseline": "1c716cce8e777830",
+  "candidate": "96622959520dabe1",
+  "adopted": false
+}
