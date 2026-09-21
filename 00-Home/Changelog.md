@@ -12,7 +12,7 @@
 
 - 将原 16 个领域归档到 `10-Knowledge/_archive/`，保留正文、代码、Notebook 和历史输出，调整必要链接与运行路径。
 - 按 12 个核心组件和 Memory、Skills、自进化建立目录，其余待展开章节先提供范围与旧资料入口。
-- 接入 `10-Knowledge/02_Harness/03-agent-loop/`：六份阅读文件、真实输入样例、OpenAI SDK 配置、v0—v4 代码、运行产物与 OpenHands 源码快照。
+- 接入 `10-Knowledge/02 Agent Harness/03-agent-loop/`：六份阅读文件、真实输入样例、OpenAI SDK 配置、v0—v4 代码、运行产物与 OpenHands 源码快照。
 - 更新首页、学习路线、组件地图、目录约定和检查配置。
 
 ## 2026-09-17：把 Agent 组件展开成独立教程

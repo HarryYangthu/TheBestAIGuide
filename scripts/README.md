@@ -59,7 +59,7 @@ npm ci --prefix 10-Knowledge/_archive/05-tools-skills-protocols/05-code/mcp-serv
 python scripts/check_notebooks.py --execute --skip-api
 ```
 
-命令中的 `--skip-api` 会对标记了 `aiguide.requires_api_key` 的 Notebook 检查格式并记录 `execution_skipped: requires_api_key`，继续执行其余 Notebook。新接入的 [Agent 执行循环实验](../10-Knowledge/02_Harness/03-agent-loop/05-loop-experiments.ipynb) 默认调用真实 API；配置好密钥后可以在该 Notebook 中逐格运行，或用 `--execute` 指定它的路径。
+命令中的 `--skip-api` 会对标记了 `aiguide.requires_api_key` 的 Notebook 检查格式并记录 `execution_skipped: requires_api_key`，继续执行其余 Notebook。新接入的 [Agent 执行循环实验](../10-Knowledge/02%20Agent%20Harness/03-agent-loop/05-loop-experiments.ipynb) 默认调用真实 API；配置好密钥后可以在该 Notebook 中逐格运行，或用 `--execute` 指定它的路径。
 
 上述批量命令不下载预训练语言模型，也不调用付费 API。Tiny Transformer 会在构造的小数据上实际训练；学习工作台 Notebook 会读取仓库中的历史模型报告，运行当下的离线实验，二者在各本 Notebook 中分别标明。想重跑预训练模型，按[工作台的可选模型步骤](../20-Projects/learning-workbench/README.md)安装 `requirements-learning.txt` 并下载固定模型。
 
