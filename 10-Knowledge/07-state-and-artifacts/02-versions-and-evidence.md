@@ -1,6 +1,8 @@
-# 02｜让方案、代码与证据指向同一版
+# 02｜产物版本
 
-[阅读路线](README.md) · [上一篇](01-state-and-files.md) · [下一篇：并发更新](03-concurrent-updates.md)
+[阅读路线](README.md) · [上一篇：任务状态](01-state-and-files.md) · [下一篇：并发更新](03-concurrent-updates.md)
+
+本章总览图如下：
 
 ```mermaid
 flowchart TD
@@ -14,9 +16,9 @@ flowchart TD
     V -->|旧引用或失败| R["重做受影响步骤"]
 ```
 
-要交付的是一份代码及其可核对的验证依据。图中箭头表示“右侧产物使用了左侧的哪个版本”，而不是“这两个步骤曾经先后执行过”。本篇的完整入口是 `code/demo.py versions`。
+箭头表示产物对精确上游版本的依赖。完整入口为 `code/demo.py versions`。
 
-## 1. 先给内容一个不会随路径变化的标识
+## 1. 内容标识
 
 如果把每次结果都覆盖到 `report.json`，旧状态中的路径仍然有效，内容却已变化。先看**可在章节目录直接运行的完整片段**：
 
@@ -58,7 +60,7 @@ print(original == changed)
 | `objects/<id>/meta.json` | 内容身份和来源关系 |
 | `objects/<id>/payload.*` | 真正供读取、运行或交付的字节 |
 
-## 2. 写完产物，再让状态引用它
+## 2. 产物引用
 
 `put()` 先写临时目录中的 `payload.*` 和 `meta.json`，然后把整个目录重命名到最终 ID。相同内容的并发创建者若发现目标已存在，会检查目标内容，再复用同一个 ID。调用者拿到 ID 后才更新 SQLite 状态。
 
@@ -76,7 +78,7 @@ version = store.save(state, version)
 
 `stale` 在这次运行中为 `['code']`。旧证据文件仍保留在磁盘，内容也没有损坏，只是它对应的代码已不再是当前代码。
 
-## 3. 方案改变时，沿依赖重做必要步骤
+## 3. 依赖与失效
 
 两版方案是实际文件，可以并排打开：
 
@@ -98,7 +100,7 @@ def mean(values):
 
 证据和实验结果也分开保存。证据保存每个用例的输入、观察值与通过状态；实验结果保存两版通过数量及它采用的最终证据 ID。一个“4/4”的数字如果没有引用真实证据，就无法追溯究竟测了哪一版。
 
-## 4. 运行并检查四个实际返回值
+## 4. 版本对照实验
 
 在章节目录执行：
 
@@ -124,7 +126,7 @@ artifacts=runs/versions-1
 
 子进程执行的是仓库中的固定样本，不是对任意来源代码的安全沙箱。`timeout=5` 限制这次运行的等待，执行环境的权限和隔离见第 08 组件。
 
-## 5. 完成前核对内容、版本和行为
+## 5. 产物验收
 
 [state.complete](code/state.py) 是最终关口。以下是其**源码节选**，定义本身无输出；完整函数返回一份 `status=completed` 的新状态，校验不通过则抛 `ValueError`：
 
@@ -140,7 +142,7 @@ for name in ("code", "evidence", "experiment"):
 
 仅把 `refs.plan` 换成新方案，代码会因旧方案引用而失效；更换代码会使证据失效；更换证据会使实验结果失效。这种保守规则会在“只是方案措辞改变”的情况下多做一些检查，但避免静默复用来源不明的结论。
 
-## 6. 修改一个字节，观察两种不同失败
+## 6. 篡改与旧证据
 
 完整自动检查命令是：
 
@@ -151,5 +153,3 @@ python -m unittest discover -s code -p 'test_state.py' -v
 `test_tamper_is_detected_even_with_same_path` 会原地修改已登记的 `payload.py`，然后调用 `Artifacts.read()`，得到 `payload mismatch`。
 
 `test_change_invalidates_old_passed_evidence` 则通过 `put()` 创建新代码产物，再把状态中的代码引用换过去，保留原来的通过证据。文件哈希都正确，但 `complete()` 拒绝 `stale evidence`：文件完整，依赖版本不一致。可把测试中的新代码改为行为正确、仅注释不同的版本，仍应失效，因为检查器采用精确版本匹配。
-
-下一篇再解决另一类风险：两个写者各自拥有合法产物，却基于同一份旧状态提交。

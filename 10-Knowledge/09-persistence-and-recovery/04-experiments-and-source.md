@@ -1,6 +1,8 @@
-# 04｜运行故障矩阵并对照标准库源码
+# 04｜故障实验与源码
 
-[阅读路线](README.md) · [上一篇](03-retries-timeouts-cancellation.md) · [下一组件：评估与验收](../10-evaluation-and-acceptance/README.md)
+[阅读路线](README.md) · [上一篇：超时与取消](03-retries-timeouts-cancellation.md) · [下一组件：评估与验收](../10-evaluation-and-acceptance/README.md)
+
+本章总览图如下：
 
 ```mermaid
 flowchart TD
@@ -13,9 +15,9 @@ flowchart TD
     G --> H["用源码核对超时和取消语义"]
 ```
 
-本篇把前面分散的命令收进 [experiments.py](code/experiments.py)。每个场景都重新初始化三个样本和一个接收端，只改变故障点、预算或取消时机。中断后的事实与恢复后的事实分别保存，避免最终成功掩盖中间确实出现过的未知状态。
+[experiments.py](code/experiments.py) 为每个场景初始化三个样本和一个接收端，只改变故障点、预算或取消时机。中断后与恢复后的观察值分别保存。
 
-## 1. 运行完整矩阵
+## 1. 故障矩阵
 
 工作目录为本章目录，输出目录必须尚不存在：
 
@@ -34,7 +36,7 @@ artifacts=runs/experiments-1
 
 已执行样例可直接打开：[报告](examples/verified-run/report.md)、[完整 JSON](examples/verified-run/result.json)。
 
-## 2. 看见三类不同的停止结果
+## 2. 停止结果
 
 真实运行得到下面的确定性结果。超时的子进程返回码按平台变化，已单独保存在 JSON 中，不作为通用固定值。
 
@@ -57,7 +59,7 @@ artifacts=runs/experiments-1
 
 其中 `after_effect` 与 `timeout` 最值得并排查看：中断时本地都为 `inflight`，前者接收端有一条记录，后者没有。因此单凭这个本地状态无法选择恢复动作；先查询真实接收事实才会得到不同路径。
 
-## 3. 独立核对实际发布内容
+## 3. 发布验收
 
 `inspect(root)` 从数据库重新读取三个结果和接收内容，按输入重新计算预期值。它只有在任务 `completed`、三个结果一致、接收端恰好一条发布、发布内容一致且本地回执与接收回执一致时，才把 `acceptance` 写为 `true`。
 
@@ -84,7 +86,7 @@ print([row["mean"] for row in json.loads(rows[0][0])])
 
 再打开汇总 `result.json` 中 `after_effect.before`，那里仍保留中断时的 `operation_status=inflight` 和 `acceptance=false`。每个子目录里的 `result.json` 是最后一次观察，因此需要汇总里的 `before` 才能看到先前窗口。
 
-## 4. 九个测试覆盖容易被“重跑成功”掩盖的问题
+## 4. 回归测试
 
 在章节目录执行：
 
@@ -110,7 +112,7 @@ python -m unittest discover -s code -p 'test_*.py' -v
 
 可以把 `--max-attempts` 从 3 改成 2，再用新目录运行 `--fail-until 2`。预计三批仍已计算，但没有发布、状态为 failed、尝试数为 2。改变一个参数就能验证次数究竟包含初次调用，还是仅包含重试次数。
 
-## 5. 对照 CPython：Future 的超时只结束等待
+## 5. Future 源码
 
 源码固定为 CPython `v3.12.10`，从固定 tag 下载并保留许可证。具体来源、哈希与本地文件在 [sources/manifest.json](sources/manifest.json)。
 
@@ -125,7 +127,7 @@ python -m unittest discover -s code -p 'test_*.py' -v
 | 强制结束直接子进程 | `Popen.kill` | 要求操作系统结束对应进程 |
 | 清理退出资源 | `communicate` / `wait` | 启动新执行器前确认旧进程已回收 |
 
-## 6. 对照 CPython：subprocess.run 如何处理超时
+## 6. subprocess 源码
 
 本地 [subprocess.py](sources/subprocess.py) 对应 [Lib/subprocess.py](https://github.com/python/cpython/blob/v3.12.10/Lib/subprocess.py)。找到 `run()` 中捕获 `TimeoutExpired` 的分支；下面是来自该分支的**原始源码节选**，不能独立执行：
 
@@ -146,7 +148,7 @@ python sources/verify_sources.py
 
 准确输出 `verified=2 tag=v3.12.10`。校验器不联网，也不会把“本地哈希通过”说成每次重新查过远端源码。
 
-## 7. 把恢复边界带回 Agent 系统
+## 7. Agent 恢复
 
 模型调用、文件生成和工具发布都可以接在这些状态边界前后。恢复时先固定输入和代码身份，再读取已确认结果；有副作用的工具要保留逻辑操作身份和原参数，不能重启一次就生成新幂等键。
 

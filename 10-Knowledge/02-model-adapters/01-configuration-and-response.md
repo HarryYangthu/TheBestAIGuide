@@ -1,6 +1,8 @@
-# 01｜配置客户端并接回一次回答
+# 01｜API 配置与响应
 
-[阅读路线](README.md) · [下一篇](02-tools-and-streaming.md)
+[阅读路线](README.md) · [下一篇：工具调用与流式片段](02-tools-and-streaming.md)
+
+本章总览图如下：
 
 ```mermaid
 flowchart TD
@@ -11,9 +13,9 @@ flowchart TD
     E --> F["转换字段并保存"]
 ```
 
-模型适配器先解决一个很小的问题：业务代码只想知道“回答是什么、是否请求了工具”，而服务返回的是带候选列表、完成状态和用量的对象。先完成一次实际请求，再把两者之间的转换集中起来。
+模型适配器把服务返回的候选列表、完成状态和用量，转换成业务代码使用的响应字典。
 
-## 1. 先确认模型将看到什么
+## 1. 输入消息
 
 [examples/notes.txt](examples/notes.txt) 的实际内容如下：
 
@@ -23,7 +25,7 @@ flowchart TD
 待办：错误重试
 ```
 
-现在直接把这份笔记放进用户消息，不要求模型读取本机文件。任务是概括完成项和待办项。模型服务无法通过一个本地路径自动取得文件内容，程序必须先读取，再把文本发送过去。
+任务是概括笔记中的完成项和待办项。程序读取本地文件，再把文本放入用户消息；模型服务不能通过本地路径自动取得文件内容。
 
 以下完整片段在章节目录执行，输入就是该文件，标准输出固定：
 
@@ -47,9 +49,11 @@ user
 
 最后的空行来自文件末尾换行与 `print` 的换行。消息列表此时只是 Python 数据，尚未请求模型。
 
-## 2. 创建客户端并发出第一次请求
+## 2. API 配置与 SDK 对象
 
-先按 [README](README.md) 安装依赖并填写三项配置。下面是可直接在章节目录执行的完整片段。它读取同一文件，实际调用模型，最后关闭客户端：
+API 配置包括基础 URL、API Key 和模型名，安装与填写方法见 [README](README.md)。`OpenAI(...)` 是 Python 代码创建 SDK 客户端对象的表达式；变量 `client` 引用这个对象，用于发送请求和管理连接。
+
+以下完整片段在章节目录执行，读取笔记、调用模型，并在 `with` 块结束时关闭 SDK 连接：
 
 ```python
 import os
@@ -85,12 +89,12 @@ python code/live.py --mode text
 | `base_url` | 请求发往哪个 API 基础地址 | 不确认模型支持全部能力 |
 | `api_key` | 设置认证信息 | 不属于提示词或报告字段 |
 | `model` | 指定本次模型标识 | 不固定每次措辞 |
-| `timeout=30` | 限制客户端网络等待 | 不是整个 Agent 任务预算 |
+| `timeout=30` | 限制 SDK 的网络等待 | 不是整个 Agent 任务预算 |
 | `max_retries=0` | 关闭 SDK 自动重试 | 上层若要重试，需要显式计数和策略 |
 
 关闭自动重试让一次 `request()` 对应一次尝试，后面的用量覆盖率才有明确分母。网络失败也会占用一次尝试，不能因为没有收到 token 计数就从记录中消失。
 
-## 3. 先辨认供应商返回的层次
+## 3. 响应字段
 
 官方 SDK 的 `create` 返回 `ChatCompletion` 对象。本文只请求一个候选，因此检查 `choices` 恰有一项且 `index=0`。这一约定写在 `normalize_completion`，不会悄悄丢弃多余候选。
 
@@ -101,7 +105,7 @@ python code/live.py --mode text
 | `choices[0].finish_reason` | 字符串 | `finish_reason` | 保留并检查结束原因 |
 | `usage` | `CompletionUsage` 或 `None` | `usage` | 提取三个 token 计数，缺失字段保留 `None` |
 
-`response.model_dump(mode="json")` 把 SDK 对象转成可 JSON 序列化的 Python 字典。它仍保留服务字段的含义，不会自动解析工具参数中那层 JSON 字符串。工具参数转换放在下一篇展开。
+`response.model_dump(mode="json")` 把 SDK 对象转成可 JSON 序列化的 Python 字典。它仍保留服务字段的含义，不会自动解析工具参数中那层 JSON 字符串。工具参数转换见[参数解析](02-tools-and-streaming.md)。
 
 下面是可接在第 2 节取得 `response` 后执行的片段；它没有发起第二次请求：
 
@@ -114,7 +118,7 @@ print(raw["usage"])
 
 第一行标准输出为 `dict`；后两行是动态值，正常文本结束通常为 `stop`，用量可能是字典也可能是 `None`。完整适配器保存 `raw` 后，再调用 `normalize_completion(raw)`，所以可以对照原始对象与转换结果。
 
-## 4. 不同的结束原因需要不同处理
+## 4. 响应结束状态
 
 收到 HTTP 200 只表示接口交互成功，不能直接证明文本或参数完整。[normalize_message](code/adapter.py) 在转换工具参数之前先检查结束状态：
 
@@ -143,7 +147,7 @@ if finish_reason not in ("stop", "tool_calls"):
 
 文本里写“我已调用 read_file”仍然只是文本。只有原生 `tool_calls` 字段进入工具适配分支。
 
-## 5. 把调用包装起来，但保持记录可看见
+## 5. 模型适配器与调用记录
 
 [OpenAIAdapter.request](code/adapter.py) 的完整实现有四个动作：构造请求，调用 SDK，保存原生响应，转换为本文响应字典。后面的工具和流式模式复用同一个入口。
 
@@ -168,4 +172,4 @@ finally:
 ['content', 'finish_reason', 'tool_calls', 'usage']
 ```
 
-日常运行使用 `live.py`，它会把这些值连同实际输入一起保存。下一篇沿同一份笔记把“直接放入 prompt”改为“先收到工具请求，再提供笔记”，然后处理一段一段抵达的响应。
+`live.py` 会把响应字典连同实际输入一起保存。

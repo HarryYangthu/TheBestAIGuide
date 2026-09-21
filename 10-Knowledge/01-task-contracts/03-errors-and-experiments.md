@@ -1,6 +1,8 @@
-# 03｜错误、实验与验证器源码
+# 03｜错误类型、实验与源码
 
-[阅读路线](README.md) · [上一篇](02-schema-and-acceptance.md)
+[阅读路线](README.md) · [上一篇：Schema 与结果验收](02-schema-and-acceptance.md)
+
+本章总览图如下：
 
 ```mermaid
 flowchart TD
@@ -14,9 +16,9 @@ flowchart TD
     G --> H["映射验证器源码"]
 ```
 
-现在程序已经能给出统计值。接下来更有用的问题是：当结果不能接受时，下一位执行者能否知道应该改哪里？先把错误结构固定，再用实际场景验证。
+错误记录需要区分输入格式、输出结构和事实验收失败，才能定位需要修改的数据或代码。
 
-## 1. 错误字段必须指向下一步动作
+## 1. 错误结构与处理方式
 
 `ContractError` 保存一个错误字典。下面是 `wrong_total` 实验产生的错误结构：
 
@@ -45,7 +47,7 @@ flowchart TD
 
 本章的本地数据错误都不自动重试。主入口返回非零退出码并保存 `run.json`；已有输出目录则在运行前被拒绝，防止覆盖已有记录。不要把 `status=failed` 理解为“没有任何文件”：输出验收失败时，错误结果会留下，方便检查。
 
-## 2. 实验只改一处，其他条件保持不变
+## 2. 单变量实验
 
 [experiments.py](code/experiments.py) 每次复制相同任务与输入。正常场景保留所有字段；其他场景各修改一个条件。输出故障通过显式 `mutate` 函数发生在写文件前，这个入口只被实验调用，普通执行不启用。
 
@@ -81,7 +83,7 @@ artifacts=<本次实验目录>
 
 已有执行记录见 [comparison.json](reports/contract-experiments/comparison.json) 和 [comparison.md](reports/contract-experiments/comparison.md)。其中 `matched=true` 表示实验观察符合预期，`accepted=false` 表示任务没有通过；两个布尔值回答不同问题。
 
-## 3. 先对比两个容易混淆的失败
+## 3. 输出结构错误与事实错误
 
 `missing_mean` 与 `wrong_total` 都没有交付正确结果，但失败位置不同。
 
@@ -108,11 +110,11 @@ wrong_total acceptance_failed True
 
 把所有错误压成一句“再试一次”，就会丢掉这个区别。一个需要补字段，另一个需要改计算值。
 
-## 4. 看验证器怎样实现这三条规则
+## 4. jsonschema 源码
 
 本章对照实际安装的 `jsonschema 4.26.0`，没有引入 Agent 框架。源码片段保存在 `sources/`，来自该版本 Python 分发包，附有 [MIT 许可证](sources/LICENSE.jsonschema) 和 [清单](sources/manifest.json)。这份清单记录文件摘要与原模块、函数名，来源范围是已安装依赖。
 
-先看 `required` 的关键分支，下面是 [原函数片段](sources/required.py.txt) 中的源码节选，不是独立脚本：
+`required` 的关键分支如下，节选自[原函数](sources/required.py.txt)，不能独立运行：
 
 ```python
 for property in required:
@@ -144,10 +146,8 @@ sources=3 version=4.26.0 matched=true
 
 脚本同时检查保存片段的 SHA256，并与当前安装的同版本函数逐字对照。升级依赖后出现版本不符，应先重新阅读差异，再更新快照与说明。
 
-## 5. 修改一个约定，看验收是否随之改变
+## 5. 验收条件变更
 
 复制 `examples/` 到新的输入目录，把 `acceptance.min_done` 从 1 改成 4，使用 `--task` 指向新任务。统计值仍然是 `3、6.0、2.0`，但 `minimum_done=false`，状态变为 `failed`。这说明“计算过程结束”和“达到任务要求”不是同一件事。
 
 再把 `min_done` 改回 1，仅把 `T-103` 的状态改为 `done`。这一次应得到数量 4、总工时 14.0、平均工时 3.5，并且编号列表包含 `T-103`。如果检查仍然期待旧的固定答案 6.0，就说明验收器没有真正依据新输入工作。
-
-到这里，同一项工作已经具备可追踪身份、可检查输入、确定的输出字段、事实验收和能定位失败的错误。下一组件会把这些边界带到模型请求中。

@@ -1,8 +1,10 @@
-# 阅读路线｜从模型调用到 Agent 执行循环
+# 阅读路线｜Agent 执行循环
 
 [组件总览](../README.md) · [上一组件：模型接入](../02-model-adapters/README.md) · [下一组件：编排与调度](../04-orchestration-and-scheduling/README.md)
 
-本章在仓库中的位置是 `10-Knowledge/03-agent-loop/`，01—06 是阅读顺序。先配置真实模型，完成一次问答，再逐步加入工具、历史、退出条件和错误处理，最后对照 OpenHands 源码。
+本章目录为 `10-Knowledge/03-agent-loop/`，文件编号 01—06 表示阅读顺序。
+
+本章总览图如下：
 
 ```mermaid
 flowchart TD
@@ -18,20 +20,20 @@ flowchart TD
     F --> G["06 OpenHands 源码映射"]
 ```
 
-## 六份文件沿着同一个程序逐步展开
+## 阅读顺序
 
 | 顺序 | 阅读文件 | 运行入口 | 这一阶段观察什么 |
 |---|---|---|---|
-| 01 | [从一次模型调用到最小 Agent 循环](01-model-call-and-loop.md) | `v0_model_call.py`、`v1_minimal_loop.py` | prompt、response、工具结果怎样连起来 |
-| 02 | [为执行循环接入工具](02-tools-and-observations.md) | `v2_tool_dispatch.py` | 读文件、改文件、检查结果怎样分发 |
-| 03 | [为执行循环增加历史记录与退出条件](03-history-and-stopping.md) | `v3_controlled_loop.py` | 为什么停止，当前文件是否合格 |
-| 04 | [为执行循环增加错误处理](04-errors-and-retries.md) | `v4_resilient_loop.py` | 错误怎样反馈，重试怎样计数 |
-| 05 | [通过实验观察执行循环](05-loop-experiments.ipynb) | Notebook、`build_report.py` | 比较不同阶段与预算的运行记录 |
-| 06 | [对照 OpenHands 拆解执行循环](06-openhands-source.md) | `sources/verify_sources.py` | 将本文循环对应到成熟项目的实际分支 |
+| 01 | [模型调用与最小 Agent 循环](01-model-call-and-loop.md) | `v0_model_call.py`、`v1_minimal_loop.py` | prompt、response、工具结果怎样连起来 |
+| 02 | [工具调用](02-tools-and-observations.md) | `v2_tool_dispatch.py` | 读文件、改文件、检查结果怎样分发 |
+| 03 | [历史记录与退出条件](03-history-and-stopping.md) | `v3_controlled_loop.py` | 为什么停止，当前文件是否合格 |
+| 04 | [错误处理与重试](04-errors-and-retries.md) | `v4_resilient_loop.py` | 错误怎样反馈，重试怎样计数 |
+| 05 | [执行循环实验](05-loop-experiments.ipynb) | Notebook、`build_report.py` | 比较不同阶段与预算的运行记录 |
+| 06 | [OpenHands 执行循环源码](06-openhands-source.md) | `sources/verify_sources.py` | 将本文循环对应到成熟项目的实际分支 |
 
-表中 Python 入口位于 `code/`。每篇开头的总览图对应本篇实现过程，下面各节按图中的节点依次展开。
+表中 Python 入口位于 `code/`。
 
-## 输入文件已经放在目录中
+## 输入文件
 
 | 文件 | 内容或用途 | 你可以怎样使用 |
 |---|---|---|
@@ -43,7 +45,7 @@ flowchart TD
 
 每次运行会把当前的 `notes.txt` 和 `examples/stats.py` 复制到独立的 `runs/<运行编号>/workspace/`。修改根目录的笔记会影响下一次运行，已经保存的运行目录不受影响。
 
-## 三个配置项决定真实模型的调用目标
+## API 配置
 
 使用 Python 3.10 或更新版本，在章节目录执行：
 
@@ -80,7 +82,7 @@ OPENAI_MODEL=你的服务支持的模型名
 
 SDK 调用与工具消息格式参见 [OpenAI Python SDK 文档](https://developers.openai.com/api/docs/libraries)和 [Function calling 文档](https://developers.openai.com/api/docs/guides/function-calling)。
 
-## 每个命令都会留下可以打开的产物
+## 运行命令与产物
 
 先检查输入文件，再按顺序运行：
 
@@ -123,7 +125,7 @@ v0 还会先打印模型回答。打开 `artifacts` 对应的目录，可以看�
 
 v0、v1 不检查 `stats.py`，因此它们的 `changes.diff` 为空；v0、v1 的 API 交互主要看 requests、responses 和 messages。
 
-## 后续实验在同一组检查条件下比较结果
+## 实验对照
 
 修复任务检查四种输入：
 
@@ -145,10 +147,10 @@ python code/run_scenarios.py all --summary
 
 固定故障场景使用预设响应，用于复现提前结束、空响应、重复编号等分支。Notebook 的主线仍使用真实 API。
 
-## 源码导读最后将这些机制映射到 OpenHands
+## OpenHands 源码
 
 第 06 份文件使用 OpenHands SDK `v1.49.2` 的已保存快照，提交 `d128a786ee2ee570eb23ff5862ec148b43cfad0b`。相关原文件、切片与 MIT 许可证位于 `sources/`，可离线核对。
 
 本次已验证本地代码、SDK 协议与文件保存流程；当前环境没有配置 API Key，真实模型运行记录由读者配置后生成。
 
-从这里开始：[01｜从一次模型调用到最小 Agent 循环](01-model-call-and-loop.md)。
+从这里开始：[01｜模型调用与最小 Agent 循环](01-model-call-and-loop.md)。

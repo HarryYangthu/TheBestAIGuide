@@ -1,6 +1,8 @@
-# 01｜从读取范围开始强制权限
+# 01｜工具与数据权限
 
-[阅读路线](README.md) · [下一篇](02-reservation-and-settlement.md)
+[阅读路线](README.md) · [下一篇：预算预留与结算](02-reservation-and-settlement.md)
+
+本章总览图如下：
 
 ```mermaid
 flowchart TD
@@ -15,7 +17,7 @@ flowchart TD
 
 Alice 想读取 A 门店的补货结果。文件中还保存着 B 门店数据和内部备注；不能先把整个 JSON 交给模型，再要求它不要引用 B。检查位置必须在返回数据之前。
 
-## 先看一次最小许可判断
+## 租户权限
 
 真实输入 [records.json](examples/records.json) 中，a1 的 tenant 为 A，b1 为 B。以下是在章节目录可独立运行的完整片段：
 
@@ -36,9 +38,9 @@ a1 True
 b1 False
 ```
 
-这个条件已经阻止跨租户读取，但还没有说明谁确定 tenant、能否调用删除工具、成功后返回哪些字段。完整入口 `python code/run_minimal.py` 使用后面的权限类，输出 a1=allowed、b1=resource_denied，并保存 `runs/minimal/result.json`。
+这个条件限制租户范围；主体身份、工具权限和返回字段还需要分别检查。完整入口 `python code/run_minimal.py` 使用后面的权限类，输出 a1=allowed、b1=resource_denied，并保存 `runs/minimal/result.json`。
 
-## 身份与动作从不同入口进入
+## 主体与请求
 
 [control.py](code/control.py) 用两个冻结的数据类表达不同责任：
 
@@ -60,7 +62,7 @@ if request.resource not in self.records or self.records[request.resource]["tenan
 
 第一个条件同时要求主体有权限、程序确实支持该操作。即使主体 tools 被错误配置成包含一个未实现的 delete_record，仍然不能找到删除 handler。第二个条件把不存在和无权访问都映射为 resource_denied，避免错误码泄露其他租户的资源是否存在。
 
-## 合法读取也只返回需要的字段
+## 字段权限
 
 获准访问 a1，不代表 private_note 可以出现在输出中。执行层明确构造字段投影：
 
@@ -79,7 +81,7 @@ private_note 没有进入 result、输出文件或 trace 的数据部分。投�
 
 如果任务只需总数或汇总，也可以在这里返回聚合结果；关键是先做允许范围内的数据选择，再把结果交出去。
 
-## 从执行入口观察拒绝有没有副作用
+## 权限拒绝
 
 下面是章节目录可运行的完整片段。它真正经过预算、执行和投影，但只读取记录，不写发布文件：
 
@@ -112,6 +114,6 @@ charged_calls 1
 
 拒绝发生在资源预留之前，b1 没有占用已接纳的调用额度，也没有出现 started 事件。这个顺序能区分“访问被禁止”与“已经执行但结果藏起来”：只有前者阻止了实际操作。
 
-改变 Request.tool 为 delete_record，会得到 tool_denied；把 resource 改为 a1、tool 改为 publish_record，会得到 approval_required。后者是主体本来可以发布，但本次写入尚未获得具体批准。第四篇会把批准绑定到这一动作，而非永久扩充 tools。
+改变 Request.tool 为 delete_record，会得到 tool_denied；把 resource 改为 a1、tool 改为 publish_record，会得到 approval_required。后者表示主体具有发布权限，但本次写入缺少具体批准，见[人工批准与验收](04-approval-and-experiments.md)。
 
-[下一篇：先预留再结算预算](02-reservation-and-settlement.md)
+[下一篇：预算预留与结算](02-reservation-and-settlement.md)

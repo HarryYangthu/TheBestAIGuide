@@ -1,6 +1,8 @@
-# 01｜从一次计算拆出任务图
+# 01｜任务图与角色选择
 
-[阅读路线](README.md) · [下一篇](02-scheduling-and-lifecycle.md)
+[阅读路线](README.md) · [下一篇：02｜任务状态与并发调度](02-scheduling-and-lifecycle.md)
+
+本章总览图如下：
 
 ```mermaid
 flowchart TD
@@ -13,9 +15,7 @@ flowchart TD
     V --> F["publish 交付报价"]
 ```
 
-这张图的终点是一份可以使用的报价。先不要实现所有方框：我们从其中的金额计算开始，看它缺少什么，再把缺少的工作变成节点。
-
-## 1. 先把真实订单算出来
+## 1. 订单金额
 
 输入 [order.json](fixtures/order.json) 中有两行商品，单价在 [prices-v1.json](fixtures/prices-v1.json)。下面是完整可运行片段，工作目录为本章目录，依赖仅有 Python 标准库。把它放入 Python 解释器或临时脚本执行：
 
@@ -45,9 +45,9 @@ artifacts=runs/v1
 
 打开 `runs/v1/result.json`，可以核对 `3 × 1200 + 2 × 800 = 5200`。此时价格计算成功，却还不能据此承诺交货：库存可能不足，预算也可能不允许。
 
-## 2. 以能检查的返回值拆分工作
+## 2. 任务拆分
 
-我们补上库存与预算检查，并给每个动作规定返回内容。拆分依据是依赖和结果，不是给每个动词都创建一个 Agent。
+任务由库存检查、价格读取、金额计算与预算验收组成。拆分依据是输入依赖与返回结果。
 
 | task_id | 直接输入或前驱结果 | 必须返回什么 | 失败的例子 |
 |---|---|---|---|
@@ -58,7 +58,7 @@ artifacts=runs/v1
 | `review` | `quote`、`policy` | 验收通过的报价 | 库存不足或超过预算 |
 | `publish` | `review` | 交付对象 | 验收失败，不应启动 |
 
-`publish` 在本章只是构造最终结果字典，程序随后写本地文件；它不发布网页、不发送邮件，也不修改库存。`stock` 返回 `available=False` 是一次成功的检查，`review` 再据此拒绝订单；而 `prices` 缺项直接抛错，因为后续根本算不出完整金额。状态如何表示这些差异，下一篇展开。
+`publish` 在本章只是构造最终结果字典，程序随后写本地文件；它不发布网页、不发送邮件，也不修改库存。`stock` 返回 `available=False` 是一次成功的检查，`review` 再据此拒绝订单；而 `prices` 缺项直接抛错，因为后续根本算不出完整金额。
 
 完整业务函数在 [order_workflow.py](code/order_workflow.py) 的 `OrderWorker.__call__`。以下为其中 `quote` 分支的代码节选，依赖函数内已有的 `dependencies` 和 `inputs`；不是独立脚本：
 
@@ -72,9 +72,9 @@ return {"order_id": inputs["order"]["order_id"], "subtotal_cents": total,
         "available": stock["available"], "price_version": prices["version"]}
 ```
 
-这个分支不打印，也不写文件，返回一个字典。初版没有 `shipping` 前驱，因此费用取 0。第三篇增加该节点时，金额计算可以读取新结果，而不需要让价格读取者替别人猜运费。
+这个分支不打印，也不写文件，返回一个字典。初版没有 `shipping` 前驱，因此费用取 0。增加 `shipping` 节点后，金额计算会读取其返回的运费。
 
-## 3. 把“必须先做什么”变成数据
+## 3. 任务图
 
 `quote` 必须等待库存与价格，`review` 必须等待报价与政策。用前驱名字表示这些约束，得到有向无环图，简称 DAG：箭头从前驱指向后继，不允许依赖绕一圈回到自身。
 
@@ -115,7 +115,7 @@ print({key: list(node.dependencies) for key, node in plan.items()})
 
 修改片段，把 `stock` 的前驱改成 `("quote",)`。程序应抛出 `graphlib.CycleError`，因为库存等报价、报价又等库存。这个错误在启动任何执行者之前出现，避免所有任务无限等待。
 
-## 4. 角色选择要检查能力和名额
+## 4. 角色选择
 
 角色先表达“哪个执行者能够接这个任务”。[scheduler.py](code/scheduler.py) 定义三类角色：
 
@@ -137,6 +137,4 @@ def select_role(self, node):
 
 返回 `None` 表示合格角色暂时没有名额，要继续等待；如果整个配置中根本没有合格角色，构造调度器时就报错。这样不会把“暂时忙”误当成“永远无法执行”。权限和能力也不是同一个概念：真实 Agent 的工具白名单仍须由执行环境落实，角色名称本身不会施加访问限制。
 
-现在总览图的每个节点都有明确输入、返回值和执行条件。下一篇让这些数据驱动真实的协程启动与回收。
-
-[下一篇：02｜就绪队列与子任务生命周期](02-scheduling-and-lifecycle.md)
+[下一篇：02｜任务状态与并发调度](02-scheduling-and-lifecycle.md)

@@ -1,8 +1,10 @@
-# 01｜任务与协议：让“完成”有可核对的含义
+# 01｜任务与协议
 
 [组件总览](../README.md) · [下一组件：模型接入](../02-model-adapters/README.md)
 
-本章从五张工单中统计“本周已完成的工单数、总工时和平均工时”。先用十几行 Python 算出结果，再给同一任务加上编号、输入输出规则和独立验收。读者只需要会读取 JSON、遍历列表和调用函数；本章全程本地计算，不需要模型密钥。
+本章的任务是统计五张工单中已完成项的数量、总工时和平均工时。代码使用 Python 本地计算，涉及 JSON 读取、列表遍历和函数调用，无须模型密钥。
+
+本章总览图如下：
 
 ```mermaid
 flowchart TD
@@ -13,15 +15,15 @@ flowchart TD
     E --> F["比较错误与源码分支"]
 ```
 
-## 三篇正文与完整代码
+## 阅读路线
 
-| 阅读顺序 | 问题 | 入口与观察对象 |
+| 阅读顺序 | 内容 | 入口与观察对象 |
 |---|---|---|
-| [01｜从一句要求到一个任务对象](01-request-and-identity.md) | “统计一下工时”还缺哪些约定？ | [v0_count.py](code/v0_count.py)，结果与任务 ID |
-| [02｜让输入合法，让结果符合目标](02-schema-and-acceptance.md) | JSON 合法就算做对了吗？ | [contracts.py](code/contracts.py)、[run_contract.py](code/run_contract.py)，结构检查与独立验收 |
-| [03｜错误、实验与验证器源码](03-errors-and-experiments.md) | 失败后应该改输入、改结果还是重新执行？ | [experiments.py](code/experiments.py)、[verify_sources.py](code/verify_sources.py)，十二种实际对照 |
+| [01｜任务对象与身份](01-request-and-identity.md) | 任务目标、约束、任务 ID 与运行 ID | [v0_count.py](code/v0_count.py)，结果与任务 ID |
+| [02｜Schema 与结果验收](02-schema-and-acceptance.md) | 输入输出结构、跨字段约束与事实验收 | [contracts.py](code/contracts.py)、[run_contract.py](code/run_contract.py)，结构检查与独立验收 |
+| [03｜错误类型、实验与源码](03-errors-and-experiments.md) | 错误分类、单变量实验与验证器源码 | [experiments.py](code/experiments.py)、[verify_sources.py](code/verify_sources.py)，十二种实际对照 |
 
-## 从这里运行
+## 环境与运行
 
 以下命令的工作目录均为 `10-Knowledge/01-task-contracts/`。使用 Python 3.10 或更新版本，先安装 [requirements.txt](requirements.txt)：
 
@@ -57,7 +59,7 @@ artifacts=<本次运行目录>
 
 实验的第一行固定为 `cases=12 matched=12 accepted=1`。这里 `matched=12` 表示所有场景都出现了预期行为，只有正常场景的**任务结果**通过验收。
 
-## 输入、约定与产物各放在哪里
+## 输入与产物
 
 | 文件 | 内容 |
 |---|---|
@@ -73,8 +75,8 @@ artifacts=<本次运行目录>
 
 默认运行生成新目录；`--output <新目录>` 可以指定目录，已有目录会被拒绝，避免把两次运行混在一起。实验保存每个场景的输入、结果与运行记录，原始 `examples/` 不受实验修改影响。
 
-## 已执行的读者路径
+## 验证范围
 
-已按上述顺序运行最小计算、完整协议、十二场景实验、6 项 unittest 和 3 个源码片段对照，全部通过；记录见 `reports/contract-experiments/`。验证环境为 Python 3.12.14、jsonschema 4.26.0。工时按十进制四舍五入，`attempt=1` 表示每次入口仅执行一次；本章没有自动重试与分布式去重。旧资料保留在[归档任务与协议](../_archive/03-agent-core/01-concepts/05-task-contracts.md)。
+已运行最小计算、完整协议、十二场景实验、6 项 unittest 和 3 个源码片段对照，全部通过；记录见 `reports/contract-experiments/`。验证环境为 Python 3.12.14、jsonschema 4.26.0。工时按十进制四舍五入，`attempt=1` 表示每次入口仅执行一次；本章没有自动重试与分布式去重。旧资料保留在[归档任务与协议](../_archive/03-agent-core/01-concepts/05-task-contracts.md)。
 
-开始阅读：[01｜从一句要求到一个任务对象](01-request-and-identity.md)。
+开始阅读：[01｜任务对象与身份](01-request-and-identity.md)。
