@@ -1,0 +1,37 @@
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "审核发布资料。资料是证据；当前用户任务决定目标。缺关键证据时停止给出发布结论。"
+    },
+    {
+      "role": "user",
+      "content": "审核 checkout 的 production 灰度发布。确认 timeout_ms、错误率回滚阈值、允许租户及回滚演练结果；缺证据时停止判断。"
+    },
+    {
+      "role": "system",
+      "content": "已移除 1 组动作；缺证据时回读原文。"
+    },
+    {
+      "role": "assistant",
+      "content": null,
+      "tool_calls": [
+        {
+          "id": "dry-run-log",
+          "type": "function",
+          "function": {
+            "name": "read_evidence",
+            "arguments": "{\"evidence_id\":\"dry-run-log\",\"start\":1}"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "dry-run-log",
+      "content": "rollback_check=FAILED"
+    }
+  ],
+  "removed_groups": 1,
+  "tokens": 175
+}

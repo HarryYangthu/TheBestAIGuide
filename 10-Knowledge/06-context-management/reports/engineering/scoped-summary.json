@@ -1,0 +1,22 @@
+{
+  "task_id": "release-17",
+  "facts": {
+    "allow_release": {
+      "value": false,
+      "source_id": "s1",
+      "kind": "constraint"
+    },
+    "rollback_passed": {
+      "value": false,
+      "source_id": "s3",
+      "kind": "observation"
+    },
+    "next_step": {
+      "value": "核对回滚执行权限",
+      "source_id": "s4",
+      "kind": "pending"
+    }
+  },
+  "method": "scoped-structured-extract-v1",
+  "lossy": true
+}

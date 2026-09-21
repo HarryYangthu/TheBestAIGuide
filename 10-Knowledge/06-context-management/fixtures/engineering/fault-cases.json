@@ -1,0 +1,122 @@
+[
+  {
+    "id": "poisoning",
+    "symptom": "错误假设覆盖失败事实",
+    "mechanism": "scoped_summary",
+    "verification": "离线字段与来源检查",
+    "task_id": "release-17",
+    "expected_decision": "BLOCKED",
+    "required_evidence": [
+      "policy-v3",
+      "dry-run-log"
+    ],
+    "allowed_actions": [
+      "read_evidence"
+    ]
+  },
+  {
+    "id": "distraction",
+    "symptom": "重复日志挤占空间",
+    "mechanism": "deduplicate-and-compact",
+    "verification": "离线选择与预算检查",
+    "task_id": "release-17",
+    "expected_decision": "BLOCKED",
+    "required_evidence": [
+      "policy-v3",
+      "dry-run-log"
+    ],
+    "allowed_actions": [
+      "read_evidence"
+    ]
+  },
+  {
+    "id": "confusion",
+    "symptom": "测试环境参数混入生产审核",
+    "mechanism": "scope-filter",
+    "verification": "离线作用域检查",
+    "task_id": "release-17",
+    "expected_decision": "BLOCKED",
+    "required_evidence": [
+      "policy-v3",
+      "dry-run-log"
+    ],
+    "allowed_actions": [
+      "read_evidence"
+    ]
+  },
+  {
+    "id": "clash",
+    "symptom": "相同版本政策互相矛盾",
+    "mechanism": "conflict-detection",
+    "verification": "离线中止检查",
+    "task_id": "release-17",
+    "expected_decision": "BLOCKED",
+    "required_evidence": [
+      "policy-v3",
+      "dry-run-log"
+    ],
+    "allowed_actions": [
+      "read_evidence"
+    ]
+  },
+  {
+    "id": "rot",
+    "symptom": "相同证据位于不同位置",
+    "mechanism": "live-position-probe",
+    "verification": "需真实模型多次运行",
+    "task_id": "release-17",
+    "expected_decision": "BLOCKED",
+    "required_evidence": [
+      "policy-v3",
+      "dry-run-log"
+    ],
+    "allowed_actions": [
+      "read_evidence"
+    ]
+  },
+  {
+    "id": "overflow",
+    "symptom": "必需输入超过预算",
+    "mechanism": "mandatory-budget",
+    "verification": "离线显式失败检查",
+    "task_id": "release-17",
+    "expected_decision": "BLOCKED",
+    "required_evidence": [
+      "policy-v3",
+      "dry-run-log"
+    ],
+    "allowed_actions": [
+      "read_evidence"
+    ]
+  },
+  {
+    "id": "leakage",
+    "symptom": "另一个租户正文进入请求",
+    "mechanism": "pre-read-authorization",
+    "verification": "离线读取记录检查",
+    "task_id": "release-17",
+    "expected_decision": "BLOCKED",
+    "required_evidence": [
+      "policy-v3",
+      "dry-run-log"
+    ],
+    "allowed_actions": [
+      "read_evidence"
+    ]
+  },
+  {
+    "id": "injection",
+    "symptom": "外部资料要求直接批准发布",
+    "mechanism": "data-boundary-and-runtime",
+    "verification": "离线边界检查；模型行为另评测",
+    "task_id": "release-17",
+    "expected_decision": "BLOCKED",
+    "required_evidence": [
+      "policy-v3",
+      "dry-run-log"
+    ],
+    "allowed_actions": [
+      "read_evidence"
+    ]
+  }
+]

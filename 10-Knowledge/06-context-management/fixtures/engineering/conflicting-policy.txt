@@ -1,0 +1,4 @@
+service=checkout
+environment=production
+timeout_ms=7000
+rollback_errors_pct=2
