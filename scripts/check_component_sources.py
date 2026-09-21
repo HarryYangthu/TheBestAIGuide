@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def main():
     checks = []
-    roots = [ROOT / "10-Knowledge/02_Harness", ROOT / "10-Knowledge"]
+    roots = [ROOT / "10-Knowledge/02 Agent Harness"]
     chapters = sorted(chapter for root in roots for chapter in root.glob("[0-9][0-9]-*"))
     for chapter in chapters:
         for relative in ("code/verify_sources.py", "sources/verify_sources.py"):

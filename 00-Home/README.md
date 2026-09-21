@@ -1,6 +1,8 @@
 # 知识库首页
 
-从 [Agent 组件总览](../10-Knowledge/README.md)进入当前主线。先阅读并运行[执行循环章节](../10-Knowledge/02_Harness/03-agent-loop/README.md)，再按任务需要补齐其他组件。
+知识内容分为 [AI Foundation](../10-Knowledge/01%20AI%20Foundation/README.md)、[Agent Harness](../10-Knowledge/02%20Agent%20Harness/README.md) 与 [References](../10-Knowledge/03%20References/README.md)。
+
+从 [Agent 组件总览](../10-Knowledge/02%20Agent%20Harness/README.md)进入当前主线。先阅读并运行[执行循环章节](../10-Knowledge/02%20Agent%20Harness/03-agent-loop/README.md)，再按任务需要补齐其他组件。
 
 | 入口 | 用途 |
 |---|---|

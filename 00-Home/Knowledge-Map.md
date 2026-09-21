@@ -1,6 +1,8 @@
 # Agent 组件地图
 
-当前结构以 [12 个核心组件与 3 个增强能力](../10-Knowledge/README.md) 为主线。每个组件负责执行过程中的一类具体问题，完整系统图和目录状态统一在组件总览维护。
+本页对应 [02 Agent Harness](../10-Knowledge/02%20Agent%20Harness/README.md)；模型原理见 [01 AI Foundation](../10-Knowledge/01%20AI%20Foundation/README.md)，参考项目见 [03 References](../10-Knowledge/03%20References/README.md)。
+
+Harness 以 [12 个核心组件与 3 个增强能力](../10-Knowledge/02%20Agent%20Harness/README.md) 为主线。每个组件负责执行过程中的一类具体问题，完整系统图和目录状态统一在组件总览维护。
 
 | 关注的问题 | 对应组件 |
 |---|---|

@@ -1,11 +1,19 @@
 # 知识库建设状态
 
-## 当前组件目录（2026-09-20）
+## 当前目录（2026-09-21）
+
+| 分组 | 状态 |
+|---|---|
+| [01 AI Foundation](../10-Knowledge/01%20AI%20Foundation/README.md) | 已建立基础、DeepSeek、GPT、Qwen 四个分支与一手资料索引；基础正文链接原有材料，架构正文待补充 |
+| [02 Agent Harness](../10-Knowledge/02%20Agent%20Harness/README.md) | 原有 15 个组件全部归入同一分组 |
+| [03 References](../10-Knowledge/03%20References/README.md) | 已建立参考资料入口，具体仓库清单待补充 |
+
+## Harness 组件
 
 | 范围 | 当前状态 |
 |---|---|
 | 12 个核心组件与 3 个增强能力 | 全部完成正文、总览图、运行代码、真实输入与参考产物 |
-| [03 Agent 执行循环](../10-Knowledge/02_Harness/03-agent-loop/README.md) | 保留六份阅读文件，走读修正异常图、预算导航及源码来源记录 |
+| [03 Agent 执行循环](../10-Knowledge/02%20Agent%20Harness/03-agent-loop/README.md) | 保留六份阅读文件，走读修正异常图、预算导航及源码来源记录 |
 | 其余 14 个组件 | 补齐按步骤展开的正文与实验；从各章 README 开始运行 |
 | [旧知识库](../10-Knowledge/_archive/README.md) | 原 16 个领域完整归档，项目继续复用其配套实现 |
 
