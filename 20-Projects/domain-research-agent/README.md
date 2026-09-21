@@ -16,7 +16,7 @@ python scripts/run_python.py -m domain_research.cli --query ERR-12003 --run-id f
 python scripts/run_python.py 20-Projects/domain-research-agent/evaluation/run_eval.py --output .runs/research-eval
 ```
 
-第一条命令输出答案和引用，并把报告、Checkpoint、记忆和运行事件写到 `.runs/research/`。第二条用四个构造任务评测证据、拒答、租户隔离和恢复，报告写到 `.runs/research-eval/`，仓库内的 [evaluation/report/](evaluation/report/) 保留先前运行证据。重复使用同一 `run-id` 和相同请求会返回已完成结果；更换问题时也应换 `run-id`。资料或版本变化时，会拒绝复用原请求标识。
+第一条命令输出答案和引用，并把报告、Checkpoint、记忆和运行事件写到 `.runs/research/`。第二条用四个构造任务评测证据、拒答、租户隔离和恢复，报告写到 `.runs/research-eval/`，仓库内的 [evaluation/report/](evaluation/report) 保留先前运行证据。重复使用同一 `run-id` 和相同请求会返回已完成结果；更换问题时也应换 `run-id`。资料或版本变化时，会拒绝复用原请求标识。
 
 ## 实际复用了什么
 

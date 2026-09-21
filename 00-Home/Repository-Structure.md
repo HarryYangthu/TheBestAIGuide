@@ -1,13 +1,14 @@
 # 仓库目录说明
 
-仓库根目录即知识库根目录。`10-Knowledge/` 按 Agent 组件组织；原来的领域目录保存在 `10-Knowledge/_archive/`。
+仓库根目录即知识库根目录。`10-Knowledge/02_Harness/` 按 Agent 组件组织；原来的领域目录保存在 `10-Knowledge/_archive/`。
 
 ## 顶层目录
 
 | 目录 | 职责 |
 |---|---|
 | `00-Home/` | 总入口、学习路线、组件地图、规范与状态 |
-| `10-Knowledge/` | 12 个核心组件与 3 个增强能力 |
+| `10-Knowledge/` | AI 知识库入口 |
+| `10-Knowledge/02_Harness/` | 12 个核心组件与 3 个增强能力，保留 01—15 编号 |
 | `10-Knowledge/_archive/` | 原 16 个领域的正文、代码、Notebook 与历史资料 |
 | `20-Projects/` | 组合多个组件的完整工程 |
 | `90-Sources/` | 论文、文档、标准、数据集与代码仓来源 |
@@ -17,7 +18,7 @@
 
 ## 一个组件内部怎样组织
 
-以已接入的 `10-Knowledge/03-agent-loop/` 为例：
+以已接入的 `10-Knowledge/02_Harness/03-agent-loop/` 为例：
 
 | 文件或目录 | 职责 |
 |---|---|

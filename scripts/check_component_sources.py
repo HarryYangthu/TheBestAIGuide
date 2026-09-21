@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def main():
     checks = []
-    for chapter in sorted((ROOT / "10-Knowledge").glob("[0-9][0-9]-*")):
+    for chapter in sorted((ROOT / "10-Knowledge" / "02_Harness").glob("[0-9][0-9]-*")):
         for relative in ("code/verify_sources.py", "sources/verify_sources.py"):
             script = chapter / relative
             if not script.is_file():
