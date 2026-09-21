@@ -7,7 +7,7 @@
 | 你的目标 | 阅读入口 | 动手做什么 |
 |---|---|---|
 | 学习大模型技术基础 | [01：AI Foundation](10-Knowledge/01%20AI%20Foundation/README.md) | Transformer、大模型基础，以及 DeepSeek、GPT、Qwen 架构资料 |
-| 查阅参考项目 | [03：References](10-Knowledge/03%20References/README.md) | 参考代码仓与阅读资料，具体项目待补充 |
+| 查阅参考项目 | [03：References](10-Knowledge/03%20References/README.md) | 8 个参考入口：官方产品文档、从零实现教程与 Agent 系统 |
 | 看清各组件怎样协作 | [Agent 组件总览](10-Knowledge/02%20Agent%20Harness/README.md) | 对照总览图找到任务、模型、循环、工具和验收的位置 |
 | 从零写出执行循环 | [03：Agent 执行循环](10-Knowledge/02%20Agent%20Harness/03-agent-loop/README.md) | 真实 API 调用 → 读取笔记 → 修复函数 → 检查结果与运行报告 |
 | 按顺序补齐组件 | [连续学习路线](00-Home/Learning-Paths.md) | 按一次任务的执行过程逐步加入组件 |
