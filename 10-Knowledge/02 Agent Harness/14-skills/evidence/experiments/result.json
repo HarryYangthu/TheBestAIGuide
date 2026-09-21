@@ -16,7 +16,7 @@
       },
       "status": "script_rejected",
       "acceptance": false,
-      "loaded_bytes": 1996,
+      "loaded_bytes": 2006,
       "loaded_files": [
         "catalog",
         "SKILL.md",
@@ -35,7 +35,7 @@
       },
       "status": "completed",
       "acceptance": true,
-      "loaded_bytes": 3144,
+      "loaded_bytes": 3154,
       "loaded_files": [
         "catalog",
         "SKILL.md",
@@ -66,7 +66,7 @@
       },
       "status": "script_rejected",
       "acceptance": false,
-      "loaded_bytes": 2953,
+      "loaded_bytes": 2963,
       "loaded_files": [
         "catalog",
         "SKILL.md",

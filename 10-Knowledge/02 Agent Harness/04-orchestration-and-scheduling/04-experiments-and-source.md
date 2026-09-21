@@ -6,7 +6,7 @@
 
 ```mermaid
 flowchart TD
-    A["相同笔记与代码"] --> B["串行与并行"]
+    A["相同任务说明与代码"] --> B["串行与并行"]
     A --> C["缺失用例与取消"]
     A --> D["用例变化与新增空列表检查"]
     B --> E["读取真实结果和事件"]
@@ -41,7 +41,7 @@ artifacts=runs/experiments
 |---|---|---|---|
 | serial → parallel | 报告任务、用例、图和角色 | 全局额度 1 → 2 | 通过数一致；活动峰值变为 2 |
 | parallel → missing_case | 图和额度 | 一项用例缺少预期值 | 后继不执行；执行数仅 3 |
-| parallel → cases_changed | 笔记、规则、图结构 | 第二轮用例版本变化 | 四节点重算；无关节点各执行一次 |
+| parallel → cases_changed | 任务说明、规则、图结构 | 第二轮用例版本变化 | 四节点重算；无关节点各执行一次 |
 | cases_changed → plan_changed | 第二轮新用例 | 新增空列表检查节点与依赖 | 多执行一个节点；通过数由 3 增至 4 |
 | parallel → cancelled | 原始任务图 | 等待任务启动后取消父任务 | 活动句柄清空；不产生最终报告 |
 

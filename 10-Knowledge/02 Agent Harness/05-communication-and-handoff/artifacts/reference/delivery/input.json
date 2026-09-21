@@ -3,11 +3,11 @@
     "case_id": "report-017",
     "path": "notes.txt",
     "required_facts": [
-      "工具接入",
-      "循环日志",
-      "错误重试"
+      "simulate.py",
+      "metrics.json",
+      "退出码"
     ],
-    "instruction": "读取笔记，列出已完成的工作和缺少的说明，保存报告。"
+    "instruction": "读取仿真任务，核对执行命令、指标文件与退出码要求；交接缺少的信息并保存报告。"
   },
   "snapshot-unfound.json": {
     "version": "notes-1",

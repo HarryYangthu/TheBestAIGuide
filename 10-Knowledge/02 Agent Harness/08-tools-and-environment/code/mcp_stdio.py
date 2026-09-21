@@ -49,8 +49,8 @@ def client(output):
         {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2025-06-18", "capabilities": {}, "clientInfo": {"name": "chapter-client", "version": "1.0.0"}}},
         {"jsonrpc": "2.0", "method": "notifications/initialized"},
         {"jsonrpc": "2.0", "id": 2, "method": "tools/list"},
-        {"jsonrpc": "2.0", "id": 3, "method": "tools/call", "params": {"name": "search_docs", "arguments": {"query": "先读取笔记", "limit": 5}}},
-        {"jsonrpc": "2.0", "id": 4, "method": "tools/call", "params": {"name": "search_docs", "arguments": {"query": "先读取笔记", "limit": 200}}},
+        {"jsonrpc": "2.0", "id": 3, "method": "tools/call", "params": {"name": "search_docs", "arguments": {"query": "先读取仿真任务说明", "limit": 5}}},
+        {"jsonrpc": "2.0", "id": 4, "method": "tools/call", "params": {"name": "search_docs", "arguments": {"query": "先读取仿真任务说明", "limit": 200}}},
     ]
     process = subprocess.Popen([sys.executable, str(Path(__file__).resolve()), "--serve", "--workspace", str(output / "workspace")], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, encoding="utf-8")
     # Each request waits for its response; do not use this synchronous sample for an untrusted remote server.

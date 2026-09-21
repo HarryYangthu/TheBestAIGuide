@@ -12,7 +12,7 @@
         "evidence": {
           "file": "snapshot-ready.json",
           "pointer": "notes.txt",
-          "text": "工具接入：已完成。\n循环日志：已完成。\n",
+          "text": "任务：执行一次信号去噪仿真。\n执行：python simulate.py --config simulation.json --output runs/simulation\n产物：读取 runs/simulation/metrics.json，整理仿真结果。\n",
           "version": "notes-2"
         },
         "found": 2,

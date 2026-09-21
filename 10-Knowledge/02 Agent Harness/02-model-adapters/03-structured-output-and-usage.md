@@ -8,7 +8,7 @@
 flowchart TD
     A["发送结果Schema"] --> B["取得完整文本"]
     B --> C["解析JSON并检查字段"]
-    C --> D["保存后核对笔记事实"]
+    C --> D["保存后核对任务字段"]
     A --> E["记录本次usage或缺失"]
     E --> F["按请求汇总已知部分"]
     D --> G["保存结果与错误"]
@@ -16,16 +16,16 @@ flowchart TD
     G --> H["运行固定协议实验"]
 ```
 
-结构化输出为完成项和待办项提供固定字段；用量记录保留 token 计数及其缺失状态，支持跨请求累计。
+结构化输出为执行命令和产物路径提供固定字段；用量记录保留 token 计数及其缺失状态，支持跨请求累计。
 
 ## 1. 结构化输出
 
-同一份笔记的目标结果是两个字符串数组：
+同一份任务说明的目标结果是两个字符串数组：
 
 ```json
 {
-  "completed": ["工具接入", "循环日志"],
-  "pending": ["错误重试"]
+  "commands": ["python simulate.py --config simulation.json --output runs/simulation"],
+  "artifacts": ["runs/simulation/metrics.json", "runs/simulation/samples.csv", "runs/simulation/report.md"]
 }
 ```
 
@@ -35,15 +35,15 @@ flowchart TD
 schema = {
     "type": "object",
     "properties": {
-        "completed": {"type": "array", "items": {"type": "string"}},
-        "pending": {"type": "array", "items": {"type": "string"}},
+        "commands": {"type": "array", "items": {"type": "string"}},
+        "artifacts": {"type": "array", "items": {"type": "string"}},
     },
-    "required": ["completed", "pending"],
+    "required": ["commands", "artifacts"],
     "additionalProperties": False,
 }
 response_format = {
     "type": "json_schema",
-    "json_schema": {"name": "weekly_summary", "strict": True, "schema": schema},
+    "json_schema": {"name": "simulation_plan", "strict": True, "schema": schema},
 }
 ```
 
@@ -73,17 +73,17 @@ return value
 
 它不从 Markdown 代码围栏中猜测并提取 JSON；文本必须整体符合约定。这使格式错误可观察，也避免把一段解释误当成结果。
 
-通过 Schema 后，`live.py` 保存 `summary.json`，重新读取文件，再调用 `summary_acceptance`。验收从真实笔记的每一行提取“完成：”与“待办：”后的原文，与结果数组比较。顺序可以不同，内容和重复次数必须一致。
+通过 Schema 后，`live.py` 保存 `summary.json`，重新读取文件，再调用 `summary_acceptance`。验收从真实任务说明的每一行提取“执行：”后的命令，以及“产物：”后用顿号分隔的路径，与结果数组比较。顺序可以不同，内容和重复次数必须一致。
 
 | 结果 | Schema | 事实验收 |
 |---|---|---|
 | 两个数组，事项与原文一致 | 通过 | 通过 |
-| `pending` 写成字符串 | 失败 | 尚未进入 |
-| 缺少 `completed` | 失败 | 尚未进入 |
-| 把“错误重试”归为已完成 | 通过 | 失败 |
-| 合法数组中重复“工具接入” | 通过 | 失败 |
+| `artifacts` 写成字符串 | 失败 | 尚未进入 |
+| 缺少 `commands` | 失败 | 尚未进入 |
+| 把命令改成不存在的脚本 | 通过 | 失败 |
+| 合法数组中重复指标文件路径 | 通过 | 失败 |
 
-最后两项说明结构化输出只约束形状。下面是完整本地片段，展示“字段齐全但事实相反”，不会调用模型：
+最后两项说明结构化输出只约束形状。下面是完整本地片段，展示“字段齐全但内容错误”，不会调用模型：
 
 ```python
 import sys
@@ -92,14 +92,14 @@ sys.path.insert(0, "code")
 from live import summary_acceptance
 
 notes = Path("examples/notes.txt").read_text(encoding="utf-8")
-value = {"completed": ["错误重试"], "pending": ["工具接入", "循环日志"]}
+value = {"commands": ["python missing.py"], "artifacts": ["invented.json"]}
 print(summary_acceptance(value, notes))
 ```
 
 准确标准输出：
 
 ```text
-{'passed': False, 'checks': {'completed': False, 'pending': False}}
+{'passed': False, 'checks': {'commands': False, 'artifacts': False}}
 ```
 
 ## 3. usage 字段
@@ -200,6 +200,6 @@ requests=3 fully_metered=1
 | `length_limit` | 结束原因改成 `length` | `output_truncated`，即使参数已完整也拒绝执行 |
 | `broken_arguments` | 删除一段参数 | `invalid_arguments` |
 
-实验还保存前述三请求用量累计和“结构合格、事实颠倒”的结果。测试文件进一步通过真正的 SDK 和本地 `httpx2.MockTransport` 覆盖 HTTP 429、SSE 解码、连接中断与全部五种入口；传输由测试显式替换，不影响正常入口的模型选择。
+实验还保存前述三请求用量累计和“结构合格、内容错误”的结果。测试文件进一步通过真正的 SDK 和本地 `httpx2.MockTransport` 覆盖 HTTP 429、SSE 解码、连接中断与全部五种入口；传输由测试显式替换，不影响正常入口的模型选择。
 
 可以复制协议样本，删除 `call_b` 的最后一段参数，然后调用 `replay` 观察 `invalid_arguments`。再只删除最后的 usage 事件，结果应能返回，但 `usage.total_tokens is None`。这两个修改分别影响“动作是否完整”和“消耗是否可观测”，不要用同一个成功标志把它们合并。

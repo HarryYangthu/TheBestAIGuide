@@ -16,7 +16,7 @@ from v4_resilient_loop import run_loop
 
 def demo_model():
     return ScriptedModel([call_response("read-1", "read_file", path="notes.txt"),
-                          text_response("本周完成了工具接入与循环日志。")])
+                          text_response("运行 python simulate.py，检查输出 MSE 和仿真报告。")])
 
 
 class LoopTests(unittest.TestCase):
@@ -52,7 +52,7 @@ class LoopTests(unittest.TestCase):
     def test_budget_stop_can_leave_acceptable_artifact(self):
         result = run_case("step_limit")
         self.assertEqual(result["reason"], "step_limit")
-        self.assertEqual(result["model_calls"], 2)
+        self.assertEqual(result["model_calls"], 3)
         self.assertTrue(result["acceptance"]["passed"])
         self.assertFalse(any(event.get("name") == "check_tests" for event in result["trace"]))
 
@@ -95,7 +95,7 @@ class LoopTests(unittest.TestCase):
     def test_transient_failure_retries_identical_model_input(self):
         result = run_case("transient_model")
         self.assertEqual(result["model_inputs"][0], result["model_inputs"][1])
-        self.assertEqual(result["model_calls"], 5)
+        self.assertEqual(result["model_calls"], 6)
         self.assertTrue(result["acceptance"]["passed"])
         writes = [event for event in result["trace"] if event.get("name") == "write_file"]
         self.assertEqual(len(writes), 1)

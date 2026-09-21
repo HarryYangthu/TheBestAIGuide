@@ -75,3 +75,31 @@ python sources/verify_sources.py
 这些实验保证的范围是：本地单执行器、可信输入、独立 SQLite 接收端及其永久幂等记录。没有租约、防旧执行器写入的 fencing、跨机器时钟校准或幂等键过期机制。真实接收服务若既不支持按操作身份查询，也不保证幂等，恢复程序应保留待核对状态，不能把本例的安全重发结论套过去。进程终止实验覆盖进程退出，并不模拟磁盘损坏或断电硬件故障。
 
 从 [01｜检查点](01-checkpoints-and-resume.md) 开始。
+
+## 仿真任务入口
+
+[notes.txt](notes.txt) 是交给 Agent 的任务提示词，包含执行命令、输入参数、检查项和产物路径。本章以均值函数修复为检查点任务，展示中断后如何恢复，以及如何避免重复提交产物。
+
+在本章目录执行，使用 Python 3.10+ 标准库：
+
+```bash
+python simulate.py --config simulation.json --output runs/simulation
+```
+
+标准输出：
+
+```text
+samples=64 window=3
+input_mse=0.090000 output_mse=0.010082
+improvement_db=9.507 passed=True
+artifacts=runs/simulation
+```
+
+| 文件 | 内容 |
+|---|---|
+| [simulation.json](simulation.json) | 采样点数、周期数、噪声幅度与滤波窗口 |
+| `runs/simulation/metrics.json` | 输入与输出 MSE、改善量和配置摘要 |
+| `runs/simulation/samples.csv` | 每个采样点的原始、加噪与滤波数值 |
+| `runs/simulation/report.md` | 引用实际指标的仿真报告 |
+
+再次运行时换一个 `--output` 目录。算法、参数对照和参考产物见[统一仿真说明](../_shared/README.md)。

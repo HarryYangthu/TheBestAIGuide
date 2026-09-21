@@ -16,7 +16,7 @@ from experiments import experiment, replay
 from live import SCHEMA, run, tool_result
 
 
-def completion(content="完成了工具接入与循环日志", usage=None):
+def completion(content="执行 simulate.py 后读取 metrics.json", usage=None):
     return {"id": "fixture-completion", "object": "chat.completion", "created": 0, "model": "fixture",
             "choices": [{"index": 0, "message": {"role": "assistant", "content": content}, "finish_reason": "stop"}],
             "usage": usage}
@@ -85,9 +85,9 @@ class AdapterTests(unittest.TestCase):
         self.assertEqual(error.exception.code, "invalid_arguments")
 
     def test_structured_parse_shape_and_content_validation(self):
-        good = normalize_completion(completion('{"completed":["工具接入","循环日志"],"pending":["错误重试"]}'))
-        self.assertEqual(parse_structured(good, SCHEMA)["pending"], ["错误重试"])
-        for content in ['{"completed":[]}', '```json\n{}\n```', '{"completed":[],"pending":4}']:
+        good = normalize_completion(completion('{"commands":["python simulate.py --config simulation.json --output runs/simulation"],"artifacts":["runs/simulation/metrics.json","runs/simulation/samples.csv","runs/simulation/report.md"]}'))
+        self.assertEqual(parse_structured(good, SCHEMA)["commands"], ["python simulate.py --config simulation.json --output runs/simulation"])
+        for content in ['{"commands":[]}', '```json\n{}\n```', '{"commands":[],"artifacts":4}']:
             with self.assertRaises(AdapterError): parse_structured(normalize_completion(completion(content)), SCHEMA)
 
     def test_sdk_http_transport_serialization(self):
@@ -175,7 +175,7 @@ class AdapterTests(unittest.TestCase):
                         raw = completion()
                         raw["choices"][0] = {"index": 0, "finish_reason": "tool_calls", "message": assistant_message(replay(chunks()))}
                     elif mode == "structured":
-                        raw = completion('{"completed":["工具接入","循环日志"],"pending":["错误重试"]}')
+                        raw = completion('{"commands":["python simulate.py --config simulation.json --output runs/simulation"],"artifacts":["runs/simulation/metrics.json","runs/simulation/samples.csv","runs/simulation/report.md"]}')
                     else: raw = completion()
                     return httpx.Response(200, json=raw)
                 client = OpenAI(api_key="fixture", base_url="https://fixture.invalid/v1", max_retries=0,

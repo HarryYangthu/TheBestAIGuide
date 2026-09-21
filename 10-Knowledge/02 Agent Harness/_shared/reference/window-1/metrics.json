@@ -1,0 +1,10 @@
+{
+  "samples": 64,
+  "window": 1,
+  "input_mse": 0.09,
+  "output_mse": 0.09,
+  "improvement_db": 0.0,
+  "passed": false,
+  "config_sha256": "f399303265e8c72f08d8d38da751e4d2ce8818963656ccd845449208d9d9bc01",
+  "stats_sha256": null
+}

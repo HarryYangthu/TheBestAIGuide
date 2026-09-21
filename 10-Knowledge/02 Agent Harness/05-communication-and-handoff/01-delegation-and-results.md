@@ -6,10 +6,10 @@
 
 ```mermaid
 flowchart TD
-    O["任务与指定笔记内容快照"] --> D["建立委派请求"]
+    O["任务与指定任务字段快照"] --> D["建立委派请求"]
     D --> Q["JSON 进入执行者队列"]
     Q --> S["started 开始通知"]
-    S --> W["读取笔记内容并计算缺口"]
+    S --> W["读取仿真任务说明内容并计算缺口"]
     W --> R["result 结果回执"]
     S --> V["关联请求并更新状态"]
     R --> V
@@ -18,14 +18,14 @@ flowchart TD
 
 ## 1. 函数委派
 
-协调者需要一份笔记摘要，把“读取笔记并检查必要事实”交给读取者。`fixtures/notes.txt` 中有工具接入、循环日志两条记录；任务还要求错误重试的说明，因此缺少一条。
+协调者需要一份任务摘要，把“读取仿真任务说明并检查必要事实”交给读取者。`fixtures/notes.txt` 中有仿真命令、指标路径两项信息；任务还要求退出码检查的说明，因此缺少一条。
 
-下面是完整可运行片段。在本章目录执行，输入为真实笔记，输出三个计数，不写文件：
+下面是完整可运行片段。在本章目录执行，输入为真实任务说明，输出三个计数，不写文件：
 
 ```python
 from pathlib import Path
 text = Path("fixtures/notes.txt").read_text(encoding="utf-8")
-required = ["工具接入", "循环日志", "错误重试"]
+required = ["simulate.py", "metrics.json", "退出码"]
 found = sum(fact in text for fact in required)
 print(f"required={len(required)} found={found} missing={len(required) - found}")
 ```
@@ -36,7 +36,7 @@ print(f"required={len(required)} found={found} missing={len(required) - found}")
 required=3 found=2 missing=1
 ```
 
-[check_notes](code/v1_delegate.py) 将这一步封装成函数：读取请求指定的笔记，返回 `path`、`required`、`found`、`missing` 和 `evidence`。证据包含文本、文件名和快照版本，接收方能够重新读取并核对。
+[check_notes](code/v1_delegate.py) 将这一步封装成函数：读取请求指定的任务说明，返回 `path`、`required`、`found`、`missing` 和 `evidence`。证据包含文本、文件名和快照版本，接收方能够重新读取并核对。
 
 运行完整入口：
 
@@ -76,11 +76,11 @@ artifacts=runs/v1
       "case_id": "report-017",
       "path": "notes.txt",
       "required_facts": [
-        "工具接入",
-        "循环日志",
-        "错误重试"
+        "simulate.py",
+        "metrics.json",
+        "退出码"
       ],
-      "instruction": "读取笔记，列出已完成的工作和缺少的说明，保存报告。"
+      "instruction": "读取仿真任务，核对执行命令、指标文件与退出码要求；交接缺少的信息并保存报告。"
     },
     "snapshot_file": "snapshot-ready.json",
     "return_fields": [
@@ -128,11 +128,11 @@ async def receive(self, recipient):
 
 `canonical` 使用固定键顺序将字典序列化成 JSON 字符串。接收方用 `json.loads` 建立新的字典，不会与发送者共享原来的嵌套对象。`messages.jsonl` 保存实际传过的消息，便于查关联。
 
-这里的 `task_done` 表示队列项已经交到调用者手中，**不代表笔记内容检查已经完成**。业务状态只由后面的 `started/result/failure` 处理器改变。本章不使用 `Queue.join()` 判断任务是否完成。
+这里的 `task_done` 表示队列项已经交到调用者手中，**不代表任务字段检查已经完成**。业务状态只由后面的 `started/result/failure` 处理器改变。本章不使用 `Queue.join()` 判断任务是否完成。
 
 ## 4. 进度通知与结果回执
 
-笔记内容执行者先发 `started`，读取指定文件后才发结果。`Case.response` 从原请求复制关联字段，交换收发地址，并创建新的消息 ID。以下是其中返回对象的等价节选，依赖 `request/kind/payload` 和 `self.new_id`，没有标准输出：
+任务字段执行者先发 `started`，读取指定文件后才发结果。`Case.response` 从原请求复制关联字段，交换收发地址，并创建新的消息 ID。以下是其中返回对象的等价节选，依赖 `request/kind/payload` 和 `self.new_id`，没有标准输出：
 
 ```python
 return {"protocol": 1, "message_id": self.new_id("message"),
@@ -149,7 +149,7 @@ return {"protocol": 1, "message_id": self.new_id("message"),
 | `started` | `running` | 否，仅证明开始 |
 | `result` 且证据通过 | `completed` | 是 |
 
-接收结果时，程序不仅看 `kind=result`，还读取请求指定的笔记内容文件，重新构造期望结果，再与回执比较。要求的事实、找到的数量、缺失数量、证据版本和文件路径都必须一致。这种领域检查在本例很短；复杂任务可以返回文件、行号、测试结果，再由相应验收器检查。
+接收结果时，程序不仅看 `kind=result`，还读取请求指定的任务字段文件，重新构造期望结果，再与回执比较。要求的事实、找到的数量、缺失数量、证据版本和文件路径都必须一致。这种领域检查在本例很短；复杂任务可以返回文件、行号、测试结果，再由相应验收器检查。
 
 在本章目录运行完整入口，读取同一组正常输入：
 

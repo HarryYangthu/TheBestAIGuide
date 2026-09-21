@@ -195,8 +195,8 @@ class Case:
                       "from": actor, "to": target, "epoch": self.epoch,
                       "context": {"goal": self.task["instruction"],
                                   "task": deepcopy(self.task), "evidence": deepcopy(self.results),
-                                  "decisions": ["已读取笔记；错误重试尚无完成记录"],
-                                  "unresolved": ["错误重试是否完成"],
+                                  "decisions": ["已读取仿真任务说明；错误重试尚无完成记录"],
+                                  "unresolved": ["是否补充进程退出码检查要求"],
                                   "next_action": policy["next_action"],
                                   "allowed_actions": policy["allowed_actions"],
                                   "constraints": policy["constraints"]}}
@@ -283,10 +283,10 @@ def save_run(output, case, bus, extra=None):
     (output / "input.json").write_text(json.dumps({name: read_fixture(name) for name in
         ("task.json", "snapshot-unfound.json", "snapshot-ready.json", "policy.json")},
         ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    (output / "draft.md").write_text("# 笔记报告\n\n" + (case.draft or "尚未生成处理草稿。") + "\n", encoding="utf-8")
-    lines = ["# 笔记任务通信记录", "", f"负责人：{case.owner}；epoch：{case.epoch}。", "",
+    (output / "draft.md").write_text("# 仿真任务报告\n\n" + (case.draft or "尚未生成处理草稿。") + "\n", encoding="utf-8")
+    lines = ["# 仿真任务通信记录", "", f"负责人：{case.owner}；epoch：{case.epoch}。", "",
              "| 顺序 | 消息 | 接收决定 |", "|---:|---|---|"]
     lines.extend(f"| {event['seq']} | {event['message_id'] or '—'} | {event['decision']} |" for event in case.events)
-    lines += ["", "## 笔记摘要", "", case.draft or "尚未生成。"]
+    lines += ["", "## 任务摘要", "", case.draft or "尚未生成。"]
     (output / "report.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     return result

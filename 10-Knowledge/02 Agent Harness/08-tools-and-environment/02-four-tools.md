@@ -7,14 +7,14 @@
 ```mermaid
 flowchart TD
     A["搜索报告规则"] --> B["读取 notes.txt"]
-    B --> C["运行统计脚本"]
+    B --> C["运行信号去噪脚本"]
     C --> D["回放步骤预算 2 与 3"]
     D --> E{"结果和步骤是否齐全"}
     E -->|是| F["写入 report.md"]
     E -->|否| G["记录缺失步骤"]
 ```
 
-输入是笔记、样本 `[2, 4]` 和工具步骤列表。`run_task.py` 将它们复制到本次 `workspace/`，所有文件工具都操作这个副本。
+输入是任务提示词 `notes.txt`、仿真配置 `simulation.json` 和工具步骤列表。`run_task.py` 将它们复制到本次 `workspace/`，所有文件工具都操作这个副本。
 
 ## 文件工具
 
@@ -44,7 +44,7 @@ if Path(relative).is_absolute() or not target.is_relative_to(root):
 
 ## 代码执行
 
-本章的计算程序 [compute.py](examples/compute.py) 从标准输入读样本列表，计算均值，再输出 JSON。它没有访问工作目录中的其他文件。先独立运行它，可分清“脚本算错”与“工具传参错”：
+先用最小计算程序 [compute.py](examples/compute.py) 从标准输入读样本列表，计算均值，再输出 JSON。它没有访问工作目录中的其他文件。先独立运行它，可分清“脚本算错”与“工具传参错”：
 
 ```bash
 python examples/compute.py < examples/samples.json
@@ -60,7 +60,7 @@ python examples/compute.py < examples/samples.json
 
 ```python
 result = subprocess.run(
-    [sys.executable, "-I", str(script)],
+    [sys.executable, "-I", str(script), *args],
     input=stdin, cwd=cwd,
     env={"PYTHONIOENCODING": "utf-8"},
     capture_output=True, text=True, encoding="utf-8",
@@ -68,13 +68,13 @@ result = subprocess.run(
 )
 ```
 
-命令是参数列表，没有经过 Shell 拼接。`cwd` 决定相对路径起点，`env` 不继承宿主凭证。`-I` 减少 Python 的导入环境干扰；它不会剥夺读文件、联网或创建进程的能力。这里的本机工具只允许执行仓库内已审阅的 `compute.py`，其他 script 名称返回 `script_denied`。运行任意生成代码需要操作系统层面的隔离，见[执行环境与 MCP](03-environment-and-mcp.md)。
+命令是参数列表，没有经过 Shell 拼接。`cwd` 决定相对路径起点，`env` 不继承宿主凭证。`-I` 减少 Python 的导入环境干扰；它不会剥夺读文件、联网或创建进程的能力。这里的本机工具只允许执行仓库内已审阅的 `compute.py` 与 `simulate.py`，其他 script 名称返回 `script_denied`。运行任意生成代码需要操作系统层面的隔离，见[执行环境与 MCP](03-environment-and-mcp.md)。
 
 子进程退出非零时返回 `process_failed`，超时返回 `timeout`。stdout 长度检查发生在进程返回后；它不是运行中的内存或输出配额，因此不能拿它约束恶意打印程序。本机入口适用于这个小型可信脚本。
 
-## 执行步骤仿真
+## 步骤预算回放
 
-[steps.json](examples/steps.json) 保存三个名称：`read_file`、`run_python`、`write_file`。仿真只推进步骤计数，观察预算在哪里截断；实际的文件读取、统计计算和写入由其他工具执行。
+[steps.json](examples/steps.json) 保存三个名称：`read_file`、`run_python`、`write_file`。这个回放工具只推进步骤计数，观察预算在哪里截断；实际的文件读取、信号去噪计算和写入由其他工具执行。
 
 以下是完整的 `simulate` 函数定义，输入为步骤列表和上限，返回执行记录，无标准输出：
 
@@ -103,12 +103,12 @@ python code/run_task.py --output runs/task
 标准输出：
 
 ```text
-mean=3.0 calls=6 acceptance=True
+input_mse=0.090000 output_mse=0.010082 calls=6 acceptance=True
 artifacts=runs/task
 ```
 
-六次调用分别是搜索、读取笔记、运行统计脚本、两次步骤仿真、写报告。程序将子进程 stdout 用 `json.loads()` 解码，把样本数和均值写进报告。
+六次调用分别是搜索、读取任务说明、运行 `simulate.py`、两次步骤预算回放、写报告。程序检查进程退出码，再读取实际生成的 `runs/simulation/metrics.json`，把样本数和 MSE 写进报告。
 
-打开 `workspace/report.md`，应看到原笔记、样本数 2、均值 3.0 和两行预算对照。`result.json` 保存数值验收，`trace.jsonl` 保存每次请求和结果。这里的验收条件对应 `[2, 4]` 这份输入。
+打开 `workspace/report.md`，应看到任务提示词、样本数 64、输入 MSE 0.090000、输出 MSE 0.010082 和两行预算对照。`result.json` 保存数值验收，`trace.jsonl` 保存每次请求和结果。`workspace/runs/simulation/` 还保存配置副本、指标、64 行波形与仿真报告。
 
 [下一篇：执行环境与 MCP](03-environment-and-mcp.md)

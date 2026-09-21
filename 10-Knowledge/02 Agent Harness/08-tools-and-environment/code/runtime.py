@@ -120,10 +120,10 @@ def simulate(steps, max_steps):
             "completed": len(history) == len(steps), "history": history}
 
 
-def execute_python(script, stdin, cwd, timeout=2):
+def execute_python(script, stdin, cwd, timeout=2, args=()):
     """Run a trusted script. -I isolates Python imports, not filesystem/network."""
     try:
-        result = subprocess.run([sys.executable, "-I", str(script)], input=stdin,
+        result = subprocess.run([sys.executable, "-I", str(script), *args], input=stdin,
                                 cwd=cwd, env={"PYTHONIOENCODING": "utf-8"},
                                 capture_output=True, text=True, encoding="utf-8",
                                 timeout=timeout, check=False)
@@ -165,8 +165,13 @@ def build_registry(workspace, corpus=None):
 
     def run_python(script, input_path):
         # This tool exposes only a reviewed fixture, not generated arbitrary code.
-        if script != "compute.py":
-            raise ToolError("script_denied", "only reviewed compute.py is allowed locally")
+        if script not in {"compute.py", "simulate.py"}:
+            raise ToolError("script_denied", "only reviewed compute.py or simulate.py is allowed locally")
+        if script == "simulate.py":
+            config = confined(workspace, input_path)
+            output = confined(workspace, "runs/simulation")
+            return execute_python(ROOT / script, "", workspace,
+                                  args=("--config", str(config), "--output", "runs/simulation"))
         source = read_file(input_path)["text"]
         return execute_python(ROOT / "examples/compute.py", source, workspace)
 
@@ -181,6 +186,6 @@ def build_registry(workspace, corpus=None):
     registry.add(Tool("search_docs", "在本地规则语料中逐行匹配查询词", obj(query={"type": "string", "minLength": 1, "maxLength": 100}, limit={"type": "integer", "minimum": 1, "maximum": 20}), obj(matches={"type": "array", "items": obj(path=PATH, line=NUMBER, text=TEXT)}, total=NUMBER, truncated={"type": "boolean"}), search_docs))
     registry.add(Tool("read_file", "读取本次工作目录中的小型 UTF-8 文件", obj(path=PATH), obj(path=PATH, text=TEXT), read_file))
     registry.add(Tool("write_file", "写入本次工作目录中的 UTF-8 文件", obj(path=PATH, text=TEXT), obj(path=PATH, bytes=NUMBER), write_file))
-    registry.add(Tool("run_python", "执行已审阅的 compute.py 并传入 JSON", obj(script=PATH, input_path=PATH), obj(exit_code=NUMBER, stdout=TEXT, stderr=TEXT), run_python))
+    registry.add(Tool("run_python", "执行已审阅的 compute.py 或 simulate.py，读取 JSON 输入", obj(script=PATH, input_path=PATH), obj(exit_code=NUMBER, stdout=TEXT, stderr=TEXT), run_python))
     registry.add(Tool("simulate_loop", "按步骤预算回放工具名称，不执行工具", obj(input_path=PATH, max_steps={"type": "integer", "minimum": 1, "maximum": 100}), obj(executed=NUMBER, remaining=NUMBER, completed={"type": "boolean"}, history={"type": "array", "items": obj(step=NUMBER, tool=PATH)}), simulate_loop))
     return registry

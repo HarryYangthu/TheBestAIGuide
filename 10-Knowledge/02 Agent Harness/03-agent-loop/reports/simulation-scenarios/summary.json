@@ -1,0 +1,74 @@
+[
+  {
+    "case": "normal",
+    "fixture_mode": "offline_scripted",
+    "status": "stopped",
+    "reason": "finish",
+    "model_calls": 5,
+    "acceptance_passed": true
+  },
+  {
+    "case": "bad_tool",
+    "fixture_mode": "offline_scripted",
+    "status": "stopped",
+    "reason": "finish",
+    "model_calls": 6,
+    "acceptance_passed": true
+  },
+  {
+    "case": "early_finish",
+    "fixture_mode": "offline_scripted",
+    "status": "stopped",
+    "reason": "finish",
+    "model_calls": 1,
+    "acceptance_passed": false
+  },
+  {
+    "case": "step_limit",
+    "fixture_mode": "offline_scripted",
+    "status": "stopped",
+    "reason": "step_limit",
+    "model_calls": 3,
+    "acceptance_passed": true
+  },
+  {
+    "case": "empty_response",
+    "fixture_mode": "offline_scripted",
+    "status": "failed",
+    "reason": "empty_response_limit",
+    "model_calls": 2,
+    "acceptance_passed": false
+  },
+  {
+    "case": "duplicate_id",
+    "fixture_mode": "offline_scripted",
+    "status": "failed",
+    "reason": "duplicate_call_id",
+    "model_calls": 2,
+    "acceptance_passed": false
+  },
+  {
+    "case": "stale_test",
+    "fixture_mode": "offline_scripted",
+    "status": "stopped",
+    "reason": "finish",
+    "model_calls": 6,
+    "acceptance_passed": false
+  },
+  {
+    "case": "failing_test",
+    "fixture_mode": "offline_scripted",
+    "status": "stopped",
+    "reason": "finish",
+    "model_calls": 3,
+    "acceptance_passed": false
+  },
+  {
+    "case": "transient_model",
+    "fixture_mode": "offline_scripted",
+    "status": "stopped",
+    "reason": "finish",
+    "model_calls": 6,
+    "acceptance_passed": true
+  }
+]

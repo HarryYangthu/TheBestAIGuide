@@ -1,6 +1,6 @@
 # 04｜编排与调度
 
-本章把读取笔记、运行统计检查和写报告拆成有依赖的任务。
+本章把读取仿真任务说明、运行统计检查和写报告拆成有依赖的任务。
 
 [组件总览](../README.md) · [上一组件：Agent 执行循环](../03-agent-loop/README.md) · [下一组件：通信与交接](../05-communication-and-handoff/README.md)
 
@@ -17,7 +17,7 @@ flowchart TD
     G --> C
 ```
 
-任务读取 `notes.txt`，检查 `stats.py`，保存报告。初版包含两个均值用例；第二版增加单元素用例；重规划再加入空列表应抛错的检查。
+任务读取 `notes.txt`，检查均值函数，运行 `simulate.py`，保存指标和报告。初版包含两个均值用例；第二版增加单元素用例；重规划再加入空列表应抛错的检查。
 
 执行者是读取 JSON、计算和检查的确定性函数。接入真实 Agent 循环时，调度器同样负责启动、回收和依赖检查。
 
@@ -32,7 +32,7 @@ flowchart TD
 
 | 版本 | 已实现机制 | 未实现范围 |
 |---|---|---|
-| v1 | 读取笔记、检查均值、写结果 | 完整验收、依赖与并发 |
+| v1 | 读取任务说明、检查均值、执行仿真、写结果 | 完整验收、依赖与并发 |
 | v2 | 六节点 DAG、角色容量、超时、取消、失败阻塞、结果验收 | 修改已经执行过的计划 |
 | v3 | 保留无关结果、重算受影响节点、增加空列表检查分支 | 运行中替换计划、进程重启恢复 |
 
@@ -48,11 +48,11 @@ cd "10-Knowledge/02 Agent Harness/04-orchestration-and-scheduling"
 
 | 输入 | 内容 |
 |---|---|
-| [notes.txt](fixtures/notes.txt) | 工具接入、循环日志与检查待办 |
+| [notes.txt](fixtures/notes.txt) | 仿真执行命令、输入参数、检查项和产物 |
 | [cases-v1.json](fixtures/cases-v1.json) | 两项均值检查 |
 | [cases-v2.json](fixtures/cases-v2.json) | 增加单元素检查 |
 | [cases-missing.json](fixtures/cases-missing.json) | 缺少预期值的错误输入 |
-| [policy.json](fixtures/policy.json) | 至少通过两项检查，笔记包含“工具接入” |
+| [policy.json](fixtures/policy.json) | 至少通过两项检查，任务说明包含“simulate.py” |
 | [stats.py](code/stats.py) | Agent Loop 任务中修正后的均值函数 |
 
 通过数是实际通过的检查项数量。输入文件保留原样；程序将实际输入复制进运行目录。
@@ -76,7 +76,7 @@ python sources/verify_sources.py
 
 | 产物 | 内容 |
 |---|---|
-| `input.json` | 这次实际使用的笔记、用例和检查规则；v1 只写结果 |
+| `input.json` | 这次实际使用的任务说明、用例和检查规则；v1 只写结果 |
 | `result.json` | 各节点状态、结果、错误、执行次数、验收结论 |
 | `events.jsonl` | `ready/start/cleanup/succeeded/failed/blocked/replan` 的真实顺序 |
 | `report.md` | 从同一次结果生成的节点状态与报告 |
@@ -89,3 +89,31 @@ python sources/verify_sources.py
 逐条命令、完整正文片段的标准输出与退出码见[读者走读记录](artifacts/verification.json)。
 
 正文入口：[01｜任务图与角色选择](01-task-graph-and-roles.md)。
+
+## 仿真任务入口
+
+[notes.txt](notes.txt) 是交给 Agent 的任务提示词，包含执行命令、输入参数、检查项和产物路径。调度图的 summary 节点实际运行仿真，review 节点核对检查结果，publish 节点保存报告。
+
+在本章目录执行，使用 Python 3.10+ 标准库：
+
+```bash
+python simulate.py --config simulation.json --output runs/simulation
+```
+
+标准输出：
+
+```text
+samples=64 window=3
+input_mse=0.090000 output_mse=0.010082
+improvement_db=9.507 passed=True
+artifacts=runs/simulation
+```
+
+| 文件 | 内容 |
+|---|---|
+| [simulation.json](simulation.json) | 采样点数、周期数、噪声幅度与滤波窗口 |
+| `runs/simulation/metrics.json` | 输入与输出 MSE、改善量和配置摘要 |
+| `runs/simulation/samples.csv` | 每个采样点的原始、加噪与滤波数值 |
+| `runs/simulation/report.md` | 引用实际指标的仿真报告 |
+
+再次运行时换一个 `--output` 目录。算法、参数对照和参考产物见[统一仿真说明](../_shared/README.md)。

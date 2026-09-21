@@ -37,13 +37,13 @@ flowchart TD
 
 | 文件 | 内容或用途 | 你可以怎样使用 |
 |---|---|---|
-| [notes.txt](notes.txt) | `本周完成了工具接入与循环日志。` | 打开修改文字，再运行 v1 |
+| [notes.txt](notes.txt) | 仿真执行提示词：命令、参数、检查和产物 | 打开修改文字，再运行 v1 |
 | [examples/stats.py](examples/stats.py) | 除数写错的 `mean` 函数 | 作为 v2—v4 的修复起点 |
 | `.env.example` | URL、API Key、Model 配置模板 | 复制为 `.env` 并填写 |
 | [requirements.txt](requirements.txt) | OpenAI SDK 与配置读取依赖 | 安装后运行程序 |
 | `runs/` | 运行时生成 | 查看输入副本、API 响应、文件修改和结果 |
 
-每次运行会把当前的 `notes.txt` 和 `examples/stats.py` 复制到独立的 `runs/<运行编号>/workspace/`。修改根目录的笔记会影响下一次运行，已经保存的运行目录不受影响。
+每次运行会把当前的 `notes.txt`、`examples/stats.py`、仿真脚本及配置 复制到独立的 `runs/<运行编号>/workspace/`。修改根目录的任务说明会影响下一次运行，已经保存的运行目录不受影响。
 
 ## API 配置
 
@@ -116,8 +116,9 @@ v0 还会先打印模型回答。打开 `artifacts` 对应的目录，可以看�
 | `messages.json` | 本文循环保存的消息历史 |
 | `trace.jsonl` | v2—v4 的模型响应、工具执行与退出事件 |
 | `answer.md` | 模型最终正文或 `finish` 中的总结 |
-| `workspace/notes.txt` | 这一次实际读取的笔记副本 |
+| `workspace/notes.txt` | 这一次实际读取的任务说明副本 |
 | `workspace/stats.py` | 这一次修复后的函数 |
+| `workspace/runs/simulation/` | 仿真生成的配置副本、指标、波形和报告 |
 | `changes.diff` | `stats.py` 的前后差异 |
 | `result.json` | 退出原因、调用次数和最终检查结果 |
 | `report.md` | 本次运行的文字记录与结果表 |
@@ -127,7 +128,7 @@ v0、v1 不检查 `stats.py`，因此它们的 `changes.diff` 为空；v0、v1 �
 
 ## 实验对照
 
-修复任务检查四种输入：
+先检查均值函数的四种输入，再核对仿真产物：
 
 | 输入 | 预期行为 |
 |---|---|
@@ -136,13 +137,13 @@ v0、v1 不检查 `stats.py`，因此它们的 `changes.diff` 为空；v0、v1 �
 | `[10]` | 返回 `10` |
 | `[]` | 抛出 `ValueError` |
 
-`check_tests` 使用 Python 子进程检查运行目录中的函数。退出后再检查当前文件，结果记录在 `result.json` 与 `report.md`。运行模型生成的代码时，请使用隔离的实验环境。
+`check_tests` 使用 Python 子进程检查函数，再重算预期波形与 MSE，核对产物和输入版本。缺少仿真产物时，即使四项函数检查通过，整体验收仍为 False。退出后再检查当前文件，结果记录在 `result.json` 与 `report.md`。运行模型生成的代码时，请使用隔离的实验环境。
 
 自动化测试与固定故障场景放在辅助入口，不参与默认模型选择：
 
 ```bash
 python -m unittest discover -s code -p 'test_*.py' -v
-python code/run_scenarios.py all --summary
+python code/run_scenarios.py all --summary --output runs/scenarios
 ```
 
 固定故障场景使用预设响应，用于复现提前结束、空响应、重复编号等分支。Notebook 的主线仍使用真实 API。
@@ -154,3 +155,31 @@ python code/run_scenarios.py all --summary
 本次已验证本地代码、SDK 协议与文件保存流程；当前环境没有配置 API Key，真实模型运行记录由读者配置后生成。
 
 从这里开始：[01｜模型调用与最小 Agent 循环](01-model-call-and-loop.md)。
+
+## 仿真任务入口
+
+[notes.txt](notes.txt) 是交给 Agent 的任务提示词，包含执行命令、输入参数、检查项和产物路径。v0、v1 先读取并解释任务；v2—v4 修复工作区里的均值函数，执行仿真并验收。
+
+在本章目录执行，使用 Python 3.10+ 标准库：
+
+```bash
+python simulate.py --config simulation.json --output runs/simulation
+```
+
+标准输出：
+
+```text
+samples=64 window=3
+input_mse=0.090000 output_mse=0.010082
+improvement_db=9.507 passed=True
+artifacts=runs/simulation
+```
+
+| 文件 | 内容 |
+|---|---|
+| [simulation.json](simulation.json) | 采样点数、周期数、噪声幅度与滤波窗口 |
+| `runs/simulation/metrics.json` | 输入与输出 MSE、改善量和配置摘要 |
+| `runs/simulation/samples.csv` | 每个采样点的原始、加噪与滤波数值 |
+| `runs/simulation/report.md` | 引用实际指标的仿真报告 |
+
+再次运行时换一个 `--output` 目录。算法、参数对照和参考产物见[统一仿真说明](../_shared/README.md)。

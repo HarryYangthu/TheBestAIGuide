@@ -1,6 +1,6 @@
 # 05｜通信与交接
 
-本章让读取者返回笔记证据，再把报告责任交给写作者。
+本章让读取者返回任务说明证据，再把报告责任交给写作者。
 
 [组件总览](../README.md) · [上一组件：编排与调度](../04-orchestration-and-scheduling/README.md) · [下一组件：上下文管理](../06-context-management/README.md)
 
@@ -8,7 +8,7 @@
 
 ```mermaid
 flowchart TD
-    A["协调者委派笔记内容检查"] --> B["执行者读取笔记内容"]
+    A["协调者委派任务字段检查"] --> B["执行者读取仿真任务说明内容"]
     B --> C{"返回结果或失败"}
     C -->|失败且可重试| A
     C -->|结果| D["检查关联、版本和证据"]
@@ -16,7 +16,7 @@ flowchart TD
     E --> F["新负责人生成处理草稿"]
 ```
 
-任务要求读取三项工作的记录，当前笔记只有两项。产物是一份注明缺失信息的笔记报告。代码只读取笔记内容并生成本地草稿，执行者为确定性函数，消息由进程内 JSON 队列传递。
+任务要求核对仿真命令、指标路径和退出码检查要求；`fixtures/notes.txt` 刻意缺少退出码要求，当前找到两项、缺一项。产物是一份注明缺失信息的仿真任务报告。代码只读取仿真任务说明内容并生成本地草稿，执行者为确定性函数，消息由进程内 JSON 队列传递。
 
 ## 阅读顺序
 
@@ -31,7 +31,7 @@ flowchart TD
 |---|---|---|
 | v1 | 函数参数与返回值 | 始终是协调者 |
 | v2 | JSON 请求、started/result/failure、ID 关联、结果验收 | 始终是协调者 |
-| v3 | 上下文包、接手确认、owner 与 epoch 检查 | 确认后转给履约专员 |
+| v3 | 上下文包、接手确认、owner 与 epoch 检查 | 确认后转给报告写作者 |
 
 ## 环境和输入
 
@@ -48,7 +48,7 @@ cd "10-Knowledge/02 Agent Harness/05-communication-and-handoff"
 | [task.json](fixtures/task.json) | `report-017`，读取 notes.txt，检查三条必需事实 |
 | [snapshot-unfound.json](fixtures/snapshot-unfound.json) | 版本 notes-1 的快照尚未就绪 |
 | [snapshot-ready.json](fixtures/snapshot-ready.json) | 版本 notes-2，指向包含两条记录的 notes.txt |
-| [policy.json](fixtures/policy.json) | 只允许生成处理草稿，只引用已有笔记，不修改输入 |
+| [policy.json](fixtures/policy.json) | 只允许生成处理草稿，只引用已有任务说明，不修改输入 |
 
 ## 运行命令
 
@@ -67,10 +67,10 @@ python sources/verify_sources.py
 
 | 产物 | 用途 |
 |---|---|
-| `input.json` | 本次实际使用的任务、笔记内容快照和政策副本 |
+| `input.json` | 本次实际使用的任务、任务字段快照和政策副本 |
 | `messages.jsonl` | 经队列传递的原始请求与回执，包括注入的重复和迟到消息 |
 | `result.json` | 接收决定、有效结果、owner/epoch、交接上下文 |
-| `draft.md` | 尚未发送、等笔记报告 |
+| `draft.md` | 尚未发送、等仿真任务报告 |
 | `report.md` | 按真实事件生成的接收与交接记录 |
 | `comparison.json` | 每项实验的 expected、actual 和 passed |
 
@@ -83,3 +83,31 @@ v1 只产生 `result.json`。交接的提出与确认通过本地方法完成，
 逐条命令、完整正文片段的标准输出与退出码见[读者走读记录](artifacts/verification.json)。
 
 正文入口：[01｜任务委派与消息协议](01-delegation-and-results.md)。
+
+## 仿真任务入口
+
+[notes.txt](notes.txt) 是交给 Agent 的任务提示词，包含执行命令、输入参数、检查项和产物路径。本章聚焦交接：fixtures/notes.txt 故意省略退出码要求，读取者报告缺项，写作者据此生成草稿。
+
+在本章目录执行，使用 Python 3.10+ 标准库：
+
+```bash
+python simulate.py --config simulation.json --output runs/simulation
+```
+
+标准输出：
+
+```text
+samples=64 window=3
+input_mse=0.090000 output_mse=0.010082
+improvement_db=9.507 passed=True
+artifacts=runs/simulation
+```
+
+| 文件 | 内容 |
+|---|---|
+| [simulation.json](simulation.json) | 采样点数、周期数、噪声幅度与滤波窗口 |
+| `runs/simulation/metrics.json` | 输入与输出 MSE、改善量和配置摘要 |
+| `runs/simulation/samples.csv` | 每个采样点的原始、加噪与滤波数值 |
+| `runs/simulation/report.md` | 引用实际指标的仿真报告 |
+
+再次运行时换一个 `--output` 目录。算法、参数对照和参考产物见[统一仿真说明](../_shared/README.md)。

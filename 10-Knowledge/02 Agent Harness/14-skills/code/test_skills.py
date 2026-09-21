@@ -81,7 +81,7 @@ class SkillTests(unittest.TestCase):
             run(output)
             report = output / "comparison/report.md"
             text = report.read_text(encoding="utf-8")
-            report.write_text(text.replace("# Agent Loop：1.0 → 2.0", "# Other SDK：9 → 10"), encoding="utf-8")
+            report.write_text(text.replace("# 仿真执行器：1.0 → 2.0", "# Other SDK：9 → 10"), encoding="utf-8")
             result = check(output / "comparison", self.old, self.new)
             self.assertFalse(result["passed"])
             self.assertFalse(result["checks"]["report_title"])

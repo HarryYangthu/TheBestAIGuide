@@ -1,4 +1,4 @@
 {
   "minimum_passed": 2,
-  "required_note": "工具接入"
+  "required_note": "simulate.py"
 }

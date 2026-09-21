@@ -6,13 +6,13 @@
 
 > 对应代码：`code/shared.py`、`code/v2_tool_dispatch.py`。
 
-本篇任务是修复 `stats.py` 中的平均值函数，使用读取、写入和检查三个工具。
+本篇任务是修复 `stats.py` 中的平均值函数，再运行 `simulate.py`，检查生成的指标、波形和报告。
 
 本章总览图如下：
 
 ```mermaid
 flowchart TD
-    A["1—2 定义三个工具"] --> B["3 注册名称、参数与函数"]
+    A["1—2 定义四个工具"] --> B["3 注册名称、参数与函数"]
     M["模型返回请求"] --> C{"4 参数检查通过吗"}
     B --> C
     C -->|是| D["5 按调用 ID 执行并关联结果"]
@@ -23,7 +23,7 @@ flowchart TD
     H -.保存.-> O["8 查看文件变化与执行记录"]
 ```
 
-本篇输入是 [examples/stats.py](examples/stats.py)；输出包括运行目录中的 `workspace/stats.py`、`changes.diff` 和 `report.md`。
+本篇输入是 [examples/stats.py](examples/stats.py)；输出包括 `workspace/stats.py`、`changes.diff`、运行记录 `report.md`，以及 `workspace/runs/simulation/` 中的仿真产物。
 
 ## 1. 工具列表
 
@@ -35,17 +35,18 @@ def mean(values):
     return sum(values) / (len(values) + 1)
 ```
 
-任务要求有两项：非空列表返回正确的算术平均值；空列表抛出 `ValueError`。Agent 必须先知道文件里写了什么，才能修改；修改后还要检查行为。工具由此自然分成三种。
+仿真中的均值滤波依赖 `mean`：非空列表应返回算术平均值，空列表应抛出 `ValueError`。修复后运行仿真，要求输出 MSE 小于输入 MSE。Agent 必须先知道文件里写了什么，才能修改；修改后还要检查行为。使用下面四个执行工具。
 
 | 工具 | 参数 | 它实际做的事 |
 |---|---|---|
 | `read_file` | `path` | 读取工作目录中的文件 |
-| `write_file` | `path`、`content` | 用给定内容写入文件 |
-| `check_tests` | 无 | 对当前 `stats.py` 执行固定检查 |
+| `write_file` | `path`、`content` | 修改工作区中的 `stats.py` |
+| `run_python` | `script` | 运行 `simulate.py`，保存指标、波形和报告 |
+| `check_tests` | 无 | 检查当前函数与真实仿真产物 |
 
 这里的 `check_tests` 是本章专用检查器。它执行预先写好的检查，不接受任意 shell 命令。这样读者可以集中观察循环怎样利用结果，而不用同时理解终端权限、子进程生命周期和完整测试框架。
 
-同一个循环接入多个工具后，模型可以选择“先读再写再检查”，也可能选错工具或跳过检查。**提供能力并不等于规定顺序。** 如果业务要求必须检查后才能交付，这个约束最终需要由程序验证。
+同一个循环接入多个工具后，模型可以选择“先读、修复、执行仿真、再检查”，也可能选错工具或跳过检查。**提供能力并不等于规定顺序。** 如果业务要求必须检查后才能交付，这个约束最终需要由程序验证。
 
 ## 2. 工具定义
 
@@ -117,7 +118,7 @@ from shared import make_registry, execute_tool
 
 with TemporaryDirectory() as directory:
     workspace = Path(directory)
-    (workspace / "notes.txt").write_text("先读取，再修改，最后检查。", encoding="utf-8")
+    (workspace / "notes.txt").write_text("执行 simulate.py，核对退出码和 metrics.json。", encoding="utf-8")
     registry = make_registry(workspace)
     observation = execute_tool("read_file", {"path": "notes.txt"}, registry)
     print(observation)
@@ -127,7 +128,7 @@ PY
 这段命令的实际输出是：
 
 ```text
-{'ok': True, 'output': '先读取，再修改，最后检查。'}
+{'ok': True, 'output': '执行 simulate.py，核对退出码和 metrics.json。'}
 ```
 
 执行部分的真实代码很短：
@@ -142,7 +143,7 @@ def execute_tool(name, arguments, registry):
     return {"ok": True, "output": function(**arguments)}
 ```
 
-上面的短程序打印 `{"ok": True, "output": "先读取，再修改，最后检查。"}` 对应的 Python 字典。`execute_tool` 本身不打印内容，而是把这个结果返回给循环。
+上面的短程序打印 `{"ok": True, "output": "执行 simulate.py，核对退出码和 metrics.json。"}` 对应的 Python 字典。`execute_tool` 本身不打印内容，而是把这个结果返回给循环。
 
 ## 4. 参数校验
 
@@ -273,7 +274,7 @@ artifacts=<本次运行目录>
 | `trace.jsonl` | 工具执行记录 | 请求 ID 与结果对应 |
 | `workspace/stats.py` | 当前实现 | 除数改成 `len(values)`，空列表抛出 `ValueError` |
 | `changes.diff` | 本次修改 | 能看出相对输入文件改了哪些行 |
-| `result.json` | 最终检查 | `acceptance.passed` 反映四项检查结果 |
+| `result.json` | 最终检查 | `acceptance.passed` 反映四项函数检查与一项仿真产物检查 |
 | `report.md` | 回答与检查表 | 文字结论与检查记录一致 |
 
 修复成功时，函数应具有下面的行为。实现可以采用不同写法：
@@ -290,3 +291,28 @@ def mean(values):
 本版为了保持简单，仍然把“没有工具请求”视为结束，连空响应也会停止。工具越来越多以后，这个规则会暴露问题：模型可能先回复一段解释，却还没做完任务。代码已经带有防止演示无限运行的 `max_steps`，但尚未解释预算边界，也没有显式的交付动作。下一篇会在当前程序上增加这些控制能力。
 
 [← 01｜模型调用与最小 Agent 循环](01-model-call-and-loop.md) · [返回阅读路线](README.md) · [03｜历史记录与退出条件 →](03-history-and-stopping.md)
+
+## 仿真执行与产物
+
+在章节目录执行下面的离线场景。模型响应预设，文件修改、仿真和检查均实际运行：
+
+```bash
+python code/run_scenarios.py normal --summary --output runs/simulation-demo
+```
+
+标准输出：
+
+```json
+{
+  "case": "normal",
+  "fixture_mode": "offline_scripted",
+  "status": "stopped",
+  "reason": "finish",
+  "model_calls": 5,
+  "acceptance_passed": true
+}
+```
+
+五次模型请求依次提出读取、修复、运行仿真、检查和结束。打开 `runs/simulation-demo/normal/workspace/runs/simulation/report.md`，应看到输入 MSE 为 0.090000、输出 MSE 为 0.010082。指标来自 `metrics.json`；`samples.csv` 保存对应的 64 个采样点。
+
+将参数 `normal` 改为 `early_finish`，运行到一个新目录：只提出结束请求时，`acceptance_passed` 为 false，仿真产物不存在。九个场景的已执行记录见[仿真实验对照](reports/simulation-scenarios/README.md)。

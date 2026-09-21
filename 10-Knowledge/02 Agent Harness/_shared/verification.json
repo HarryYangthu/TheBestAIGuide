@@ -1,0 +1,125 @@
+{
+  "date": "2026-09-21",
+  "scope": "Repository-wide related input, code, documentation and artifact update",
+  "simulation": {
+    "entrypoints_run": 15,
+    "window_3": {
+      "samples": 64,
+      "window": 3,
+      "input_mse": 0.09,
+      "output_mse": 0.01008204565537388,
+      "improvement_db": 9.506938496805722,
+      "passed": true,
+      "config_sha256": "102b87c25e277ce879f9ec0bd2c51492901f9be7dc891434266005d9513499de",
+      "stats_sha256": null
+    },
+    "window_1": {
+      "samples": 64,
+      "window": 1,
+      "input_mse": 0.09,
+      "output_mse": 0.09,
+      "improvement_db": 0.0,
+      "passed": false,
+      "config_sha256": "f399303265e8c72f08d8d38da751e4d2ce8818963656ccd845449208d9d9bc01",
+      "stats_sha256": null
+    }
+  },
+  "repository_tests": {
+    "command": "python scripts/run_python_tests.py",
+    "suites": 31,
+    "tests": 265,
+    "assertion_examples": 2,
+    "failed_groups": 0
+  },
+  "reader_snippets": {
+    "executed": 50,
+    "failures": 0
+  },
+  "source_integrity": {
+    "checks": 9,
+    "failed": 0
+  },
+  "mermaid": {
+    "diagrams_parsed": 90,
+    "failed": 0
+  },
+  "notebooks": {
+    "format_checked": 21
+  },
+  "real_model_api_executed": false,
+  "sdk_mock_transport_tests_executed": true,
+  "scenarios": [
+    {
+      "case": "normal",
+      "fixture_mode": "offline_scripted",
+      "status": "stopped",
+      "reason": "finish",
+      "model_calls": 5,
+      "acceptance_passed": true
+    },
+    {
+      "case": "bad_tool",
+      "fixture_mode": "offline_scripted",
+      "status": "stopped",
+      "reason": "finish",
+      "model_calls": 6,
+      "acceptance_passed": true
+    },
+    {
+      "case": "early_finish",
+      "fixture_mode": "offline_scripted",
+      "status": "stopped",
+      "reason": "finish",
+      "model_calls": 1,
+      "acceptance_passed": false
+    },
+    {
+      "case": "step_limit",
+      "fixture_mode": "offline_scripted",
+      "status": "stopped",
+      "reason": "step_limit",
+      "model_calls": 3,
+      "acceptance_passed": true
+    },
+    {
+      "case": "empty_response",
+      "fixture_mode": "offline_scripted",
+      "status": "failed",
+      "reason": "empty_response_limit",
+      "model_calls": 2,
+      "acceptance_passed": false
+    },
+    {
+      "case": "duplicate_id",
+      "fixture_mode": "offline_scripted",
+      "status": "failed",
+      "reason": "duplicate_call_id",
+      "model_calls": 2,
+      "acceptance_passed": false
+    },
+    {
+      "case": "stale_test",
+      "fixture_mode": "offline_scripted",
+      "status": "stopped",
+      "reason": "finish",
+      "model_calls": 6,
+      "acceptance_passed": false
+    },
+    {
+      "case": "failing_test",
+      "fixture_mode": "offline_scripted",
+      "status": "stopped",
+      "reason": "finish",
+      "model_calls": 3,
+      "acceptance_passed": false
+    },
+    {
+      "case": "transient_model",
+      "fixture_mode": "offline_scripted",
+      "status": "stopped",
+      "reason": "finish",
+      "model_calls": 6,
+      "acceptance_passed": true
+    }
+  ]
+}

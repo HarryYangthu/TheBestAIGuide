@@ -82,3 +82,31 @@ artifacts=<本次运行目录>
 已运行最小计算、完整协议、十二场景实验、6 项 unittest 和 3 个源码片段对照，全部通过；记录见 `reports/contract-experiments/`。验证环境为 Python 3.12.14、jsonschema 4.26.0。耗时（秒）按十进制四舍五入，`attempt=1` 表示每次入口仅执行一次；本章没有自动重试与分布式去重。旧资料保留在[归档任务与协议](../../_archive/03-agent-core/01-concepts/05-task-contracts.md)。
 
 开始阅读：[01｜任务对象与身份](01-request-and-identity.md)。
+
+## 仿真任务入口
+
+[notes.txt](notes.txt) 是交给 Agent 的任务提示词，包含执行命令、输入参数、检查项和产物路径。本章用任务协议描述输入和验收；均值函数用例用于检查仿真的基础计算。
+
+在本章目录执行，使用 Python 3.10+ 标准库：
+
+```bash
+python simulate.py --config simulation.json --output runs/simulation
+```
+
+标准输出：
+
+```text
+samples=64 window=3
+input_mse=0.090000 output_mse=0.010082
+improvement_db=9.507 passed=True
+artifacts=runs/simulation
+```
+
+| 文件 | 内容 |
+|---|---|
+| [simulation.json](simulation.json) | 采样点数、周期数、噪声幅度与滤波窗口 |
+| `runs/simulation/metrics.json` | 输入与输出 MSE、改善量和配置摘要 |
+| `runs/simulation/samples.csv` | 每个采样点的原始、加噪与滤波数值 |
+| `runs/simulation/report.md` | 引用实际指标的仿真报告 |
+
+再次运行时换一个 `--output` 目录。算法、参数对照和参考产物见[统一仿真说明](../_shared/README.md)。

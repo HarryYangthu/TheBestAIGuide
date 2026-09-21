@@ -4,9 +4,9 @@
 
 [组件总览](../README.md) · [上一组件：长期记忆 Memory](../13-memory/README.md) · [下一组件：自进化](../15-self-improvement/README.md)
 
-`notes-comparison` 技能包比较 Agent Loop 的两版运行配置笔记，检查版本、双侧证据和单位，输出参数变更表。
+`notes-comparison` 技能包比较 仿真执行器 的两版运行配置笔记，检查版本、双侧证据和单位，输出参数变更表。
 
-Agent Loop 是示例程序，资料位于本地。宿主程序 `host.py` 从 `examples/` 读取并执行技能包，无须安装到个人技能目录。
+仿真执行器 是示例程序，资料位于本地。宿主程序 `host.py` 从 `examples/` 读取并执行技能包，无须安装到个人技能目录。
 
 本章总览图如下：
 
@@ -85,3 +85,31 @@ packages=2 artifacts=runs/package-manifest.json
 已生成的 [版本比较报告](evidence/direct/report.md)、[验收](evidence/direct/acceptance.json)、[加载轨迹](evidence/host/trace.json)、[版本对照](evidence/experiments/report.md)与[包指纹](evidence/package-manifest.json)都可核对。
 
 本章已运行全部入口、4 个版本/路由场景和 10 个边界测试，详见 [validation.json](evidence/validation.json)。渐进加载记录的是 UTF-8 字节，不是 token；显式 compare/polish 路由没有测量模型自动选择技能的准确率。格式约定见[技能验收与版本管理](04-validation-and-versioning.md)。
+
+## 仿真任务入口
+
+[notes.txt](notes.txt) 是交给 Agent 的任务提示词，包含执行命令、输入参数、检查项和产物路径。本章比较仿真执行器配置的两个版本，技能负责单位换算、差异检查和报告生成。
+
+在本章目录执行，使用 Python 3.10+ 标准库：
+
+```bash
+python simulate.py --config simulation.json --output runs/simulation
+```
+
+标准输出：
+
+```text
+samples=64 window=3
+input_mse=0.090000 output_mse=0.010082
+improvement_db=9.507 passed=True
+artifacts=runs/simulation
+```
+
+| 文件 | 内容 |
+|---|---|
+| [simulation.json](simulation.json) | 采样点数、周期数、噪声幅度与滤波窗口 |
+| `runs/simulation/metrics.json` | 输入与输出 MSE、改善量和配置摘要 |
+| `runs/simulation/samples.csv` | 每个采样点的原始、加噪与滤波数值 |
+| `runs/simulation/report.md` | 引用实际指标的仿真报告 |
+
+再次运行时换一个 `--output` 目录。算法、参数对照和参考产物见[统一仿真说明](../_shared/README.md)。

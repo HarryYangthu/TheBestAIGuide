@@ -152,7 +152,7 @@
   },
   {
     "name": "run_python",
-    "description": "执行已审阅的 compute.py 并传入 JSON",
+    "description": "执行已审阅的 compute.py 或 simulate.py，读取 JSON 输入",
     "inputSchema": {
       "type": "object",
       "properties": {

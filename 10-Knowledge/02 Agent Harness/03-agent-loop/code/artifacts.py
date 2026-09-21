@@ -13,9 +13,8 @@ def new_run(stage, output_root=None):
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S")
     directory = Path(output_root or ROOT / "runs") / f"{stage}-{stamp}-{uuid.uuid4().hex[:6]}"
     workspace = directory / "workspace"
-    workspace.mkdir(parents=True)
-    shutil.copyfile(ROOT / "notes.txt", workspace / "notes.txt")
-    shutil.copyfile(ROOT / "examples" / "stats.py", workspace / "stats.py")
+    from shared import create_workspace
+    create_workspace(workspace)
     return directory, workspace
 
 
@@ -46,7 +45,7 @@ def save_run(directory, result, records, before_source):
         (directory / filename).write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows), encoding="utf-8")
     (directory / "trace.jsonl").write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in result.get("trace", [])), encoding="utf-8")
     summary = final_text(messages)
-    (directory / "answer.md").write_text(summary + "\n", encoding="utf-8")
+    (directory / "answer.md").write_text("# 模型回答\n\n" + (summary or "本次未生成正文。") + "\n", encoding="utf-8")
     after = (directory / "workspace" / "stats.py").read_text(encoding="utf-8")
     diff = "".join(difflib.unified_diff(before_source.splitlines(True), after.splitlines(True), fromfile="before/stats.py", tofile="after/stats.py"))
     (directory / "changes.diff").write_text(diff, encoding="utf-8")
@@ -62,7 +61,7 @@ def save_run(directory, result, records, before_source):
             detail = str(item["detail"]).replace("|", "\\|").replace("\n", " ")
             lines.append(f"| {item['name']} | {item['passed']} | {detail} |")
         lines += ["", f"文件 SHA-256：`{acceptance['source_sha256']}`", "", "## 代码变化", "", "```diff", diff.rstrip() or "（无变化）", "```", ""]
-    lines += ["## 对照文件", "", "- requests.jsonl：每次发给 API 的请求。", "- responses.jsonl：API 原始响应或请求错误类型。", "- messages.json：循环保存的完整消息。", "- trace.jsonl：执行事件。", "- workspace/：本次使用与修改的文件。", ""]
+    lines += ["## 对照文件", "", "- requests.jsonl：模型输入；离线场景保存预设模型收到的消息。", "- responses.jsonl：API 模式保存原始响应；离线预设响应见 trace.jsonl。", "- messages.json：循环保存的完整消息。", "- trace.jsonl：执行事件。", "- workspace/：本次使用与修改的文件。", "- workspace/runs/simulation/：执行仿真后生成的指标、波形数据和报告；提前停止时可能不存在。", ""]
     (directory / "report.md").write_text("\n".join(lines), encoding="utf-8")
 
 

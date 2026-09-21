@@ -6,8 +6,8 @@
 
 ```mermaid
 flowchart TD
-    A["读取三项配置"] --> B["创建官方SDK客户端"]
-    B --> C["发送笔记与任务"]
+    A["读取三项配置"] --> B["设置 API 请求参数"]
+    B --> C["发送仿真任务说明"]
     C --> D["取得ChatCompletion对象"]
     D --> E["检查完成状态"]
     E --> F["转换字段并保存"]
@@ -20,12 +20,15 @@ flowchart TD
 [examples/notes.txt](examples/notes.txt) 的实际内容如下：
 
 ```text
-完成：工具接入
-完成：循环日志
-待办：错误重试
+任务：执行一次 Python 信号去噪仿真，并根据实际结果生成报告。
+执行：python simulate.py --config simulation.json --output runs/simulation
+输入：64 个采样点，2 个正弦周期，交替噪声幅度 0.3，均值滤波窗口 3。
+检查：核对进程退出码和输出 MSE；若存在 stats.py，核对 mean 的除数和空列表处理。
+产物：runs/simulation/metrics.json、runs/simulation/samples.csv、runs/simulation/report.md
+要求：保留原始配置；报告引用真实指标，运行失败时记录原因，不编造成功。
 ```
 
-任务是概括笔记中的完成项和待办项。程序读取本地文件，再把文本放入用户消息；模型服务不能通过本地路径自动取得文件内容。
+任务是提取任务说明中的执行命令和产物路径。程序读取本地文件，再把文本放入用户消息；模型服务不能通过本地路径自动取得文件内容。
 
 以下完整片段在章节目录执行，输入就是该文件，标准输出固定：
 
@@ -33,17 +36,20 @@ flowchart TD
 from pathlib import Path
 
 notes = Path("examples/notes.txt").read_text(encoding="utf-8")
-messages = [{"role": "user", "content": "概括完成项与待办项。\n" + notes}]
+messages = [{"role": "user", "content": "提取执行命令和产物路径。\n" + notes}]
 print(messages[0]["role"])
 print(messages[0]["content"])
 ```
 
 ```text
 user
-概括完成项与待办项。
-完成：工具接入
-完成：循环日志
-待办：错误重试
+提取执行命令和产物路径。
+任务：执行一次 Python 信号去噪仿真，并根据实际结果生成报告。
+执行：python simulate.py --config simulation.json --output runs/simulation
+输入：64 个采样点，2 个正弦周期，交替噪声幅度 0.3，均值滤波窗口 3。
+检查：核对进程退出码和输出 MSE；若存在 stats.py，核对 mean 的除数和空列表处理。
+产物：runs/simulation/metrics.json、runs/simulation/samples.csv、runs/simulation/report.md
+要求：保留原始配置；报告引用真实指标，运行失败时记录原因，不编造成功。
 
 ```
 
@@ -53,7 +59,7 @@ user
 
 API 配置包括基础 URL、API Key 和模型名，安装与填写方法见 [README](README.md)。`OpenAI(...)` 是 Python 代码创建 SDK 客户端对象的表达式；变量 `client` 引用这个对象，用于发送请求和管理连接。
 
-以下完整片段在章节目录执行，读取笔记、调用模型，并在 `with` 块结束时关闭 SDK 连接：
+以下完整片段在章节目录执行，读取仿真任务说明、调用模型，并在 `with` 块结束时关闭 SDK 连接：
 
 ```python
 import os
@@ -71,12 +77,12 @@ with OpenAI(
 ) as client:
     response = client.chat.completions.create(
         model=os.environ["OPENAI_MODEL"],
-        messages=[{"role": "user", "content": "概括完成项与待办项。\n" + notes}],
+        messages=[{"role": "user", "content": "提取执行命令和产物路径。\n" + notes}],
     )
 print(response.choices[0].message.content)
 ```
 
-参考输出为“已完成工具接入和循环日志，待办是错误重试。”；具体措辞依模型而变。本段只展示最小调用，完整入口会先检查配置、检查响应并保存文件：
+参考输出为“执行 python simulate.py --config simulation.json --output runs/simulation，生成 metrics.json、samples.csv 和 report.md。”；具体措辞依模型而变。本段只展示最小调用，完整入口会先检查配置、检查响应并保存文件：
 
 ```bash
 python code/live.py --mode text
@@ -160,7 +166,7 @@ from adapter import OpenAIAdapter
 
 adapter = OpenAIAdapter.from_env()
 try:
-    result = adapter.request([{"role": "user", "content": "用一句话解释周报。"}])
+    result = adapter.request([{"role": "user", "content": "用一句话解释仿真中的均方误差。"}])
     print(sorted(result))
 finally:
     adapter.client.close()
