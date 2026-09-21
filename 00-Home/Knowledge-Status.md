@@ -6,7 +6,7 @@
 |---|---|
 | [01 AI Foundation](../10-Knowledge/01%20AI%20Foundation/README.md) | 已建立基础、DeepSeek、GPT、Qwen 四个分支与一手资料索引；基础正文链接原有材料，架构正文待补充 |
 | [02 Agent Harness](../10-Knowledge/02%20Agent%20Harness/README.md) | 原有 15 个组件全部归入同一分组 |
-| [03 References](../10-Knowledge/03%20References/README.md) | 已建立参考资料入口，具体仓库清单待补充 |
+| [03 References](../10-Knowledge/03%20References/README.md) | 已收录 1 份官方产品文档与 7 个代码仓，提供阅读入口、版本与 Harness 组件映射 |
 
 ## Harness 组件
 

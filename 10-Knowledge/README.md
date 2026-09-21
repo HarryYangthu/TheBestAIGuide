@@ -4,7 +4,7 @@
 |---|---|---|
 | [01 AI Foundation](01%20AI%20Foundation/README.md) | 大模型基础、Transformer 与公开模型架构 | Transformer 与大模型基础 → DeepSeek、GPT、Qwen |
 | [02 Agent Harness](02%20Agent%20Harness/README.md) | Agent 运行所需的 12 个核心组件与 3 个增强能力 | 执行循环 → 上下文、工具、状态、协作与验收 |
-| [03 References](03%20References/README.md) | 参考代码仓、项目阅读笔记与补充资料 | 待补充具体参考仓库 |
+| [03 References](03%20References/README.md) | 参考代码仓、项目阅读笔记与补充资料 | Claude Code、learn-claude-code、claw0、hello-agents、OpenClaw、Hermes、CyberClaw、LangGraph |
 
 Foundation 解释模型内部的结构、训练与推理；Harness 解释如何组织模型、工具和状态来完成任务；References 汇集可对照阅读的外部实现与资料。
 
