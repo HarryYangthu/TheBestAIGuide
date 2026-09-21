@@ -13,13 +13,14 @@ def function(name, description, properties, required):
 
 def schemas(stage):
     string = {"type": "string"}
+    field_value = {"type": "string", "description": "只写字段值，保留数值和单位，不附加括号、解释或条件说明。"}
     result = [
         function("list_files", "列出当前资料目录中的 Markdown 文件", {}, []),
         function("read_file", "读取原文，返回文件名和真实行号。最多读 20 行。",
                  {"path": string, "start": {"type": "integer"}, "limit": {"type": "integer"}}, ["path"]),
         function("write_report", "写出升级清单。每项需要 id、before、after、旧版 old_source 与新版 source。引用含 path、line、quote。",
                  {"changes": {"type": "array", "items": {"type": "object", "properties": {
-                     "id": string, "before": string, "after": string,
+                     "id": string, "before": field_value, "after": field_value,
                      "old_source": {"type": "object"}, "source": {"type": "object"}},
                      "required": ["id", "before", "after", "old_source", "source"],
                      "additionalProperties": False}}}, ["changes"]),

@@ -1,14 +1,16 @@
 # 项目 00：从一个循环写起的 Mini Agent
 
-给出一个资料目录，让 Agent 找到 Pine SDK 从 v1 升级到 v2 的三项变化，读取原文并写出升级清单。Pine 是本项目虚构的教学产品，不是实际 SDK。你不需要领域知识，只需要能读懂 Python 函数、列表和字典。
+本项目让 Agent 读取两份资料，整理 Pine SDK 从 v1 升级到 v2 的三项变化，并写出带原文引用的升级清单。Pine SDK 是虚构的教学案例，输入文件是 [v1.md](fixtures/docs/v1.md) 和 [v2.md](fixtures/docs/v2.md)。
 
-**完成后，你应该拿到一份有出处的清单、一份执行记录和一份可以失败的验收报告。** 七个阶段使用同一任务，逐步加入错误处理、上下文管理、记忆、计划、并发和 Harness。先跑通，再按章节修改代码、制造故障、解释结果。
+资料目录还包括 [preview.md](fixtures/docs/preview.md)，这是一份已废弃的预览稿，用于检查 Agent 是否选对版本。
 
-想系统理解每项能力的职责，配合阅读 [Agent 的 12 个核心组件与 3 个增强能力](../../10-Knowledge/02%20Agent%20Harness/README.md)。当前组件主线先从独立的执行循环实验开始；本项目继续使用 Pine SDK 案例组合多项能力。
+七个阶段使用同一任务，逐步加入错误处理、上下文管理、记忆、计划、并发，以及运行与验收程序（Harness）。每次运行都会保存清单、执行记录和验收报告。
+
+相关知识见 [Agent 组件学习路线](../../10-Knowledge/02%20Agent%20Harness/README.md)。
 
 ## 先运行，看到具体结果
 
-要求 Python 3.11 或更高版本，全部代码只依赖标准库。以下命令从**仓库根目录**运行，Windows PowerShell、macOS 和 Linux 写法相同。若系统使用 `python3`，统一替换 `python`。不需要先安装整个仓库的训练或 Notebook 依赖。
+要求 Python 3.11 或更高版本，只依赖标准库。在 VS Code 中打开仓库根目录（如 `TheBestAIGuide_run`），以下命令均从该目录运行。若系统使用 `python3`，将命令中的 `python` 替换为 `python3`。
 
 ```bash
 python 20-Projects/00-mini-agent/run.py run --stage 1 --mode demo --output .runs/mini-first
@@ -28,9 +30,9 @@ python 20-Projects/00-mini-agent/run.py run --stage 1 --mode demo --output .runs
 | timeout | 30 秒 | 10 秒 | v1.md:3 / v2.md:3 |
 | retry | 3 次 | 0 次 | v1.md:4 / v2.md:4 |
 
-注意：`preview.md` 中的 5 秒和 5 次属于废弃预览稿，不能当成正式版结论。对照 [v1 原文](fixtures/docs/v1.md)、[v2 原文](fixtures/docs/v2.md) 检查上表。JSON 清单还保存每项新旧两侧的完整原文。
+`report.json` 保存字段值，以及新旧两侧的引用路径、行号和完整原文。
 
-`demo` 使用**预先编写的工具调用轨迹和答案字段**，实际执行读文件、写报告等工具。它帮助观察程序机制，不证明模型会自主调查问题。`live` 才由真实模型决定动作。两种模式的结果都标注模式，不能混在一起报告成功率。
+`demo` 按预设顺序调用工具，使用固定答案字段；`live` 由真实模型选择工具并填写参数。
 
 ## 一次跑完七步，并生成完成报告
 
@@ -38,7 +40,7 @@ python 20-Projects/00-mini-agent/run.py run --stage 1 --mode demo --output .runs
 python 20-Projects/00-mini-agent/learn.py --output .runs/mini-course
 ```
 
-这条命令执行七次独立任务，以及上下文、记忆、并行、预算耗尽和错误引用实验。打开 `.runs/mini-course/completion.md`，七个阶段和五项实验都应该是 PASS。对应机器可读文件是 `completion.json`，顶层 `passed` 应为 `true`。
+这条命令执行七个阶段及五项实验。结果保存在 `.runs/mini-course/completion.md` 和 `completion.json` 中，全部通过时 `passed` 为 `true`。
 
 | 你应该得到的报告 | 位置（相对单次运行目录） | 用它判断什么 |
 | --- | --- | --- |
@@ -47,16 +49,15 @@ python 20-Projects/00-mini-agent/learn.py --output .runs/mini-course
 | 工具调用轨迹 | `trace.jsonl` | 调用了什么工具、参数是什么、工具返回什么、失败后有没有继续 |
 | 完整消息记录 | `messages.json` | 模型消息、tool_call_id 与工具响应怎样配对 |
 | 运行记录 | `run.json` | 模式、模型名、结束原因、调用次数、工具错误数、格式来源、上下文统计、实际用量（服务提供时） |
-| 全课程完成报告 | `mini-course/completion.md`、`completion.json` | 七步结果和五个实验是否达到预期 |
 | 子 Agent 回执〔选学〕 | `delegation.json`、两份 `*.trace.json` | 两个独立上下文分别读取了指定文件并正常结束 |
 
-可以先看仓库中实际执行后保存的 [参考清单](reference/stage-07/report.md)、[参考验收报告](reference/stage-07/acceptance.md)、[参考完成报告](reference/completion.md)、[参考运行记录](reference/stage-07/run.json)。用 [结果对照说明](REFERENCE.md) 区分固定结果与每次会变化的计时数据。
+运行后可对照 [参考清单](reference/stage-07/report.md) 和 [参考完成报告](reference/completion.md)。字段值应一致；每次运行的耗时可能不同。各项结果的含义见 [结果对照说明](REFERENCE.md)。
 
-**两个故障目录应当是 FAIL：** `expected-budget-failure` 表示在任务完成前用尽步数；`expected-citation-failure` 表示引用被改成了废弃文档。完成表对这两项显示 PASS，是因为系统成功识别了预设错误，而不是错误任务成功了。
+两个故障实验会主动制造错误：`expected-budget-failure` 用尽运行步数，`expected-citation-failure` 将新版引用改为已废弃的 `preview.md`。单次验收应为 FAIL，完成表中的 PASS 表示成功检出了错误。
 
 ## 七步怎么学
 
-每一步都能单独运行，例如把第一条命令改成 `--stage 3 --output .runs/mini-stage3`。每次使用新的输出目录，程序拒绝覆盖已有实验，避免把上次成功文件误认为本次产物。
+每一步都能单独运行，例如 `--stage 3 --output .runs/mini-stage3`。每次使用新的输出目录，程序不覆盖已有结果。
 
 | 阶段 | 阅读入口 | 本次增加什么 | 学完应能解释 |
 | --- | --- | --- | --- |
@@ -68,11 +69,11 @@ python 20-Projects/00-mini-agent/learn.py --output .runs/mini-course
 | 06 | [并发与子 Agent〔选学〕](lessons/06-parallel.md) | 真线程读取、独立模型上下文实验 | 并发工具与多 Agent 分别多了什么 |
 | 07 | [Harness 与验收](lessons/07-harness.md) | 组织全部实验、独立评分、汇总报告 | 哪些条件意味着任务完成，哪些只是程序停止 |
 
-代码保留一个可直接阅读的 [主循环](mini_agent/runtime.py)，各阶段通过 `stage` 开启新增能力，避免七份复制代码产生不一致。工具在 [tools.py](mini_agent/tools.py)，模型适配在 [providers.py](mini_agent/providers.py)，其他模块与章节同名。第 07 步的新增入口是 [learn.py](learn.py) 和 [harness.py](mini_agent/harness.py)，单独 `--stage 7` 使用第 06 步已有运行能力。
+七个阶段共用 [runtime.py](mini_agent/runtime.py) 的主循环，通过 `stage` 开启能力。工具实现在 [tools.py](mini_agent/tools.py)，模型调用在 [providers.py](mini_agent/providers.py)。第 07 步通过 [learn.py](learn.py) 和 [harness.py](mini_agent/harness.py) 组织整组实验；单独运行 `--stage 7` 时使用第 06 步已有的运行能力。
 
 ## 接入真实模型
 
-使用支持 Chat Completions 工具调用格式的服务。端点应是兼容 API 的基础地址，程序在后面追加 `/chat/completions`。不同服务对工具 schema 的支持可能不同；HTTP 错误不能当成模型能力评测结果。
+使用支持 Chat Completions 工具调用格式的服务。填写 API 基础地址、密钥和模型名称；程序会在基础地址后追加 `/chat/completions`。
 
 macOS/Linux：
 
@@ -92,33 +93,74 @@ $env:MINI_AGENT_MODEL='你的模型名称'
 python 20-Projects/00-mini-agent/run.py run --stage 7 --mode live --output .runs/mini-live-01
 ```
 
-`--mode live` 没有配置时会报错，不会偷偷切换到 demo。模型请求超时是 60 秒，不自动重试；默认最多 16 次主循环模型调用，一轮最多 8 次工具调用。`usage` 只记录服务实际返回的 token 计数，未返回则为空；不估算费用。程序不向模型开放 Shell，也不开放参考答案文件。
+默认请求超时为 60 秒，最多进行 16 轮模型调用，每轮最多执行 8 次工具调用。
 
-本次提交验证了离线实验和网络请求的序列化契约，**没有验证某个真实模型的完成率**。使用者需自行运行 live 并保留 `run.json` 与 `acceptance.json`；模型可能选错文件、漏项、用错值或超出步数，这些都是有效失败记录。
+运行结束后，打开输出目录中的 `report.md` 查看清单，打开 `acceptance.md` 查看各项检查结果。
+
+## live 未通过时，怎样定位和修改
+
+下面以一次实际运行中的 `retry:values` 失败为例。这次运行共有 13 项检查，12 项通过。
+
+### 1. 从验收报告找到失败项
+
+在 VS Code 中打开 `.runs/mini-live-01/acceptance.json`，搜索 `false`，在 `checks` 数组中找到：
+
+```json
+{"check": "retry:values", "passed": false}
+```
+
+`retry` 是重试次数这一项，`values` 表示检查 `before` 和 `after` 的值。若失败项是 `source` 或 `old_source`，则检查对应引用的文件、行号和原文。
+
+### 2. 对照输出、原文和验收代码
+
+打开同目录的 `report.json`，找到 `"id": "retry"`：
+
+```json
+"before": "3 次",
+"after": "0 次（调用方须显式配置）"
+```
+
+再打开 [fixtures/expected.json](fixtures/expected.json)，其中要求的 `after` 是 `"0 次"`。[evaluate.py](mini_agent/evaluate.py) 的 `check(key + ":values", ...)` 使用 `==` 比较字符串，因此附加说明也会造成不相等。
+
+[v2.md](fixtures/docs/v2.md) 第 4 行确实包含“调用方必须显式配置”。这次 API 调用成功，JSON 结构也正确，但模型在 `after` 中多写了说明，未遵守“只填字段值”的要求。验收程序比较的是字段文字是否完全一致；完整原文另保存在引用的 `quote` 中。
+
+在 `trace.jsonl` 中搜索 `write_report`，查看 `model_response` 中的调用参数，可以确认这段附加说明由模型填写。[tools.py](mini_agent/tools.py) 的 `write_report` 随后将参数写入 `report.json`。
+
+### 3. 修改模型收到的要求
+
+打开 [runtime.py](mini_agent/runtime.py)，找到文件开头的 `TASK`。原要求只说“before/after 只写字段值”，现改为：
+
+```python
+TASK = ("比较 Pine SDK v1 与 v2 正式版，输出 auth、timeout、retry 三项变更。"
+        "before/after 只写字段值，保留数值和单位，不附加括号、解释或条件说明。"
+        "每项引用旧版和新版的完整原文行，quote 保留原文中的说明。"
+        "不要采用已废弃预览稿。调用 write_report 保存结果。")
+```
+
+[tools.py](mini_agent/tools.py) 的 `schemas` 函数也为 `before`、`after` 增加了同样的字段说明。模型选择 `write_report` 工具时能同时看到这些要求。
+
+### 4. 用新目录重跑并比较
+
+保存文件，在配置好模型环境变量的终端执行：
+
+```bash
+python 20-Projects/00-mini-agent/run.py run --stage 7 --mode live --output .runs/mini-live-02
+```
+
+保留 `mini-live-01` 作为修改前记录。检查新目录的 `report.json` 中是否只写了 `"0 次"`，再查看 `acceptance.json` 中 `retry:values` 及整体 `passed` 的结果。若还有失败项，按上面的顺序继续查找。
 
 ## 怎样算完成这个项目
 
-| 层次 | 达成标准 | 不能据此声称什么 |
-| --- | --- | --- |
-| 环境与机制跑通 | `learn.py` 的整体 `passed=true`；能找到上述报告 | 不能声称真实模型成功 |
-| 模型任务跑通 | 一次 live 运行 `mode=live` 且独立验收全部 PASS | 不能声称换模型、换资料后仍可靠 |
-| 理解并能修改 | 完成各章练习，能解释一次失败轨迹；修改错误后让验收重新通过 | 仅复制参考结果不等于掌握代码 |
+| 阶段 | 达成标准 |
+| --- | --- |
+| 跑通离线实验 | `learn.py` 的整体 `passed=true` |
+| 跑通真实模型 | live 运行的验收全部 PASS |
+| 完成练习 | 能定位一次失败，修改后重新运行并比较结果 |
 
-建议留下自己的实验小结：运行模式与模型、清单、失败轨迹、改动、前后验收差异。可复制 [实验报告模板](EXPERIMENT.md) 填写。这里不规定模型必须得到完全一致的工具顺序；以证据和最终结果验收。
+用 [实验报告模板](EXPERIMENT.md) 记录运行命令、失败原因、修改位置和前后结果。
 
-重新检查已有产物：
+## 下一步
 
-```bash
-python 20-Projects/00-mini-agent/run.py verify --output .runs/mini-first
-python -m unittest discover -s 20-Projects/00-mini-agent/tests -v
-```
+完成后可进入 [领域资料研究助手](../domain-research-agent/README.md) 和 [学习工作台](../learning-workbench/README.md)。
 
-任何验收失败时退出码为 1，成功为 0。只输出了“已完成”但没有写清单，也会失败。
-
-## 范围与下一步
-
-上下文预算使用序列化文本**字符数**，不伪装成模型 token 上限；只限制发送给模型的消息，宿主保留完整轨迹。记忆仅处理显式输出格式偏好，不做自然语言记忆抽取。计划没有复杂调度器；运行记录不提供崩溃后自动恢复。子 Agent 实验只检验独立上下文与工具权限，不宣称协作收益。文件路径限制适用于这个没有任意代码执行能力的教学工具，不是操作系统级沙箱。
-
-先用小资料理解这些边界，再进入 [领域资料研究助手](../domain-research-agent/README.md) 和 [学习工作台](../learning-workbench/README.md)。本项目使用 Markdown 讲解与 JSON 轨迹，运行不依赖 Jupyter；已有资料足以在普通编辑器逐条检查消息。
-
-教学形式参考 [nanoAgent](https://github.com/sanbuphy/nanoAgent)：用小型循环逐步增加能力。本项目代码独立编写；未复制其源码。正式知识背景见各章节链接。
+教学形式参考 [nanoAgent](https://github.com/sanbuphy/nanoAgent)，代码独立编写。

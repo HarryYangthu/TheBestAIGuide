@@ -11,14 +11,14 @@
   "usage": {},
   "context": [
     {
-      "before_chars": 398,
-      "after_chars": 398,
+      "before_chars": 426,
+      "after_chars": 426,
       "removed_groups": 0
     }
   ],
   "max_steps": 1,
   "context_chars": 9000,
-  "elapsed_seconds": 0.0004035890015074983,
+  "elapsed_seconds": 0.004384399973787367,
   "plan": {
     "steps": [
       {

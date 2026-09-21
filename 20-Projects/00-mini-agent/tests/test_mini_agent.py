@@ -33,9 +33,9 @@ class MiniAgentTests(unittest.TestCase):
     def test_incorrect_value_real_quote_is_rejected(self):
         output = self.root / "wrong"
         run(output, self.docs, DemoModel(1))
-        report = json.loads((output / "report.json").read_text())
+        report = json.loads((output / "report.json").read_text(encoding="utf-8"))
         report["changes"][0]["after"] = "X-Preview-Key"
-        (output / "report.json").write_text(json.dumps(report))
+        (output / "report.json").write_text(json.dumps(report), encoding="utf-8")
         result = evaluate(output, self.docs)
         self.assertFalse(result["passed"])
         self.assertIn({"check": "auth:values", "passed": False}, result["checks"])
@@ -43,9 +43,9 @@ class MiniAgentTests(unittest.TestCase):
     def test_missing_change_rejected(self):
         output = self.root / "missing"
         run(output, self.docs, DemoModel(1))
-        report = json.loads((output / "report.json").read_text())
+        report = json.loads((output / "report.json").read_text(encoding="utf-8"))
         report["changes"].pop()
-        (output / "report.json").write_text(json.dumps(report))
+        (output / "report.json").write_text(json.dumps(report), encoding="utf-8")
         self.assertFalse(evaluate(output, self.docs)["passed"])
 
     def test_early_model_finish_does_not_pass(self):
@@ -69,7 +69,7 @@ class MiniAgentTests(unittest.TestCase):
                 return {"role": "assistant", "content": "done"}, {}
         output = self.root / "faults"
         run(output, self.docs, Faults(), stage=2)
-        state = json.loads((output / "run.json").read_text())
+        state = json.loads((output / "run.json").read_text(encoding="utf-8"))
         self.assertEqual(state["tool_errors"], 2)
         self.assertEqual(state["model_calls"], 3)
 
@@ -79,7 +79,7 @@ class MiniAgentTests(unittest.TestCase):
             box.read_file("../expected.json")
         docs = self.root / "docs"
         docs.mkdir()
-        (self.root / "secret.md").write_text("secret")
+        (self.root / "secret.md").write_text("secret", encoding="utf-8")
         try:
             (docs / "link.md").symlink_to(self.root / "secret.md")
         except OSError:
@@ -113,8 +113,8 @@ class MiniAgentTests(unittest.TestCase):
         output = self.root / "children"
         result = delegate(self.docs, output)
         self.assertTrue(result["passed"])
-        first = json.loads((output / "v1.md.trace.json").read_text())
-        second = json.loads((output / "v2.md.trace.json").read_text())
+        first = json.loads((output / "v1.md.trace.json").read_text(encoding="utf-8"))
+        second = json.loads((output / "v2.md.trace.json").read_text(encoding="utf-8"))
         self.assertIn("v1.md", first["messages"][1]["content"])
         self.assertNotIn("v2.md", first["messages"][1]["content"])
         self.assertIn("v2.md", second["messages"][1]["content"])

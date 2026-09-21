@@ -11,49 +11,49 @@
   "usage": {},
   "context": [
     {
-      "before_chars": 398,
-      "after_chars": 398,
+      "before_chars": 426,
+      "after_chars": 426,
       "removed_groups": 0
     },
     {
-      "before_chars": 913,
-      "after_chars": 913,
+      "before_chars": 941,
+      "after_chars": 941,
       "removed_groups": 0
     },
     {
-      "before_chars": 1187,
-      "after_chars": 1187,
+      "before_chars": 1215,
+      "after_chars": 1215,
       "removed_groups": 0
     },
     {
-      "before_chars": 1507,
-      "after_chars": 1507,
+      "before_chars": 1535,
+      "after_chars": 1535,
       "removed_groups": 0
     },
     {
-      "before_chars": 2092,
-      "after_chars": 2092,
+      "before_chars": 2120,
+      "after_chars": 2120,
       "removed_groups": 0
     },
     {
-      "before_chars": 2878,
-      "after_chars": 2878,
+      "before_chars": 2906,
+      "after_chars": 2906,
       "removed_groups": 0
     },
     {
-      "before_chars": 3945,
-      "after_chars": 3945,
+      "before_chars": 3973,
+      "after_chars": 3973,
       "removed_groups": 0
     },
     {
-      "before_chars": 4470,
-      "after_chars": 4470,
+      "before_chars": 4498,
+      "after_chars": 4498,
       "removed_groups": 0
     }
   ],
   "max_steps": 16,
   "context_chars": 9000,
-  "elapsed_seconds": 0.012718625999696087,
+  "elapsed_seconds": 0.025414800038561225,
   "plan": {
     "steps": [
       {
