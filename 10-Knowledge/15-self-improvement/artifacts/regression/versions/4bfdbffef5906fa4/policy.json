@@ -1,0 +1,5 @@
+{
+  "normalize_status": true,
+  "invalid_value": "skip_and_record",
+  "include_negative": false
+}

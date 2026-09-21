@@ -1,0 +1,281 @@
+{
+  "scenario": "读取笔记、运行统计或检查代码、保存报告",
+  "core_directory": "10-Knowledge/02_Harness",
+  "python_suite_groups": 31,
+  "failed_groups": 0,
+  "runnable_snippets": 50,
+  "mermaid_diagrams": 88,
+  "source_checks": {
+    "checks": [
+      {
+        "chapter": "01-task-contracts",
+        "script": "code/verify_sources.py",
+        "returncode": 0,
+        "output": "sources=3 version=4.26.0 matched=true"
+      },
+      {
+        "chapter": "02-model-adapters",
+        "script": "code/verify_sources.py",
+        "returncode": 0,
+        "output": "sources=4 version=3.16.2 matched=true"
+      },
+      {
+        "chapter": "03-agent-loop",
+        "script": "sources/verify_sources.py",
+        "returncode": 0,
+        "output": "PASS: 6 source files; 8 excerpts; matching Markdown; MIT license.\nThis is local integrity verification, not remote provenance or SDK execution verification."
+      },
+      {
+        "chapter": "04-orchestration-and-scheduling",
+        "script": "sources/verify_sources.py",
+        "returncode": 0,
+        "output": "verified=2 runtime=CPython 3.12.14"
+      },
+      {
+        "chapter": "05-communication-and-handoff",
+        "script": "sources/verify_sources.py",
+        "returncode": 0,
+        "output": "verified=2 runtime=CPython 3.12.14"
+      },
+      {
+        "chapter": "06-context-management",
+        "script": "sources/verify_sources.py",
+        "returncode": 0,
+        "output": "verified=3"
+      },
+      {
+        "chapter": "07-state-and-artifacts",
+        "script": "sources/verify_sources.py",
+        "returncode": 0,
+        "output": "verified=1 tag=v3.12.10"
+      },
+      {
+        "chapter": "09-persistence-and-recovery",
+        "script": "sources/verify_sources.py",
+        "returncode": 0,
+        "output": "verified=2 tag=v3.12.10"
+      },
+      {
+        "chapter": "13-memory",
+        "script": "sources/verify_sources.py",
+        "returncode": 0,
+        "output": "verified=2"
+      }
+    ],
+    "failed": 0
+  },
+  "live_api_executed": false,
+  "docker_executed": false,
+  "commands": [
+    {
+      "chapter": 1,
+      "command": "python code/v0_count.py",
+      "stdout": "count=3 total_seconds=6.0\nsaved=runs/preview.json\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "chapter": 1,
+      "command": "python code/experiments.py --output reports/contract-experiments",
+      "stdout": "cases=12 matched=12 accepted=1\nartifacts=reports/contract-experiments\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "chapter": 4,
+      "command": "python code/experiments.py --output artifacts/reference",
+      "stdout": "serial: accepted=True passed_checks=2 executions=6 peak_active=1\nparallel: accepted=True passed_checks=2 executions=6 peak_active=2\nmissing_case: accepted=False passed_checks=None executions=3 peak_active=2\ncases_changed: accepted=True passed_checks=3 executions=10 peak_active=2\nplan_changed: accepted=True passed_checks=4 executions=11 peak_active=2\ncancelled: accepted=False passed_checks=None executions=2 peak_active=2\nartifacts=artifacts/reference\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "chapter": 5,
+      "command": "python code/experiments.py --output artifacts/reference",
+      "stdout": "checks=19 passed=19\nworker_executions=2 accepted_results=1 missing=1\nowner=report-writer epoch=2\nartifacts=artifacts/reference\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "chapter": 6,
+      "command": "python code/first_context.py",
+      "stdout": "messages=2\nserialized_input_tokens=79\nartifacts=runs/first/messages.json\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "chapter": 6,
+      "command": "python code/run_experiments.py --out runs/revised-default",
+      "stdout": "selected=2/5\nsummary_facts=3/3\ninput_tokens=402 limit=1500\nreport_decision=BLOCKED\nartifacts=runs/revised-default\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "chapter": 6,
+      "command": "python code/run_experiments.py --window 1301 --out runs/revised-tight",
+      "stdout": "selected=2/5\nsummary_facts=3/3\ninput_tokens=231 limit=401\nreport_decision=NEEDS_EVIDENCE\nartifacts=runs/revised-tight\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "chapter": 6,
+      "command": "python code/engineering_experiments.py --out reports/engineering",
+      "stdout": "variants=5\nchecks=14/14\nscoped_facts=3/3\nmodel_calls=0\nartifacts=reports/engineering\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "chapter": 8,
+      "command": "python code/run_minimal.py",
+      "stdout": "policy.md:3: 先读取笔记，再运行统计脚本，最后写入报告。\nsaved=runs/minimal.txt\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "chapter": 8,
+      "command": "python code/run_task.py --output evidence/task",
+      "stdout": "mean=3.0 calls=6 acceptance=True\nartifacts=evidence/task\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "chapter": 8,
+      "command": "python code/run_minimal.py",
+      "stdout": "policy.md:3: 先读取笔记，再运行统计脚本，最后写入报告。\nsaved=runs/minimal.txt\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "chapter": 8,
+      "command": "python code/run_task.py --output evidence/task",
+      "stdout": "mean=3.0 calls=6 acceptance=True\nartifacts=evidence/task\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "chapter": 8,
+      "command": "python code/mcp_stdio.py --output evidence/mcp",
+      "stdout": "protocol=2025-06-18 tools=5 valid_call=True invalid_call=True\nartifacts=evidence/mcp\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "chapter": 8,
+      "command": "python code/run_experiments.py --output evidence/experiments",
+      "stdout": "cases=8 passed=8\nartifacts=evidence/experiments\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "chapter": 10,
+      "command": "python code/evaluation.py --out artifacts/reference",
+      "stdout": "baseline: accepted=9/18\ncandidate: accepted=15/18\npaired wins/ties/regressions=6/12/0\nrelease_gate=hold\nartifacts=artifacts/reference\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "chapter": 11,
+      "command": "python code/trace_demo.py --out artifacts/reference",
+      "stdout": "model_mode=fixture_replay\nsuccess_tasks=1 failed_tasks=1\nroot_wall_ms=64.590 child_sum_ms=123.671\nartifacts=artifacts/reference\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "chapter": 12,
+      "command": "python code/run_experiments.py --output evidence/experiments",
+      "stdout": "checks=12 passed=12\nartifacts=evidence/experiments\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "chapter": 13,
+      "command": "python code/run_experiments.py",
+      "stdout": "processes=10\nacceptance=True\nartifacts=runs/20260921T044353363588Z\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "chapter": 14,
+      "command": "python examples/skills/notes-comparison/scripts/compare.py --old examples/inputs/v1.json --new examples/inputs/v2.json --old-version 1.0 --new-version 2.0 --units examples/skills/notes-comparison/references/units.json --template examples/skills/notes-comparison/assets/report.md --output evidence/direct",
+      "stdout": "status=generated rows=3\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "chapter": 14,
+      "command": "python code/validate_output.py --output evidence/direct --old examples/inputs/v1.json --new examples/inputs/v2.json",
+      "stdout": "acceptance=True checks=23\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "chapter": 14,
+      "command": "python code/host.py --task compare --output evidence/host",
+      "stdout": "status=completed acceptance=True\nartifacts=evidence/host\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "chapter": 14,
+      "command": "python code/host.py --task polish --output evidence/polish",
+      "stdout": "status=skipped acceptance=None\nartifacts=evidence/polish\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "chapter": 14,
+      "command": "python code/run_experiments.py --output evidence/experiments",
+      "stdout": "checks=4 passed=4\nartifacts=evidence/experiments\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "chapter": 14,
+      "command": "python code/package_manifest.py --output evidence/package-manifest.json",
+      "stdout": "packages=2 artifacts=evidence/package-manifest.json\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "chapter": 15,
+      "command": "python code/experiment.py --out artifacts/reference",
+      "stdout": "baseline: dev=4/8 holdout=6/8\ncandidate: dev=8/8 holdout=8/8\nadopted=True after_adopt=True after_rollback=False\nartifacts=artifacts/reference\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "chapter": 15,
+      "command": "python code/cycle.py run --negative-filter --out artifacts/regression",
+      "stdout": "adopted=False\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "chapter": 10,
+      "command": "python code/evaluation.py --out artifacts/reference",
+      "stdout": "baseline: accepted=9/18\ncandidate: accepted=15/18\npaired wins/ties/regressions=6/12/0\nrelease_gate=hold\nartifacts=artifacts/reference\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "chapter": 11,
+      "command": "python code/trace_demo.py --out artifacts/reference",
+      "stdout": "model_mode=fixture_replay\nsuccess_tasks=1 failed_tasks=1\nroot_wall_ms=62.932 child_sum_ms=122.857\nartifacts=artifacts/reference\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "chapter": 15,
+      "command": "python code/experiment.py --out artifacts/reference",
+      "stdout": "baseline: dev=4/8 holdout=6/8\ncandidate: dev=8/8 holdout=8/8\nadopted=True after_adopt=True after_rollback=False\nartifacts=artifacts/reference\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "chapter": 15,
+      "command": "python code/cycle.py run --negative-filter --out artifacts/regression",
+      "stdout": "adopted=False\n",
+      "stderr": "",
+      "returncode": 0
+    }
+  ]
+}

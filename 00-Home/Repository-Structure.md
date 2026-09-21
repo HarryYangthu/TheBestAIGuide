@@ -17,7 +17,7 @@
 
 ## 一个组件内部怎样组织
 
-以已接入的 `10-Knowledge/03-agent-loop/` 为例：
+以已接入的 `10-Knowledge/02_Harness/03-agent-loop/` 为例：
 
 | 文件或目录 | 职责 |
 |---|---|

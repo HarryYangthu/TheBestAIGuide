@@ -1,0 +1,6 @@
+service=stats
+environment=workspace
+timeout_ms=3000
+verification_errors_pct=2
+owner=reader
+effective_date=2026-09-01

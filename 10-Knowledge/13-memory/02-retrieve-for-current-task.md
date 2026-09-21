@@ -18,15 +18,15 @@ flowchart TD
 
 ## 检索条件
 
-第二次任务仍是 checkout production 的发布审核，但现在用户是 alice、日期是 2026-09-20，用户明确要求“本次使用英文”，并提供回滚阶段 `ACCESS_DENIED` 的错误信号。全部输入位于 [task-second.json](fixtures/task-second.json)。
+第二次任务仍是 stats workspace 的报告审核，但现在用户是 alice、日期是 2026-09-20，用户明确要求“本次使用英文”，并提供检查阶段 `ACCESS_DENIED` 的错误信号。全部输入位于 [task-second.json](fixtures/task-second.json)。
 
-`requested_keys` 列出这次需要的 `timeout_ms`、`language`、`rollback_steps`、`rollback_permission`。这个小任务用确切字段检索，易于核对来源；没有使用向量相似度，也不需要为了做等值筛选请求模型。
+`requested_keys` 列出这次需要的 `timeout_ms`、`language`、`verification_steps`、`verification_permission`。这个小任务用确切字段检索，易于核对来源；没有使用向量相似度，也不需要为了做等值筛选请求模型。
 
 任务很大时可以先按关键词或向量找候选，再执行相同的范围与有效期规则。相似度只表示“可能相关”，不能替代用户隔离、是否核对和是否过期这些硬条件。
 
 ## 适用性筛选
 
-`MemoryStore.retrieve` 取回记录后，依次检查服务与环境、用户范围、active 状态、来源哈希、有效期、所需字段、当前指令和触发条件。
+`MemoryStore.retrieve` 取回记录后，依次检查任务与环境、用户范围、active 状态、来源哈希、有效期、所需字段、当前指令和触发条件。
 
 **实现节选**，依赖同函数中定义的 record、task、today、date；完整代码位于 [memory.py](code/memory.py)，这段本身不打印。
 
@@ -54,13 +54,13 @@ effective_preferences = {r["key"]: r["value"] for r in selected if r["kind"] == 
 effective_preferences.update(task.get("current_instructions", {}))
 ```
 
-这段只处理偏好选择，不把用户要求写成已证实的政策事实。例如“请使用 9000 毫秒”若与生产政策不符，仍须明确处理任务约束和事实冲突；不能由偏好合并语句把真实政策改掉。
+这段只处理偏好选择，不把用户要求写成已证实的检查规则事实。例如“请使用 9000 毫秒”若与生产检查规则不符，仍须明确处理任务约束和事实冲突；不能由偏好合并语句把真实检查规则改掉。
 
-`session.py` 根据有效语言生成检查单：en 对应英文标题 `checkout release checklist`。删除当前语言指令后，旧中文偏好才会恢复作用。
+`session.py` 根据有效语言生成检查单：en 对应英文标题 `stats release checklist`。删除当前语言指令后，旧中文偏好才会恢复作用。
 
 ## 失败教训的触发条件
 
-`failure-permission` 来自 incident-17，建议申请 rollback-runner 权限。它只在 `phase=rollback` 和 `error_code=ACCESS_DENIED` 都出现时使用。
+`failure-permission` 来自 incident-17，建议申请 verification-runner 权限。它只在 `phase=verification` 和 `error_code=ACCESS_DENIED` 都出现时使用。
 
 **条件函数片段**；record 与 task 来自上述检索过程，完整实现见 memory.py。它把任何一个不匹配条件都判为不采用，不产生输出。
 
@@ -82,10 +82,10 @@ python code/session.py review --task task-no-trigger.json --out runs/manual-no-t
 
 | 输入 | selected | language |
 |---|---|---|
-| 有权限失败信号 | fact-timeout-v3,failure-permission,procedure-rollback | en |
-| 无触发信号 | fact-timeout-v3,procedure-rollback | en |
+| 有权限失败信号 | fact-timeout-v3,failure-permission,procedure-verification | en |
+| 无触发信号 | fact-timeout-v3,procedure-verification | en |
 
-`failure-permission` 并没有被删除，只是本次不适用。procedure-rollback 是同类型发布的通用已验证步骤，因此仍可作为检查清单参考；它不等于自动执行回滚。
+`failure-permission` 并没有被删除，只是本次不适用。procedure-verification 是同类型报告任务的通用已验证步骤，因此仍可作为检查清单参考；它不等于自动执行检查。
 
 ## 上下文证据包
 
@@ -99,7 +99,7 @@ python code/session.py review --task task-no-trigger.json --out runs/manual-no-t
 | fact-expired | expired | 旧批量设置到期 |
 | rumor-timeout | candidate | 未核对的聊天猜测不成为事实 |
 | other-user-pref | user_mismatch | bob 的日语偏好不影响 alice |
-| other-service | scope_mismatch | search 的 700 不用于 checkout |
+| other-service | scope_mismatch | search 的 700 不用于 stats |
 
 打开 `context.json` 可看到真正送给下一步的证据包，`result.json` 保留筛选原因，`report.md` 根据采用的记录生成检查单。若再接模型，把这个包作为带来源的材料附在当前任务下，不能提升为比当前用户指令更高的系统规则。
 

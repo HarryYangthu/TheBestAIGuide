@@ -1,0 +1,15 @@
+{
+  "task_id": "negative",
+  "trial": 2,
+  "variant": "baseline",
+  "input_sha256": "aa6dd1d5dbb9584ddfeeda97fc2874d0fe6146a496d9c3196f970841bb9f5cb4",
+  "checker_version": "summary-contract-v1",
+  "exit_reason": "completed",
+  "accepted": true,
+  "error": null,
+  "elapsed_ms": 0.0659769975754898,
+  "tool_calls": 1,
+  "model_cost_usd": null,
+  "cost_source": "not_instrumented",
+  "artifact_dir": "artifacts/reference/runs/negative-2-baseline"
+}

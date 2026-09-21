@@ -1,0 +1,30 @@
+$ python code/run_minimal.py
+policy.md:3: 初始执行步骤为 4，比较每天笔记 2 件与 4 件。
+saved=runs/minimal.txt
+
+$ python code/run_task.py --output runs/task
+selected=4 calls=6 acceptance=True
+artifacts=runs/task
+
+$ python code/mcp_stdio.py --output runs/mcp
+protocol=2025-06-18 tools=5 valid_call=True invalid_call=True
+artifacts=runs/mcp
+
+$ python code/run_experiments.py --output runs/experiments
+cases=8 passed=8
+artifacts=runs/experiments
+
+$ python -m unittest discover -s code -p test_*.py -v
+test_bool_and_extra_arguments_rejected (test_runtime.RuntimeTests.test_bool_and_extra_arguments_rejected) ... ok
+test_child_timeout_and_nonzero (test_runtime.RuntimeTests.test_child_timeout_and_nonzero) ... ok
+test_missing_and_unknown_tool (test_runtime.RuntimeTests.test_missing_and_unknown_tool) ... ok
+test_path_escape_and_symlink_rejected (test_runtime.RuntimeTests.test_path_escape_and_symlink_rejected) ... ok
+test_result_contract (test_runtime.RuntimeTests.test_result_contract) ... ok
+test_script_allowlist (test_runtime.RuntimeTests.test_script_allowlist) ... ok
+test_simulation_conserves_inventory (test_runtime.RuntimeTests.test_simulation_conserves_inventory) ... ok
+test_write_and_read (test_runtime.RuntimeTests.test_write_and_read) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.120s
+
+OK

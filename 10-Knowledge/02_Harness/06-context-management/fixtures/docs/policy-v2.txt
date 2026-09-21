@@ -1,0 +1,3 @@
+service=stats
+timeout_ms=5000
+verification_errors_pct=5

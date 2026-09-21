@@ -53,22 +53,22 @@
     ],
     "holdout": [
       {
-        "task_id": "cents",
+        "task_id": "empty",
         "trial": 0,
         "delta": 0
       },
       {
-        "task_id": "cents",
+        "task_id": "empty",
         "trial": 1,
         "delta": 0
       },
       {
-        "task_id": "empty",
+        "task_id": "integer_values",
         "trial": 0,
         "delta": 0
       },
       {
-        "task_id": "empty",
+        "task_id": "integer_values",
         "trial": 1,
         "delta": 0
       },
@@ -98,7 +98,7 @@
     "max_tool_calls_per_run": 1
   },
   "cost_comparison": "unavailable: model_cost_usd not instrumented",
-  "baseline": "1c716cce8e777830",
-  "candidate": "b2758a1d687174c7",
+  "baseline": "875155519cacd40a",
+  "candidate": "b52988973c4a2291",
   "adopted": true
 }

@@ -1,3 +1,0 @@
-tenant=beta
-PRIVATE_FIXTURE_BETA_ONLY
-此文件仅用于测试跨租户正文不会被读取。

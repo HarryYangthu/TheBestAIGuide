@@ -1,0 +1,45 @@
+{
+  "trace_id": "30f626963191400ca1d023b543a1ed3e",
+  "span_count": 11,
+  "root_wall_ms": 62.932353,
+  "child_duration_sum_ms": 122.85743099999999,
+  "child_interval_union_ms": 61.62240499999999,
+  "first_direct_error": {
+    "trace_id": "30f626963191400ca1d023b543a1ed3e",
+    "span_id": "s0009",
+    "parent_span_id": "s0007",
+    "task_id": "invalid",
+    "parent_task_id": "batch",
+    "name": "tool.aggregate",
+    "kind": "tool",
+    "status": "error",
+    "error": {
+      "type": "ValueError",
+      "message": "invalid_value: file=invalid.csv row=3 sample=w2",
+      "origin_span_id": "s0009",
+      "is_origin": true
+    },
+    "start_utc": "2026-09-21T04:46:01.451380+00:00",
+    "start_ms": 61.98225,
+    "versions": {
+      "engine": "trace-v1",
+      "tool": "aggregate-v1",
+      "policy": "reject-invalid-v1",
+      "prompt": "fixture-plan-v1"
+    },
+    "attributes": {
+      "input_file": "invalid.csv",
+      "failed_row": 3,
+      "sample_id": "w2"
+    },
+    "end_ms": 62.028668,
+    "duration_ms": 0.046418000000002735
+  },
+  "model_span_count": 1,
+  "known_cost_spans": 0,
+  "total_model_cost_usd": null,
+  "illustrative_cost_usd": 7.2e-05,
+  "success_tasks": 1,
+  "failed_tasks": 1,
+  "child_overlap_ms": 61.235026
+}

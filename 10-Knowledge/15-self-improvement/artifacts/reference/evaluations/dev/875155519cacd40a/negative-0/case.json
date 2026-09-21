@@ -1,0 +1,9 @@
+{
+  "id": "negative",
+  "input": "negative.csv",
+  "expected": {
+    "total": 8,
+    "valid_rows": 2,
+    "rejected_rows": []
+  }
+}

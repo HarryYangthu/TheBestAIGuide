@@ -2,8 +2,8 @@
   "id": "whitespace",
   "input": "whitespace.csv",
   "expected": {
-    "total_cents": 400,
-    "paid_rows": 1,
+    "total": 4,
+    "valid_rows": 1,
     "rejected_rows": []
   }
 }

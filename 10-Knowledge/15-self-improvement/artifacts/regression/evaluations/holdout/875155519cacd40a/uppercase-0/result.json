@@ -1,0 +1,24 @@
+{
+  "task_id": "uppercase",
+  "version": "875155519cacd40a",
+  "trial": 0,
+  "accepted": false,
+  "actual": {
+    "total": 0,
+    "valid_rows": 0,
+    "rejected_rows": []
+  },
+  "expected": {
+    "total": 6,
+    "valid_rows": 1,
+    "rejected_rows": []
+  },
+  "error": null,
+  "error_type": null,
+  "input_sha256": "1bf8522df1b071d53b34ae1149ebe397814801190ec641b8d08889955a7ec9ce",
+  "checker_version": "order-contract-v1",
+  "elapsed_ms": 0.139746000058949,
+  "tool_calls": 1,
+  "model_cost_usd": null,
+  "cost_source": "not_instrumented"
+}

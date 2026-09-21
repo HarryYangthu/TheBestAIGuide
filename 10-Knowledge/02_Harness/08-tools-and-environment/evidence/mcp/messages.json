@@ -1,0 +1,382 @@
+{
+  "requests": [
+    {
+      "jsonrpc": "2.0",
+      "id": 1,
+      "method": "initialize",
+      "params": {
+        "protocolVersion": "2025-06-18",
+        "capabilities": {},
+        "clientInfo": {
+          "name": "chapter-client",
+          "version": "1.0.0"
+        }
+      }
+    },
+    {
+      "jsonrpc": "2.0",
+      "method": "notifications/initialized"
+    },
+    {
+      "jsonrpc": "2.0",
+      "id": 2,
+      "method": "tools/list"
+    },
+    {
+      "jsonrpc": "2.0",
+      "id": 3,
+      "method": "tools/call",
+      "params": {
+        "name": "search_docs",
+        "arguments": {
+          "query": "先读取笔记",
+          "limit": 5
+        }
+      }
+    },
+    {
+      "jsonrpc": "2.0",
+      "id": 4,
+      "method": "tools/call",
+      "params": {
+        "name": "search_docs",
+        "arguments": {
+          "query": "先读取笔记",
+          "limit": 200
+        }
+      }
+    }
+  ],
+  "responses": [
+    {
+      "jsonrpc": "2.0",
+      "id": 1,
+      "result": {
+        "protocolVersion": "2025-06-18",
+        "capabilities": {
+          "tools": {}
+        },
+        "serverInfo": {
+          "name": "inventory-tools",
+          "version": "1.0.0"
+        }
+      }
+    },
+    {
+      "jsonrpc": "2.0",
+      "id": 2,
+      "result": {
+        "tools": [
+          {
+            "name": "search_docs",
+            "description": "在本地规则语料中逐行匹配查询词",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                "limit": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 20
+                }
+              },
+              "required": [
+                "query",
+                "limit"
+              ],
+              "additionalProperties": false
+            },
+            "outputSchema": {
+              "type": "object",
+              "properties": {
+                "matches": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "path": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 200
+                      },
+                      "line": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 1000000
+                      },
+                      "text": {
+                        "type": "string",
+                        "maxLength": 16000
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "line",
+                      "text"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "total": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1000000
+                },
+                "truncated": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "matches",
+                "total",
+                "truncated"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "read_file",
+            "description": "读取本次工作目录中的小型 UTF-8 文件",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "path": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "additionalProperties": false
+            },
+            "outputSchema": {
+              "type": "object",
+              "properties": {
+                "path": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                },
+                "text": {
+                  "type": "string",
+                  "maxLength": 16000
+                }
+              },
+              "required": [
+                "path",
+                "text"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "write_file",
+            "description": "写入本次工作目录中的 UTF-8 文件",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "path": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                },
+                "text": {
+                  "type": "string",
+                  "maxLength": 16000
+                }
+              },
+              "required": [
+                "path",
+                "text"
+              ],
+              "additionalProperties": false
+            },
+            "outputSchema": {
+              "type": "object",
+              "properties": {
+                "path": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                },
+                "bytes": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1000000
+                }
+              },
+              "required": [
+                "path",
+                "bytes"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "run_python",
+            "description": "执行已审阅的 compute.py 并传入 JSON",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "script": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                },
+                "input_path": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                }
+              },
+              "required": [
+                "script",
+                "input_path"
+              ],
+              "additionalProperties": false
+            },
+            "outputSchema": {
+              "type": "object",
+              "properties": {
+                "exit_code": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1000000
+                },
+                "stdout": {
+                  "type": "string",
+                  "maxLength": 16000
+                },
+                "stderr": {
+                  "type": "string",
+                  "maxLength": 16000
+                }
+              },
+              "required": [
+                "exit_code",
+                "stdout",
+                "stderr"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "simulate_loop",
+            "description": "按步骤预算回放工具名称，不执行工具",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "input_path": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                },
+                "max_steps": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100
+                }
+              },
+              "required": [
+                "input_path",
+                "max_steps"
+              ],
+              "additionalProperties": false
+            },
+            "outputSchema": {
+              "type": "object",
+              "properties": {
+                "executed": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1000000
+                },
+                "remaining": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1000000
+                },
+                "completed": {
+                  "type": "boolean"
+                },
+                "history": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "step": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 1000000
+                      },
+                      "tool": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 200
+                      }
+                    },
+                    "required": [
+                      "step",
+                      "tool"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "executed",
+                "remaining",
+                "completed",
+                "history"
+              ],
+              "additionalProperties": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "jsonrpc": "2.0",
+      "id": 3,
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"matches\": [{\"path\": \"policy.md\", \"line\": 3, \"text\": \"先读取笔记，再运行统计脚本，最后写入报告。\"}], \"total\": 1, \"truncated\": false}"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "matches": [
+            {
+              "path": "policy.md",
+              "line": 3,
+              "text": "先读取笔记，再运行统计脚本，最后写入报告。"
+            }
+          ],
+          "total": 1,
+          "truncated": false
+        }
+      }
+    },
+    {
+      "jsonrpc": "2.0",
+      "id": 4,
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"code\": \"invalid_arguments\", \"message\": \"arguments.limit: outside bounds\", \"retryable\": false}"
+          }
+        ],
+        "isError": true
+      }
+    }
+  ]
+}

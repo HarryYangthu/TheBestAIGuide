@@ -68,7 +68,7 @@ os.replace(run / "active.tmp", run / "active.json")
 python code/cycle.py active --run runs/manual-cycle --task whitespace --out runs/manual-adopted
 ```
 
-输出结构为 `version=<候选内容标识> accepted=True`。这里的 `True` 来自重新读取 `runs/manual-adopted/summary.json` 并独立核对，文件应包含总额 400、有效行 1。
+输出结构为 `version=<候选内容标识> accepted=True`。这里的 `True` 来自重新读取 `runs/manual-adopted/summary.json` 并独立核对，文件应包含总和 4、有效行 1。
 
 如果只看 `decision.json`，只能知道评测允许采用；看 `active.json` 才知道当前选择；再次跑实际输入，才能检查调用路径是否真的使用了这个选择。三种证据各有用途，不能相互替代。
 
@@ -81,7 +81,7 @@ python code/cycle.py rollback --run runs/manual-cycle --reason demonstration
 python code/cycle.py active --run runs/manual-cycle --task whitespace --out runs/manual-rolled-back
 ```
 
-第一条输出 `rolled_back_to=<基线内容标识>`；第二条输出 `version=<基线内容标识> accepted=False`。这个失败是本实验预期观察：旧策略不识别带空格的 `paid`，所以总额再次为 0。它证明回滚改变了实际执行路径，而不是只改了日志中的版本文字。
+第一条输出 `rolled_back_to=<基线内容标识>`；第二条输出 `version=<基线内容标识> accepted=False`。这个失败是本实验预期观察：旧策略不识别带空格的 `valid`，所以总和再次为 0。它证明回滚改变了实际执行路径，而不是只改了日志中的版本文字。
 
 重复回滚会被拒绝，因为当前版本已经不是该候选。回滚原因在实际部署时可以是新发现的回归、资源异常或监控告警；本次写的是主动演示，不声称发生了线上事故。
 

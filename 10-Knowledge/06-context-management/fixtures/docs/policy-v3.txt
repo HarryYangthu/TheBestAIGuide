@@ -1,6 +1,0 @@
-service=checkout
-environment=production
-timeout_ms=3000
-rollback_errors_pct=2
-owner=payments
-effective_date=2026-09-01

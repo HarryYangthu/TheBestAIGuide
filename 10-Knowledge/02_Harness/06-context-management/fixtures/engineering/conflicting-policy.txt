@@ -1,0 +1,4 @@
+service=stats
+environment=workspace
+timeout_ms=7000
+verification_errors_pct=2

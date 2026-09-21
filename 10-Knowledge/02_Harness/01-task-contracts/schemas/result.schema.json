@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "task_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "task_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "completed_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "total_seconds": {
+      "type": "number",
+      "minimum": 0
+    },
+    "mean_seconds": {
+      "type": "number",
+      "minimum": 0
+    }
+  },
+  "required": [
+    "task_id",
+    "task_version",
+    "run_id",
+    "source_sha256",
+    "completed_ids",
+    "count",
+    "total_seconds",
+    "mean_seconds"
+  ],
+  "additionalProperties": false
+}

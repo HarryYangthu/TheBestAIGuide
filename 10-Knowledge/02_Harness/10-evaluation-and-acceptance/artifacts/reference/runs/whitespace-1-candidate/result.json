@@ -1,0 +1,15 @@
+{
+  "task_id": "whitespace",
+  "trial": 1,
+  "variant": "candidate",
+  "input_sha256": "cc5cdf39d0ed4fd66bba8eb7a90c177956de27a1ce9a989991ed25b4c1d3afc3",
+  "checker_version": "summary-contract-v1",
+  "exit_reason": "completed",
+  "accepted": true,
+  "error": null,
+  "elapsed_ms": 0.06644799941568635,
+  "tool_calls": 1,
+  "model_cost_usd": null,
+  "cost_source": "not_instrumented",
+  "artifact_dir": "artifacts/reference/runs/whitespace-1-candidate"
+}

@@ -1,10 +1,10 @@
 {
   "id": "review-18",
-  "service": "checkout",
-  "environment": "production",
+  "service": "stats",
+  "environment": "workspace",
   "user": "alice",
   "as_of": "2026-09-20",
-  "instruction": "为 checkout production 的下一次发布复用已验证条件。本次使用英文。",
+  "instruction": "为 stats workspace 的下一次报告复用已验证条件。本次使用英文。",
   "current_instructions": {
     "language": "en"
   },
@@ -12,7 +12,7 @@
   "requested_keys": [
     "timeout_ms",
     "language",
-    "rollback_steps",
-    "rollback_permission"
+    "verification_steps",
+    "verification_permission"
   ]
 }

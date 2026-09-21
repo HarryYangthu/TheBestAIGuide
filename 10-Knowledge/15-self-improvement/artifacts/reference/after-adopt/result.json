@@ -1,23 +1,23 @@
 {
   "task_id": "whitespace",
-  "version": "b2758a1d687174c7",
+  "version": "b52988973c4a2291",
   "trial": 0,
   "accepted": true,
   "actual": {
-    "total_cents": 400,
-    "paid_rows": 1,
+    "total": 4,
+    "valid_rows": 1,
     "rejected_rows": []
   },
   "expected": {
-    "total_cents": 400,
-    "paid_rows": 1,
+    "total": 4,
+    "valid_rows": 1,
     "rejected_rows": []
   },
   "error": null,
   "error_type": null,
-  "input_sha256": "bca44c21669e3a94c96b511e185ec036a0cee65a6ed2149a6a9c31e47190d741",
+  "input_sha256": "cc5cdf39d0ed4fd66bba8eb7a90c177956de27a1ce9a989991ed25b4c1d3afc3",
   "checker_version": "order-contract-v1",
-  "elapsed_ms": 0.49737900553736836,
+  "elapsed_ms": 0.18062600065604784,
   "tool_calls": 1,
   "model_cost_usd": null,
   "cost_source": "not_instrumented"

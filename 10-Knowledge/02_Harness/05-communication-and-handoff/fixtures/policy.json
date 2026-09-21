@@ -1,0 +1,11 @@
+{
+  "allowed_actions": [
+    "write_report"
+  ],
+  "constraints": [
+    "只引用已经读取的笔记",
+    "缺少的事实标为待确认",
+    "不修改原始输入"
+  ],
+  "next_action": "write_report"
+}

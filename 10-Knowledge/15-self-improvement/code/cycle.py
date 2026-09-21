@@ -12,7 +12,7 @@ from policy_engine import aggregate, validate_policy
 
 ROOT = Path(__file__).resolve().parents[1]
 ENGINE = Path(__file__).with_name("policy_engine.py")
-BASELINE = {"normalize_status": False, "invalid_amount": "reject", "include_negative": True}
+BASELINE = {"normalize_status": False, "invalid_value": "reject", "include_negative": True}
 TRIALS = 2
 
 
@@ -127,15 +127,15 @@ def collect_failures(run, rows):
         source = Path(run) / "evaluations/dev" / row["version"] / f"{case['id']}-0/input.csv"
         reason = "unclassified"
         evidence = []
-        if row["error"] and row["error"].startswith("invalid_amount:"):
-            reason = "invalid_amount"
+        if row["error"] and row["error"].startswith("invalid_value:"):
+            reason = "invalid_value"
             evidence = [row["error"]]
         elif row["error"]:
             evidence = [{"error_type": row["error_type"], "message": row["error"]}]
         else:
             with source.open(encoding="utf-8", newline="") as handle:
-                evidence = [{"order_id": r["order_id"], "status": r["status"]} for r in csv.DictReader(handle)
-                            if r["status"] != "paid" and r["status"].strip().casefold() == "paid"]
+                evidence = [{"sample_id": r["sample_id"], "status": r["status"]} for r in csv.DictReader(handle)
+                            if r["status"] != "valid" and r["status"].strip().casefold() == "valid"]
             if evidence:
                 reason = "unrecognized_status"
         failures.append({"task_id": case["id"], "reason": reason, "evidence": evidence,
@@ -150,9 +150,9 @@ def propose(policy, failures):
     if "unrecognized_status" in reasons and not policy["normalize_status"]:
         candidate["normalize_status"] = True
         changes.append({"field": "normalize_status", "from": False, "to": True, "evidence_reason": "unrecognized_status"})
-    if "invalid_amount" in reasons and policy["invalid_amount"] == "reject":
-        candidate["invalid_amount"] = "skip_and_record"
-        changes.append({"field": "invalid_amount", "from": "reject", "to": "skip_and_record", "evidence_reason": "invalid_amount"})
+    if "invalid_value" in reasons and policy["invalid_value"] == "reject":
+        candidate["invalid_value"] = "skip_and_record"
+        changes.append({"field": "invalid_value", "from": "reject", "to": "skip_and_record", "evidence_reason": "invalid_value"})
     return candidate, changes
 
 

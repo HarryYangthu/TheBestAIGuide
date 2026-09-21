@@ -1,3 +1,0 @@
-service=checkout
-timeout_ms=5000
-rollback_errors_pct=5

@@ -1,0 +1,15 @@
+{
+  "source_id": "dry-run-log",
+  "version": "run-17",
+  "lines": [
+    {
+      "line": 83,
+      "text": "verification_check=FAILED reason=missing_permission"
+    },
+    {
+      "line": 84,
+      "text": "release_gate=BLOCKED"
+    }
+  ],
+  "next_start": null
+}

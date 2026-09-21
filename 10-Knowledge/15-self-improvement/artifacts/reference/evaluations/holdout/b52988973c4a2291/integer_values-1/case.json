@@ -1,0 +1,9 @@
+{
+  "id": "integer_values",
+  "input": "integer_values.csv",
+  "expected": {
+    "total": 3,
+    "valid_rows": 2,
+    "rejected_rows": []
+  }
+}

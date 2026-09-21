@@ -3,9 +3,9 @@
 @@ -1,5 +1,5 @@
  {
 -  "normalize_status": false,
--  "invalid_amount": "reject",
+-  "invalid_value": "reject",
 -  "include_negative": true
 +  "normalize_status": true,
-+  "invalid_amount": "skip_and_record",
++  "invalid_value": "skip_and_record",
 +  "include_negative": false
  }

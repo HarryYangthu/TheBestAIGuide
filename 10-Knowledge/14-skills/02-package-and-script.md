@@ -18,11 +18,11 @@ flowchart TD
 
 ## 技能说明
 
-实际包位于 `examples/skills/release-comparison/`。主文件前置信息如下，这是已有文件的格式节选，不是待创建模板：
+实际包位于 `examples/skills/notes-comparison/`。主文件前置信息如下，这是已有文件的格式节选，不是待创建模板：
 
 ```yaml
-name: release-comparison
-description: 比较指定产品的两个正式版本，生成单位一致且保留双侧原文的参数变更表；仅润色现有文字时不适用。
+name: notes-comparison
+description: 比较指定程序的两版运行配置笔记，生成单位一致且保留双侧原文的参数变更表；仅润色现有文字时不适用。
 metadata:
   version: "1.1.0"
 ```
@@ -87,7 +87,7 @@ units.json 将 ms 映射为 canonical=s、scale=0.001，所以 10000 ms 变成 1
 在章节目录运行完整命令：
 
 ```bash
-python examples/skills/release-comparison/scripts/compare.py --old examples/inputs/v1.json --new examples/inputs/v2.json --old-version 1.0 --new-version 2.0 --units examples/skills/release-comparison/references/units.json --template examples/skills/release-comparison/assets/report.md --output runs/direct
+python examples/skills/notes-comparison/scripts/compare.py --old examples/inputs/v1.json --new examples/inputs/v2.json --old-version 1.0 --new-version 2.0 --units examples/skills/notes-comparison/references/units.json --template examples/skills/notes-comparison/assets/report.md --output runs/direct
 ```
 
 标准输出为 `status=generated rows=3`。`comparison.json` 保存数值、单位、changed 和双方证据；`report.md` 用模板生成给人阅读的表格。原始 quote 仍保留 `10000 ms`，统一 new 值为 10，二者在不同字段中，不会丢失转换前的信息。

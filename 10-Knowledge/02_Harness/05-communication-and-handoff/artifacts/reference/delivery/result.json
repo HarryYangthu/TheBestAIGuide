@@ -1,0 +1,222 @@
+{
+  "owner": "coordinator",
+  "epoch": 1,
+  "states": {
+    "read-notes": "completed"
+  },
+  "merged": {
+    "complete": true,
+    "missing_tasks": [],
+    "results": {
+      "read-notes": {
+        "evidence": {
+          "file": "snapshot-ready.json",
+          "pointer": "notes.txt",
+          "text": "工具接入：已完成。\n循环日志：已完成。\n",
+          "version": "notes-2"
+        },
+        "found": 2,
+        "missing": 1,
+        "path": "notes.txt",
+        "required": 3
+      }
+    }
+  },
+  "draft": null,
+  "decisions": [
+    {
+      "seq": 1,
+      "decision": "delegated",
+      "message_id": "request-001",
+      "owner": "coordinator",
+      "epoch": 1,
+      "attempt": 1
+    },
+    {
+      "seq": 2,
+      "decision": "accepted_started",
+      "message_id": "message-002",
+      "owner": "coordinator",
+      "epoch": 1
+    },
+    {
+      "seq": 3,
+      "decision": "accepted_failure",
+      "message_id": "message-003",
+      "owner": "coordinator",
+      "epoch": 1
+    },
+    {
+      "seq": 4,
+      "decision": "delegated",
+      "message_id": "request-004",
+      "owner": "coordinator",
+      "epoch": 1,
+      "attempt": 2
+    },
+    {
+      "seq": 5,
+      "decision": "accepted_started",
+      "message_id": "message-005",
+      "owner": "coordinator",
+      "epoch": 1
+    },
+    {
+      "seq": 6,
+      "decision": "accepted_result",
+      "message_id": "message-006",
+      "owner": "coordinator",
+      "epoch": 1
+    },
+    {
+      "seq": 7,
+      "decision": "duplicate",
+      "message_id": "message-006",
+      "owner": "coordinator",
+      "epoch": 1
+    },
+    {
+      "seq": 8,
+      "decision": "conflicting_message",
+      "message_id": "message-006",
+      "owner": "coordinator",
+      "epoch": 1
+    },
+    {
+      "seq": 9,
+      "decision": "stale_attempt",
+      "message_id": "message-007",
+      "owner": "coordinator",
+      "epoch": 1
+    },
+    {
+      "seq": 10,
+      "decision": "late_progress",
+      "message_id": "message-008",
+      "owner": "coordinator",
+      "epoch": 1
+    },
+    {
+      "seq": 11,
+      "decision": "wrong_correlation",
+      "message_id": "message-009",
+      "owner": "coordinator",
+      "epoch": 1
+    },
+    {
+      "seq": 12,
+      "decision": "stale_input",
+      "message_id": "message-010",
+      "owner": "coordinator",
+      "epoch": 1
+    },
+    {
+      "seq": 13,
+      "decision": "duplicate_outcome",
+      "message_id": "message-011",
+      "owner": "coordinator",
+      "epoch": 1
+    },
+    {
+      "seq": 14,
+      "decision": "conflicting_outcome",
+      "message_id": "message-012",
+      "owner": "coordinator",
+      "epoch": 1
+    },
+    {
+      "seq": 15,
+      "decision": "duplicate",
+      "message_id": "message-006",
+      "owner": "coordinator",
+      "epoch": 1
+    }
+  ],
+  "worker_executions": 2,
+  "checks": [
+    {
+      "case": "failure_reported",
+      "actual": "accepted_failure",
+      "expected": "accepted_failure",
+      "passed": true
+    },
+    {
+      "case": "incomplete_after_failure",
+      "actual": false,
+      "expected": false,
+      "passed": true
+    },
+    {
+      "case": "retry_result",
+      "actual": "accepted_result",
+      "expected": "accepted_result",
+      "passed": true
+    },
+    {
+      "case": "duplicate_result",
+      "actual": "duplicate",
+      "expected": "duplicate",
+      "passed": true
+    },
+    {
+      "case": "same_id_changed",
+      "actual": "conflicting_message",
+      "expected": "conflicting_message",
+      "passed": true
+    },
+    {
+      "case": "late_attempt",
+      "actual": "stale_attempt",
+      "expected": "stale_attempt",
+      "passed": true
+    },
+    {
+      "case": "late_started",
+      "actual": "late_progress",
+      "expected": "late_progress",
+      "passed": true
+    },
+    {
+      "case": "wrong_correlation",
+      "actual": "wrong_correlation",
+      "expected": "wrong_correlation",
+      "passed": true
+    },
+    {
+      "case": "old_input",
+      "actual": "stale_input",
+      "expected": "stale_input",
+      "passed": true
+    },
+    {
+      "case": "new_id_same_result",
+      "actual": "duplicate_outcome",
+      "expected": "duplicate_outcome",
+      "passed": true
+    },
+    {
+      "case": "new_id_conflicting_result",
+      "actual": "conflicting_outcome",
+      "expected": "conflicting_outcome",
+      "passed": true
+    },
+    {
+      "case": "duplicate_request_reply",
+      "actual": "duplicate",
+      "expected": "duplicate",
+      "passed": true
+    },
+    {
+      "case": "worker_execution_count",
+      "actual": 2,
+      "expected": 2,
+      "passed": true
+    },
+    {
+      "case": "merged_missing",
+      "actual": 1,
+      "expected": 1,
+      "passed": true
+    }
+  ]
+}

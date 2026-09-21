@@ -1,0 +1,24 @@
+{
+  "task_id": "plain",
+  "version": "b52988973c4a2291",
+  "trial": 0,
+  "accepted": true,
+  "actual": {
+    "total": 6,
+    "valid_rows": 2,
+    "rejected_rows": []
+  },
+  "expected": {
+    "total": 6,
+    "valid_rows": 2,
+    "rejected_rows": []
+  },
+  "error": null,
+  "error_type": null,
+  "input_sha256": "284bfcea8b3b99795e35868af988776fff0fceefacd52d726897b15abc032659",
+  "checker_version": "order-contract-v1",
+  "elapsed_ms": 0.15187299868557602,
+  "tool_calls": 1,
+  "model_cost_usd": null,
+  "cost_source": "not_instrumented"
+}

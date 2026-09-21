@@ -1,17 +1,17 @@
 {
-  "dev_sha256": "11a8d0e0a66fd09b4cad39333dd537301c9ce7c48ebd61ae65430ee245e5b62f",
-  "holdout_sha256": "aee70698ab6c7c4f62b782eb7cd967ff4b53151fd74eb0ed7a42efe43abdc50e",
+  "dev_sha256": "c444205c81eac3fe132e74ae58b6b3296393a930986fbedcd2c3a37772cfc1bc",
+  "holdout_sha256": "1bb74c31a3f99d38d622be61886b62ae0e925c8e635f01c76973ddb14132def7",
   "trial_count": 2,
-  "engine_sha256": "b5744a46c2952a7ff7bea8e1d7ca3978f5ed6704fc1404af9931ce2a62bd88c3",
-  "controller_sha256": "9b71fd571057a58853e7ca50017cde9958e4ce4920616acba650d1cbdba3d84f",
+  "engine_sha256": "fd459ef5111183eade394ac3448aef45b5b07a7cab0116de7d0487b0488a4742",
+  "controller_sha256": "5b7580d60b103ca4d5341442de827f539d88e51266e9425c5606631a01cacaa8",
   "inputs": {
-    "invalid.csv": "8f496dd37f224efd5b074c7cdd6e1bf38ad781f9e0cf008493b4b6cfe9d8a898",
-    "negative.csv": "4f5cac943e45762ecf5c5b12de8643842e59481be848ec578d1133452b46f11a",
-    "empty.csv": "f4ad87e1925a39f350b619bacddbc360ff7696ae2fb8f43bcb5e918f78ddf822",
-    "uppercase.csv": "d2a84f2ba1feb7d5f2286f04bbf1266873317220f8bcd1aade5a316e3bcff232",
-    "whitespace.csv": "bca44c21669e3a94c96b511e185ec036a0cee65a6ed2149a6a9c31e47190d741",
-    "cents.csv": "49e325f997d09d2f48ab9b40458333018b8bb7546ac394f422a5cf4e3a3273bd",
-    "pending.csv": "aa85332529250a7a26a2ccff1f977a4e47ff5e34867eb666a34a0029c1499ecd",
-    "plain.csv": "d74e4cc9e9d6b422930747dcf0947069617051c38a857fcabb8426826cc0ea10"
+    "empty.csv": "da78690c06778b82fc02e6e99850648d03ba438973cf8eb9a1fe7c38f8f3868d",
+    "negative.csv": "aa6dd1d5dbb9584ddfeeda97fc2874d0fe6146a496d9c3196f970841bb9f5cb4",
+    "integer_values.csv": "ac010bbcdc0acc791d26a5b77d5187ee8c62249c1edf833239e69d527cd76409",
+    "invalid.csv": "67ac7c7ce02234ea177654cc6bcbe01e7d04efe932d7a9e3db4ef50ff4750db1",
+    "plain.csv": "284bfcea8b3b99795e35868af988776fff0fceefacd52d726897b15abc032659",
+    "uppercase.csv": "1bf8522df1b071d53b34ae1149ebe397814801190ec641b8d08889955a7ec9ce",
+    "pending.csv": "2010ee6c6a54622dd88a2e1476cdb830af78743e1a5b22d66c328ff576715bdc",
+    "whitespace.csv": "cc5cdf39d0ed4fd66bba8eb7a90c177956de27a1ce9a989991ed25b4c1d3afc3"
   }
 }

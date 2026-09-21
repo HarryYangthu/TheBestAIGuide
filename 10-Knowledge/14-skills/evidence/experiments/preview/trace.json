@@ -3,36 +3,36 @@
     "event": "loaded",
     "kind": "catalog",
     "path": "catalog",
-    "context_bytes": 209,
-    "sha256": "a9ce51d8ea90f97f5de87010126890eae4f78d2c65e6863c77ffe59f3c2c8a5b"
+    "context_bytes": 213,
+    "sha256": "46d2057accd634241fb4b367fa6d9c85603e8c7aea22206afb9ef4bb5b687c97"
   },
   {
     "event": "loaded",
     "kind": "method",
     "path": "SKILL.md",
-    "context_bytes": 1646,
-    "sha256": "d8040097f5ab71afaf06f35aaf329f733f2548f8aa66b4abf9c062be1fa8085d"
+    "context_bytes": 1643,
+    "sha256": "18340b1141c9fcacc658bce201e57f89f27d6451b49f68778836f81b3bcd218e"
   },
   {
     "event": "loaded",
     "kind": "input",
     "path": "old.json",
-    "context_bytes": 419,
-    "sha256": "61e79b8599bc994421cc8e19d4003a0146d10669058427d6bd8c606f62392eaf"
+    "context_bytes": 413,
+    "sha256": "0bcab7f47b56a8d29a06027d1e39fd14687e005c7fff41a23002fbe8c8ffca2d"
   },
   {
     "event": "loaded",
     "kind": "input",
     "path": "new.json",
-    "context_bytes": 426,
-    "sha256": "cddd4d5b1e14367cda233534fa0aeada009e4b4d0d00dcc0409d805982daeecb"
+    "context_bytes": 420,
+    "sha256": "1b41f5b24a51dc773236bc5613d9ddd21a912074de16e62d61c6975c586d1bbc"
   },
   {
     "event": "loaded",
     "kind": "template",
     "path": "assets/report.md",
-    "context_bytes": 261,
-    "sha256": "e5075c13020788dcf29b6f48c1b9b315a0071bf0f508b08f71b7e3746e1f0c24"
+    "context_bytes": 264,
+    "sha256": "3bc58a511600b40eff379db0a3e92dfa39b04841d132f9e3d2cf207005eca4e4"
   },
   {
     "event": "executed",

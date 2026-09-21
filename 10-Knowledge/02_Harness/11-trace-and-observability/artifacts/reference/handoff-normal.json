@@ -1,0 +1,7 @@
+{
+  "trace_id": "30f626963191400ca1d023b543a1ed3e",
+  "parent_span_id": "s0003",
+  "from_task_id": "batch",
+  "to_task_id": "normal",
+  "input": "normal.csv"
+}

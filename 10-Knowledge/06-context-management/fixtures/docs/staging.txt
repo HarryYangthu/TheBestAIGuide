@@ -1,3 +1,0 @@
-service=checkout
-environment=staging
-timeout_ms=9000

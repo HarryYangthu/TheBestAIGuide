@@ -1,0 +1,47 @@
+[
+  {
+    "id": "policy-v3",
+    "path": "docs/policy-v3.txt",
+    "service": "stats",
+    "environment": "workspace",
+    "version": "v3",
+    "status": "active",
+    "priority": 100
+  },
+  {
+    "id": "dry-run-log",
+    "path": "docs/dry-run.log",
+    "service": "stats",
+    "environment": "workspace",
+    "version": "run-17",
+    "status": "active",
+    "priority": 80
+  },
+  {
+    "id": "policy-v2",
+    "path": "docs/policy-v2.txt",
+    "service": "stats",
+    "environment": "workspace",
+    "version": "v2",
+    "status": "superseded",
+    "priority": 90
+  },
+  {
+    "id": "scratch-note",
+    "path": "docs/scratch.txt",
+    "service": "stats",
+    "environment": "scratch",
+    "version": "v1",
+    "status": "active",
+    "priority": 100
+  },
+  {
+    "id": "search-note",
+    "path": "docs/search.txt",
+    "service": "search",
+    "environment": "workspace",
+    "version": "v1",
+    "status": "active",
+    "priority": 100
+  }
+]

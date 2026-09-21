@@ -27,7 +27,7 @@ class MemoryTests(unittest.TestCase):
         self.store = MemoryStore(self.path)
         result = self.store.retrieve(self.task, self.sources)
         self.assertEqual({r["id"] for r in result["selected"]},
-                         {"fact-timeout-v3", "failure-permission", "procedure-rollback"})
+                         {"fact-timeout-v3", "failure-permission", "procedure-verification"})
         excluded = {r["id"]: r["reason"] for r in result["excluded"]}
         self.assertEqual(excluded["pref-language"], "current_instruction_overrides")
         self.assertEqual(excluded["other-user-pref"], "user_mismatch")
@@ -35,7 +35,7 @@ class MemoryTests(unittest.TestCase):
         self.assertEqual(excluded["fact-expired"], "expired")
 
     def test_failure_requires_matching_conditions(self):
-        task = {**self.task, "signals": {"phase": "rollback"}}
+        task = {**self.task, "signals": {"phase": "verification"}}
         result = self.store.retrieve(task)
         self.assertNotIn("failure-permission", [r["id"] for r in result["selected"]])
 

@@ -1,0 +1,15 @@
+{"seq": 1, "kind": "ready", "task_id": "cases", "plan_version": 1}
+{"seq": 2, "kind": "start", "task_id": "cases", "plan_version": 1, "role": "reader", "active": 1, "input_version": "1"}
+{"seq": 3, "kind": "ready", "task_id": "notes", "plan_version": 1}
+{"seq": 4, "kind": "start", "task_id": "notes", "plan_version": 1, "role": "reader", "active": 2, "input_version": "1"}
+{"seq": 5, "kind": "ready", "task_id": "policy", "plan_version": 1}
+{"seq": 6, "kind": "cleanup", "task_id": "notes", "plan_version": 1, "role": "reader"}
+{"seq": 7, "kind": "succeeded", "task_id": "notes", "plan_version": 1}
+{"seq": 8, "kind": "start", "task_id": "policy", "plan_version": 1, "role": "reader", "active": 2, "input_version": "1"}
+{"seq": 9, "kind": "cleanup", "task_id": "cases", "plan_version": 1, "role": "reader"}
+{"seq": 10, "kind": "cleanup", "task_id": "policy", "plan_version": 1, "role": "reader"}
+{"seq": 11, "kind": "failed", "task_id": "cases", "plan_version": 1, "error": "ValueError: missing expected result"}
+{"seq": 12, "kind": "succeeded", "task_id": "policy", "plan_version": 1}
+{"seq": 13, "kind": "blocked", "task_id": "summary", "plan_version": 1}
+{"seq": 14, "kind": "blocked", "task_id": "review", "plan_version": 1}
+{"seq": 15, "kind": "blocked", "task_id": "publish", "plan_version": 1}

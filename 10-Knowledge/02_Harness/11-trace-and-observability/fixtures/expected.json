@@ -1,0 +1,10 @@
+{
+  "normal": {
+    "total": 6,
+    "valid_rows": 2
+  },
+  "invalid": {
+    "total": 3,
+    "valid_rows": 1
+  }
+}

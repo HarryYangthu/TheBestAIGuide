@@ -1,0 +1,20 @@
+{
+  "service": "stats",
+  "environment": "workspace",
+  "instruction": "审核 stats 的 workspace 报告生成。确认 timeout_ms、错误率检查阈值、允许工作区及检查执行结果；缺证据时停止判断。",
+  "task_id": "report-17",
+  "policy_version": "v3",
+  "as_of": "2026-09-21T00:00:00+00:00",
+  "constraints": [
+    "只审核，不执行发布或修改生产数据",
+    "缺执行证据时不得批准",
+    "本次本次报告仅允许 alpha"
+  ],
+  "open_items": [
+    "定位检查执行失败原因"
+  ],
+  "acceptance": [
+    "当前检查规则为 workspace v3",
+    "保留最新工作区限制和检查失败证据"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "versions": {
+    "engine": "trace-v1",
+    "tool": "aggregate-v1",
+    "policy": "reject-invalid-v1",
+    "prompt": "fixture-plan-v1"
+  },
+  "code_sha256": "70a5a975e39f8dd1a5b32b710bfcfd75c93555031c24a9df45c2da404680c4d6",
+  "delay_ms": 60,
+  "model_mode": "fixture_replay",
+  "fixtures": {
+    "invalid.csv": "27db67ca6dfa4f165244498391bebafae8d9f1b790d9f258597b41c9edc00486",
+    "expected.json": "17b98ab9209dbfcf8d66c1e286a177254179461e15be736982bbe03cc7018824",
+    "normal.csv": "d4654b80419152c234b2a3d47198bceebf274ffae3578ba4a9a64c0951906a1f",
+    "provider-response.json": "d6fd0031bff5e4c1d7734a99cd6bb3b6a55e549501645519f7f771de0bee4679",
+    "example-rates.json": "2ef73eff6ff40b2593c1263ff5ccec1883e85a8bde43b53803f9571fff2e7cc3"
+  }
+}

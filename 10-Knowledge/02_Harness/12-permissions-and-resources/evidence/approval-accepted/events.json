@@ -1,0 +1,50 @@
+[
+  {
+    "event": "approval_granted",
+    "request": "publish-approved",
+    "fingerprint": "7e7081407de9e92831650587ccf0ff4ee2b36ec86163f2f97ce9225c1e7a3561",
+    "source": "stdin_fixture"
+  },
+  {
+    "event": "reserved",
+    "request": "publish-approved",
+    "spent_units": 0,
+    "reserved_units": 1,
+    "available_units": 19,
+    "spent_cost_micros": 0,
+    "reserved_cost_micros": 3,
+    "available_cost_micros": 57,
+    "calls": 1,
+    "unknown": []
+  },
+  {
+    "event": "started",
+    "request": "publish-approved",
+    "active": 1
+  },
+  {
+    "event": "released",
+    "request": "publish-approved",
+    "active": 0
+  },
+  {
+    "event": "settled",
+    "request": "publish-approved",
+    "spent_units": 1,
+    "reserved_units": 0,
+    "available_units": 19,
+    "spent_cost_micros": 3,
+    "reserved_cost_micros": 0,
+    "available_cost_micros": 57,
+    "calls": 1,
+    "unknown": []
+  },
+  {
+    "event": "result",
+    "id": "publish-approved",
+    "status": "completed",
+    "data": {
+      "artifact": "a1.json"
+    }
+  }
+]

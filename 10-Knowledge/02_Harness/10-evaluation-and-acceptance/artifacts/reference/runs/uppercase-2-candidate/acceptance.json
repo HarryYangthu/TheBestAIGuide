@@ -1,0 +1,12 @@
+{
+  "checker_version": "summary-contract-v1",
+  "accepted": true,
+  "checks": {
+    "object": true,
+    "exact_fields": true,
+    "total": true,
+    "valid_rows": true,
+    "rejected_rows": true
+  },
+  "artifact_sha256": "e88fc25e6ed6f9a25f95a40336e120e8d944436c586614b06d27a97a22915b84"
+}

@@ -1,0 +1,24 @@
+{
+  "task_id": "whitespace",
+  "version": "875155519cacd40a",
+  "trial": 0,
+  "accepted": false,
+  "actual": {
+    "total": 0,
+    "valid_rows": 0,
+    "rejected_rows": []
+  },
+  "expected": {
+    "total": 4,
+    "valid_rows": 1,
+    "rejected_rows": []
+  },
+  "error": null,
+  "error_type": null,
+  "input_sha256": "cc5cdf39d0ed4fd66bba8eb7a90c177956de27a1ce9a989991ed25b4c1d3afc3",
+  "checker_version": "order-contract-v1",
+  "elapsed_ms": 0.14184899919200689,
+  "tool_calls": 1,
+  "model_cost_usd": null,
+  "cost_source": "not_instrumented"
+}

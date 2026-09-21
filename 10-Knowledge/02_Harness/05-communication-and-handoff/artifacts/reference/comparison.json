@@ -1,0 +1,116 @@
+[
+  {
+    "case": "failure_reported",
+    "actual": "accepted_failure",
+    "expected": "accepted_failure",
+    "passed": true
+  },
+  {
+    "case": "incomplete_after_failure",
+    "actual": false,
+    "expected": false,
+    "passed": true
+  },
+  {
+    "case": "retry_result",
+    "actual": "accepted_result",
+    "expected": "accepted_result",
+    "passed": true
+  },
+  {
+    "case": "duplicate_result",
+    "actual": "duplicate",
+    "expected": "duplicate",
+    "passed": true
+  },
+  {
+    "case": "same_id_changed",
+    "actual": "conflicting_message",
+    "expected": "conflicting_message",
+    "passed": true
+  },
+  {
+    "case": "late_attempt",
+    "actual": "stale_attempt",
+    "expected": "stale_attempt",
+    "passed": true
+  },
+  {
+    "case": "late_started",
+    "actual": "late_progress",
+    "expected": "late_progress",
+    "passed": true
+  },
+  {
+    "case": "wrong_correlation",
+    "actual": "wrong_correlation",
+    "expected": "wrong_correlation",
+    "passed": true
+  },
+  {
+    "case": "old_input",
+    "actual": "stale_input",
+    "expected": "stale_input",
+    "passed": true
+  },
+  {
+    "case": "new_id_same_result",
+    "actual": "duplicate_outcome",
+    "expected": "duplicate_outcome",
+    "passed": true
+  },
+  {
+    "case": "new_id_conflicting_result",
+    "actual": "conflicting_outcome",
+    "expected": "conflicting_outcome",
+    "passed": true
+  },
+  {
+    "case": "duplicate_request_reply",
+    "actual": "duplicate",
+    "expected": "duplicate",
+    "passed": true
+  },
+  {
+    "case": "worker_execution_count",
+    "actual": 2,
+    "expected": 2,
+    "passed": true
+  },
+  {
+    "case": "merged_missing",
+    "actual": 1,
+    "expected": 1,
+    "passed": true
+  },
+  {
+    "case": "offer_keeps_owner",
+    "actual": "coordinator",
+    "expected": "coordinator",
+    "passed": true
+  },
+  {
+    "case": "handoff_owner",
+    "actual": "report-writer",
+    "expected": "report-writer",
+    "passed": true
+  },
+  {
+    "case": "handoff_epoch",
+    "actual": 2,
+    "expected": 2,
+    "passed": true
+  },
+  {
+    "case": "old_owner_rejected",
+    "actual": "rejected_stale_owner",
+    "expected": "rejected_stale_owner",
+    "passed": true
+  },
+  {
+    "case": "new_owner_acts",
+    "actual": "draft_created",
+    "expected": "draft_created",
+    "passed": true
+  }
+]

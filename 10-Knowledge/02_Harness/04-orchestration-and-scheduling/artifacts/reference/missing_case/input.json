@@ -1,0 +1,18 @@
+{
+  "notes": "本周完成了工具接入与循环日志。\n待办：检查 stats.py，保存运行报告。\n",
+  "cases": {
+    "version": 1,
+    "cases": [
+      {
+        "values": [
+          2,
+          4
+        ]
+      }
+    ]
+  },
+  "policy": {
+    "minimum_passed": 2,
+    "required_note": "工具接入"
+  }
+}

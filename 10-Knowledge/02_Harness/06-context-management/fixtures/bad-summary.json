@@ -1,0 +1,14 @@
+{
+  "facts": [
+    {
+      "key": "timeout_ms",
+      "value": 3000,
+      "event_id": "e11"
+    },
+    {
+      "key": "verification_errors_pct",
+      "value": 2,
+      "event_id": "e12"
+    }
+  ]
+}
