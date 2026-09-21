@@ -1,8 +1,10 @@
-# 运行实验与维护检查
+# 检查与运行脚本
+
+本目录包含链接与元数据校验、源码快照核对、Python 测试、Notebook 执行和项目启动脚本。
 
 所有命令从仓库根目录执行，即同时能看到 `10-Knowledge/`、`20-Projects/` 和 `scripts/` 的目录。先按要做的实验安装依赖；阅读 Markdown 和 GitHub 上已保存的 Notebook 输出无需安装环境。
 
-## 只想先运行一个学习项目
+## 学习项目运行
 
 Python 3.11 或更高即可，以下命令只用标准库：
 
@@ -15,7 +17,7 @@ python scripts/run_python.py -m learning_workbench.cli memory --output .runs/mem
 
 `run_python.py` 只把本仓库的各个 `src/` 加入 Python 导入路径，因此项目可以复用其他知识领域的实现。它不会安装依赖；请保持完整仓库结构，不能只复制一个 `src/` 就认为依赖齐全。
 
-## 执行 Notebook
+## Notebook 执行
 
 完整复现环境使用 Python 3.12（与 CI 一致）。先创建虚拟环境：
 
@@ -63,7 +65,7 @@ python scripts/check_notebooks.py --execute --skip-api
 
 如果环境明确禁止 Jupyter 内核所需的本地 socket，可运行 `python scripts/check_notebooks.py --execute --skip-api --backend ipython-fallback`。它为每本 Notebook 启动独立 Python 进程，经 IPython 依次执行代码并保存输出，元数据会注明后端。该模式不验证内核通信或前端交互；CI 仍用标准 Jupyter 后端。
 
-## 修改后怎样检查
+## 修改检查
 
 在上面的完整环境中运行：
 
@@ -86,7 +88,7 @@ python scripts/check_component_sources.py
 
 TypeScript 工程各自在项目目录运行 `npm ci`、`npm run build`、`npm test`；[浏览器工程](../10-Knowledge/_archive/13-application-engineering/05-code/browser-agent-typescript/README.md)还需要安装 Chromium。对应自动检查见 [workflows](../.github/workflows/README.md)，实际结果以具体提交的 Actions 为准。
 
-## 遇到运行问题先检查哪里
+## 故障排查
 
 | 现象 | 最先检查 | 原因 |
 | --- | --- | --- |

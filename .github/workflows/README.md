@@ -1,9 +1,11 @@
-# 自动检查
+# 自动检查工作流
+
+本目录配置文档校验、Python 测试与源码核对、TypeScript 和浏览器测试，以及 Notebook 执行。
 
 | 工作流 | 触发范围 | 门禁 |
 | --- | --- | --- |
 | [docs.yml](docs.yml) | Push / PR | 相对链接、文章状态格式、维护脚本测试 |
-| [python.yml](python.yml) | Python、配置、数据、依赖变更 | 各工程测试与综合项目四类任务 |
+| [python.yml](python.yml) | Python、配置、数据、依赖变更 | 各工程测试、章节源码快照核对与综合项目四类任务 |
 | [typescript.yml](typescript.yml) | TypeScript、依赖、数据变更 | 三个工程独立安装、构建、测试；浏览器使用本地 fixture |
 | [notebooks.yml](notebooks.yml) | Notebook、Python/TypeScript、数据、依赖变更 | 安装 Python 和两个工具工程的 Node 依赖，从干净内核执行离线 Notebook；需 API Key 的 Notebook 检查格式并明确记录跳过执行 |
 
