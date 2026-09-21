@@ -1,5 +1,7 @@
 # Context Engineering
 
+当前阅读入口：[06｜上下文工程与管理](../../06-context-management/README.md)。原版知识点、实验与新版位置的对应关系见[内容覆盖表](../../06-context-management/coverage.md)。本目录保留历史正文与 Notebook 记录。
+
 > 状态：draft
 > 学习目标：理解如何为每一次模型调用选择、转换、排序和组织可信信息。
 

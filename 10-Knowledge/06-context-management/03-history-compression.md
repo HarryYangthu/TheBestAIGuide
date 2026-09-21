@@ -81,6 +81,34 @@ print(check)
 
 校验器在这里能完整核对，是因为输入事实字段已经结构化；开放领域长文的语义事实并没有这么容易自动枚举。实现此能力时，应先选定必须保留的约束，或保留原文引用供进一步核对，不能把本例的 3/3 延伸成所有摘要语义无损。
 
+## 失败、假设与待办
+
+同名字段可能来自不同任务。“后出现覆盖先前”只适用于已明确主体、任务、版本和来源顺序的一组事件。新输入 [engineering/events.json](fixtures/engineering/events.json) 仍属于发布审核：先记录演练通过，随后记录失败，再追加另一个任务的成功记录和本任务的一条未验证假设。
+
+`scoped_summary` 先限定 `task_id`，只提取 constraint、observation、pending，再按事件顺序更新。每个事实保留 `kind`、`source_id`，摘要整体记录 `method` 和 `lossy`。以下完整片段在章节目录运行，打印最新失败值、来源和未完成项，不调用模型、不写文件。
+
+```python
+import sys
+sys.path.insert(0, "code")
+from context import read_fixture
+from context_strategies import scoped_summary
+
+summary = scoped_summary(read_fixture("engineering/events.json"), "release-17")
+print(summary["facts"]["rollback_passed"])
+print(summary["facts"]["next_step"]["value"])
+```
+
+标准输出：
+
+```text
+{'value': False, 'source_id': 's3', 'kind': 'observation'}
+核对回滚执行权限
+```
+
+保留“失败”还不够，还要保留否定、数值、单位和条件。“回滚读取超时”只能说明没有拿到结果，不能改写成“文件不存在”；“默认超时 3000 毫秒”不能改成“最长只支持 3000 毫秒”。需要逐字引用或精确计算时回读原文。
+
+默认实验保留 12 个原始事件；新增实验保留另一份完整的带任务事件。两种摘要均不覆盖原始输入。预算仍不足时应缩小当前问题或请求指定证据，不能把待办删除后宣布完成。
+
 ## 模型压缩入口
 
 [live_compress.py](code/live_compress.py) 读取同一份 history，使用官方 OpenAI SDK 的 Chat Completions 接口。按 README 填写 `.env` 后运行下面的**完整命令**；输入为 history，产物进入每次新建的 `runs/live-<运行编号>/`：

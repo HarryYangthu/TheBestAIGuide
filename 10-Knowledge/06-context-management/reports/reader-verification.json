@@ -1,0 +1,124 @@
+{
+  "scope": "Independently runnable Python snippets; source excerpts and live API calls excluded",
+  "snippets": [
+    {
+      "file": "01-isolation-and-loading.md",
+      "python_block": 1,
+      "code_sha256": "6232b0d8b2e39edb90b13484bd90c9ab5dd8937cf4f2054ae03687165bd6ccd5",
+      "returncode": 0,
+      "stdout": "2\nuser\n",
+      "stderr": ""
+    },
+    {
+      "file": "01-isolation-and-loading.md",
+      "python_block": 2,
+      "code_sha256": "727a481e0d4f71df0129fec44563aec01d5c49f9adf88a8f03021fbb5ff154e6",
+      "returncode": 0,
+      "stdout": "2\n覆盖了主管的提示\n",
+      "stderr": ""
+    },
+    {
+      "file": "02-budget-and-tool-results.md",
+      "python_block": 1,
+      "code_sha256": "eca05b35cd46f082f26cd6c1fa57072ad54c251e1382efd7e002d3324e668c52",
+      "returncode": 0,
+      "stdout": "[32264, 50103, 28, 4095, 15]\n5\n",
+      "stderr": ""
+    },
+    {
+      "file": "02-budget-and-tool-results.md",
+      "python_block": 3,
+      "code_sha256": "219598546d82879497e8a4734167ab324f1567640ae00eff5fad423e0c9d9dc6",
+      "returncode": 0,
+      "stdout": "1\ndry-run-log\n",
+      "stderr": ""
+    },
+    {
+      "file": "03-history-compression.md",
+      "python_block": 1,
+      "code_sha256": "765aa0521fe1d16611bd631cbbc90457c9e8df4d2ccd94825e5044fbed36d85e",
+      "returncode": 0,
+      "stdout": "{'key': 'allowed_tenants', 'value': 'alpha', 'event_id': 'e10'}\n",
+      "stderr": ""
+    },
+    {
+      "file": "03-history-compression.md",
+      "python_block": 2,
+      "code_sha256": "9892e1fb65f88f53a92dc069bc45721b63689a5fe0c15d2b104d82579091d9b5",
+      "returncode": 0,
+      "stdout": "{'accepted': False, 'errors': ['missing:allowed_tenants'], 'preserved': 2, 'required': 3}\n",
+      "stderr": ""
+    },
+    {
+      "file": "03-history-compression.md",
+      "python_block": 3,
+      "code_sha256": "e4a32f90c126ca1f66f9cbce1b84b3a402acd033fe8ce2f82a46b32325d3b44e",
+      "returncode": 0,
+      "stdout": "{'value': False, 'source_id': 's3', 'kind': 'observation'}\n核对回滚执行权限\n",
+      "stderr": ""
+    },
+    {
+      "file": "04-experiments-and-source.md",
+      "python_block": 1,
+      "code_sha256": "ba85d1f31d398be16307db141a6401c457a9a7161728168d8b1a2458bf1d1e9c",
+      "returncode": 0,
+      "stdout": "['policy-v3', 'dry-run-log', 'external-note']\nTrue\n",
+      "stderr": ""
+    },
+    {
+      "file": "05-failure-modes.md",
+      "python_block": 1,
+      "code_sha256": "8a019ef944711c13c01625aa1040ef541b8513d949b0adf570e0b0fd24c80061",
+      "returncode": 0,
+      "stdout": "True\nFalse\n",
+      "stderr": ""
+    },
+    {
+      "file": "05-failure-modes.md",
+      "python_block": 2,
+      "code_sha256": "863fc6cdc008851c555acb375f1fc925983944881ed11415c40dba5dfe79cc24",
+      "returncode": 0,
+      "stdout": "unresolved_conflict\n",
+      "stderr": ""
+    },
+    {
+      "file": "06-optimization-strategies.md",
+      "python_block": 1,
+      "code_sha256": "44bd4036a3e6a4319a50b81acba14212c4170d61154d90a3e1699e4b22b7705f",
+      "returncode": 0,
+      "stdout": "{'line': 83, 'text': 'rollback_check=FAILED reason=missing_permission'}\nNone\n",
+      "stderr": ""
+    },
+    {
+      "file": "06-optimization-strategies.md",
+      "python_block": 2,
+      "code_sha256": "8b8092aced20e5c4ba3de635756b1d8838ff18934ff252deb2b9e96f37991212",
+      "returncode": 0,
+      "stdout": "True\n",
+      "stderr": ""
+    },
+    {
+      "file": "06-optimization-strategies.md",
+      "python_block": 3,
+      "code_sha256": "159fab7dac381fe0d0824f70f9a68eb5fa79aa5a320c5ac02cb8939907a0eb32",
+      "returncode": 0,
+      "stdout": "CURRENT\nUNKNOWN\n",
+      "stderr": ""
+    },
+    {
+      "file": "07-evaluation-and-regression.md",
+      "python_block": 1,
+      "code_sha256": "aaa7483aec0a61a8a76d498f81f1a27f22477bcf7d0a7da389eb61a52c404f2a",
+      "returncode": 0,
+      "stdout": "{'recall': 0.6666666666666666, 'precision': 0.5, 'required': 3, 'selected': 4}\n{'recall': 0.0, 'precision': None, 'required': 1, 'selected': 0}\n",
+      "stderr": ""
+    }
+  ],
+  "real_model_calls": 0,
+  "verification": {
+    "local_tests_passed": 23,
+    "engineering_checks_passed": 14,
+    "mermaid_parsed": 9,
+    "source_hashes_verified": 3
+  }
+}
