@@ -1,10 +1,10 @@
 # Agent 组件章节的 Python 依赖清单（CI 使用 Python 3.12）。
 # 通过 -r 引用各章依赖；仅使用标准库的章节不在此列。
 # 单章学习可安装对应章节的 requirements.txt。
--r 10-Knowledge/01-task-contracts/requirements.txt
--r 10-Knowledge/02-model-adapters/requirements.txt
--r 10-Knowledge/03-agent-loop/requirements.txt
--r 10-Knowledge/06-context-management/requirements.txt
--r 10-Knowledge/10-evaluation-and-acceptance/requirements.txt
--r 10-Knowledge/11-trace-and-observability/requirements.txt
+-r 10-Knowledge/02_Harness/01-task-contracts/requirements.txt
+-r 10-Knowledge/02_Harness/02-model-adapters/requirements.txt
+-r 10-Knowledge/02_Harness/03-agent-loop/requirements.txt
+-r 10-Knowledge/02_Harness/06-context-management/requirements.txt
+-r 10-Knowledge/02_Harness/10-evaluation-and-acceptance/requirements.txt
+-r 10-Knowledge/02_Harness/11-trace-and-observability/requirements.txt
 -r 10-Knowledge/15-self-improvement/requirements.txt

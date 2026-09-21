@@ -1,0 +1,9 @@
+{
+  "id": "empty",
+  "input": "empty.csv",
+  "expected": {
+    "total": 0,
+    "valid_rows": 0,
+    "rejected_rows": []
+  }
+}

@@ -45,7 +45,7 @@ def run(output, task="compare", packages=None, old_path=None, new_path=None):
 
     catalog = [header(path) for path in sorted(packages.glob("*/SKILL.md"))]
     loaded("catalog", "catalog", json.dumps(catalog, ensure_ascii=False))
-    selected = next((item for item in catalog if item["name"] == "release-comparison"), None) if task == "compare" else None
+    selected = next((item for item in catalog if item["name"] == "notes-comparison"), None) if task == "compare" else None
     result = {"task": task, "selected": selected, "status": "skipped", "acceptance": None}
     if selected:
         package = packages / selected["name"]

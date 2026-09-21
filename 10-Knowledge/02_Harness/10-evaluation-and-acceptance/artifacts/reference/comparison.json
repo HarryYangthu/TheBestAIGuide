@@ -1,0 +1,164 @@
+{
+  "task_count": 6,
+  "trials": 3,
+  "variants": {
+    "baseline": {
+      "successes": 9,
+      "denominator": 18,
+      "success_rate": 0.5,
+      "mean_elapsed_ms": 0.06749705567522647,
+      "tool_calls": 18,
+      "cost_known_rows": 0,
+      "cost_coverage": 0.0,
+      "known_cost_subtotal_usd": null,
+      "total_cost_usd": null
+    },
+    "candidate": {
+      "successes": 15,
+      "denominator": 18,
+      "success_rate": 0.8333333333333334,
+      "mean_elapsed_ms": 0.06413161059349982,
+      "tool_calls": 18,
+      "cost_known_rows": 0,
+      "cost_coverage": 0.0,
+      "known_cost_subtotal_usd": null,
+      "total_cost_usd": null
+    }
+  },
+  "paired": [
+    {
+      "task_id": "plain",
+      "trial": 0,
+      "delta": 0,
+      "baseline": true,
+      "candidate": true
+    },
+    {
+      "task_id": "plain",
+      "trial": 1,
+      "delta": 0,
+      "baseline": true,
+      "candidate": true
+    },
+    {
+      "task_id": "plain",
+      "trial": 2,
+      "delta": 0,
+      "baseline": true,
+      "candidate": true
+    },
+    {
+      "task_id": "whitespace",
+      "trial": 0,
+      "delta": 1,
+      "baseline": false,
+      "candidate": true
+    },
+    {
+      "task_id": "whitespace",
+      "trial": 1,
+      "delta": 1,
+      "baseline": false,
+      "candidate": true
+    },
+    {
+      "task_id": "whitespace",
+      "trial": 2,
+      "delta": 1,
+      "baseline": false,
+      "candidate": true
+    },
+    {
+      "task_id": "uppercase",
+      "trial": 0,
+      "delta": 1,
+      "baseline": false,
+      "candidate": true
+    },
+    {
+      "task_id": "uppercase",
+      "trial": 1,
+      "delta": 1,
+      "baseline": false,
+      "candidate": true
+    },
+    {
+      "task_id": "uppercase",
+      "trial": 2,
+      "delta": 1,
+      "baseline": false,
+      "candidate": true
+    },
+    {
+      "task_id": "negative",
+      "trial": 0,
+      "delta": 0,
+      "baseline": true,
+      "candidate": true
+    },
+    {
+      "task_id": "negative",
+      "trial": 1,
+      "delta": 0,
+      "baseline": true,
+      "candidate": true
+    },
+    {
+      "task_id": "negative",
+      "trial": 2,
+      "delta": 0,
+      "baseline": true,
+      "candidate": true
+    },
+    {
+      "task_id": "empty",
+      "trial": 0,
+      "delta": 0,
+      "baseline": true,
+      "candidate": true
+    },
+    {
+      "task_id": "empty",
+      "trial": 1,
+      "delta": 0,
+      "baseline": true,
+      "candidate": true
+    },
+    {
+      "task_id": "empty",
+      "trial": 2,
+      "delta": 0,
+      "baseline": true,
+      "candidate": true
+    },
+    {
+      "task_id": "invalid",
+      "trial": 0,
+      "delta": 0,
+      "baseline": false,
+      "candidate": false
+    },
+    {
+      "task_id": "invalid",
+      "trial": 1,
+      "delta": 0,
+      "baseline": false,
+      "candidate": false
+    },
+    {
+      "task_id": "invalid",
+      "trial": 2,
+      "delta": 0,
+      "baseline": false,
+      "candidate": false
+    }
+  ],
+  "wins": 6,
+  "ties": 12,
+  "regressions": 0,
+  "delta_success_rate": 0.33333333333333337,
+  "release_gate": {
+    "required_success_rate": 1.0,
+    "passed": false
+  }
+}

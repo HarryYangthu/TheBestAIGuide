@@ -1,4 +1,0 @@
-{
-  "a1": {"tenant": "A", "title": "七天补货结果", "daily_delivery": 4, "private_note": "仅供门店内部核对"},
-  "b1": {"tenant": "B", "title": "另一门店的补货结果", "daily_delivery": 7, "private_note": "B 组私有备注"}
-}

@@ -1,0 +1,138 @@
+{
+  "owner": "report-writer",
+  "epoch": 2,
+  "states": {
+    "read-notes": "completed"
+  },
+  "merged": {
+    "complete": true,
+    "missing_tasks": [],
+    "results": {
+      "read-notes": {
+        "evidence": {
+          "file": "snapshot-ready.json",
+          "pointer": "notes.txt",
+          "text": "工具接入：已完成。\n循环日志：已完成。\n",
+          "version": "notes-2"
+        },
+        "found": 2,
+        "missing": 1,
+        "path": "notes.txt",
+        "required": 3
+      }
+    }
+  },
+  "draft": "任务 report-017 要求 3 条事实，已找到 2 条，缺少 1 条。\n工具接入：已完成。\n循环日志：已完成。\n待确认：错误重试。",
+  "decisions": [
+    {
+      "seq": 1,
+      "decision": "delegated",
+      "message_id": "request-001",
+      "owner": "coordinator",
+      "epoch": 1,
+      "attempt": 1
+    },
+    {
+      "seq": 2,
+      "decision": "accepted_started",
+      "message_id": "message-002",
+      "owner": "coordinator",
+      "epoch": 1
+    },
+    {
+      "seq": 3,
+      "decision": "accepted_result",
+      "message_id": "message-003",
+      "owner": "coordinator",
+      "epoch": 1
+    },
+    {
+      "seq": 4,
+      "decision": "handoff_offered",
+      "message_id": null,
+      "owner": "coordinator",
+      "epoch": 1,
+      "handoff_id": "handoff-004"
+    },
+    {
+      "seq": 5,
+      "decision": "handoff_accepted",
+      "message_id": null,
+      "owner": "report-writer",
+      "epoch": 2,
+      "handoff_id": "handoff-004"
+    },
+    {
+      "seq": 6,
+      "decision": "rejected_stale_owner",
+      "message_id": null,
+      "owner": "report-writer",
+      "epoch": 2,
+      "actor": "coordinator"
+    },
+    {
+      "seq": 7,
+      "decision": "draft_created",
+      "message_id": null,
+      "owner": "report-writer",
+      "epoch": 2,
+      "actor": "report-writer"
+    }
+  ],
+  "worker_executions": 1,
+  "handoff": {
+    "handoff_id": "handoff-004",
+    "case_id": "report-017",
+    "from": "coordinator",
+    "to": "report-writer",
+    "epoch": 1,
+    "context": {
+      "goal": "读取笔记，列出已完成的工作和缺少的说明，保存报告。",
+      "task": {
+        "case_id": "report-017",
+        "path": "notes.txt",
+        "required_facts": [
+          "工具接入",
+          "循环日志",
+          "错误重试"
+        ],
+        "instruction": "读取笔记，列出已完成的工作和缺少的说明，保存报告。"
+      },
+      "evidence": {
+        "read-notes": {
+          "evidence": {
+            "file": "snapshot-ready.json",
+            "pointer": "notes.txt",
+            "text": "工具接入：已完成。\n循环日志：已完成。\n",
+            "version": "notes-2"
+          },
+          "found": 2,
+          "missing": 1,
+          "path": "notes.txt",
+          "required": 3
+        }
+      },
+      "decisions": [
+        "已读取笔记；错误重试尚无完成记录"
+      ],
+      "unresolved": [
+        "错误重试是否完成"
+      ],
+      "next_action": "write_report",
+      "allowed_actions": [
+        "write_report"
+      ],
+      "constraints": [
+        "只引用已经读取的笔记",
+        "缺少的事实标为待确认",
+        "不修改原始输入"
+      ]
+    }
+  },
+  "before_accept": {
+    "owner": "coordinator",
+    "epoch": 1
+  },
+  "old_action": "rejected_stale_owner",
+  "new_action": "draft_created"
+}

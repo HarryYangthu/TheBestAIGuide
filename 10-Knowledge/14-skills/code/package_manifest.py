@@ -8,7 +8,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--output", default="runs/package-manifest.json")
 args = parser.parse_args()
 packages = []
-for relative in ("examples/skills-v1/release-comparison", "examples/skills/release-comparison"):
+for relative in ("examples/skills-v1/notes-comparison", "examples/skills/notes-comparison"):
     root = ROOT / relative
     files = {path.relative_to(root).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
              for path in sorted(root.rglob("*")) if path.is_file() and "__pycache__" not in path.parts}

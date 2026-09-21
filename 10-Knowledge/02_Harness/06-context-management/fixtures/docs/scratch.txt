@@ -1,0 +1,3 @@
+service=stats
+environment=scratch
+timeout_ms=9000

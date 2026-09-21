@@ -18,9 +18,9 @@ flowchart TD
 
 ## 事实冲突
 
-已有 policy-v3 说 timeout_ms=3000。另一份已核对资料却写 4000，两者适用相同服务、环境和日期。即便后者刚刚写入数据库，也不能由写入时间判断业务政策已经改变：它可能是另一条审批分支，或者更新说明不完整。
+已有 policy-v3 说 timeout_ms=3000。另一份已核对资料却写 4000，两者适用相同任务、环境和日期。即便后者刚刚写入数据库，也不能由写入时间判断业务检查规则已经改变：它可能是另一条审批分支，或者更新说明不完整。
 
-本章把“同 kind、key、服务、环境和用户”的不同值视为冲突。新记录没有明确 `supersedes` 时，将参与冲突的旧记录和新记录标记为 disputed，检索都不采用。来源未经核对的 rumor-timeout 只是 candidate，不会把可靠旧记录冲成 disputed。
+本章把“同 kind、key、任务、环境和用户”的不同值视为冲突。新记录没有明确 `supersedes` 时，将参与冲突的旧记录和新记录标记为 disputed，检索都不采用。来源未经核对的 rumor-timeout 只是 candidate，不会把可靠旧记录冲成 disputed。
 
 下面是 `add` 的**实现节选**，依赖已读取的 same、record 和 supersedes；不自行打印，完整事务在 [memory.py](code/memory.py)。
 
@@ -31,13 +31,13 @@ if verified and unresolved:
     status = "disputed"
 ```
 
-disputed 状态表示政策需要进一步核对。本例没有来源权威等级，冲突由显式版本替代解决。
+disputed 状态表示检查规则需要进一步核对。本例没有来源权威等级，冲突由显式版本替代解决。
 
 ## 版本替代
 
 [update.json](fixtures/update.json) 描述 policy-v4：超时改为 2000，2026-09-21 生效，`supersedes` 显式列出 fact-timeout-v3 和 fact-timeout-conflict。程序核对其来源、范围、有效期，并确认被替代 id 都属于同一种断言范围。
 
-替代操作只作用于精确列出的同 key、同范围记录；拿 checkout 的新政策替代 search-policy 会报错，数据库不发生变化。
+替代操作只作用于精确列出的同 key、同范围记录；拿 stats 的新检查规则替代 search-policy 会报错，数据库不发生变化。
 
 **完整阶段命令**，在本章目录、只用标准库；假设 README 中的 learn 已在新的 manual 数据库成功执行，且尚未加入 conflict/update。每条读取指定 fixture，输出写入对应目录：
 
@@ -48,7 +48,7 @@ python code/session.py update
 python code/session.py review --task task-third.json --out runs/manual-updated
 ```
 
-准确观察：conflict 输出 `status=disputed`；随后 review 的 selected 中没有任何 timeout 记录。update 输出 `status=active`；第三次任务的 selected 改为 fact-timeout-v4、failure-permission、procedure-rollback。
+准确观察：conflict 输出 `status=disputed`；随后 review 的 selected 中没有任何 timeout 记录。update 输出 `status=active`；第三次任务的 selected 改为 fact-timeout-v4、failure-permission、procedure-verification。
 
 本章库保存“目前使用哪个版本”的状态，不提供完整历史时点查询。新版本替代旧版本后，再用旧日期查询也不会自动恢复旧状态；需要回溯时看运行快照和事件，或另外实现按有效时间查询。新版本生效前不宜提前永久替代唯一可用的旧版本；示例在 9 月 21 日任务采用 v4。
 
@@ -69,7 +69,7 @@ with self.db:
                     (record["id"], "add", canonical({"status": status, "supersedes": supersedes})))
 ```
 
-这里展示已核对新版替代旧记录的分支；完整函数还在同一事务内处理 disputed。事务中的任何写入抛异常，已有变更都会回滚；不会留下“旧记录失效了，新记录没写进去”的半成品。
+这里展示已核对新版替代旧记录的分支；完整函数还在同一事务内处理 disputed。事务中的任何写入抛异常，已有变更都会检查；不会留下“旧记录失效了，新记录没写进去”的半成品。
 
 测试创建 SQLite trigger，让 events 写入抛错，再尝试加入冲突记录；操作后的整张 memories 表必须与操作前一致。
 
@@ -96,6 +96,6 @@ python code/session.py forget --id pref-language
 
 ## 记忆的适用场景
 
-当相同信息跨多次任务反复核对、来源足够稳定、可以描述使用范围，且能处理更新时，记忆开始有价值。上次查明的发布规则、用户明确偏好、真实运行成功的步骤，以及带条件的失败教训，分别对应本章四种记录。
+当相同信息跨多次任务反复核对、来源足够稳定、可以描述使用范围，且能处理更新时，记忆开始有价值。上次查明的报告规则、用户明确偏好、真实运行成功的步骤，以及带条件的失败教训，分别对应本章四种记录。
 
 一次性的文件片段通常留在任务上下文或产物就够了。没有来源的模型推测、尚未确认的聊天建议，也不应因为“以后可能有用”直接升级为有效事实。可以暂存为 candidate，但要接受它在下次检索中不可用。

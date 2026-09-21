@@ -1,0 +1,14 @@
+{
+  "run_id": "run-f82bc3b2000f48a4b637262825d85d39",
+  "task_id": null,
+  "task_version": null,
+  "attempt": 1,
+  "status": "failed",
+  "acceptance": null,
+  "error": {
+    "code": "constraint_violation",
+    "stage": "input",
+    "detail": "输入行数超过 max_rows",
+    "retryable": false
+  }
+}

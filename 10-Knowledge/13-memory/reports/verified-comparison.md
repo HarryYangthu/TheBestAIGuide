@@ -3,12 +3,12 @@
 | 阶段 | 独立进程输出 |
 |---|---|
 | learn | stored=8 active=7 |
-| reuse | selected=fact-timeout-v3,failure-permission,procedure-rollback; language=en |
-| no-trigger | selected=fact-timeout-v3,procedure-rollback; language=en |
+| reuse | selected=fact-timeout-v3,failure-permission,procedure-verification; language=en |
+| no-trigger | selected=fact-timeout-v3,procedure-verification; language=en |
 | conflict | status=disputed |
-| disputed | selected=failure-permission,procedure-rollback; language=en |
+| disputed | selected=failure-permission,procedure-verification; language=en |
 | update | status=active |
-| new-policy | selected=fact-timeout-v4,failure-permission,procedure-rollback; language=en |
+| new-policy | selected=fact-timeout-v4,failure-permission,procedure-verification; language=en |
 | expiry | expired=6 |
 | expired | selected=; language=en |
 | forget | forgot=pref-language |

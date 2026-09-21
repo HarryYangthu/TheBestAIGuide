@@ -1,0 +1,5 @@
+{
+  "service": "stats",
+  "environment": "workspace",
+  "instruction": "审核 stats 的 workspace 报告生成。确认 timeout_ms、错误率检查阈值、允许工作区及检查执行结果；缺证据时停止判断。"
+}

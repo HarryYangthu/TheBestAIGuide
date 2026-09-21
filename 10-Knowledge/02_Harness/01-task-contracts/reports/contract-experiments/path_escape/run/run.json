@@ -1,0 +1,14 @@
+{
+  "run_id": "run-4874aff31fed4b128204c592e4df0587",
+  "task_id": null,
+  "task_version": null,
+  "attempt": 1,
+  "status": "failed",
+  "acceptance": null,
+  "error": {
+    "code": "constraint_violation",
+    "stage": "input",
+    "detail": "input_path 必须位于任务文件目录内",
+    "retryable": false
+  }
+}

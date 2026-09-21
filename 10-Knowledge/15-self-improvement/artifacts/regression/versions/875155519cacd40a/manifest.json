@@ -1,0 +1,9 @@
+{
+  "version": "875155519cacd40a",
+  "policy_sha256": "4dc750a0e81eccc7cb307857e145b7d378390226a7444740aa3aa41c8763fca5",
+  "engine_sha256": "fd459ef5111183eade394ac3448aef45b5b07a7cab0116de7d0487b0488a4742",
+  "evidence": {
+    "role": "baseline"
+  },
+  "created_at": "2026-09-21T04:46:02.387855+00:00"
+}

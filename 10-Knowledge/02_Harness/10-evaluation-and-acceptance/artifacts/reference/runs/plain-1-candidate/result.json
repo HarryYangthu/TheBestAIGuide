@@ -1,0 +1,15 @@
+{
+  "task_id": "plain",
+  "trial": 1,
+  "variant": "candidate",
+  "input_sha256": "284bfcea8b3b99795e35868af988776fff0fceefacd52d726897b15abc032659",
+  "checker_version": "summary-contract-v1",
+  "exit_reason": "completed",
+  "accepted": true,
+  "error": null,
+  "elapsed_ms": 0.06786899757571518,
+  "tool_calls": 1,
+  "model_cost_usd": null,
+  "cost_source": "not_instrumented",
+  "artifact_dir": "artifacts/reference/runs/plain-1-candidate"
+}

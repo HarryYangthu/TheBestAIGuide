@@ -1,4 +1,4 @@
-$ python examples/skills/release-comparison/scripts/compare.py --old examples/inputs/v1.json --new examples/inputs/v2.json --old-version 1.0 --new-version 2.0 --units examples/skills/release-comparison/references/units.json --template examples/skills/release-comparison/assets/report.md --output runs/direct
+$ python examples/skills/notes-comparison/scripts/compare.py --old examples/inputs/v1.json --new examples/inputs/v2.json --old-version 1.0 --new-version 2.0 --units examples/skills/notes-comparison/references/units.json --template examples/skills/notes-comparison/assets/report.md --output runs/direct
 status=generated rows=3
 
 $ python code/validate_output.py --output runs/direct --old examples/inputs/v1.json --new examples/inputs/v2.json

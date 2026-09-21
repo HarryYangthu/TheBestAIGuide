@@ -1,0 +1,13 @@
+[
+  {
+    "task_id": "normal",
+    "accepted": true,
+    "artifact": "summary-normal.json"
+  },
+  {
+    "task_id": "invalid",
+    "accepted": false,
+    "error": "invalid_value: file=invalid.csv row=3 sample=w2",
+    "origin_span_id": "s0009"
+  }
+]

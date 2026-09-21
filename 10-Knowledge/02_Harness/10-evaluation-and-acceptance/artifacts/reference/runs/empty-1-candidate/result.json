@@ -1,0 +1,15 @@
+{
+  "task_id": "empty",
+  "trial": 1,
+  "variant": "candidate",
+  "input_sha256": "da78690c06778b82fc02e6e99850648d03ba438973cf8eb9a1fe7c38f8f3868d",
+  "checker_version": "summary-contract-v1",
+  "exit_reason": "completed",
+  "accepted": true,
+  "error": null,
+  "elapsed_ms": 0.09126399891101755,
+  "tool_calls": 1,
+  "model_cost_usd": null,
+  "cost_source": "not_instrumented",
+  "artifact_dir": "artifacts/reference/runs/empty-1-candidate"
+}

@@ -1,21 +1,21 @@
 {
   "id": "review-19",
-  "service": "checkout",
-  "environment": "production",
+  "service": "stats",
+  "environment": "workspace",
   "user": "alice",
   "as_of": "2026-09-21",
-  "instruction": "为 checkout production 的下一次发布复用已验证条件。本次使用英文。",
+  "instruction": "为 stats workspace 的下一次报告复用已验证条件。本次使用英文。",
   "current_instructions": {
     "language": "en"
   },
   "signals": {
-    "phase": "rollback",
+    "phase": "verification",
     "error_code": "ACCESS_DENIED"
   },
   "requested_keys": [
     "timeout_ms",
     "language",
-    "rollback_steps",
-    "rollback_permission"
+    "verification_steps",
+    "verification_permission"
   ]
 }

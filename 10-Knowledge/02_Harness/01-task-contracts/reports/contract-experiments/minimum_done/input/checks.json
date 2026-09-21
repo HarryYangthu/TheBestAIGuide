@@ -1,0 +1,27 @@
+[
+  {
+    "id": "C-101",
+    "status": "done",
+    "seconds": 2.5
+  },
+  {
+    "id": "C-102",
+    "status": "done",
+    "seconds": 1.5
+  },
+  {
+    "id": "C-103",
+    "status": "in_progress",
+    "seconds": 8.0
+  },
+  {
+    "id": "C-104",
+    "status": "done",
+    "seconds": 2.0
+  },
+  {
+    "id": "C-105",
+    "status": "cancelled",
+    "seconds": 3.0
+  }
+]

@@ -1,0 +1,10 @@
+{
+  "case_id": "report-017",
+  "path": "notes.txt",
+  "required_facts": [
+    "工具接入",
+    "循环日志",
+    "错误重试"
+  ],
+  "instruction": "读取笔记，列出已完成的工作和缺少的说明，保存报告。"
+}

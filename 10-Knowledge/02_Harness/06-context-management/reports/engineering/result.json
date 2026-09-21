@@ -1,0 +1,82 @@
+{
+  "task_id": "report-17",
+  "python": "3.12.14",
+  "evidence_unit": "canonical evidence id",
+  "evidence_aliases": {
+    "policy-copy": "policy-v3"
+  },
+  "variants": {
+    "current": {
+      "input_tokens": 866,
+      "within_budget": true,
+      "recall": 1.0,
+      "precision": 0.6666666666666666,
+      "required": 2,
+      "selected": 3
+    },
+    "without_deduplication": {
+      "input_tokens": 1008,
+      "within_budget": true,
+      "recall": 1.0,
+      "precision": 0.6666666666666666,
+      "required": 2,
+      "selected": 3
+    },
+    "without_log_compaction": {
+      "input_tokens": 1801,
+      "within_budget": true,
+      "recall": 1.0,
+      "precision": 0.6666666666666666,
+      "required": 2,
+      "selected": 3
+    },
+    "full_authorized": {
+      "input_tokens": 2403,
+      "within_budget": true,
+      "recall": 1.0,
+      "precision": 0.2857142857142857,
+      "required": 2,
+      "selected": 7
+    },
+    "minimal": {
+      "input_tokens": 242,
+      "within_budget": true,
+      "recall": 0.0,
+      "precision": null,
+      "required": 2,
+      "selected": 0
+    }
+  },
+  "checks": {
+    "foreign_body_not_read": true,
+    "foreign_body_not_in_request": true,
+    "wrong_scope_excluded": true,
+    "duplicate_excluded": true,
+    "expired_excluded": true,
+    "conflict_rejected": true,
+    "overflow_rejected": true,
+    "failure_not_rewritten": true,
+    "failure_source_preserved": true,
+    "action_group_preserved": true,
+    "read_back_preserves_failure": true,
+    "policy_change_invalidates_key": true,
+    "refresh_missing_is_unknown": true,
+    "untrusted_note_remains_data": true
+  },
+  "compression": {
+    "prefix_preserved": 1,
+    "structured_preserved": 3,
+    "required": 3,
+    "raw_tokens": 1363,
+    "summary_tokens": 85
+  },
+  "refresh": {
+    "status": "CURRENT",
+    "version": "v3",
+    "source_id": "policy-v3",
+    "source_sha256": "620c34d98b616746933a2be98e83e95792646d44c4cf0b96fa840cb128723783",
+    "checked_as_of": "2026-09-21T00:00:00+00:00"
+  },
+  "real_model_trials": 0,
+  "runtime_release_actions": 0
+}

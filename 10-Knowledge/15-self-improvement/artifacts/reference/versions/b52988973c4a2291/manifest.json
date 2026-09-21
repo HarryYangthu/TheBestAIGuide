@@ -1,0 +1,23 @@
+{
+  "version": "b52988973c4a2291",
+  "policy_sha256": "2f285a7578d816467f3d61e6546106cb04a392e4f68d1ef39f1628207f0de5fe",
+  "engine_sha256": "fd459ef5111183eade394ac3448aef45b5b07a7cab0116de7d0487b0488a4742",
+  "evidence": {
+    "failures_sha256": "82f3f5958d1842a539615ee5fb78355437581563d0cb57e47eae7830898e674f",
+    "changes": [
+      {
+        "field": "normalize_status",
+        "from": false,
+        "to": true,
+        "evidence_reason": "unrecognized_status"
+      },
+      {
+        "field": "invalid_value",
+        "from": "reject",
+        "to": "skip_and_record",
+        "evidence_reason": "invalid_value"
+      }
+    ]
+  },
+  "created_at": "2026-09-21T04:46:01.948627+00:00"
+}

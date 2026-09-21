@@ -1,1 +1,0 @@
-{"allowed_actions":["draft_options"],"constraints":["不能承诺补货日期","不能自动退款","草稿须由客户确认后再执行"],"next_action":"draft_options"}

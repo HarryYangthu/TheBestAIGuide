@@ -1,0 +1,5 @@
+{
+  "provenance": "handwritten protocol example, not captured API traffic",
+  "plan": [{"task_id": "normal", "input": "normal.csv"}, {"task_id": "invalid", "input": "invalid.csv"}],
+  "usage": {"input_tokens": 36, "output_tokens": 18}
+}

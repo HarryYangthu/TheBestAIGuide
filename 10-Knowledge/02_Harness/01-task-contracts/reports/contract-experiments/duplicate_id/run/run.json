@@ -1,0 +1,14 @@
+{
+  "run_id": "run-2db3ab092dd748d78167ca34a15ce1b9",
+  "task_id": null,
+  "task_version": null,
+  "attempt": 1,
+  "status": "failed",
+  "acceptance": null,
+  "error": {
+    "code": "invalid_input",
+    "stage": "input",
+    "detail": "检查记录 id 必须唯一",
+    "retryable": false
+  }
+}

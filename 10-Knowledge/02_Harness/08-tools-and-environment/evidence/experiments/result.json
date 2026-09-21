@@ -1,0 +1,160 @@
+[
+  {
+    "case": "search",
+    "expected_error": null,
+    "passed": true,
+    "result": {
+      "call_id": "search",
+      "tool": "search_docs",
+      "ok": true,
+      "data": {
+        "matches": [
+          {
+            "path": "glossary.md",
+            "line": 3,
+            "text": "read_file 读取笔记；run_python 运行统计脚本；write_file 保存报告。"
+          }
+        ],
+        "total": 4,
+        "truncated": true
+      },
+      "error": null
+    }
+  },
+  {
+    "case": "bad_limit",
+    "expected_error": "invalid_arguments",
+    "passed": true,
+    "result": {
+      "call_id": "bad_limit",
+      "tool": "search_docs",
+      "ok": false,
+      "data": null,
+      "error": {
+        "code": "invalid_arguments",
+        "message": "arguments.limit: outside bounds",
+        "retryable": false
+      }
+    }
+  },
+  {
+    "case": "bool_limit",
+    "expected_error": "invalid_arguments",
+    "passed": true,
+    "result": {
+      "call_id": "bool_limit",
+      "tool": "search_docs",
+      "ok": false,
+      "data": null,
+      "error": {
+        "code": "invalid_arguments",
+        "message": "arguments.limit: expected integer",
+        "retryable": false
+      }
+    }
+  },
+  {
+    "case": "escape",
+    "expected_error": "path_denied",
+    "passed": true,
+    "result": {
+      "call_id": "escape",
+      "tool": "read_file",
+      "ok": false,
+      "data": null,
+      "error": {
+        "code": "path_denied",
+        "message": "relative path must remain inside tool root",
+        "retryable": false
+      }
+    }
+  },
+  {
+    "case": "missing",
+    "expected_error": "not_found",
+    "passed": true,
+    "result": {
+      "call_id": "missing",
+      "tool": "read_file",
+      "ok": false,
+      "data": null,
+      "error": {
+        "code": "not_found",
+        "message": "file does not exist",
+        "retryable": false
+      }
+    }
+  },
+  {
+    "case": "python",
+    "expected_error": null,
+    "passed": true,
+    "result": {
+      "call_id": "python",
+      "tool": "run_python",
+      "ok": true,
+      "data": {
+        "exit_code": 0,
+        "stdout": "{\"count\": 2, \"mean\": 3.0}\n",
+        "stderr": ""
+      },
+      "error": null
+    }
+  },
+  {
+    "case": "budget2",
+    "expected_error": null,
+    "passed": true,
+    "result": {
+      "call_id": "budget2",
+      "tool": "simulate_loop",
+      "ok": true,
+      "data": {
+        "executed": 2,
+        "remaining": 1,
+        "completed": false,
+        "history": [
+          {
+            "step": 1,
+            "tool": "read_file"
+          },
+          {
+            "step": 2,
+            "tool": "run_python"
+          }
+        ]
+      },
+      "error": null
+    }
+  },
+  {
+    "case": "budget3",
+    "expected_error": null,
+    "passed": true,
+    "result": {
+      "call_id": "budget3",
+      "tool": "simulate_loop",
+      "ok": true,
+      "data": {
+        "executed": 3,
+        "remaining": 0,
+        "completed": true,
+        "history": [
+          {
+            "step": 1,
+            "tool": "read_file"
+          },
+          {
+            "step": 2,
+            "tool": "run_python"
+          },
+          {
+            "step": 3,
+            "tool": "write_file"
+          }
+        ]
+      },
+      "error": null
+    }
+  }
+]

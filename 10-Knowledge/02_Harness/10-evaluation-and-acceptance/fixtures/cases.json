@@ -1,0 +1,58 @@
+[
+  {
+    "id": "plain",
+    "input": "plain.csv",
+    "expected": {
+      "total": 6,
+      "valid_rows": 2,
+      "rejected_rows": []
+    }
+  },
+  {
+    "id": "whitespace",
+    "input": "whitespace.csv",
+    "expected": {
+      "total": 4,
+      "valid_rows": 1,
+      "rejected_rows": []
+    }
+  },
+  {
+    "id": "uppercase",
+    "input": "uppercase.csv",
+    "expected": {
+      "total": 6,
+      "valid_rows": 1,
+      "rejected_rows": []
+    }
+  },
+  {
+    "id": "negative",
+    "input": "negative.csv",
+    "expected": {
+      "total": 8,
+      "valid_rows": 2,
+      "rejected_rows": []
+    }
+  },
+  {
+    "id": "empty",
+    "input": "empty.csv",
+    "expected": {
+      "total": 0,
+      "valid_rows": 0,
+      "rejected_rows": []
+    }
+  },
+  {
+    "id": "invalid",
+    "input": "invalid.csv",
+    "expected": {
+      "total": 2,
+      "valid_rows": 1,
+      "rejected_rows": [
+        "o2"
+      ]
+    }
+  }
+]

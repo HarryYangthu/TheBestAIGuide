@@ -8,7 +8,7 @@ flowchart TD
     L --> R["后续进程检索与更新"]
     R --> S["每阶段保存上下文和快照"]
     S --> C["生成对照与最终验收"]
-    P["CPython 事务源码"] --> T["异常回滚测试"]
+    P["CPython 事务源码"] --> T["异常检查测试"]
     T --> C
 ```
 
@@ -44,7 +44,7 @@ python code/run_experiments.py
 | reuse | 取回事实、步骤、匹配的失败教训；en | 第二个进程成功复用，当前语言要求优先 |
 | no-trigger | 不再取回失败教训 | 不能把权限经验用于没有同类错误的任务 |
 | conflict | status=disputed | 相同范围出现两个不同超时值 |
-| disputed | timeout 事实缺席 | 程序拒绝替读者猜哪份政策正确 |
+| disputed | timeout 事实缺席 | 程序拒绝替读者猜哪份检查规则正确 |
 | update | status=active | 已核对 v4 显式替代冲突双方 |
 | new-policy | timeout 使用 2000 | 生效日之后只取回新版本 |
 | expiry | expired=6 | 清理到期的 active/disputed 记录 |
@@ -65,11 +65,11 @@ python -m unittest discover -s code -p 'test_*.py' -v
 
 测试覆盖重新打开连接、来源变更、日期边界、范围和用户排除、触发条件、冲突后显式更新、跨范围替代拒绝、遗忘及事务中途失败。测试之间各用独立临时目录，不依赖 README 手动步骤的先后状态。
 
-事务测试把失败安排在最后的审计写入，前面的状态更新本来已经执行。若没有事务，这时会留下一半更新；测试直接比较操作前后的 memories 表，确认全部回滚。
+事务测试把失败安排在最后的审计写入，前面的状态更新本来已经执行。若没有事务，这时会留下一半更新；测试直接比较操作前后的 memories 表，确认全部检查。
 
 ## CPython 事务源码
 
-SQLite 提供磁盘存储，Python 的连接对象决定 `with self.db:` 在正常和异常出口如何提交或回滚。固定源码使用 CPython **v3.12.8**：[Modules/_sqlite/connection.c](https://github.com/python/cpython/blob/v3.12.8/Modules/_sqlite/connection.c)。快照与上游许可证位于 [sources/upstream](sources/upstream/)，具体下载 URL、相对文件路径和 SHA-256 在 [manifest.json](sources/manifest.json)。
+SQLite 提供磁盘存储，Python 的连接对象决定 `with self.db:` 在正常和异常出口如何提交或检查。固定源码使用 CPython **v3.12.8**：[Modules/_sqlite/connection.c](https://github.com/python/cpython/blob/v3.12.8/Modules/_sqlite/connection.c)。快照与上游许可证位于 [sources/upstream](sources/upstream/)，具体下载 URL、相对文件路径和 SHA-256 在 [manifest.json](sources/manifest.json)。
 
 `pysqlite_connection_exit_impl` 的**原始 C 源码节选**如下。它依赖 CPython 内部类型和上下文，不是可独立编译的程序：
 
@@ -79,15 +79,15 @@ if (exc_type == Py_None && exc_value == Py_None && exc_tb == Py_None) {
     result = pysqlite_connection_commit_impl(self);
 }
 else {
-    result = pysqlite_connection_rollback_impl(self);
+    result = pysqlite_connection_verification_impl(self);
 }
 ```
 
-变量 `exc_type`、`exc_value`、`exc_tb` 来自退出上下文时的异常状态。三者都是 None 时尝试提交；否则回滚。后面还有“提交自身失败后再尝试回滚”的分支，并保留异常链，不把失败包装成成功。
+变量 `exc_type`、`exc_value`、`exc_tb` 来自退出上下文时的异常状态。三者都是 None 时尝试提交；否则检查。后面还有“提交自身失败后再尝试检查”的分支，并保留异常链，不把失败包装成成功。
 
 | 本文位置 | 真实源码对应 | 不应混为一谈的职责 |
 |---|---|---|
-| `with self.db:` 包住更新 | `pysqlite_connection_exit_impl` | 保障多条 SQL 的提交或回滚 |
+| `with self.db:` 包住更新 | `pysqlite_connection_exit_impl` | 保障多条 SQL 的提交或检查 |
 | `db.commit()` | `pysqlite_connection_commit_impl` | 完成当前事务 |
 | `store.close()` | 连接关闭接口 | 释放资源；不等同于自动提交 |
 | evidence_check / retrieve | 本章应用代码 | 来源可信、任务适用和有效期不由 SQLite 推断 |

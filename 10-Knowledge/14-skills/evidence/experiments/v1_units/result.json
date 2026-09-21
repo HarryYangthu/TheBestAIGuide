@@ -1,13 +1,13 @@
 {
   "task": "compare",
   "selected": {
-    "name": "release-comparison",
-    "description": "比较指定产品的两个正式版本，生成单位一致且保留双侧原文的参数变更表；仅润色现有文字时不适用。",
+    "name": "notes-comparison",
+    "description": "比较指定程序的两版运行配置笔记，生成单位一致且保留双侧原文的参数变更表；仅润色现有文字时不适用。",
     "version": "1.0.0"
   },
   "status": "script_rejected",
   "acceptance": false,
-  "loaded_bytes": 1998,
+  "loaded_bytes": 1996,
   "loaded_files": [
     "catalog",
     "SKILL.md",

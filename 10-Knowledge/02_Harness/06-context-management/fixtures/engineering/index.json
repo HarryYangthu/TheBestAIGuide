@@ -1,0 +1,111 @@
+[
+  {
+    "id": "policy-v3",
+    "path": "docs/policy-v3.txt",
+    "service": "stats",
+    "environment": "workspace",
+    "version": "v3",
+    "status": "active",
+    "priority": 100,
+    "tenant": "alpha",
+    "kind": "policy",
+    "trust": "workspace"
+  },
+  {
+    "id": "dry-run-log",
+    "path": "docs/dry-run.log",
+    "service": "stats",
+    "environment": "workspace",
+    "version": "run-17",
+    "status": "active",
+    "priority": 80,
+    "tenant": "alpha",
+    "kind": "log",
+    "trust": "runtime"
+  },
+  {
+    "id": "policy-v2",
+    "path": "docs/policy-v2.txt",
+    "service": "stats",
+    "environment": "workspace",
+    "version": "v2",
+    "status": "superseded",
+    "priority": 90,
+    "tenant": "alpha",
+    "kind": "policy",
+    "trust": "workspace"
+  },
+  {
+    "id": "scratch-note",
+    "path": "docs/scratch.txt",
+    "service": "stats",
+    "environment": "scratch",
+    "version": "v1",
+    "status": "active",
+    "priority": 100,
+    "tenant": "alpha",
+    "kind": "note",
+    "trust": "workspace"
+  },
+  {
+    "id": "search-note",
+    "path": "docs/search.txt",
+    "service": "search",
+    "environment": "workspace",
+    "version": "v1",
+    "status": "active",
+    "priority": 100,
+    "tenant": "alpha",
+    "kind": "note",
+    "trust": "workspace"
+  },
+  {
+    "id": "policy-copy",
+    "path": "docs/policy-v3.txt",
+    "service": "stats",
+    "environment": "workspace",
+    "version": "v3",
+    "status": "active",
+    "priority": 99,
+    "tenant": "alpha",
+    "kind": "policy",
+    "trust": "workspace"
+  },
+  {
+    "id": "other-tenant",
+    "path": "engineering/other-tenant.txt",
+    "service": "stats",
+    "environment": "workspace",
+    "version": "v3",
+    "status": "active",
+    "priority": 200,
+    "tenant": "beta",
+    "kind": "policy",
+    "trust": "workspace"
+  },
+  {
+    "id": "external-note",
+    "path": "engineering/external-note.txt",
+    "service": "stats",
+    "environment": "workspace",
+    "version": "v3",
+    "status": "active",
+    "priority": 10,
+    "tenant": "alpha",
+    "kind": "note",
+    "trust": "untrusted"
+  },
+  {
+    "id": "expired-note",
+    "path": "engineering/expired-note.txt",
+    "service": "stats",
+    "environment": "workspace",
+    "version": "v3",
+    "status": "active",
+    "priority": 15,
+    "tenant": "alpha",
+    "kind": "note",
+    "trust": "workspace",
+    "valid_until": "2026-09-01T00:00:00+00:00"
+  }
+]

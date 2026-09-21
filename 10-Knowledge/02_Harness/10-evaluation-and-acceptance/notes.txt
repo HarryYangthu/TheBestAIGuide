@@ -1,0 +1,2 @@
+任务：读取 fixtures 中的统计样本，输出 total、valid_rows、rejected_rows。
+只汇总 valid 状态的整数；空白与大小写需规范化；坏值记录 ID。

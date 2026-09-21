@@ -31,13 +31,13 @@ python code/validate_output.py --output runs/direct --old examples/inputs/v1.jso
 
 | 检查组 | 实际核对的内容 |
 |---|---|
-| 版本与产品 | old/new 版本匹配，产品一致，两侧 stable |
+| 版本与程序 | old/new 版本匹配，程序一致，两侧 stable |
 | 字段集合 | 三项字段齐全，顺序符合输出约定 |
 | 双侧证据 | source、version、value、unit、quote 与原输入一致 |
 | 引文支持 | 完整原文行存在且 key/value/unit 一致 |
 | 数值转换 | 独立换算结果与报告值相等 |
 | changed | 与换算后数值差异一致 |
-| 人可读报告 | 实际 Markdown 的标题产品与版本正确，并包含正确行、数字与双侧证据 |
+| 人可读报告 | 实际 Markdown 的标题程序与版本正确，并包含正确行、数字与双侧证据 |
 
 缺文件、坏 JSON、错误形状或缺字段会变成 passed=false 与 invalid_artifact 记录；宿主仍写出 acceptance.json、trace.json、result.json。不能让验收器自己抛 KeyError 后丢掉失败证据。
 
@@ -45,7 +45,7 @@ python code/validate_output.py --output runs/direct --old examples/inputs/v1.jso
 
 ## 版本目录
 
-包名始终为 release-comparison，目录名与 SKILL name 一致；两个版本分别放在 examples/skills-v1 和 examples/skills 下。无需覆盖旧包，也无需安装到个人技能目录。
+包名始终为 notes-comparison，目录名与 SKILL name 一致；两个版本分别放在 examples/skills-v1 和 examples/skills 下。无需覆盖旧包，也无需安装到个人技能目录。
 
 | 内容 | 1.0.0 | 1.1.0 |
 |---|---|---|
@@ -81,7 +81,7 @@ python code/package_manifest.py --output runs/package-manifest.json
 
 标准输出为 `packages=2 artifacts=runs/package-manifest.json`。清单保存相对路径、声明版本以及包内每个实际文件的 SHA-256。只改文件不改版本时，清单仍能显示内容变动；重放时应同时核对版本与哈希。
 
-本章的 trace 记录方法、参考表、模板和执行脚本的内容指纹，完整清单补齐未加载文件。目录发现、task 路由、哈希策略和验收器是本章宿主约定；官方格式规定的是 SKILL.md 的结构及可选资源组织，没有规定这套 Python API 或 release-comparison 的业务步骤。[Agent Skills 格式规范](https://agentskills.io/specification)
+本章的 trace 记录方法、参考表、模板和执行脚本的内容指纹，完整清单补齐未加载文件。目录发现、task 路由、哈希策略和验收器是本章宿主约定；官方格式规定的是 SKILL.md 的结构及可选资源组织，没有规定这套 Python API 或 notes-comparison 的业务步骤。[Agent Skills 格式规范](https://agentskills.io/specification)
 
 ## 回归测试
 
@@ -89,7 +89,7 @@ python code/package_manifest.py --output runs/package-manifest.json
 python -m unittest discover -s code -p 'test_*.py' -v
 ```
 
-10 项测试覆盖跨单位正确转换、30 s 与 30000 ms 应判为无变化、预览稿拒绝、伪造引文与缺字段、量纲不符、润色不加载正文、产物被改坏后的验收失败，同单位跳过参考表、报告标题被改为其他产品版本、坏文件与缺字段，以及验收失败时宿主仍保存完整记录。多个边界放在同一项测试中，因此场景数不等于测试方法数。
+10 项测试覆盖跨单位正确转换、30 s 与 30000 ms 应判为无变化、预览稿拒绝、伪造引文与缺字段、量纲不符、润色不加载正文、产物被改坏后的验收失败，同单位跳过参考表、报告标题被改为其他程序版本、坏文件与缺字段，以及验收失败时宿主仍保存完整记录。多个边界放在同一项测试中，因此场景数不等于测试方法数。
 
 你可以复制一份已经生成的 comparison.json，把 timeout.new 从 10 改成 10000，再运行 validate_output.py。预期 acceptance=False，退出码 1；即使 report.md 仍写得漂亮，结构化结果也无法通过。若同时把报告数字改成 10000，独立数值检查仍应拒绝。
 

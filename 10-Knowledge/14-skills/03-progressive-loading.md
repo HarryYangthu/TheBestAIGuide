@@ -29,13 +29,13 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path("code").resolve()))
 from host import header
-metadata = header(Path("examples/skills/release-comparison/SKILL.md"))
+metadata = header(Path("examples/skills/notes-comparison/SKILL.md"))
 print(metadata["name"], metadata["version"])
 ```
 
-标准输出：`release-comparison 1.1.0`。本例解析器只支持随章包实际使用的简单 YAML 头部；正式宿主需要完整 YAML 支持和包格式校验，不能把这个函数当通用 YAML 解析器。
+标准输出：`notes-comparison 1.1.0`。本例解析器只支持随章包实际使用的简单 YAML 头部；正式宿主需要完整 YAML 支持和包格式校验，不能把这个函数当通用 YAML 解析器。
 
-目录项用于选择，但不会执行包。当前选择规则很直接：task=compare 选择 release-comparison；task=polish 跳过。这个显式标签隔离了加载机制，未让一个预设字符串选择器伪装成模型语义判断。
+目录项用于选择，但不会执行包。当前选择规则很直接：task=compare 选择 notes-comparison；task=polish 跳过。这个显式标签隔离了加载机制，未让一个预设字符串选择器伪装成模型语义判断。
 
 ## 方法加载
 
@@ -50,7 +50,7 @@ trace.append({
 })
 ```
 
-context_bytes 是 UTF-8 大小，不是 tokenizer 的 token 数。哈希用于确认一次运行实际使用的内容；只记录“选中了 release-comparison”不足以区分同名方法后续被改写的情况。
+context_bytes 是 UTF-8 大小，不是 tokenizer 的 token 数。哈希用于确认一次运行实际使用的内容；只记录“选中了 notes-comparison”不足以区分同名方法后续被改写的情况。
 
 输入副本属于任务资料，方法属于可复用包。两者同时进入 trace，但 kind 分别为 input 与 method，便于检查哪一部分发生变化。
 
@@ -83,7 +83,7 @@ python code/host.py --task polish --output runs/polish
 | executed | 实际运行 compare.py | 无 |
 | acceptance | 验收实际报告 | 不适用 |
 
-polish 没有生成比较报告，是正确的跳过，而非任务失败。宿主在真实产品里还应把这一任务交给其他方法；本章的入口仅负责判断本技能是否加载。
+polish 没有生成比较报告，是正确的跳过，而非任务失败。宿主在真实程序里还应把这一任务交给其他方法；本章的入口仅负责判断本技能是否加载。
 
 ## 加载条件实验
 

@@ -1,0 +1,14 @@
+{
+  "task_id": "weekly-check-seconds",
+  "task_version": 1,
+  "run_id": "run-17c9ac0f80434c6ba2615d1233f35699",
+  "source_sha256": "885831168aa322be9f94499b5f3583557efe6f18d4a3707e63ac1c87d648ab90",
+  "completed_ids": [
+    "C-101",
+    "C-102",
+    "C-104"
+  ],
+  "count": 3,
+  "total_seconds": 99,
+  "mean_seconds": 2.0
+}

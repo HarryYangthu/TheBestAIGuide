@@ -1,0 +1,2 @@
+任务：统计 examples/checks.json 中已完成检查的数量、总耗时与平均耗时。
+输出必须经过 Schema 和事实验收。

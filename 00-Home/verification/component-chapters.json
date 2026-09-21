@@ -119,73 +119,73 @@
     "assertion_examples": 2,
     "suites": [
       {
-        "suite": "10-Knowledge/01-task-contracts/code",
+        "suite": "10-Knowledge/02_Harness/01-task-contracts/code",
         "returncode": 0,
         "tests": 6,
         "skipped": 0
       },
       {
-        "suite": "10-Knowledge/02-model-adapters/code",
+        "suite": "10-Knowledge/02_Harness/02-model-adapters/code",
         "returncode": 0,
         "tests": 12,
         "skipped": 0
       },
       {
-        "suite": "10-Knowledge/03-agent-loop/code",
+        "suite": "10-Knowledge/02_Harness/03-agent-loop/code",
         "returncode": 0,
         "tests": 20,
         "skipped": 0
       },
       {
-        "suite": "10-Knowledge/04-orchestration-and-scheduling/code",
+        "suite": "10-Knowledge/02_Harness/04-orchestration-and-scheduling/code",
         "returncode": 0,
         "tests": 9,
         "skipped": 0
       },
       {
-        "suite": "10-Knowledge/05-communication-and-handoff/code",
+        "suite": "10-Knowledge/02_Harness/05-communication-and-handoff/code",
         "returncode": 0,
         "tests": 12,
         "skipped": 0
       },
       {
-        "suite": "10-Knowledge/06-context-management/code",
+        "suite": "10-Knowledge/02_Harness/06-context-management/code",
         "returncode": 0,
         "tests": 9,
         "skipped": 0
       },
       {
-        "suite": "10-Knowledge/07-state-and-artifacts/code",
+        "suite": "10-Knowledge/02_Harness/07-state-and-artifacts/code",
         "returncode": 0,
         "tests": 4,
         "skipped": 0
       },
       {
-        "suite": "10-Knowledge/08-tools-and-environment/code",
+        "suite": "10-Knowledge/02_Harness/08-tools-and-environment/code",
         "returncode": 0,
         "tests": 8,
         "skipped": 0
       },
       {
-        "suite": "10-Knowledge/09-persistence-and-recovery/code",
+        "suite": "10-Knowledge/02_Harness/09-persistence-and-recovery/code",
         "returncode": 0,
         "tests": 9,
         "skipped": 0
       },
       {
-        "suite": "10-Knowledge/10-evaluation-and-acceptance/code",
+        "suite": "10-Knowledge/02_Harness/10-evaluation-and-acceptance/code",
         "returncode": 0,
         "tests": 6,
         "skipped": 0
       },
       {
-        "suite": "10-Knowledge/11-trace-and-observability/code",
+        "suite": "10-Knowledge/02_Harness/11-trace-and-observability/code",
         "returncode": 0,
         "tests": 4,
         "skipped": 0
       },
       {
-        "suite": "10-Knowledge/12-permissions-and-resources/code",
+        "suite": "10-Knowledge/02_Harness/12-permissions-and-resources/code",
         "returncode": 0,
         "tests": 10,
         "skipped": 0

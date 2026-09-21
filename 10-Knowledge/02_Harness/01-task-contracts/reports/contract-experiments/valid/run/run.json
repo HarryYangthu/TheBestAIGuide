@@ -1,0 +1,21 @@
+{
+  "run_id": "run-9743cb0f1ec64db2b2d8b1eb48d8cb5e",
+  "task_id": "weekly-check-seconds",
+  "task_version": 1,
+  "attempt": 1,
+  "status": "accepted",
+  "acceptance": {
+    "passed": true,
+    "checks": {
+      "task_identity": true,
+      "run_identity": true,
+      "source_digest": true,
+      "exact_ids": true,
+      "count": true,
+      "minimum_done": true,
+      "total_seconds": true,
+      "mean_seconds": true
+    }
+  },
+  "error": null
+}

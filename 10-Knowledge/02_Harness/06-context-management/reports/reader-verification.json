@@ -1,0 +1,96 @@
+{
+  "scope": "Independently runnable Python snippets; source excerpts and live API calls excluded",
+  "snippets": [
+    {
+      "file": "10-Knowledge/02_Harness/06-context-management/01-isolation-and-loading.md",
+      "block": 1,
+      "stdout": "2\nuser\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "file": "10-Knowledge/02_Harness/06-context-management/02-budget-and-tool-results.md",
+      "block": 1,
+      "stdout": "[32264, 50103, 28, 4095, 15]\n5\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "file": "10-Knowledge/02_Harness/06-context-management/02-budget-and-tool-results.md",
+      "block": 3,
+      "stdout": "1\ndry-run-log\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "file": "10-Knowledge/02_Harness/06-context-management/03-history-compression.md",
+      "block": 1,
+      "stdout": "{'key': 'allowed_workspaces', 'value': 'alpha', 'event_id': 'e10'}\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "file": "10-Knowledge/02_Harness/06-context-management/03-history-compression.md",
+      "block": 2,
+      "stdout": "{'accepted': False, 'errors': ['missing:allowed_workspaces'], 'preserved': 2, 'required': 3}\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "file": "10-Knowledge/02_Harness/06-context-management/03-history-compression.md",
+      "block": 3,
+      "stdout": "{'value': False, 'source_id': 's3', 'kind': 'observation'}\n核对检查执行权限\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "file": "10-Knowledge/02_Harness/06-context-management/04-experiments-and-source.md",
+      "block": 1,
+      "stdout": "['policy-v3', 'dry-run-log', 'external-note']\nTrue\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "file": "10-Knowledge/02_Harness/06-context-management/05-failure-modes.md",
+      "block": 1,
+      "stdout": "True\nFalse\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "file": "10-Knowledge/02_Harness/06-context-management/05-failure-modes.md",
+      "block": 2,
+      "stdout": "unresolved_conflict\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "file": "10-Knowledge/02_Harness/06-context-management/06-optimization-strategies.md",
+      "block": 1,
+      "stdout": "{'line': 83, 'text': 'verification_check=FAILED reason=missing_permission'}\nNone\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "file": "10-Knowledge/02_Harness/06-context-management/06-optimization-strategies.md",
+      "block": 2,
+      "stdout": "True\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "file": "10-Knowledge/02_Harness/06-context-management/06-optimization-strategies.md",
+      "block": 3,
+      "stdout": "CURRENT\nUNKNOWN\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "file": "10-Knowledge/02_Harness/06-context-management/07-evaluation-and-regression.md",
+      "block": 1,
+      "stdout": "{'recall': 0.6666666666666666, 'precision': 0.5, 'required': 3, 'selected': 4}\n{'recall': 0.0, 'precision': None, 'required': 1, 'selected': 0}\n",
+      "stderr": "",
+      "returncode": 0
+    }
+  ]
+}

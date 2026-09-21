@@ -1,4 +1,4 @@
-"""Evidence-backed persistent memory for repeated checkout release reviews."""
+"""Evidence-backed persistent memory for repeated stats report reviews."""
 from __future__ import annotations
 
 import hashlib

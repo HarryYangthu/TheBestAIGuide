@@ -1,0 +1,89 @@
+{
+  "python": "3.12.14",
+  "commands": 6,
+  "complete_snippets": 5,
+  "records": [
+    {
+      "kind": "command",
+      "command": "python code/v1_delegate.py",
+      "returncode": 0,
+      "stdout": "path=notes.txt required=3 found=2 missing=1\nowner=coordinator\nartifacts=runs/v1\n",
+      "stderr": ""
+    },
+    {
+      "kind": "command",
+      "command": "python code/v2_messages.py",
+      "returncode": 0,
+      "stdout": "decisions=accepted_started,accepted_result\ncomplete=True owner=coordinator epoch=1\nartifacts=runs/v2\n",
+      "stderr": ""
+    },
+    {
+      "kind": "command",
+      "command": "python code/v3_handoff.py",
+      "returncode": 0,
+      "stdout": "before_accept=coordinator epoch=1\nafter_accept=report-writer epoch=2\nold_action=rejected_stale_owner new_action=draft_created\nartifacts=runs/v3\n",
+      "stderr": ""
+    },
+    {
+      "kind": "command",
+      "command": "python code/experiments.py",
+      "returncode": 0,
+      "stdout": "checks=19 passed=19\nworker_executions=2 accepted_results=1 missing=1\nowner=report-writer epoch=2\nartifacts=runs/experiments\n",
+      "stderr": ""
+    },
+    {
+      "kind": "command",
+      "command": "python -m unittest discover -s code -p test_*.py -v",
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "test_changed_snapshot_version_rejected_at_worker_and_receiver (test_protocol.ProtocolTests.test_changed_snapshot_version_rejected_at_worker_and_receiver) ... ok\ntest_duplicate_request_does_not_execute_again (test_protocol.ProtocolTests.test_duplicate_request_does_not_execute_again) ... ok\ntest_handoff_acceptance_and_stale_owner (test_protocol.ProtocolTests.test_handoff_acceptance_and_stale_owner) ... ok\ntest_handoff_waits_for_work_and_retry_needs_failure (test_protocol.ProtocolTests.test_handoff_waits_for_work_and_retry_needs_failure) ... ok\ntest_id_conflict_and_outcome_conflict (test_protocol.ProtocolTests.test_id_conflict_and_outcome_conflict) ... ok\ntest_late_attempt_does_not_overwrite_success (test_protocol.ProtocolTests.test_late_attempt_does_not_overwrite_success) ... ok\ntest_merger_tracks_expected_tasks (test_protocol.ProtocolTests.test_merger_tracks_expected_tasks) ... ok\ntest_message_shape (test_protocol.ProtocolTests.test_message_shape) ... ok\ntest_path_cannot_escape_fixtures (test_protocol.ProtocolTests.test_path_cannot_escape_fixtures) ... ok\ntest_pending_handoff_blocks_new_delegation (test_protocol.ProtocolTests.test_pending_handoff_blocks_new_delegation) ... ok\ntest_reject_wrong_correlation_input_and_participant (test_protocol.ProtocolTests.test_reject_wrong_correlation_input_and_participant) ... ok\ntest_wrong_evidence_cannot_complete_task (test_protocol.ProtocolTests.test_wrong_evidence_cannot_complete_task) ... ok\n\n----------------------------------------------------------------------\nRan 12 tests in 0.026s\n\nOK\n"
+    },
+    {
+      "kind": "command",
+      "command": "python sources/verify_sources.py",
+      "returncode": 0,
+      "stdout": "verified=2 runtime=CPython 3.12.14\n",
+      "stderr": ""
+    },
+    {
+      "kind": "snippet",
+      "file": "10-Knowledge/02_Harness/05-communication-and-handoff/01-delegation-and-results.md",
+      "block": 1,
+      "stdout": "required=3 found=2 missing=1\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "kind": "snippet",
+      "file": "10-Knowledge/02_Harness/05-communication-and-handoff/03-context-and-ownership.md",
+      "block": 2,
+      "stdout": "coordinator 1\nwrite_report\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "kind": "snippet",
+      "file": "10-Knowledge/02_Harness/05-communication-and-handoff/04-experiments-and-source.md",
+      "block": 1,
+      "stdout": "unique_requests=2 executions=2 missing=1\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "kind": "snippet",
+      "file": "10-Knowledge/02_Harness/05-communication-and-handoff/04-experiments-and-source.md",
+      "block": 2,
+      "stdout": "2\nrejected_stale_owner\nrejected_action\ndraft_created\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "kind": "snippet",
+      "file": "10-Knowledge/02_Harness/05-communication-and-handoff/04-experiments-and-source.md",
+      "block": 3,
+      "stdout": "result False\njoined True\n",
+      "stderr": "",
+      "returncode": 0
+    }
+  ]
+}

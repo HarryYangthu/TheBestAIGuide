@@ -35,7 +35,7 @@ def main():
             save_json(output / "result.json", result)
             save_json(output / "context.json", render_context(result))
             english = result["effective_preferences"].get("language") == "en"
-            report = "# checkout release checklist\n\n" if english else "# checkout 下次发布\n\n"
+            report = "# stats release checklist\n\n" if english else "# stats 下次发布\n\n"
             report += ("| Memory | Kind | Value used in this review | Source |\n" if english else
                        "| 记忆 | 类型 | 本次采用的值 | 来源 |\n") + "|---|---|---|---|\n"
             report += "\n".join(f"| {r['id']} | {r['kind']} | {r['value']} | {r['source_id']} |" for r in result["selected"])

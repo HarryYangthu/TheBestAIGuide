@@ -1,0 +1,9 @@
+{
+  "id": "uppercase",
+  "input": "uppercase.csv",
+  "expected": {
+    "total": 6,
+    "valid_rows": 1,
+    "rejected_rows": []
+  }
+}

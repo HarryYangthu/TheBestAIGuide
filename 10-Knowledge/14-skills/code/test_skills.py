@@ -8,7 +8,7 @@ from pathlib import Path
 from host import ROOT, header, run
 from validate_output import check
 
-spec = importlib.util.spec_from_file_location("comparison_script", ROOT / "examples/skills/release-comparison/scripts/compare.py")
+spec = importlib.util.spec_from_file_location("comparison_script", ROOT / "examples/skills/notes-comparison/scripts/compare.py")
 comparison = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(comparison)
 
@@ -18,7 +18,7 @@ class SkillTests(unittest.TestCase):
         load = lambda path: json.loads((ROOT / path).read_text(encoding="utf-8"))
         self.old = load("examples/inputs/v1.json")
         self.new = load("examples/inputs/v2.json")
-        self.units = load("examples/skills/release-comparison/references/units.json")
+        self.units = load("examples/skills/notes-comparison/references/units.json")
 
     def test_conversion_and_equal_quantity(self):
         result = comparison.compare(self.old, self.new, "1.0", "2.0", self.units)
@@ -81,7 +81,7 @@ class SkillTests(unittest.TestCase):
             run(output)
             report = output / "comparison/report.md"
             text = report.read_text(encoding="utf-8")
-            report.write_text(text.replace("# Pine Example SDK：1.0 → 2.0", "# Other SDK：9 → 10"), encoding="utf-8")
+            report.write_text(text.replace("# Agent Loop：1.0 → 2.0", "# Other SDK：9 → 10"), encoding="utf-8")
             result = check(output / "comparison", self.old, self.new)
             self.assertFalse(result["passed"])
             self.assertFalse(result["checks"]["report_title"])

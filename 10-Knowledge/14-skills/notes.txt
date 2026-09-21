@@ -1,0 +1,2 @@
+任务：比较两版 Agent Loop 运行配置笔记，输出参数差异表。
+配置原文和字段位于 examples/inputs/v1.json 与 v2.json。

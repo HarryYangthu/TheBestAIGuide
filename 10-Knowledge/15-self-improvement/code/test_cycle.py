@@ -13,7 +13,7 @@ class CycleTests(unittest.TestCase):
         self.assertEqual(changes, [])
         candidate, changes = propose(BASELINE, [{"reason": "unrecognized_status"}])
         self.assertTrue(candidate["normalize_status"])
-        self.assertEqual(candidate["invalid_amount"], "reject")
+        self.assertEqual(candidate["invalid_value"], "reject")
         self.assertEqual(len(changes), 1)
 
     def test_adopt_then_rollback_changes_real_behavior(self):

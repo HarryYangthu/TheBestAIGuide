@@ -1,0 +1,33 @@
+{
+  "task.json": {
+    "case_id": "report-017",
+    "path": "notes.txt",
+    "required_facts": [
+      "工具接入",
+      "循环日志",
+      "错误重试"
+    ],
+    "instruction": "读取笔记，列出已完成的工作和缺少的说明，保存报告。"
+  },
+  "snapshot-unfound.json": {
+    "version": "notes-1",
+    "status": "unavailable",
+    "reason": "笔记尚未同步完成"
+  },
+  "snapshot-ready.json": {
+    "version": "notes-2",
+    "status": "ready",
+    "path": "notes.txt"
+  },
+  "policy.json": {
+    "allowed_actions": [
+      "write_report"
+    ],
+    "constraints": [
+      "只引用已经读取的笔记",
+      "缺少的事实标为待确认",
+      "不修改原始输入"
+    ],
+    "next_action": "write_report"
+  }
+}

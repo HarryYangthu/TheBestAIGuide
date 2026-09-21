@@ -1,0 +1,14 @@
+{
+  "run_id": "run-cd2c8c883e704b9a83cf46b968086040",
+  "task_id": null,
+  "task_version": null,
+  "attempt": 1,
+  "status": "failed",
+  "acceptance": null,
+  "error": {
+    "code": "input_schema",
+    "stage": "input",
+    "detail": "/0/seconds: '2.5' is not of type 'number'",
+    "retryable": false
+  }
+}

@@ -1,2 +1,2 @@
-order_id,status,amount
-o1, paid ,4.00
+sample_id,status,value
+o1, valid ,4

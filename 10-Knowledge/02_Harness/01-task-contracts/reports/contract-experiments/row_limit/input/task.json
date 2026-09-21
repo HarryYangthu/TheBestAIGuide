@@ -1,0 +1,14 @@
+{
+  "task_id": "weekly-check-seconds",
+  "version": 1,
+  "goal": "统计本周已完成检查记录的编号、数量、总耗时（秒）和平均耗时（秒）。",
+  "input_path": "checks.json",
+  "constraints": {
+    "included_status": "done",
+    "max_rows": 4
+  },
+  "acceptance": {
+    "min_done": 1,
+    "decimal_places": 2
+  }
+}

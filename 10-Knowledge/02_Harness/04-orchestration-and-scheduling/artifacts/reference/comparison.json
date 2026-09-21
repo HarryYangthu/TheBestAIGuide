@@ -1,0 +1,44 @@
+[
+  {
+    "case": "serial",
+    "accepted": true,
+    "passed_checks": 2,
+    "executions": 6,
+    "peak_active": 1
+  },
+  {
+    "case": "parallel",
+    "accepted": true,
+    "passed_checks": 2,
+    "executions": 6,
+    "peak_active": 2
+  },
+  {
+    "case": "missing_case",
+    "accepted": false,
+    "passed_checks": null,
+    "executions": 3,
+    "peak_active": 2
+  },
+  {
+    "case": "cases_changed",
+    "accepted": true,
+    "passed_checks": 3,
+    "executions": 10,
+    "peak_active": 2
+  },
+  {
+    "case": "plan_changed",
+    "accepted": true,
+    "passed_checks": 4,
+    "executions": 11,
+    "peak_active": 2
+  },
+  {
+    "case": "cancelled",
+    "accepted": false,
+    "passed_checks": null,
+    "executions": 2,
+    "peak_active": 2
+  }
+]
