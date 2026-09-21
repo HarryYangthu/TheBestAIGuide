@@ -5,7 +5,7 @@
 | 范围 | 当前状态 |
 |---|---|
 | 12 个核心组件与 3 个增强能力 | 全部完成正文、总览图、运行代码、真实输入与参考产物 |
-| [03 Agent 执行循环](../10-Knowledge/03-agent-loop/README.md) | 保留六份阅读文件，走读修正异常图、预算导航及源码来源记录 |
+| [03 Agent 执行循环](../10-Knowledge/02_Harness/03-agent-loop/README.md) | 保留六份阅读文件，走读修正异常图、预算导航及源码来源记录 |
 | 其余 14 个组件 | 补齐按步骤展开的正文与实验；从各章 README 开始运行 |
 | [旧知识库](../10-Knowledge/_archive/README.md) | 原 16 个领域完整归档，项目继续复用其配套实现 |
 
@@ -54,7 +54,7 @@
 - [综合项目](../20-Projects/domain-research-agent/README.md)复用五个领域组件：引用、权限、拒答与故障恢复四类任务，各运行两次；均通过预设的状态与输出断言。
 - [维护脚本](../scripts/README.md)检查相对文件/目录链接、状态元数据与 Notebook；四个 GitHub Actions 工作流已配置，远端结果以实际提交的 Actions 为准。
 
-逐文件交付见[完成台账](Completion-Report.md)，机器可读执行证据见[verification](verification/)。
+逐文件交付见[完成台账](Completion-Report.md)，机器可读执行证据见[verification](verification)。
 
 ## 学习时应知道的限制
 

@@ -19,7 +19,7 @@ jobs:
           cache-dependency-path: |
             requirements-dev.lock
             requirements-components.txt
-            10-Knowledge/*/requirements.txt
+            10-Knowledge/02_Harness/*/requirements.txt
             20-Projects/01-rag-lab/requirements.txt
       - run: pip install -r requirements-dev.lock
       - run: pip install -r requirements-components.txt -r 20-Projects/01-rag-lab/requirements.txt
