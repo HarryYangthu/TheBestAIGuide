@@ -71,13 +71,3 @@ saved=runs/input-preview.txt
 | 13 | [长期记忆 Memory](13-memory/README.md) | 跨任务保存并检索有来源、适用范围与有效期的信息。 | 跨进程保存与检索发布经验，检查来源、冲突和有效期 |
 | 14 | [技能库 Skills](14-skills/README.md) | 把可复用的方法整理成技能包，在适合的任务中按需加载。 | 制作并运行技能包，比较加载内容、版本与验收结果 |
 | 15 | [自进化](15-self-improvement/README.md) | 从失败记录提出系统修改，经对照评测决定采用、回退或继续实验。 | 从失败提出策略修改，经评测采用或回滚版本 |
-
-Harness 表示这些组件围绕一次运行的组合方式。沿用[旧版 Harness 走读](_archive/09-runtime-harness-environment/01-concepts/01-runtime-and-harness.md)作为补充阅读。
-
-## 旧资料与综合项目
-
-- [旧知识库归档](_archive/README.md)：保留原 16 个领域及其代码、Notebook、来源和历史输出。
-- [连续学习路线](../00-Home/Learning-Paths.md)：按任务进展安排组件阅读顺序。
-- [项目入口](../20-Projects/README.md)：组合多个组件完成端到端实践。
-
-每章 README 给出环境与运行路线；正文从总览图逐步展开，代码旁注明输入、标准输出和产物位置。模型相关入口使用真实 API，其余机制实验可按各章说明在本地运行。
