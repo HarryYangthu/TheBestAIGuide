@@ -1,6 +1,8 @@
-# 01｜把一次搜索注册成工具
+# 01｜工具定义与参数校验
 
-[阅读路线](README.md) · [下一篇](02-four-tools.md)
+[阅读路线](README.md) · [下一篇：搜索、文件、代码与仿真](02-four-tools.md)
+
+本章总览图如下：
 
 ```mermaid
 flowchart TD
@@ -15,9 +17,9 @@ flowchart TD
     E --> G
 ```
 
-小店需要比较两种补货方案，但首先得找到初始库存。我们先搜索真实文件，再把这个动作包装成执行循环能调用的工具。工作目录与配置沿用 README；输入是 `examples/corpus/policy.md`。
+补货实验的初始库存来自 `examples/corpus/policy.md`。搜索工具返回匹配的原文与行号，工作目录与配置见 README。
 
-## 从三行 Python 找到规则
+## 本地搜索
 
 下面是可在章节目录独立运行的完整片段：
 
@@ -31,9 +33,9 @@ for number, line in enumerate(lines, 1):
 
 标准输出为 `policy.md:3: 初始库存为 4，比较每天补货 2 件与 4 件。`。`enumerate(..., 1)` 保留原文行号，后面的报告才能指向同一条证据。配套入口 `python code/run_minimal.py` 还将这行写入 `runs/minimal.txt`。
 
-现在想换查询词，就必须修改代码。先把查询词变成 `query` 参数，再把搜索范围固定为 `examples/corpus/`，便可以重复使用。实际 `search_docs()` 位于 [runtime.py](code/runtime.py) 的 `build_registry()` 中：它按文件名排序，逐行做不区分大小写的子串匹配，返回前 `limit` 条结果。它没有向量检索和相关性模型；匹配顺序可完全复现。
+查询词写死在代码中时，更换查询词就需要修改代码。将它改为 `query` 参数，并把搜索范围固定为 `examples/corpus/`，即可重复调用。实际 `search_docs()` 位于 [runtime.py](code/runtime.py) 的 `build_registry()` 中：它按文件名排序，逐行做不区分大小写的子串匹配，返回前 `limit` 条结果。它没有向量检索和相关性模型；匹配顺序可完全复现。
 
-## 描述和函数必须登记在一起
+## 工具注册表
 
 供调用者阅读的名称与参数说明不会自动执行 Python。注册表把说明和函数放在同一个对象中：
 
@@ -63,9 +65,9 @@ result = registry.call(request)
 print(result["call_id"], result["ok"], result["data"]["matches"][0]["line"])
 ```
 
-标准输出：`search-1 True 3`。结果不是一句“搜索成功”，而是有来源的对象；`call_id` 原样对应输入 `id`。本次片段只创建工作目录，没有保存调用记录；第二篇的运行入口会保存完整 trace。
+标准输出：`search-1 True 3`。结果包含来源信息；`call_id` 原样对应输入 `id`。本次片段只创建工作目录，没有保存调用记录；`run_task.py` 会保存完整 trace。
 
-## 服务端校验决定是否真的执行
+## 参数校验
 
 `limit=200` 是合法 JSON，也可能由一个不受约束的接口客户端传入，但违反了本工具的读取上限。`Registry.call()` 在调用 handler 前运行 `validate()`，所以这次请求不会读取语料。
 
@@ -82,7 +84,7 @@ if type(value) is not types[schema["type"]]:
 
 把上一个片段中的 `limit` 改成 200，再把最后一行改成 `print(result["error"]["code"])`，标准输出为 `invalid_arguments`。改成 `True` 也相同。这里应修正参数；重复发送同一请求不会恢复。
 
-## 成功和失败保持同一层结构
+## 结果与错误
 
 | 结果字段 | 成功时 | 失败时 |
 |---|---|---|
@@ -98,4 +100,4 @@ if type(value) is not types[schema["type"]]:
 
 本注册表不缓存调用 ID：相同 ID 再次提交仍会重新执行。`call_id` 在这里负责关联，不能作为“只写入一次”的保证。需要可靠重试时，应将请求签名、写入与回执放在有事务能力的后端；[持久化与恢复](../09-persistence-and-recovery/README.md)继续讨论这部分。
 
-[下一篇：连接四类实际操作](02-four-tools.md)
+[下一篇：搜索、文件、代码与仿真](02-four-tools.md)

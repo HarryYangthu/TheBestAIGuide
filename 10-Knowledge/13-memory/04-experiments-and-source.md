@@ -1,4 +1,6 @@
-# 04｜在十个独立进程中检验记忆生命周期
+# 04｜跨进程实验与事务源码
+
+本章总览图如下：
 
 ```mermaid
 flowchart TD
@@ -10,9 +12,9 @@ flowchart TD
     T --> C
 ```
 
-[阅读路线](README.md) · [上一篇](03-update-and-expire.md)
+[阅读路线](README.md) · [上一篇：记忆冲突与生命周期](03-update-and-expire.md)
 
-## 实验必须真的结束前一个进程
+## 独立进程
 
 如果把 learn 和 review 写成同一 Python 函数里的两个调用，容易无意复用内存变量。这里的实验入口用 `subprocess.run` 启动十次 `session.py`，它们只共享同一 SQLite 文件。每个进程结束后，下一次重新打开库。
 
@@ -24,15 +26,15 @@ completed = subprocess.run(cmd, check=True, capture_output=True, text=True)
 
 `check=True` 使子进程失败时立即中断实验，不能把某一步没运行当作完整通过。每条实际参数、退出码、stdout 写进 `processes.json`。运行目录名称取 UTC 时间，因此重复实验创建新数据库，不修改上次证据。
 
-以下为**完整实验命令**，工作目录为本章，依赖标准库，输入 fixtures，产物目录由控制台打印：
+**完整实验命令**，工作目录为本章，依赖标准库，输入 fixtures，产物目录由控制台打印：
 
 ```bash
 python code/run_experiments.py
 ```
 
-输出为 `processes=10`、`acceptance=True` 及 `artifacts=runs/<UTC运行编号>`。这里的 True 来自程序检查已保存结果；不是模型自述“我已经完成”。
+输出为 `processes=10`、`acceptance=True` 及 `artifacts=runs/<UTC运行编号>`。`acceptance=True` 来自对已保存结果的检查。
 
-## 十步仍是同一个发布任务
+## 实验结果
 
 [本次实际对照表](reports/verified-comparison.md) 中记录：
 
@@ -49,13 +51,13 @@ python code/run_experiments.py
 | expired | selected 为空，en 仍有效 | 没有旧证据可复用；当前任务指令仍存在 |
 | forget | 删除 pref-language 正文 | 主要存储不再返回这条偏好 |
 
-最终 `result.json` 验证第二进程复用了原事实、当前指令获胜、冲突事实拒用、新事实采用、被遗忘正文不在主库五件事。它没有用“入库多少条”代替“本次是否正确采用”。
+最终 `result.json` 验证第二进程复用了原事实、当前指令获胜、冲突事实拒用、新事实采用、被遗忘正文不在主库五件事。
 
 可以把 `task-no-trigger.json` 的 signals 改成完整匹配条件后重跑；no-trigger 阶段将重新取回失败教训。也可以只把 error_code 改成 TIMEOUT，仍应排除。源资料保持不变，这个实验单独改变了使用条件。
 
-## 失败分支也要检查实际库状态
+## 事务与边界测试
 
-以下为**完整测试命令**，输入临时数据库与 fixtures，仅用标准库，无网络请求；标准输出包含 7 项通过，临时库在测试后清理：
+**完整测试命令**，输入临时数据库与 fixtures，仅用标准库，无网络请求；标准输出包含 7 项通过，临时库在测试后清理：
 
 ```bash
 python -m unittest discover -s code -p 'test_*.py' -v
@@ -63,13 +65,13 @@ python -m unittest discover -s code -p 'test_*.py' -v
 
 测试覆盖重新打开连接、来源变更、日期边界、范围和用户排除、触发条件、冲突后显式更新、跨范围替代拒绝、遗忘及事务中途失败。测试之间各用独立临时目录，不依赖 README 手动步骤的先后状态。
 
-事务测试把失败安排在最后的审计写入，前面的状态更新本来已经执行。若没有事务，这时会留下一半更新；测试直接比较操作前后的 memories 表，确认全部回滚。这是后面源码分支对应的实际证据。
+事务测试把失败安排在最后的审计写入，前面的状态更新本来已经执行。若没有事务，这时会留下一半更新；测试直接比较操作前后的 memories 表，确认全部回滚。
 
-## 对照 CPython 的连接上下文管理
+## CPython 事务源码
 
-本章不借一个复杂 Memory 框架隐藏持久化的基础行为。SQLite 提供磁盘存储，Python 的连接对象决定 `with self.db:` 在正常和异常出口如何提交或回滚。固定源码使用 CPython **v3.12.8**：[Modules/_sqlite/connection.c](https://github.com/python/cpython/blob/v3.12.8/Modules/_sqlite/connection.c)。快照与上游许可证位于 [sources/upstream](sources/upstream/)，具体下载 URL、相对文件路径和 SHA-256 在 [manifest.json](sources/manifest.json)。
+SQLite 提供磁盘存储，Python 的连接对象决定 `with self.db:` 在正常和异常出口如何提交或回滚。固定源码使用 CPython **v3.12.8**：[Modules/_sqlite/connection.c](https://github.com/python/cpython/blob/v3.12.8/Modules/_sqlite/connection.c)。快照与上游许可证位于 [sources/upstream](sources/upstream/)，具体下载 URL、相对文件路径和 SHA-256 在 [manifest.json](sources/manifest.json)。
 
-阅读 `pysqlite_connection_exit_impl`，先找下面这个**原始 C 源码节选**。它依赖 CPython 内部类型和上下文，不是可独立编译的程序：
+`pysqlite_connection_exit_impl` 的**原始 C 源码节选**如下。它依赖 CPython 内部类型和上下文，不是可独立编译的程序：
 
 ```c
 if (exc_type == Py_None && exc_value == Py_None && exc_tb == Py_None) {
@@ -92,12 +94,10 @@ else {
 
 [Python sqlite3 官方文档](https://docs.python.org/3.12/library/sqlite3.html#how-to-use-the-connection-context-manager) 同样说明连接上下文用于事务处理，并不会自动关闭连接，因此 session 入口在 finally 中显式 close。
 
-下面为**完整离线源码核对命令**，输入 manifest 与两份快照，只用标准库，不写产物：
+**完整离线源码核对命令**，输入 manifest 与两份快照，只用标准库，不写产物：
 
 ```bash
 python sources/verify_sources.py
 ```
 
-准确输出 `verified=2`。固定源码版本是 v3.12.8；本次实际运行的解释器是 3.12.14，事务测试在实际运行时也已通过。没有将两者写成同一个版本。
-
-记忆接入 Agent 后，生命周期仍应保留这些清晰边界：任务结束时只保存已核对的可复用记录，下一次开始时按当前条件筛选，构造上下文时把它作为证据和建议，更新时处理版本与失效。检索结果只是本轮可用信息的一部分，不能取代当前任务和新观察。
+准确输出 `verified=2`。固定源码版本是 v3.12.8；本次实际运行的解释器是 3.12.14，事务测试在实际运行时也已通过。

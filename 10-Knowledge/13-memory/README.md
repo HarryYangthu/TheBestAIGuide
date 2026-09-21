@@ -1,4 +1,6 @@
-# 13｜长期记忆：把上次验证过的经验用于下次任务
+# 13｜长期记忆
+
+本章总览图如下：
 
 ```mermaid
 flowchart TD
@@ -13,18 +15,18 @@ flowchart TD
 
 [组件总览](../README.md) · [上一组件：权限与资源控制](../12-permissions-and-resources/README.md) · [下一组件：技能库](../14-skills/README.md)
 
-本章审核 `checkout` 服务的一次又一次生产发布。上次确认过的超时值、用户的语言偏好、已验证的回滚步骤和“缺少 rollback-runner 权限会失败”的教训，都可能帮助下一次审核。但任务变了、政策更新了、用户临时要求英文时，旧记录就不能原样照搬。
+本章保存 `checkout` 生产发布中已核对的超时值、用户偏好、回滚步骤和权限失败教训，供后续审核复用。每次检索都根据当前任务、政策版本和用户指令重新判断适用性。
 
 Memory 是**跨任务保存并有条件取回的信息**。数据库存下来了只是第一步；来源不可靠、范围不匹配或已经过期的信息，取回来反而会制造错误。本章用 SQLite 实现整个生命周期，不为读写和筛选额外引入模型。
 
 | 顺序 | 要解决的问题 | 完整实现与观察对象 |
 |---|---|---|
-| [01｜关闭程序后仍能找回一条事实](01-persist-verified-records.md) | 最小持久化；怎样把事实、偏好、步骤、教训写成有来源的记录 | `first_memory.py`、`MemoryStore.add`；数据库与候选状态 |
-| [02｜按当前任务检索和使用](02-retrieve-for-current-task.md) | 服务、用户、有效期、查询字段与触发条件；当前指令覆盖旧偏好 | `MemoryStore.retrieve`、`session.py review`；context 与实际语言输出 |
-| [03｜冲突、更新、过期和遗忘](03-update-and-expire.md) | 不采用冲突事实；显式取代旧记录；事务失败与失效边界 | `add`、`expire`、`forget`；冲突前后与错误回滚 |
-| [04｜跨进程实验与持久化源码](04-experiments-and-source.md) | 10 次独立进程复用同一库，逐阶段解释产物，核对 CPython 实现 | `run_experiments.py`；comparison、result 和源码快照 |
+| [01｜记忆持久化与来源](01-persist-verified-records.md) | 最小持久化；怎样把事实、偏好、步骤、教训写成有来源的记录 | `first_memory.py`、`MemoryStore.add`；数据库与候选状态 |
+| [02｜记忆检索与当前指令](02-retrieve-for-current-task.md) | 服务、用户、有效期、查询字段与触发条件；当前指令覆盖旧偏好 | `MemoryStore.retrieve`、`session.py review`；context 与实际语言输出 |
+| [03｜记忆冲突与生命周期](03-update-and-expire.md) | 不采用冲突事实；显式取代旧记录；事务失败与失效边界 | `add`、`expire`、`forget`；冲突前后与错误回滚 |
+| [04｜跨进程实验与事务源码](04-experiments-and-source.md) | 10 次独立进程复用同一库，逐阶段解释产物，核对 CPython 实现 | `run_experiments.py`；comparison、result 和源码快照 |
 
-## 工作目录、依赖和实际输入
+## 环境与输入
 
 以下所有命令在 `10-Knowledge/13-memory/` 执行。需要 Python 3.10+，只使用标准库，无需 API Key 或第三方包。已验证 Python 3.12.14、SQLite 3.53.1。源码走读使用固定 CPython v3.12.8 快照，运行时版本与走读版本分别记录。
 
@@ -39,9 +41,9 @@ Memory 是**跨任务保存并有条件取回的信息**。数据库存下来了
 | `conflict.json`、`update.json` | 相互矛盾的政策与明确替代双方的 v4 政策 |
 | `task-third.json`、`task-expired.json` | 新政策生效日与过期后的任务 |
 
-这些样本描述的是本章可重复的发布场景。`reviewed` 表示样本中已经记录的核对结论；代码还会逐字段检查记录与来源是否一致，不能靠写上 `verified=true` 就提升可信度。
+`reviewed` 表示样本中已经记录的核对结论；代码还会逐字段检查记录与来源是否一致，不能靠写上 `verified=true` 就提升可信度。
 
-## 最短读者路径
+## 运行与产物
 
 下面是完整命令。第一条创建并重新打开一个最小数据库；第二条为每次实验创建新运行目录，并调用 10 个独立 Python 进程，因此可以重复执行而不污染上次实验。
 
@@ -79,7 +81,7 @@ artifacts=runs/<UTC运行编号>
 | `comparison.md`、`result.json` | 同一组真实运行产生的阶段对照与最终验收 |
 | [reports/verified-comparison.md](reports/verified-comparison.md) | 本次已执行的完整对照表 |
 
-## 想手动观察两次任务
+## 跨任务复用
 
 以下为完整命令，每条是一个独立进程。输入 records / evidence 与第二次 task，使用同一磁盘路径 `runs/manual/memory.sqlite3`；第二条生成该目录中的 result、context 和 report：
 
@@ -97,6 +99,6 @@ language=en
 
 `active=7` 是写入状态数，不表示七条都可用于这次任务；过期、其他服务、其他用户与旧偏好会在检索时被排除。learn 不覆盖已存在的 id，再次执行会明确报错。想重复整套流程，使用前面的 run_experiments；想手动开始另一组数据库，给两条命令都传同一新 `--db runs/another/memory.sqlite3 --out runs/another`。
 
-本次本地命令、10 个进程的复用实验、7 项针对性测试以及源码哈希核对均已执行。整个章节离线可跑，不存在等待模型或外部服务完成的部分。
+本次本地命令、10 个进程的复用实验、7 项针对性测试以及源码哈希核对均已执行。本章可完全离线运行。
 
-从 [01](01-persist-verified-records.md) 开始。旧版概念资料保留在 [Memory 生命周期归档](../_archive/07-state-and-memory/01-concepts/02-memory-lifecycle.md)。
+旧版概念资料保留在 [Memory 生命周期归档](../_archive/07-state-and-memory/01-concepts/02-memory-lifecycle.md)。

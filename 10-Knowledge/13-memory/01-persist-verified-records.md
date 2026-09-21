@@ -1,4 +1,6 @@
-# 01｜关闭程序后仍能找回一条事实
+# 01｜记忆持久化与来源
+
+本章总览图如下：
 
 ```mermaid
 flowchart TD
@@ -11,13 +13,13 @@ flowchart TD
     D --> N["下次任务重新打开"]
 ```
 
-[阅读路线](README.md) · [下一篇：检索与当前任务](02-retrieve-for-current-task.md)
+[阅读路线](README.md) · [下一篇：记忆检索与当前指令](02-retrieve-for-current-task.md)
 
-## 一个 Python 字典不能跨过进程结束
+## 磁盘持久化
 
 上一次 checkout 发布确认了 `timeout_ms=3000`。如果只把它写进 `memory = {"timeout_ms": 3000}`，程序退出后这个字典就消失。下一次启动时，重新创建同名字典不会找回旧值。
 
-下面为**完整可运行片段**，在章节目录执行，只用 Python 标准库，无输入文件。它创建磁盘数据库、提交写入、关闭连接，再重新读取；产物为 `runs/first/memory.sqlite3`。
+**完整可运行片段**，在章节目录执行，只用 Python 标准库，无输入文件。它创建磁盘数据库、提交写入、关闭连接，再重新读取；产物为 `runs/first/memory.sqlite3`。
 
 ```python
 import sqlite3
@@ -38,9 +40,9 @@ next_session.close()
 
 准确标准输出为 `3000`。`?` 是参数占位符，数据由第二个参数绑定；不把记录正文拼成 SQL。`commit()` 让本次事务提交，`close()` 负责释放连接，两者职责不同。
 
-[完整脚本](code/first_memory.py) 执行同样操作并打印产物位置；README 中的 `python code/first_memory.py` 可以直接运行。这已经证明保存、关闭、重新打开能工作，但还不能证明 3000 适用于下次任务。
+[完整脚本](code/first_memory.py) 执行同样操作并打印产物位置；README 中的 `python code/first_memory.py` 可以直接运行。持久化保留了 3000，后续任务仍须检查它的适用范围。
 
-## 给事实补齐“在什么情况下成立”
+## 记忆字段
 
 最小表只存 key/value。如果后来审核 search 服务、测试环境，或者政策已升级，盲目复用 3000 都可能错。完整记录至少需要把适用范围、来源和时间一起存下。
 
@@ -59,7 +61,7 @@ next_session.close()
 
 `source_uri=fixture://release-review/policy-v3` 的具体内容位于 [evidence.json](fixtures/evidence.json)。它不是一个需要连接网络的 URL。完整程序额外计算来源 JSON 的 SHA-256，并写入 `source_sha256`，以后来源内容变了可以发现。
 
-## 不同记忆类型有不同的复用方式
+## 记忆类型
 
 同一次发布除了得到数字，也可能留下执行经验：
 
@@ -72,7 +74,7 @@ next_session.close()
 
 操作经验不能凭“上次回答里出现过”就视为已验证。本章来源表记录了人工核对的演练或明确的用户确认；聊天猜测 `chat-unchecked` 的 reviewed 为 False，因此 `rumor-timeout` 写入后仍只是 candidate。候选可以保留供以后核实，但检索不会采用它。
 
-## 写入前先核对来源
+## 来源核对
 
 下面是 `evidence_check` 的**函数主体节选**，依赖传入的 record dict 和 sources dict；只返回布尔值，不打印。完整字段列表与实现见 [memory.py](code/memory.py)。
 
@@ -88,9 +90,9 @@ return source.get("reviewed") is True and all(
 
 `MemoryStore.add` 随后验证日期区间和类型，并要求 failure 记录有触发条件。采用新 id 写入版本；重复 id 明确报错，避免静默覆盖旧记录。正文保存为 JSON，范围和状态同时放在 SQL 列中，便于查询与状态更新。
 
-## 在真正的第二个进程里读取
+## 跨进程读取
 
-以下为**两条完整命令**，工作目录本章、只需标准库。它们读取 fixtures，复用 `runs/manual/memory.sqlite3`；首次 learn 前该数据库不能已有同 id。
+**两条完整命令**，工作目录本章、只需标准库。它们读取 fixtures，复用 `runs/manual/memory.sqlite3`；首次 learn 前该数据库不能已有同 id。
 
 ```bash
 python code/session.py learn
@@ -99,4 +101,4 @@ python code/session.py review
 
 第一条准确输出 `stored=8 active=7`。第二条会显示 `selected=fact-timeout-v3,failure-permission,procedure-rollback` 和 `language=en`，并生成检查单。learn 的 Python 进程已经结束，review 从文件打开数据库；这是实际跨次复用，而不是函数之间传递同一个对象。
 
-想检查数据库里为什么是 8 条、却只取回 3 条，下一篇会沿着每项过滤条件拆开。你也可以在 sources 中把 `chat-unchecked.reviewed` 改为 True、重新用一个新数据库写入；若内容字段都对应，它会成为与现有超时冲突的已核对记录，第三篇将解释为什么程序不会按“谁写得晚”直接决定采用哪一个。
+将 `fixtures/evidence.json` 中 `chat-unchecked.reviewed` 改为 True，再用新数据库写入；若断言字段均匹配，这条记录会与现有超时值冲突，双方标为 disputed。此时检索不采用任何一条超时事实。

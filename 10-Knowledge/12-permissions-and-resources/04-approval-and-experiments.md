@@ -1,6 +1,8 @@
-# 04｜人工批准与完整实验
+# 04｜人工批准与验收
 
-[阅读路线](README.md) · [上一篇](03-concurrency-deadline-cancel.md)
+[阅读路线](README.md) · [上一篇：并发、截止与取消](03-concurrency-deadline-cancel.md)
+
+本章总览图如下：
 
 ```mermaid
 flowchart TD
@@ -14,9 +16,9 @@ flowchart TD
     F --> H["检查文件与账本"]
 ```
 
-读取 a1 已在主体权限内，不需要每次人工确认。发布文件则由本例策略要求一次明确批准：先让人看见将写什么，再把决定绑定到本次动作。它不是一句可以重复使用的“以后都允许”。
+读取 a1 已在主体权限内。发布策略要求用户确认具体内容，并将批准绑定到本次动作和待写入数据。
 
-## 批准先绑定具体内容
+## 批准内容
 
 `fingerprint()` 对以下值排序编码成 JSON，再计算 SHA-256：主体 subject、租户 tenant，Request 的全部字段，以及待写入的实际字段投影 payload。资源从 a1 改成 b1，甚至同一资源的步骤数量改变，都会得到不同指纹。daily_delivery 从 4 改成 999 也会失效，即使资源 ID 没变。
 
@@ -31,7 +33,7 @@ flowchart TD
 
 `Runtime.execute()` 在排队前先检查批准，获得名额并完成预算预留后再检查并消费一次。这样排队期间过期的令牌不会在执行时放行；第二次检查失败时，已经预留的用量以 0 结算，但已接纳次数保留。真正写入前还会重新计算当前投影的指纹；若等待计算时数据被改动，返回 approval_content_changed，文件不落盘，已完成的本地步骤仍按回执结算。单进程中最后一次内容检查和写入之间没有 await，不让其他协程插入修改。
 
-## 真正的人机入口先展示效果，再读取决定
+## 批准界面
 
 在章节目录运行完整入口：
 
@@ -50,7 +52,7 @@ status=<completed 或 approval_required> artifacts=runs/approval
 
 交互终端的批准来源记录为 human_terminal。为测试输入解析，用管道传入 APPROVE 的操作会记录 stdin_fixture；自动集成实验直接从宿主签发的批准则记为 experiment_fixture。这些来源分别说明实际做过什么，不把自动输入写成真人决策。
 
-## 全部机制一起运行时核对十二个条件
+## 集成实验
 
 ```bash
 python code/run_experiments.py --output runs/experiments
@@ -76,7 +78,7 @@ python -m unittest discover -s code -p 'test_*.py' -v
 
 表里的“发布”是本地实验动作。自动实验的批准没有授权任何外部发布，输入私有字段也不会进入成果文件。
 
-## 把停止原因与任务成果分开检查
+## 结果验收
 
 `completed` 说明执行函数走到了返回；文件验收还需检查实际存在、字段正确、没有 private_note。预算验收则查看 spent、reserved、available 是否守恒。一个任务可能写完文件后才收到取消，这种情况下不能根据 cancelled 宣称文件已撤销。
 

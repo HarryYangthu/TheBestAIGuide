@@ -1,6 +1,8 @@
 # 02｜工具调用与流式片段
 
-[阅读路线](README.md) · [上一篇](01-configuration-and-response.md) · [下一篇](03-structured-output-and-usage.md)
+[阅读路线](README.md) · [上一篇：API 配置与响应](01-configuration-and-response.md) · [下一篇：结构化输出、错误与用量](03-structured-output-and-usage.md)
+
+本章总览图如下：
 
 ```mermaid
 flowchart TD
@@ -14,9 +16,9 @@ flowchart TD
     G --> H["第二次请求生成回答"]
 ```
 
-这一篇仍然处理 `notes.txt`。区别是模型第一次只知道文件名，需要提出 `read_file` 请求。适配器负责识别这个请求，运行代码负责提供真实笔记。把这条往返讲清后，再让它支持流式传输。
+模型第一次只收到 `notes.txt` 的文件名，通过 `read_file` 请求取得笔记。适配器解析请求，工具执行代码检查参数并返回文件内容。
 
-## 1. 工具说明描述参数，不会执行 Python 函数
+## 1. 工具定义
 
 [live.py](code/live.py) 定义了一个函数工具。下面是完整的工具字典定义；它只创建 `tool` 变量，不打印，也不发起请求：
 
@@ -49,7 +51,7 @@ python code/live.py --mode tool
 
 成功时第一行是 `status=completed code=none`。打开本次 `requests-and-responses.json` 的第一条响应，应看到 `tool_calls`。工具调用 ID、参数空格与模型表述都是动态值。
 
-## 2. 参数字符串需要明确地转成字典
+## 2. 参数解析
 
 服务返回的调用通常类似下面的格式。这是原生响应格式示例，ID 仅用于说明：
 
@@ -94,7 +96,7 @@ notes.txt
 
 `json.loads("[]")` 也能成功，却返回列表。因此 `parse_object` 还要求根节点必须是字典。随后 `tool_result` 用工具参数 Schema 检查字典：`path=7`、`path="../secret"` 都会被拒绝。解析格式与检查权限分别发生，工具名也必须在白名单内。
 
-## 3. 工具结果必须指回原来的调用 ID
+## 3. 工具结果与调用 ID
 
 程序在本次运行开始时读入笔记并保存副本；`tool_result(call, notes)` 只在请求通过检查后返回这份内容。这个小例子无需开放通用文件系统工具。
 
@@ -118,7 +120,7 @@ notes.txt
 
 打开本次 `messages.json` 检查调用 ID，再查看第二条 API 请求，它应包含完整笔记。第二次设置 `tool_choice="none"`，要求模型依据工具结果回答。本文没有把模型说出的任何自然语言当作工具命令执行。
 
-## 4. 先让普通文本一段一段显示
+## 4. 流式文本
 
 流式请求在普通请求上增加两个选项：
 
@@ -137,7 +139,7 @@ python code/live.py --mode stream
 
 模型文本会逐段打印，最后保存完整 `answer.txt`。分段位置与措辞是动态的，不能把每个 chunk 当成一句话。`request()` 通过 `on_text` 回调显示文本，同时让 `StreamAccumulator` 收集同样的文本；最终拼接结果进入普通响应字典。
 
-## 5. 工具参数的片段要按 index 分开累积
+## 5. 流式工具参数
 
 同样的流式机制也会拆分工具参数。[examples/stream-tools.jsonl](examples/stream-tools.jsonl) 是显式构造的协议样本，故意让两个读取请求交错抵达：
 
@@ -171,7 +173,7 @@ buffer["function"]["arguments"] += function.get("arguments") or ""
 
 直到流正常结束、取得有效 `finish_reason` 后，`finish()` 才按 index 排序并交给同一个 `normalize_message`。它此时才解析完整参数。某个中间片段“已经能解析”为 JSON，并不是执行许可，因为响应可能继续扩展，或最终以 `length` 结束。
 
-## 6. 一次离线观察与一次真实请求
+## 6. 协议回放与 API 请求
 
 先在章节目录执行下面的完整片段，输入是实际协议样本，不请求模型：
 
@@ -207,4 +209,4 @@ python code/live.py --mode stream-tools
 
 这条入口把第一次工具请求改成流式，第二次仍然接完整回答。本次记录中的 `chunks` 保存原始片段；`normalized.tool_calls` 保存合并并解析后的参数。实际模型受 `parallel_tool_calls=False` 约束，通常只提出一个读取；本地双调用样本用于检验更一般的拼接规则。
 
-如果连接断开，`request()` 保存已经收到的片段和 `transport_error`，不会返回可执行工具字典。最后的 usage 也可能未到达，下一篇会解释为什么必须记为未知。
+如果连接断开，`request()` 保存已经收到的片段和 `transport_error`，不会返回可执行工具字典。最后的 usage 事件也可能未到达，此时用量记为未知。

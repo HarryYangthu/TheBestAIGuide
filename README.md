@@ -22,7 +22,7 @@ cd 10-Knowledge/03-agent-loop
 python code/inspect_input.py
 ```
 
-程序读取目录中实际存在的 `notes.txt`，打印笔记正文，并保存 `runs/input-preview.txt`。随后按[章节配置说明](10-Knowledge/03-agent-loop/README.md#三个配置项决定真实模型的调用目标)填写 URL、API Key 和模型名，依次运行 v0—v4。
+程序读取目录中实际存在的 `notes.txt`，打印笔记正文，并保存 `runs/input-preview.txt`。随后按[章节配置说明](10-Knowledge/03-agent-loop/README.md#api-配置)填写 URL、API Key 和模型名，依次运行 v0—v4。
 
 每次模型运行都会保存请求、响应、消息历史、修改差异与 `report.md`。15 个组件均提供分章正文、配套代码与实验。各章 README 列出输入文件、执行命令和结果位置。
 

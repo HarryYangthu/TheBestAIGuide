@@ -1,31 +1,33 @@
-# 07｜状态与产物管理：同一任务，究竟做到哪一版
+# 07｜状态与产物管理
 
 [组件总览](../README.md) · [上一组件：上下文管理](../06-context-management/README.md) · [下一组件：工具与执行环境](../08-tools-and-environment/README.md)
 
-一个 Agent 改好了 `stats.py`，另一个 Agent 却把旧代码的测试结果写成“通过”。文件都存在，任务仍然不能交付。本章沿着“修复均值函数”这个小任务，先保存状态与代码，再固定方案、证据和实验结果的依赖，最后让两个真实并发写者争用同一版本。
+本章总览图如下：
 
 ```mermaid
 flowchart TD
-    A["输入：错误代码与四个用例"] --> B["01 保存当前状态和文件"]
-    B --> C["02 固定方案、代码与证据版本"]
-    C --> D["03 拒绝旧版本并发写入"]
-    C --> E["04 运行实验并验收文件"]
+    A["输入：错误代码与四个用例"] --> B["01 任务状态"]
+    B --> C["02 产物版本"]
+    C --> D["03 并发更新"]
+    C --> E["04 实验与事务"]
     D --> E
     E --> F["SQLite 快照与不可覆盖产物"]
 ```
 
-## 顺着一次修复任务阅读
+示例任务是修复 `stats.py` 的均值函数，并核对方案、代码和检查证据的版本。
+
+## 阅读路线
 
 | 阅读文件 | 增加的机制 | 完整运行入口 |
 |---|---|---|
-| [01｜先保存状态，再看文件](01-state-and-files.md) | 状态、事件、产物的区别；完成条件 | `code/demo.py minimal` |
-| [02｜让方案、代码与证据指向同一版](02-versions-and-evidence.md) | 内容哈希、依赖、旧证据失效、实际验收 | `code/demo.py versions` |
-| [03｜两个写者怎样保住彼此的修改](03-concurrent-updates.md) | 真实并发、CAS、冲突后重新应用变更 | `code/demo.py conflict` |
-| [04｜运行对照实验并走读事务边界](04-experiments-and-source.md) | 产物检查、故障测试、固定版本 CPython 源码 | `code/demo.py experiments` |
+| [01｜任务状态](01-state-and-files.md) | 状态、事件、产物的区别；完成条件 | `code/demo.py minimal` |
+| [02｜产物版本](02-versions-and-evidence.md) | 内容哈希、依赖、旧证据失效、实际验收 | `code/demo.py versions` |
+| [03｜并发更新](03-concurrent-updates.md) | 真实并发、CAS、冲突后重新应用变更 | `code/demo.py conflict` |
+| [04｜实验与事务](04-experiments-and-source.md) | 产物检查、故障测试、固定版本 CPython 源码 | `code/demo.py experiments` |
 
-假定读者会 Python 字典、文件读写和函数调用。只用 Python 3.10 以上版本的标准库，无需安装第三方包，也无需模型配置。让模型决定怎样修代码属于[执行循环](../03-agent-loop/README.md)；这里使用两份确定的代码，把注意力放在保存和验收机制上。
+假定读者会 Python 字典、文件读写和函数调用。只用 Python 3.10 以上版本的标准库，无需安装第三方包，也无需模型配置。示例使用两份固定代码；模型驱动的修复过程见[执行循环](../03-agent-loop/README.md)。
 
-## 输入和完整程序
+## 输入与代码
 
 | 文件 | 在任务中的角色 |
 |---|---|
@@ -51,7 +53,7 @@ python sources/verify_sources.py
 
 输出目录必须尚不存在；再次运行时把末尾编号改成 `-2`，输入文件和旧记录都会保留。前三个命令各打印一行确定性的 JSON，下一行是 `artifacts=<你指定的目录>`。汇总实验中的 Python、SQLite 版本取自实际环境。
 
-## 运行后从引用找到字节
+## 运行产物
 
 | 产物 | 核对什么 |
 |---|---|
@@ -67,4 +69,4 @@ python sources/verify_sources.py
 
 本章实际验证了四个针对性测试与全部场景。它使用本机文件系统和 SQLite；文件发布采用同一文件系统中的目录重命名，并未实现跨对象存储事务、断电后的目录刷盘协议或分布式写者租约。进程退出后怎样继续，以及外部动作已经生效但回执丢失时如何处理，接着看[持久化与故障恢复](../09-persistence-and-recovery/README.md)。
 
-从 [01｜先保存状态，再看文件](01-state-and-files.md) 开始。
+从 [01｜任务状态](01-state-and-files.md) 开始。

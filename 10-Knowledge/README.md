@@ -1,6 +1,8 @@
 # Agent 组件学习路线
 
-知识库按 12 个核心组件与 3 个增强能力组织。先从一次模型调用走到完整执行循环，再逐步加入上下文、工具、状态、验收与协作能力。
+知识库包含 12 个核心组件与 3 个增强能力，各章提供正文、输入文件、代码与实验产物。
+
+组件总览图如下：
 
 ```mermaid
 flowchart TD
@@ -25,9 +27,7 @@ flowchart TD
     I -.更新方法.-> SK
 ```
 
-图展示各组件在完整系统中的关系。下面的 15 个目录分别提供递进正文、实际输入、可运行代码与实验；先运行一个组件，再沿关联关系加入其他能力。
-
-## 从执行循环开始
+## 运行入口
 
 进入 [03-agent-loop](03-agent-loop/README.md)，按 01—06 阅读：一次模型调用 → 工具与观察 → 历史与停止 → 错误与重试 → 实验对照 → OpenHands 源码。
 
@@ -45,7 +45,7 @@ python code/inspect_input.py
 saved=runs/input-preview.txt
 ```
 
-程序还会保存 `runs/input-preview.txt`。真实模型配置与后续命令见[章节 README](03-agent-loop/README.md#三个配置项决定真实模型的调用目标)。
+程序还会保存 `runs/input-preview.txt`。模型配置与后续命令见[API 配置](03-agent-loop/README.md#api-配置)。
 
 ## 12 个核心组件
 

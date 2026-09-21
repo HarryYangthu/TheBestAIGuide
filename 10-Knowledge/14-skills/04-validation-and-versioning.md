@@ -1,6 +1,8 @@
-# 04｜验收、版本更新与回归实验
+# 04｜技能验收与版本管理
 
-[阅读路线](README.md) · [上一篇](03-progressive-loading.md)
+[阅读路线](README.md) · [上一篇：渐进加载](03-progressive-loading.md)
+
+本章总览图如下：
 
 ```mermaid
 flowchart TD
@@ -13,9 +15,9 @@ flowchart TD
     F --> G["边界回归决定能否更新"]
 ```
 
-旧方法遇到秒与毫秒会正确拒绝，任务却无法完成。现在增加受支持的单位表和加载步骤，再运行完全相同的输入，就能判断更新解决了什么。只改 description 后宣称“技能更强”没有这样的证据。
+1.0.0 版本遇到秒与毫秒会拒绝比较；1.1.0 增加单位表和加载步骤。实验使用相同输入，比较执行状态、产物和加载记录。
 
-## 先让实际报告接受独立验收
+## 产物验收
 
 `compare.py` 退出 0 后，宿主调用 [validate_output.py](code/validate_output.py)。验收器重新读取 comparison.json、report.md 与两份输入，不复用 compare() 的返回对象；因此能发现文件后来被改坏，或渲染过程丢了字段。
 
@@ -41,7 +43,7 @@ python code/validate_output.py --output runs/direct --old examples/inputs/v1.jso
 
 该验收器包含本题支持的单位关系，独立于包内参考表。因此如果错误地把包中 ms 的倍率写成 0.01，脚本能生成文件，但验收会失败。更新单位种类时，也应先明确外部验收规则，而不是让被测程序自己声明正确。
 
-## 两个方法版本保留在不同根目录
+## 版本目录
 
 包名始终为 release-comparison，目录名与 SKILL name 一致；两个版本分别放在 examples/skills-v1 和 examples/skills 下。无需覆盖旧包，也无需安装到个人技能目录。
 
@@ -54,7 +56,7 @@ python code/validate_output.py --output runs/direct --old examples/inputs/v1.jso
 
 本次更新改变的是方法与领域附件，脚本内容未变。代码复用并不意味着技能版本不能更新：调用脚本的条件、传入参数与领域规则也会改变最终行为。
 
-## 四个场景只改变一个关键条件
+## 版本对照实验
 
 ```bash
 python code/run_experiments.py --output runs/experiments
@@ -69,9 +71,9 @@ python code/run_experiments.py --output runs/experiments
 | polish | 任务改为仅润色 | 只加载目录，跳过本技能 |
 | preview | 新版资料换成预览稿 | release_mismatch，拒绝交付 |
 
-compare 的加载字节可能比旧包更多，因为新增方法和附件。应先看任务从拒绝到完成且证据正确，再看额外加载量是否合理；压缩到只剩标题、却无法执行，不是有用的优化。
+compare 的加载字节可能比旧包更多，因为新增方法和附件。评估更新时同时检查任务验收结果和额外加载量。
 
-## 包版本和内容指纹一起记录
+## 版本与内容指纹
 
 ```bash
 python code/package_manifest.py --output runs/package-manifest.json
@@ -81,7 +83,7 @@ python code/package_manifest.py --output runs/package-manifest.json
 
 本章的 trace 记录方法、参考表、模板和执行脚本的内容指纹，完整清单补齐未加载文件。目录发现、task 路由、哈希策略和验收器是本章宿主约定；官方格式规定的是 SKILL.md 的结构及可选资源组织，没有规定这套 Python API 或 release-comparison 的业务步骤。[Agent Skills 格式规范](https://agentskills.io/specification)
 
-## 用反例检查更新是否损坏旧能力
+## 回归测试
 
 ```bash
 python -m unittest discover -s code -p 'test_*.py' -v
@@ -91,6 +93,6 @@ python -m unittest discover -s code -p 'test_*.py' -v
 
 你可以复制一份已经生成的 comparison.json，把 timeout.new 从 10 改成 10000，再运行 validate_output.py。预期 acceptance=False，退出码 1；即使 report.md 仍写得漂亮，结构化结果也无法通过。若同时把报告数字改成 10000，独立数值检查仍应拒绝。
 
-本章主线与这些反例都已实际执行，记录见 [validation.json](evidence/validation.json)。它验证方法包如何发现、加载、执行和更新；如果以后加入模型选择，需要额外测试名称描述能否匹配真实用户任务，并保留实际模型输入与输出。当前记录没有把显式路由的结果当成模型效果。
+验证记录见 [validation.json](evidence/validation.json)。若增加模型选择技能的功能，还需检查名称、描述与真实任务的匹配结果，并保存模型输入与输出；当前显式路由实验不包含这项评测。
 
 [返回阅读路线](README.md)

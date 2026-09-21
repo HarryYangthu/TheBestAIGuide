@@ -1,4 +1,6 @@
-# 04｜运行同题对照，再追到编码器源码
+# 04｜上下文实验与编码器源码
+
+本章总览图如下：
 
 ```mermaid
 flowchart TD
@@ -10,11 +12,11 @@ flowchart TD
     V --> E
 ```
 
-[阅读路线](README.md) · [上一篇](03-history-compression.md)
+[阅读路线](README.md) · [上一篇：历史压缩与事实校验](03-history-compression.md)
 
-## 先预测再运行
+## 对照实验
 
-本章的任务没有变化：为 checkout production 的这次灰度判断发布条件。下面几项反例各改变一个机制，目的是确认变化发生在哪里。
+实验固定 checkout production 的发布资料，每组对照只改变一项机制：
 
 | 对照 | 固定的东西 | 唯一主要变化 | 观察对象 |
 |---|---|---|---|
@@ -24,7 +26,7 @@ flowchart TD
 | 坏摘要、结构提取摘要 | 同一份历史 | 是否保留最新租户约束 | 事实 2/3 或 3/3 |
 | 默认、小窗口 | 完全相同的候选证据 | 输入额度 1500 → 401 | 最终可见证据与发布状态 |
 
-下面为**完整运行命令**，在章节目录执行；依赖、编码器缓存按 README 准备，输入 fixtures，输出各自 runs 目录。控制台标准输出见 README。
+**完整运行命令**，在章节目录执行；依赖、编码器缓存按 README 准备，输入 fixtures，输出各自 runs 目录。控制台标准输出见 README。
 
 ```bash
 python code/run_experiments.py
@@ -34,7 +36,7 @@ python code/run_experiments.py --window 1302 --out runs/boundary
 
 边界实验正好需要 402，因此重新纳入失败证据。若缩小到连必需块都放不下，`pack` 抛出 `mandatory_overflow`，不会保存一个看似合格但丢了用户任务的 messages。
 
-## 沿实际文件核对结果
+## 产物检查
 
 先打开 `loaded-documents.json` 确认政策是 v3，再打开 `cropped-log.json`，找到第 83 行的 `rollback_check=FAILED`。随后检查 `summary.json` 的 allowed_tenants 是否为 alpha、event_id 是否为 e10。最后打开 `messages.json`，确认这些内容是否真的进入本轮消息，而不是仅存在于某份中间文件。
 
@@ -49,9 +51,9 @@ python code/run_experiments.py --window 1302 --out runs/boundary
 | 默认最终输入 | 402 / 1500 | 重新计数整个序列化消息，不能简单相加前面的数 |
 | 默认发布检查 | BLOCKED | 回滚演练有失败证据 |
 
-`report.md` 由 result 中同一批值生成，避免手动填写成功率或另外写一份与消息不一致的报告。本程序没有运行真实发布，所以 `BLOCKED` 是对所给 fixtures 的检查结论。
+`report.md` 根据 `result.json` 中的实际值生成。本程序没有运行真实发布，所以 `BLOCKED` 是对所给 fixtures 的检查结论。
 
-## 测试针对容易错误的边界
+## 边界测试
 
 完整测试命令如下，不访问真实模型。tokenizer 缓存已预热后，测试也不需要外网：
 
@@ -61,7 +63,7 @@ python -m unittest discover -s code -p 'test_*.py' -v
 
 本次 9 项全部通过，覆盖父对象污染、无关历史排除、版本筛选、裁剪元数据、遗漏和旧事实拒绝、预算恰好够用与超限，以及缺演练证据时不放行。API 测试注入记录请求参数的测试对象，检查程序构造的调用参数。
 
-## 对照固定版本的 tiktoken
+## tiktoken 源码
 
 [source manifest](sources/manifest.json) 记录了实际下载核对的 tiktoken `0.12.0` 三个文件 URL 和 SHA-256；原文件与 MIT 许可证存放在 [sources/upstream](sources/upstream/)。上游固定版本：[core.py](https://github.com/openai/tiktoken/blob/0.12.0/tiktoken/core.py)、[registry.py](https://github.com/openai/tiktoken/blob/0.12.0/tiktoken/registry.py)。
 
@@ -81,9 +83,9 @@ except UnicodeEncodeError:
     return self._core_bpe.encode_ordinary(text)
 ```
 
-这里返回 `list[int]`，本文再取长度。BPE 的底层实现没有在这几行中展开；同样，这些行不知道聊天服务会添加哪些角色标记。这个对应关系说明为什么我们能精确复现本地编码，却仍把 API 包装余量单独列出。
+这里返回 `list[int]`，本文再取长度。BPE 的底层实现没有在这几行中展开；同样，这些行不知道聊天服务会添加哪些角色标记。因此，本地编码计数与 API 包装余量分别记录。
 
-以下为**完整离线核对命令**，只需标准库，输入 manifest 和快照，不生成文件：
+**完整离线核对命令**，只需标准库，输入 manifest 和快照，不生成文件：
 
 ```bash
 python sources/verify_sources.py
