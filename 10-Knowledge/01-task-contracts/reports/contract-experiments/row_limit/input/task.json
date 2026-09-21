@@ -1,0 +1,14 @@
+{
+  "task_id": "weekly-ticket-hours",
+  "version": 1,
+  "goal": "统计本周已完成工单的编号、数量、总工时和平均工时。",
+  "input_path": "tickets.json",
+  "constraints": {
+    "included_status": "done",
+    "max_rows": 4
+  },
+  "acceptance": {
+    "min_done": 1,
+    "decimal_places": 2
+  }
+}

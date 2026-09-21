@@ -1,0 +1,7 @@
+{
+  "trace_id": "8b620ce8a1f04c8495c1c509b88d32a3",
+  "parent_span_id": "s0006",
+  "from_task_id": "batch",
+  "to_task_id": "west",
+  "input": "west.csv"
+}

@@ -1,0 +1,36 @@
+{
+  "adopted": true,
+  "versions": {
+    "baseline": {
+      "dev": {
+        "accepted": 4,
+        "attempted": 8
+      },
+      "holdout": {
+        "accepted": 6,
+        "attempted": 8
+      }
+    },
+    "candidate": {
+      "dev": {
+        "accepted": 8,
+        "attempted": 8
+      },
+      "holdout": {
+        "accepted": 8,
+        "attempted": 8
+      }
+    }
+  },
+  "gate": {
+    "dev_no_regressions": true,
+    "dev_resource_budget": true,
+    "holdout_no_regressions": true,
+    "holdout_resource_budget": true,
+    "dev_has_improvement": true,
+    "holdout_all_pass": true
+  },
+  "final_active": "1c716cce8e777830",
+  "active_after_adopt": true,
+  "active_after_rollback": false
+}

@@ -1,0 +1,8 @@
+{
+  "checker_version": "summary-contract-v1",
+  "accepted": false,
+  "checks": {
+    "file_exists": false
+  },
+  "artifact_sha256": null
+}

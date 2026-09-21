@@ -1,0 +1,39 @@
+{
+  "python": "3.12.14",
+  "commands": [
+    {
+      "command": "python code/run_minimal.py",
+      "returncode": 0,
+      "passed": true
+    },
+    {
+      "command": "python code/run_task.py --output runs/task",
+      "returncode": 0,
+      "passed": true
+    },
+    {
+      "command": "python code/mcp_stdio.py --output runs/mcp",
+      "returncode": 0,
+      "passed": true
+    },
+    {
+      "command": "python code/run_experiments.py --output runs/experiments",
+      "returncode": 0,
+      "passed": true
+    },
+    {
+      "command": "python -m unittest discover -s code -p test_*.py -v",
+      "returncode": 0,
+      "passed": true
+    }
+  ],
+  "unit_tests": 8,
+  "all_passed": true,
+  "model_api_used": false,
+  "external_sources_verified_on": "2026-09-20",
+  "container": {
+    "executed": false,
+    "docker_cli_available": false,
+    "reason": "Docker CLI unavailable in this verification environment"
+  }
+}

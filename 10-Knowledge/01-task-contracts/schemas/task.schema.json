@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "task_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]+$"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "goal": {
+      "type": "string",
+      "minLength": 1
+    },
+    "input_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "constraints": {
+      "type": "object",
+      "properties": {
+        "included_status": {
+          "const": "done"
+        },
+        "max_rows": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "included_status",
+        "max_rows"
+      ],
+      "additionalProperties": false
+    },
+    "acceptance": {
+      "type": "object",
+      "properties": {
+        "min_done": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "decimal_places": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 6
+        }
+      },
+      "required": [
+        "min_done",
+        "decimal_places"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "task_id",
+    "version",
+    "goal",
+    "input_path",
+    "constraints",
+    "acceptance"
+  ],
+  "additionalProperties": false
+}

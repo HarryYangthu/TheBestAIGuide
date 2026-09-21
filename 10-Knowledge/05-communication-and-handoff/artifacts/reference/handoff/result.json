@@ -1,0 +1,132 @@
+{
+  "owner": "fulfillment-specialist",
+  "epoch": 2,
+  "states": {
+    "read-stock": "completed"
+  },
+  "merged": {
+    "complete": true,
+    "missing_tasks": [],
+    "results": {
+      "read-stock": {
+        "available": 2,
+        "evidence": {
+          "file": "inventory-ready.json",
+          "pointer": "/stock/pen",
+          "version": "stock-2"
+        },
+        "requested": 3,
+        "shortage": 1,
+        "sku": "pen"
+      }
+    }
+  },
+  "draft": "订单 order-017 需要 3 支笔，当前可供 2 支，还缺 1 支。请确认是否接受分批发货；补货日期待确认。",
+  "decisions": [
+    {
+      "seq": 1,
+      "decision": "delegated",
+      "message_id": "request-001",
+      "owner": "coordinator",
+      "epoch": 1,
+      "attempt": 1
+    },
+    {
+      "seq": 2,
+      "decision": "accepted_started",
+      "message_id": "message-002",
+      "owner": "coordinator",
+      "epoch": 1
+    },
+    {
+      "seq": 3,
+      "decision": "accepted_result",
+      "message_id": "message-003",
+      "owner": "coordinator",
+      "epoch": 1
+    },
+    {
+      "seq": 4,
+      "decision": "handoff_offered",
+      "message_id": null,
+      "owner": "coordinator",
+      "epoch": 1,
+      "handoff_id": "handoff-004"
+    },
+    {
+      "seq": 5,
+      "decision": "handoff_accepted",
+      "message_id": null,
+      "owner": "fulfillment-specialist",
+      "epoch": 2,
+      "handoff_id": "handoff-004"
+    },
+    {
+      "seq": 6,
+      "decision": "rejected_stale_owner",
+      "message_id": null,
+      "owner": "fulfillment-specialist",
+      "epoch": 2,
+      "actor": "coordinator"
+    },
+    {
+      "seq": 7,
+      "decision": "draft_created",
+      "message_id": null,
+      "owner": "fulfillment-specialist",
+      "epoch": 2,
+      "actor": "fulfillment-specialist"
+    }
+  ],
+  "worker_executions": 1,
+  "handoff": {
+    "handoff_id": "handoff-004",
+    "case_id": "order-017",
+    "from": "coordinator",
+    "to": "fulfillment-specialist",
+    "epoch": 1,
+    "context": {
+      "goal": "希望本周收到3支笔。",
+      "order": {
+        "case_id": "order-017",
+        "sku": "pen",
+        "quantity": 3,
+        "customer_request": "希望本周收到3支笔。"
+      },
+      "evidence": {
+        "read-stock": {
+          "available": 2,
+          "evidence": {
+            "file": "inventory-ready.json",
+            "pointer": "/stock/pen",
+            "version": "stock-2"
+          },
+          "requested": 3,
+          "shortage": 1,
+          "sku": "pen"
+        }
+      },
+      "decisions": [
+        "库存不足，尚未承诺处理方式"
+      ],
+      "unresolved": [
+        "客户是否接受分批发货"
+      ],
+      "next_action": "draft_options",
+      "allowed_actions": [
+        "draft_options"
+      ],
+      "constraints": [
+        "不能承诺补货日期",
+        "不能自动退款",
+        "草稿须由客户确认后再执行"
+      ]
+    }
+  },
+  "before_accept": {
+    "owner": "coordinator",
+    "epoch": 1
+  },
+  "old_action": "rejected_stale_owner",
+  "new_action": "draft_created"
+}

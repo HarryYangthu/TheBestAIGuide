@@ -1,0 +1,4 @@
+openai==3.16.2
+python-dotenv==1.2.3
+jsonschema==4.26.0
+httpx2==2.13.0

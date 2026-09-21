@@ -1,0 +1,14 @@
+{
+  "task_id": "weekly-ticket-hours",
+  "task_version": 1,
+  "run_id": "run-db669e6743ca41449acb91fa2be23de4",
+  "source_sha256": "4b8a11c2c9d0be97b003eb933408b160515b56821cd888cbd82793577b1dc9ff",
+  "completed_ids": [
+    "T-101",
+    "T-102",
+    "T-104"
+  ],
+  "count": 3,
+  "total_hours": 6.0,
+  "mean_hours": 2.0
+}

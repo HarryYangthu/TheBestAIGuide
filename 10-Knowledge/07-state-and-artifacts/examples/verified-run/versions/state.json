@@ -1,0 +1,16 @@
+{
+  "acceptance": "passed",
+  "budget": 4,
+  "next_step": null,
+  "refs": {
+    "cases": "d5d0bb4ef4d3e54edadd9cdf456452f2426cc6949976d77b1df084910ea50d53",
+    "code": "8229b0956103223f698a3415c68dd400aae9b37d4768e8a28504efe6b88b6941",
+    "evidence": "96efe65e66f35b8a3a68aca27ccec34de73a35152904caa81a542ff476da5884",
+    "experiment": "456bf5319256f466ec8028762b01fe7f3028224ae33982ff92ebe7c232931e73",
+    "plan": "79206e27df81a82c3da53919ff4401967b7b85a7785988a6f129401c432c470a"
+  },
+  "schema_version": 1,
+  "status": "completed",
+  "task_id": "repair-mean",
+  "version": 5
+}

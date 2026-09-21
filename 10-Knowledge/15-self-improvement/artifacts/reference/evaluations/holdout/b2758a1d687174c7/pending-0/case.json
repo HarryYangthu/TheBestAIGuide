@@ -1,0 +1,9 @@
+{
+  "id": "pending",
+  "input": "pending.csv",
+  "expected": {
+    "total_cents": 0,
+    "paid_rows": 0,
+    "rejected_rows": []
+  }
+}

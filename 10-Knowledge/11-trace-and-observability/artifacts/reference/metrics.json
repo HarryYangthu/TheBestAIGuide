@@ -1,0 +1,45 @@
+{
+  "trace_id": "8b620ce8a1f04c8495c1c509b88d32a3",
+  "span_count": 11,
+  "root_wall_ms": 68.73158500000001,
+  "child_duration_sum_ms": 127.673577,
+  "child_interval_union_ms": 64.937322,
+  "first_direct_error": {
+    "trace_id": "8b620ce8a1f04c8495c1c509b88d32a3",
+    "span_id": "s0010",
+    "parent_span_id": "s0007",
+    "task_id": "west",
+    "parent_task_id": "batch",
+    "name": "tool.aggregate",
+    "kind": "tool",
+    "status": "error",
+    "error": {
+      "type": "ValueError",
+      "message": "invalid_amount: file=west.csv row=3 order=w2",
+      "origin_span_id": "s0010",
+      "is_origin": true
+    },
+    "start_utc": "2026-09-20T16:00:44.170408+00:00",
+    "start_ms": 66.177139,
+    "versions": {
+      "engine": "trace-v1",
+      "tool": "aggregate-v1",
+      "policy": "reject-invalid-v1",
+      "prompt": "fixture-plan-v1"
+    },
+    "attributes": {
+      "input_file": "west.csv",
+      "failed_row": 3,
+      "order_id": "w2"
+    },
+    "end_ms": 66.287706,
+    "duration_ms": 0.11056700000000319
+  },
+  "model_span_count": 1,
+  "known_cost_spans": 0,
+  "total_model_cost_usd": null,
+  "illustrative_cost_usd": 7.2e-05,
+  "success_tasks": 1,
+  "failed_tasks": 1,
+  "child_overlap_ms": 62.736255
+}

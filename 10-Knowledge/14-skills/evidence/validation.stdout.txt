@@ -1,0 +1,37 @@
+$ python examples/skills/release-comparison/scripts/compare.py --old examples/inputs/v1.json --new examples/inputs/v2.json --old-version 1.0 --new-version 2.0 --units examples/skills/release-comparison/references/units.json --template examples/skills/release-comparison/assets/report.md --output runs/direct
+status=generated rows=3
+
+$ python code/validate_output.py --output runs/direct --old examples/inputs/v1.json --new examples/inputs/v2.json
+acceptance=True checks=23
+
+$ python code/host.py --task compare --output runs/host
+status=completed acceptance=True
+artifacts=runs/host
+
+$ python code/host.py --task polish --output runs/polish
+status=skipped acceptance=None
+artifacts=runs/polish
+
+$ python code/run_experiments.py --output runs/experiments
+checks=4 passed=4
+artifacts=runs/experiments
+
+$ python code/package_manifest.py --output runs/package-manifest.json
+packages=2 artifacts=runs/package-manifest.json
+
+$ python -m unittest discover -s code -p test_*.py -v
+test_conversion_and_equal_quantity (test_skills.SkillTests.test_conversion_and_equal_quantity) ... ok
+test_corrupted_artifact_fails_acceptance (test_skills.SkillTests.test_corrupted_artifact_fails_acceptance) ... ok
+test_dimensions (test_skills.SkillTests.test_dimensions) ... ok
+test_fabricated_quote_and_missing_field (test_skills.SkillTests.test_fabricated_quote_and_missing_field) ... ok
+test_host_saves_failure_trace_when_artifact_missing_field (test_skills.SkillTests.test_host_saves_failure_trace_when_artifact_missing_field) ... ok
+test_missing_files_bad_json_and_shapes_return_failure (test_skills.SkillTests.test_missing_files_bad_json_and_shapes_return_failure) ... ok
+test_polish_does_not_load_method (test_skills.SkillTests.test_polish_does_not_load_method) ... ok
+test_preview_rejected (test_skills.SkillTests.test_preview_rejected) ... ok
+test_unchanged_units_skip_reference (test_skills.SkillTests.test_unchanged_units_skip_reference) ... ok
+test_wrong_report_product_or_version_fails (test_skills.SkillTests.test_wrong_report_product_or_version_fails) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.414s
+
+OK

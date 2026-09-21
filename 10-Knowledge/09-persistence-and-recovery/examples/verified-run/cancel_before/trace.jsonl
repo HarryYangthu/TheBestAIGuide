@@ -1,0 +1,3 @@
+{"detail": "{\"run_id\":\"batch-1\"}", "kind": "created", "seq": 1}
+{"detail": "{}", "kind": "cancel_requested", "seq": 2}
+{"detail": "{}", "kind": "cancelled", "seq": 3}

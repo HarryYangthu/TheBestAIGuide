@@ -1,0 +1,8 @@
+{"detail": "{\"run_id\":\"batch-1\"}", "kind": "created", "seq": 1}
+{"detail": "{\"index\":0,\"mean\":3.0}", "kind": "item_completed", "seq": 2}
+{"detail": "{\"index\":1,\"mean\":0.0}", "kind": "item_completed", "seq": 3}
+{"detail": "{\"index\":2,\"mean\":10.0}", "kind": "item_completed", "seq": 4}
+{"detail": "{\"op_key\":\"[\\\"tenant-a/reports/v1\\\",\\\"batch-1\\\",\\\"publish\\\",1]\"}", "kind": "prepared", "seq": 5}
+{"detail": "{\"number\":1}", "kind": "attempt", "seq": 6}
+{"detail": "{\"publication_id\":\"caee05db0f44de22\",\"request_hash\":\"05dc243d01c67dea136d85710603c7c2daed13ce916f4913e9897a811128c2e6\"}", "kind": "receipt_saved", "seq": 7}
+{"detail": "{}", "kind": "completed", "seq": 8}

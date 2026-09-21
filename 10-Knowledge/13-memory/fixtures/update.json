@@ -1,0 +1,17 @@
+{
+  "id": "fact-timeout-v4",
+  "kind": "fact",
+  "key": "timeout_ms",
+  "value": 2000,
+  "service": "checkout",
+  "environment": "production",
+  "user": "*",
+  "source_id": "policy-v4",
+  "valid_from": "2026-09-21",
+  "expires_at": "2026-10-01",
+  "conditions": {},
+  "supersedes": [
+    "fact-timeout-v3",
+    "fact-timeout-conflict"
+  ]
+}
