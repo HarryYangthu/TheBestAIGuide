@@ -1,10 +1,10 @@
 # 02｜模型接入
 
-本章从读取周报笔记开始，接入真实模型并保存响应。
+本章从读取仿真任务说明开始，接入真实模型并保存响应。
 
 [组件总览](../README.md) · [上一组件：任务与协议](../01-task-contracts/README.md) · [下一组件：Agent 执行循环](../03-agent-loop/README.md)
 
-本章使用官方 `openai` SDK 汇总一份周报笔记，内容包含“工具接入、循环日志”两项已完成工作和“错误重试”一项待办。模型接入代码在 [adapter.py](code/adapter.py)，工具执行和文件验收在 [live.py](code/live.py)。
+本章使用官方 `openai` SDK 汇总一份仿真任务说明，提取执行命令和三个产物路径。模型接入代码在 [adapter.py](code/adapter.py)，工具执行和文件验收在 [live.py](code/live.py)。
 
 本章总览图如下：
 
@@ -76,7 +76,7 @@ status=completed code=none
 artifacts=<本次运行目录>
 ```
 
-`stream` 模式还会先实时打印模型文本，具体措辞不固定。`tool` 与 `stream-tools` 正常完成时发起两次模型请求，其他模式发起一次。第一次请求读取笔记，第二次依据工具结果回答。
+`stream` 模式还会先实时打印模型文本，具体措辞不固定。`tool` 与 `stream-tools` 正常完成时发起两次模型请求，其他模式发起一次。第一次请求读取仿真任务说明，第二次依据工具结果回答。
 
 | 输入或产物 | 用来核对什么 |
 |---|---|
@@ -113,3 +113,31 @@ requests=3 fully_metered=1
 已运行五场景协议实验、12 项 unittest、4 个源码文件对照和[缺配置真实入口检查](reports/configuration-check/run.json)。测试通过官方 SDK 的 MockTransport 覆盖全部五种入口、两次工具往返、SSE 与流中断，未发起外部 API 请求。环境使用 Python 3.12.14、openai 3.16.2、python-dotenv 1.2.3、jsonschema 4.26.0、httpx2 2.13.0。当前无 API Key，真实模型响应需读者配置后生成；报告没有预填模型成功率或费用。SDK 快照取自已安装分发包，未声称验证远端提交。旧资料见[归档模型适配器](../../_archive/03-agent-core/01-concepts/03-model-adapters.md)。
 
 开始阅读：[01｜API 配置与响应](01-configuration-and-response.md)。
+
+## 仿真任务入口
+
+[notes.txt](notes.txt) 是交给 Agent 的任务提示词，包含执行命令、输入参数、检查项和产物路径。本章的模型调用先提取仿真命令与产物路径；实际仿真可用下方命令独立运行。
+
+在本章目录执行，使用 Python 3.10+ 标准库：
+
+```bash
+python simulate.py --config simulation.json --output runs/simulation
+```
+
+标准输出：
+
+```text
+samples=64 window=3
+input_mse=0.090000 output_mse=0.010082
+improvement_db=9.507 passed=True
+artifacts=runs/simulation
+```
+
+| 文件 | 内容 |
+|---|---|
+| [simulation.json](simulation.json) | 采样点数、周期数、噪声幅度与滤波窗口 |
+| `runs/simulation/metrics.json` | 输入与输出 MSE、改善量和配置摘要 |
+| `runs/simulation/samples.csv` | 每个采样点的原始、加噪与滤波数值 |
+| `runs/simulation/report.md` | 引用实际指标的仿真报告 |
+
+再次运行时换一个 `--output` 目录。算法、参数对照和参考产物见[统一仿真说明](../_shared/README.md)。

@@ -5,6 +5,7 @@ from copy import deepcopy
 from pathlib import Path
 from scheduler import Node
 from stats import mean
+from simulation import run_simulation, save_simulation
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -59,9 +60,12 @@ class ReportWorker:
                 passed += int(extra["passed"])
             return {"notes": dependencies["notes"]["text"], "checks": checks,
                     "passed_checks": passed, "total_checks": len(checks) + int(extra is not None),
-                    "case_version": dependencies["cases"]["version"]}
+                    "case_version": dependencies["cases"]["version"],
+                    "simulation": await run_simulation()}
         if node.task_id == "review":
             summary, policy = dependencies["summary"], dependencies["policy"]
+            if not summary["simulation"]["metrics"]["passed"]:
+                raise ValueError("simulation acceptance failed")
             if summary["passed_checks"] != summary["total_checks"]:
                 raise ValueError("check failed")
             if summary["passed_checks"] < policy["minimum_passed"]:
@@ -83,12 +87,15 @@ def save_run(output, scheduler, inputs, extra=None):
     for name, value in (("input.json", inputs), ("result.json", result)):
         (output / name).write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     (output / "events.jsonl").write_text("".join(json.dumps(e, ensure_ascii=False) + "\n" for e in result["events"]), encoding="utf-8")
-    lines = ["# 笔记与代码检查报告", "", f"accepted={result['accepted']}", "",
+    lines = ["# 仿真与代码检查报告", "", f"accepted={result['accepted']}", "",
              "| 节点 | 状态 |", "|---|---|"]
     lines.extend(f"| {key} | {state} |" for key, state in result["states"].items())
     if result["accepted"]:
         data = result["results"]["publish"]["summary"]
-        lines += ["", "## 笔记", "", data["notes"], "## 检查", "",
+        save_simulation(output, data["simulation"])
+        metrics = data["simulation"]["metrics"]
+        lines += ["", f"输入 MSE：{metrics['input_mse']:.6f}；输出 MSE：{metrics['output_mse']:.6f}。",
+                  "[仿真报告](simulation/report.md)", "", "## 任务说明", "", data["notes"], "## 检查", "",
                   f"通过 {data['passed_checks']}/{data['total_checks']}；用例版本 {data['case_version']}。"]
     if result["errors"]:
         lines += ["", "## 错误", "", json.dumps(result["errors"], ensure_ascii=False)]

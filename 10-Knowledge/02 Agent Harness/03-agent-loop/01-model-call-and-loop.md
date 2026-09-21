@@ -46,7 +46,9 @@ client = OpenAI(
     timeout=30.0,
     max_retries=0,
 )
-messages = [{"role": "user", "content": "用一句话解释算术平均值。"}]
+from pathlib import Path
+notes = Path("notes.txt").read_text(encoding="utf-8")
+messages = [{"role": "user", "content": "根据任务说明列出执行步骤，暂不执行。\n" + notes}]
 response = client.chat.completions.create(
     model=os.environ["OPENAI_MODEL"],
     messages=messages,
@@ -56,7 +58,7 @@ print(response.choices[0].message.content)
 
 **这段代码的作用：** 发起一次真实请求，并打印第一条候选响应的正文。
 
-**参考输出：** `算术平均值是所有数值之和除以数值个数。` 模型措辞可能不同。
+**参考输出：** `读取配置，运行 simulate.py，检查退出码及 MSE，打开生成的报告。` 模型措辞可能不同。
 
 | 对象 | 在这段代码中表示什么 |
 |---|---|
@@ -87,7 +89,12 @@ artifacts=<本次运行目录>
 根目录已经有一份 `notes.txt`，内容是：
 
 ```text
-本周完成了工具接入与循环日志。
+任务：执行一次 Python 信号去噪仿真，并根据实际结果生成报告。
+执行：python simulate.py --config simulation.json --output runs/simulation
+输入：64 个采样点，2 个正弦周期，交替噪声幅度 0.3，均值滤波窗口 3。
+检查：核对进程退出码和输出 MSE；若存在 stats.py，核对 mean 的除数和空列表处理。
+产物：runs/simulation/metrics.json、runs/simulation/samples.csv、runs/simulation/report.md
+要求：保留原始配置；报告引用真实指标，运行失败时记录原因，不编造成功。
 ```
 
 先不用模型，直接在章节目录运行下面的完整代码：
@@ -102,7 +109,12 @@ print(text, end="")
 **标准输出：**
 
 ```text
-本周完成了工具接入与循环日志。
+任务：执行一次 Python 信号去噪仿真，并根据实际结果生成报告。
+执行：python simulate.py --config simulation.json --output runs/simulation
+输入：64 个采样点，2 个正弦周期，交替噪声幅度 0.3，均值滤波窗口 3。
+检查：核对进程退出码和输出 MSE；若存在 stats.py，核对 mean 的除数和空列表处理。
+产物：runs/simulation/metrics.json、runs/simulation/samples.csv、runs/simulation/report.md
+要求：保留原始配置；报告引用真实指标，运行失败时记录原因，不编造成功。
 ```
 
 这就是读取工具最终要执行的操作。再运行配套入口：
@@ -114,13 +126,18 @@ python code/inspect_input.py
 **标准输出：**
 
 ```text
-本周完成了工具接入与循环日志。
+任务：执行一次 Python 信号去噪仿真，并根据实际结果生成报告。
+执行：python simulate.py --config simulation.json --output runs/simulation
+输入：64 个采样点，2 个正弦周期，交替噪声幅度 0.3，均值滤波窗口 3。
+检查：核对进程退出码和输出 MSE；若存在 stats.py，核对 mean 的除数和空列表处理。
+产物：runs/simulation/metrics.json、runs/simulation/samples.csv、runs/simulation/report.md
+要求：保留原始配置；报告引用真实指标，运行失败时记录原因，不编造成功。
 saved=runs/input-preview.txt
 ```
 
 它还生成 `runs/input-preview.txt`。打开这个文件，应当与 `notes.txt` 完全一致。你可以先修改笔记内容，再运行一次，观察两份文件如何对应。
 
-接下来把任务交给模型：“读取 `notes.txt`，告诉我本周完成了什么。”这一次，模型需要请求程序提供文件内容。
+接下来把任务交给模型：“读取 `notes.txt`，说明仿真命令、检查项和产物路径；本轮只读取任务说明。”这一次，模型需要请求程序提供文件内容。
 
 ## 3. 工具定义
 
@@ -140,7 +157,7 @@ tools = [{
         },
     },
 }]
-messages = [{"role": "user", "content": "读取 notes.txt，告诉我本周完成了什么。"}]
+messages = [{"role": "user", "content": "读取 notes.txt，说明仿真命令、检查项和产物路径；本轮只读取任务说明。"}]
 response = client.chat.completions.create(
     model=os.environ["OPENAI_MODEL"],
     messages=messages,
@@ -199,7 +216,12 @@ print(observation, end="")
 ```text
 str
 dict
-本周完成了工具接入与循环日志。
+任务：执行一次 Python 信号去噪仿真，并根据实际结果生成报告。
+执行：python simulate.py --config simulation.json --output runs/simulation
+输入：64 个采样点，2 个正弦周期，交替噪声幅度 0.3，均值滤波窗口 3。
+检查：核对进程退出码和输出 MSE；若存在 stats.py，核对 mean 的除数和空列表处理。
+产物：runs/simulation/metrics.json、runs/simulation/samples.csv、runs/simulation/report.md
+要求：保留原始配置；报告引用真实指标，运行失败时记录原因，不编造成功。
 ```
 
 | 变量 | 类型 | 示例值 |
@@ -243,13 +265,13 @@ print(response.choices[0].message.content)
 ['user', 'assistant', 'tool']
 ```
 
-**第二行参考输出：** `本周完成了工具接入与循环日志。`
+**后续参考回答：** `运行 python simulate.py --config simulation.json --output runs/simulation，检查退出码和 MSE，再读取指标、波形和报告。` 具体措辞由模型生成。
 
 第二次调用通过 `tool_choice="none"` 要求模型直接回答。模型将根据回传的文件内容生成回答。
 
 | 顺序 | 消息角色 | 保存的信息 |
 |---:|---|---|
-| 0 | `user` | 用户希望读取笔记并总结 |
+| 0 | `user` | 用户希望读取仿真任务说明并总结 |
 | 1 | `assistant` | 模型请求 `read_file`，带调用 ID |
 | 2 | `tool` | 对应 ID 的真实读取结果 |
 
@@ -375,7 +397,7 @@ artifacts=<本次运行目录>
 | `answer.md` | 看回答是否使用了这份笔记 |
 | `report.md` | 查看运行状态、调用次数与回答 |
 
-将根目录 `notes.txt` 改成“本周完成了参数校验，但还没有加入错误重试。”，再运行 v1。比较两个运行目录的输入副本、后续请求和回答。
+在根目录 `notes.txt` 末尾追加“报告还应说明滤波窗口对结果的影响。”，再运行 v1。比较两个运行目录的输入副本、后续请求和回答。
 
 下一篇加入写入和检查工具，完成 `stats.py` 的修复任务。
 

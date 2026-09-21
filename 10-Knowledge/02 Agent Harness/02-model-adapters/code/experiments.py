@@ -44,7 +44,7 @@ def experiment(output):
     ledger.add(None)
     ledger.add({"prompt_tokens": 4})
     # Complete schema, wrong facts: model formatting and task acceptance are separate.
-    value = {"completed": ["错误重试"], "pending": ["工具接入", "循环日志"]}
+    value = {"commands": ["python missing.py"], "artifacts": ["invented.json"]}
     response = normalize_message({"content": json.dumps(value)}, "stop")
     checked = parse_structured(response, SCHEMA)
     accepted = summary_acceptance(checked, (ROOT / "examples/notes.txt").read_text(encoding="utf-8"))

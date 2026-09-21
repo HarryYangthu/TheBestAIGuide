@@ -1,10 +1,10 @@
 # 08｜工具与执行环境
 
-本章为笔记与统计报告任务注册工具，并检查参数、结果与执行范围。
+本章为仿真任务注册工具，并检查参数、结果与执行范围。
 
 [组件总览](../README.md) · [上一组件：状态与产物管理](../07-state-and-artifacts/README.md) · [下一组件：持久化与故障恢复](../09-persistence-and-recovery/README.md)
 
-执行层接收工具名称和参数，执行操作并返回结果或错误。任务读取笔记、计算 `[2, 4]` 的均值，并比较两步和三步预算，保存工具记录与报告。
+执行层接收工具名称和参数，执行操作并返回结果或错误。任务读取仿真任务说明、执行信号去噪仿真，并比较两步和三步预算，保存工具记录与报告。
 
 本章总览图如下：
 
@@ -13,7 +13,7 @@ flowchart TD
     A["01 工具定义与参数校验"] --> B["02 搜索、文件、代码与仿真"]
     B --> C["03 执行环境与 MCP"]
     C --> D["04 工具实验"]
-    B --> E["trace 与笔记报告"]
+    B --> E["trace 与仿真任务报告"]
     D --> E
 ```
 
@@ -43,9 +43,9 @@ python -m unittest discover -s code -p 'test_*.py' -v
 标准输出中可核对的部分：
 
 ```text
-policy.md:3: 先读取笔记，再运行统计脚本，最后写入报告。
+policy.md:3: 先读取仿真任务说明，再运行信号去噪脚本，最后写入报告。
 saved=runs/minimal.txt
-mean=3.0 calls=6 acceptance=True
+input_mse=0.090000 output_mse=0.010082 calls=6 acceptance=True
 artifacts=runs/task
 protocol=2025-06-18 tools=5 valid_call=True invalid_call=True
 artifacts=runs/mcp
@@ -76,8 +76,36 @@ python code/run_container.py --image python:3.12-slim --output runs/container
 | `runs/task/result.json` | 两种步骤预算的回放记录和验收结果 |
 | `runs/mcp/messages.json` | 初始化、工具发现、合法与非法调用 |
 
-已执行产物保存在 [evidence/task/result.json](evidence/task/result.json)、[笔记报告](evidence/task/workspace/report.md)、[MCP 消息](evidence/mcp/messages.json)、[错误实验](evidence/experiments/report.md)。运行时会产生新的 `runs/`，不会改写这些样本。
+已执行产物保存在 [evidence/task/result.json](evidence/task/result.json)、[仿真任务报告](evidence/task/workspace/report.md)、[MCP 消息](evidence/mcp/messages.json)、[错误实验](evidence/experiments/report.md)。运行时会产生新的 `runs/`，不会改写这些样本。
 
 ## 验证范围
 
 本机五个工具、stdio 子进程、8 个单元测试和全部离线命令已执行。Docker CLI 在编写环境中不存在，容器入口只做代码检查，未运行容器；[验证记录](evidence/validation.json)明确区分这一点。`-I`、目录检查和 Python 子进程均不等于操作系统隔离。接口依据与执行边界见[执行环境与 MCP](03-environment-and-mcp.md)。
+
+## 仿真任务入口
+
+[notes.txt](notes.txt) 是交给 Agent 的任务提示词，包含执行命令、输入参数、检查项和产物路径。run_task.py 通过 run_python 执行仿真；simulate_loop 另用于回放工具步骤预算，不计算信号。
+
+在本章目录执行，使用 Python 3.10+ 标准库：
+
+```bash
+python simulate.py --config simulation.json --output runs/simulation
+```
+
+标准输出：
+
+```text
+samples=64 window=3
+input_mse=0.090000 output_mse=0.010082
+improvement_db=9.507 passed=True
+artifacts=runs/simulation
+```
+
+| 文件 | 内容 |
+|---|---|
+| [simulation.json](simulation.json) | 采样点数、周期数、噪声幅度与滤波窗口 |
+| `runs/simulation/metrics.json` | 输入与输出 MSE、改善量和配置摘要 |
+| `runs/simulation/samples.csv` | 每个采样点的原始、加噪与滤波数值 |
+| `runs/simulation/report.md` | 引用实际指标的仿真报告 |
+
+再次运行时换一个 `--output` 目录。算法、参数对照和参考产物见[统一仿真说明](../_shared/README.md)。

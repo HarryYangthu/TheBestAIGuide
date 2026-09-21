@@ -27,11 +27,11 @@ flowchart TD
 from pathlib import Path
 lines = Path("examples/corpus/policy.md").read_text(encoding="utf-8").splitlines()
 for number, line in enumerate(lines, 1):
-    if "先读取笔记" in line:
+    if "先读取仿真任务说明" in line:
         print(f"policy.md:{number}: {line}")
 ```
 
-标准输出为 `policy.md:3: 先读取笔记，再运行统计脚本，最后写入报告。`。`enumerate(..., 1)` 保留原文行号，后面的报告才能指向同一条证据。配套入口 `python code/run_minimal.py` 还将这行写入 `runs/minimal.txt`。
+标准输出为 `policy.md:3: 先读取仿真任务说明，再运行信号去噪脚本，最后写入报告。`。`enumerate(..., 1)` 保留原文行号，后面的报告才能指向同一条证据。配套入口 `python code/run_minimal.py` 还将这行写入 `runs/minimal.txt`。
 
 查询词写死在代码中时，更换查询词就需要修改代码。将它改为 `query` 参数，并把搜索范围固定为 `examples/corpus/`，即可重复调用。实际 `search_docs()` 位于 [runtime.py](code/runtime.py) 的 `build_registry()` 中：它按文件名排序，逐行做不区分大小写的子串匹配，返回前 `limit` 条结果。它没有向量检索和相关性模型；匹配顺序可完全复现。
 
@@ -59,7 +59,7 @@ registry = build_registry(Path("runs/first-call"))
 request = {
     "id": "search-1",
     "name": "search_docs",
-    "arguments": {"query": "先读取笔记", "limit": 5},
+    "arguments": {"query": "先读取仿真任务说明", "limit": 5},
 }
 result = registry.call(request)
 print(result["call_id"], result["ok"], result["data"]["matches"][0]["line"])

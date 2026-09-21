@@ -29,7 +29,7 @@
       "params": {
         "name": "search_docs",
         "arguments": {
-          "query": "先读取笔记",
+          "query": "先读取仿真任务说明",
           "limit": 5
         }
       }
@@ -41,7 +41,7 @@
       "params": {
         "name": "search_docs",
         "arguments": {
-          "query": "先读取笔记",
+          "query": "先读取仿真任务说明",
           "limit": 200
         }
       }
@@ -220,7 +220,7 @@
           },
           {
             "name": "run_python",
-            "description": "执行已审阅的 compute.py 并传入 JSON",
+            "description": "执行已审阅的 compute.py 或 simulate.py，读取 JSON 输入",
             "inputSchema": {
               "type": "object",
               "properties": {
@@ -348,7 +348,7 @@
         "content": [
           {
             "type": "text",
-            "text": "{\"matches\": [{\"path\": \"policy.md\", \"line\": 3, \"text\": \"先读取笔记，再运行统计脚本，最后写入报告。\"}], \"total\": 1, \"truncated\": false}"
+            "text": "{\"matches\": [{\"path\": \"policy.md\", \"line\": 3, \"text\": \"先读取仿真任务说明，再运行信号去噪脚本，最后写入报告。\"}], \"total\": 1, \"truncated\": false}"
           }
         ],
         "isError": false,
@@ -357,7 +357,7 @@
             {
               "path": "policy.md",
               "line": 3,
-              "text": "先读取笔记，再运行统计脚本，最后写入报告。"
+              "text": "先读取仿真任务说明，再运行信号去噪脚本，最后写入报告。"
             }
           ],
           "total": 1,

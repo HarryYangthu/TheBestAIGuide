@@ -25,7 +25,7 @@ flowchart TD
 {
   "code": "snapshot_unfound",
   "retryable": true,
-  "message": "笔记内容快照尚未就绪",
+  "message": "任务字段快照尚未就绪",
   "evidence": {"file": "snapshot-unfound.json", "version": "notes-1"}
 }
 ```
@@ -37,7 +37,7 @@ flowchart TD
 | `message` | 向阅读日志的人说明具体问题 |
 | `evidence` | 回到本次输入确认故障来自哪一份快照 |
 
-这和“笔记内容为 0”完全不同。笔记内容为 0 是成功检查后的事实；快照不可用表示还不知道笔记内容。把两者都返回 `{}`，协调者就无法选择下一步。
+这和“已找到字段数为 0”完全不同。已找到字段数为 0 是成功检查后的事实；快照不可用表示还不知道任务字段。把两者都返回 `{}`，协调者就无法选择下一步。
 
 `Case.delegate` 只允许在上次状态为 `failed` 且 `retryable=True` 时再次执行，并把 `attempt` 加一；默认最多两次尝试。成功结果不能因为调用方没看见就再执行一次；重发应返回缓存回执。失败回执格式与发送方会被检查，具体重试策略仍由负责者决定。
 
@@ -69,10 +69,10 @@ async with bus.worker_lock:
         await bus.send(response)
         return response
     bus.worker_executions += 1
-    # 完整函数随后读取笔记内容、构造回执、缓存并发送。
+    # 完整函数随后读取仿真任务说明内容、构造回执、缓存并发送。
 ```
 
-这段节选保留了实际判断，注释处的业务代码见完整文件；不能单独执行。锁覆盖登记、执行与缓存，防止同一事件循环中两个重复投递都穿过“尚未处理”的检查。当前笔记内容检查是只读动作，缓存存在内存里；外部付款、发邮件等副作用需要在操作层另设幂等键和持久事务，不能靠这个进程内字典宣称跨崩溃恰好执行一次。
+这段节选保留了实际判断，注释处的业务代码见完整文件；不能单独执行。锁覆盖登记、执行与缓存，防止同一事件循环中两个重复投递都穿过“尚未处理”的检查。当前任务字段检查是只读动作，缓存存在内存里；外部付款、发邮件等副作用需要在操作层另设幂等键和持久事务，不能靠这个进程内字典宣称跨崩溃恰好执行一次。
 
 ## 3. 迟到消息
 
@@ -82,7 +82,7 @@ async with bus.worker_lock:
 |---:|---|---|
 | 1 | attempt 1 读取 notes-1，快照不可用 | 保存 `accepted_failure` |
 | 2 | 协调者授权 attempt 2，指定 notes-2 | 新请求、新 correlation_id |
-| 3 | attempt 2 返回笔记内容 2、缺口 1 | 保存 `accepted_result` |
+| 3 | attempt 2 返回已找到字段 2、缺口 1 | 保存 `accepted_result` |
 | 4 | attempt 1 的新失败通知迟到 | `stale_attempt`，不覆盖成功 |
 | 5 | attempt 2 的 started 晚到 | `late_progress`，不退回 running |
 
@@ -105,7 +105,7 @@ if message["correlation_id"] != request["correlation_id"]:
 
 ## 4. 结果合并
 
-假设笔记内容结果成功返回两次，政策结果一次都没来。消息数为 2，仍不代表两项工作都完成。`Case.merge(expected_tasks)` 按逻辑任务名核对：
+假设任务字段结果成功返回两次，政策结果一次都没来。消息数为 2，仍不代表两项工作都完成。`Case.merge(expected_tasks)` 按逻辑任务名核对：
 
 ```python
 missing = sorted(set(expected_tasks) - self.results.keys())
@@ -115,7 +115,7 @@ return {"complete": not missing, "missing_tasks": missing,
 
 这是方法核心节选，定义无输出，返回合并对象；完整实现还拒绝清单之外的结果。已有 `read-notes` 的情况下，传入 `['read-notes', 'read-policy']` 会返回 `complete=False`、`missing_tasks=['read-policy']`。同一 `task_id` 在结果字典中只有一个经验证的值，重复投递不会给它加权或填补另一个任务。
 
-验证证据也在合并前做。假设回执把 `missing` 改成 0，接收器根据原请求的任务和笔记内容重算得到 1，于是返回 `invalid_evidence`，任务保持未完成。这说明消息格式正确、传输成功、结果达标分别是不同检查。
+验证证据也在合并前做。假设回执把 `missing` 改成 0，接收器根据原请求的任务和任务字段重算得到 1，于是返回 `invalid_evidence`，任务保持未完成。这说明消息格式正确、传输成功、结果达标分别是不同检查。
 
 ## 5. 消息实验
 
@@ -134,7 +134,7 @@ owner=report-writer epoch=2
 artifacts=runs/experiments
 ```
 
-本篇对应 `delivery/` 子目录：`messages.jsonl` 中包含请求重发、同 ID 改内容、旧 attempt、旧输入版本和错误关联 ID；`result.json` 的 `checks` 保存每条实际决定及预期。两次执行分别是一次快照不可用和一次正常读取，重复请求没有增加第三次执行。有效笔记内容结果只有一份，缺口仍为 1。
+本篇对应 `delivery/` 子目录：`messages.jsonl` 中包含请求重发、同 ID 改内容、旧 attempt、旧输入版本和错误关联 ID；`result.json` 的 `checks` 保存每条实际决定及预期。两次执行分别是一次快照不可用和一次正常读取，重复请求没有增加第三次执行。有效任务字段结果只有一份，缺口仍为 1。
 
 `delivery/result.json` 中的负责人仍为 `coordinator`，epoch 为 1；委派没有转移控制权。交接记录保存在 `handoff/` 子目录。
 

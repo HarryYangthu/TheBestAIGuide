@@ -21,6 +21,8 @@ flowchart TD
 
 ```python
 summary, policy = dependencies["summary"], dependencies["policy"]
+if not summary["simulation"]["metrics"]["passed"]:
+    raise ValueError("simulation acceptance failed")
 if summary["passed_checks"] != summary["total_checks"]:
     raise ValueError("check failed")
 if summary["passed_checks"] < policy["minimum_passed"]:
@@ -98,7 +100,7 @@ artifacts=runs/v3
 
 ## 4. 任务图变更
 
-现在加入空列表检查。新节点 `empty_check` 依赖 `policy`，`summary` 除了笔记和用例，还必须等待 `empty_check`。新计划由 `make_plan("2", empty_check=True)` 构造。
+现在加入空列表检查。新节点 `empty_check` 依赖 `policy`，`summary` 除了任务说明和用例，还必须等待 `empty_check`。新计划由 `make_plan("2", empty_check=True)` 构造。
 
 | 节点 | 旧前驱 | 新前驱 | 处理 |
 |---|---|---|---|
@@ -146,8 +148,8 @@ artifacts=runs/v3-empty_check
 | 改了什么 | 应标记哪些输入节点 |
 |---|---|
 | 用例文件 | `cases` |
-| 笔记文件 | `notes` |
-| 最低通过数或笔记要求 | `policy` |
+| 任务说明文件 | `notes` |
+| 最低通过数或任务说明要求 | `policy` |
 | `stats.py` 的实现 | `summary`；有空列表检查时还包括 `empty_check` |
 
 遗漏直接读者会使缓存看起来有效而实际上过期。版本号应代表该节点所有直接输入的快照；只有一个孤立的字符串，却没有更新规则，不会自动获得缓存正确性。

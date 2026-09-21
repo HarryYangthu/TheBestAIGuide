@@ -72,3 +72,31 @@ python sources/verify_sources.py
 本章实际验证了四个针对性测试与全部场景。它使用本机文件系统和 SQLite；文件发布采用同一文件系统中的目录重命名，并未实现跨对象存储事务、断电后的目录刷盘协议或分布式写者租约。进程退出后怎样继续，以及外部动作已经生效但回执丢失时如何处理，接着看[持久化与故障恢复](../09-persistence-and-recovery/README.md)。
 
 从 [01｜任务状态](01-state-and-files.md) 开始。
+
+## 仿真任务入口
+
+[notes.txt](notes.txt) 是交给 Agent 的任务提示词，包含执行命令、输入参数、检查项和产物路径。本章保存均值函数的修复版本与检查结果，展示仿真代码如何防止旧版本覆盖新版本。
+
+在本章目录执行，使用 Python 3.10+ 标准库：
+
+```bash
+python simulate.py --config simulation.json --output runs/simulation
+```
+
+标准输出：
+
+```text
+samples=64 window=3
+input_mse=0.090000 output_mse=0.010082
+improvement_db=9.507 passed=True
+artifacts=runs/simulation
+```
+
+| 文件 | 内容 |
+|---|---|
+| [simulation.json](simulation.json) | 采样点数、周期数、噪声幅度与滤波窗口 |
+| `runs/simulation/metrics.json` | 输入与输出 MSE、改善量和配置摘要 |
+| `runs/simulation/samples.csv` | 每个采样点的原始、加噪与滤波数值 |
+| `runs/simulation/report.md` | 引用实际指标的仿真报告 |
+
+再次运行时换一个 `--output` 目录。算法、参数对照和参考产物见[统一仿真说明](../_shared/README.md)。

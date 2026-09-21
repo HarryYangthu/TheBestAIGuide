@@ -24,18 +24,20 @@ def sdk_model(stage):
         payload = json.loads(request.content)
         index += 1
         if stage == 'v0':
-            message = {'role': 'assistant', 'content': '算术平均值是总和除以个数。'}
+            message = {'role': 'assistant', 'content': '运行 python simulate.py，检查输出 MSE 和仿真报告。'}
         elif stage == 'v1':
             if index == 1:
                 message = call('read_file', {'path': 'notes.txt'}, index)
             else:
                 assert payload['messages'][-1]['role'] == 'tool'
-                message = {'role': 'assistant', 'content': '本周完成了工具接入与循环日志。'}
+                message = {'role': 'assistant', 'content': '运行 python simulate.py，检查输出 MSE 和仿真报告。'}
         elif index == 1:
             message = call('read_file', {'path': 'stats.py'}, index)
         elif index == 2:
             message = call('write_file', {'path': 'stats.py', 'content': FIXED_SOURCE}, index)
         elif index == 3:
+            message = call('run_python', {'script': 'simulate.py'}, index)
+        elif index == 4:
             message = call('check_tests', {}, index)
         elif stage == 'v2':
             message = {'role': 'assistant', 'content': '已修复并通过检查。'}
@@ -92,7 +94,7 @@ class LiveEntrypointTests(unittest.TestCase):
             result = json.loads((directory / 'result.json').read_text())
             self.assertEqual(result['model_calls'], 1)
             self.assertEqual(result['reason'], 'response_received')
-            self.assertIn('算术平均值', (directory / 'answer.md').read_text())
+            self.assertIn('simulate.py', (directory / 'answer.md').read_text())
 
 
 if __name__ == '__main__':

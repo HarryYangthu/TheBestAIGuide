@@ -1,4 +1,4 @@
-# 笔记任务通信记录
+# 仿真任务通信记录
 
 负责人：coordinator；epoch：1。
 
@@ -20,6 +20,6 @@
 | 14 | message-012 | conflicting_outcome |
 | 15 | message-006 | duplicate |
 
-## 笔记摘要
+## 任务摘要
 
 尚未生成。

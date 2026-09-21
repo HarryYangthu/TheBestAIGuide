@@ -3,7 +3,7 @@ from shared import (add_assistant, add_observation, initial_messages, read_file)
 
 TOOLS = [{"name": "read_file", "description": "读取实验目录内的文本文件", "parameters": {
     "type": "object", "properties": {"path": {"type": "string"}}, "required": ["path"]}}]
-TASK = "请读取 notes.txt，并告诉我本周完成了什么。"
+TASK = "请读取 notes.txt，说明要执行的 Python 仿真命令、需要核对的指标和产物路径。本阶段只读取说明。"
 
 
 def run_manual(model, workspace):

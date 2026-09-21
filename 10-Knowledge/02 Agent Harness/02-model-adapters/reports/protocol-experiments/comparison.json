@@ -87,8 +87,8 @@
   "structured_acceptance": {
     "passed": false,
     "checks": {
-      "completed": false,
-      "pending": false
+      "commands": false,
+      "artifacts": false
     }
   }
 }

@@ -15,11 +15,11 @@ flowchart TD
     F --> B["blocked 阻塞后继"]
 ```
 
-实现见 [scheduler.py](code/scheduler.py) 与 [v2_schedule.py](code/v2_schedule.py)。运行环境为 Python 3.11+ 和标准库，工作目录为本章目录，输入为 `fixtures/` 中的笔记、用例与检查规则。
+实现见 [scheduler.py](code/scheduler.py) 与 [v2_schedule.py](code/v2_schedule.py)。运行环境为 Python 3.11+ 和标准库，工作目录为本章目录，输入为 `fixtures/` 中的任务说明、用例与检查规则。
 
 ## 1. 就绪条件
 
-笔记、用例、规则互不依赖，可以先执行；报告要等笔记和用例都成功。下列是 `Scheduler.run` 的节选，依赖已有的 `self.plan` 与 `self.states`，返回局部变量 `ready`，本身不打印：
+任务说明、用例、规则互不依赖，可以先执行；报告要等任务说明和用例都成功。下列是 `Scheduler.run` 的节选，依赖已有的 `self.plan` 与 `self.states`，返回局部变量 `ready`，本身不打印：
 
 ```python
 ready = sorted(key for key, node in self.plan.items()

@@ -1,6 +1,6 @@
 # 15｜自进化
 
-本章根据统计脚本的失败样本修改处理策略，评测通过后采用新版本。
+本章根据仿真统计脚本的失败样本修改处理策略，评测通过后采用新版本。
 
 [组件总览](../README.md) · [上一章：技能库 Skills](../14-skills/README.md)
 
@@ -68,3 +68,31 @@ artifacts=runs/cycle
 完整实验最后已经主动回滚到基线，因此参考 `active.json` 指向基线。回滚前后各有一次真正的 `whitespace` 任务执行，分别保存在 `after-adopt` 和 `after-rollback`。
 
 本次实际运行了两套本地实验和 8 项关键行为测试；未请求外部模型。
+
+## 仿真任务入口
+
+[notes.txt](notes.txt) 是交给 Agent 的任务提示词，包含执行命令、输入参数、检查项和产物路径。本章用固定失败案例比较循环策略并验证回滚；仿真本身使用下方统一入口。
+
+在本章目录执行，使用 Python 3.10+ 标准库：
+
+```bash
+python simulate.py --config simulation.json --output runs/simulation
+```
+
+标准输出：
+
+```text
+samples=64 window=3
+input_mse=0.090000 output_mse=0.010082
+improvement_db=9.507 passed=True
+artifacts=runs/simulation
+```
+
+| 文件 | 内容 |
+|---|---|
+| [simulation.json](simulation.json) | 采样点数、周期数、噪声幅度与滤波窗口 |
+| `runs/simulation/metrics.json` | 输入与输出 MSE、改善量和配置摘要 |
+| `runs/simulation/samples.csv` | 每个采样点的原始、加噪与滤波数值 |
+| `runs/simulation/report.md` | 引用实际指标的仿真报告 |
+
+再次运行时换一个 `--output` 目录。算法、参数对照和参考产物见[统一仿真说明](../_shared/README.md)。

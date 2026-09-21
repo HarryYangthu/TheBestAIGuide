@@ -12,7 +12,7 @@
         "evidence": {
           "file": "snapshot-ready.json",
           "pointer": "notes.txt",
-          "text": "工具接入：已完成。\n循环日志：已完成。\n",
+          "text": "任务：执行一次信号去噪仿真。\n执行：python simulate.py --config simulation.json --output runs/simulation\n产物：读取 runs/simulation/metrics.json，整理仿真结果。\n",
           "version": "notes-2"
         },
         "found": 2,
@@ -22,7 +22,7 @@
       }
     }
   },
-  "draft": "任务 report-017 要求 3 条事实，已找到 2 条，缺少 1 条。\n工具接入：已完成。\n循环日志：已完成。\n待确认：错误重试。",
+  "draft": "任务 report-017 要求 3 条事实，已找到 2 条，缺少 1 条。\n任务：执行一次信号去噪仿真。\n执行：python simulate.py --config simulation.json --output runs/simulation\n产物：读取 runs/simulation/metrics.json，整理仿真结果。\n待确认：退出码。",
   "decisions": [
     {
       "seq": 1,
@@ -87,23 +87,23 @@
     "to": "report-writer",
     "epoch": 1,
     "context": {
-      "goal": "读取笔记，列出已完成的工作和缺少的说明，保存报告。",
+      "goal": "读取仿真任务，核对执行命令、指标文件与退出码要求；交接缺少的信息并保存报告。",
       "task": {
         "case_id": "report-017",
         "path": "notes.txt",
         "required_facts": [
-          "工具接入",
-          "循环日志",
-          "错误重试"
+          "simulate.py",
+          "metrics.json",
+          "退出码"
         ],
-        "instruction": "读取笔记，列出已完成的工作和缺少的说明，保存报告。"
+        "instruction": "读取仿真任务，核对执行命令、指标文件与退出码要求；交接缺少的信息并保存报告。"
       },
       "evidence": {
         "read-notes": {
           "evidence": {
             "file": "snapshot-ready.json",
             "pointer": "notes.txt",
-            "text": "工具接入：已完成。\n循环日志：已完成。\n",
+            "text": "任务：执行一次信号去噪仿真。\n执行：python simulate.py --config simulation.json --output runs/simulation\n产物：读取 runs/simulation/metrics.json，整理仿真结果。\n",
             "version": "notes-2"
           },
           "found": 2,
@@ -113,10 +113,10 @@
         }
       },
       "decisions": [
-        "已读取笔记；错误重试尚无完成记录"
+        "已读取仿真任务说明；错误重试尚无完成记录"
       ],
       "unresolved": [
-        "错误重试是否完成"
+        "是否补充进程退出码检查要求"
       ],
       "next_action": "write_report",
       "allowed_actions": [

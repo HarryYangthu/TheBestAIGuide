@@ -1,0 +1,8 @@
+--- before/stats.py
++++ after/stats.py
+@@ -1,2 +1,4 @@
+ def mean(values):
+-    return sum(values) / (len(values) + 1)
++    if not values:
++        raise ValueError('values must not be empty')
++    return sum(values) / len(values)

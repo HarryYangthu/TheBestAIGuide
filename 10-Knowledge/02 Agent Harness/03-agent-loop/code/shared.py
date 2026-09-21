@@ -7,9 +7,12 @@ import json
 import os
 import subprocess
 import sys
+import shutil
+import runpy
+import csv
 from pathlib import Path
 
-TASK = "读取 stats.py，修复 mean：非空列表返回算术平均值，空列表抛出 ValueError；运行测试。"
+TASK = (Path(__file__).resolve().parents[1] / "notes.txt").read_text(encoding="utf-8") + "\n本次工作区含 stats.py。先修复 mean，再用 run_python 执行 simulate.py，最后调用 check_tests 核对代码与仿真产物。"
 BUGGY_SOURCE = "def mean(values):\n    return sum(values) / (len(values) + 1)\n"
 FIXED_SOURCE = (
     "def mean(values):\n"
@@ -67,6 +70,9 @@ def create_workspace(path):
     root = Path(__file__).resolve().parents[1]
     (workspace / "notes.txt").write_text((root / "notes.txt").read_text(encoding="utf-8"), encoding="utf-8")
     (workspace / "stats.py").write_text((root / "examples" / "stats.py").read_text(encoding="utf-8"), encoding="utf-8")
+    for name in ("simulate.py", "simulation.json"):
+        shutil.copyfile(root / name, workspace / name)
+    shutil.copyfile(root.parent / "_shared/simulation_core.py", workspace / "simulation_core.py")
     return workspace
 
 
@@ -85,8 +91,59 @@ def read_file(workspace, path):
 
 def write_file(workspace, path, content):
     target = resolve_path(workspace, path)
+    if path != "stats.py":
+        raise ValueError("本次修复只允许修改 stats.py；配置和仿真程序保持不变。")
     target.write_text(content, encoding="utf-8")
     return {"path": path, "bytes": len(content.encode("utf-8"))}
+
+
+def run_python(workspace, script):
+    if script != "simulate.py":
+        raise ValueError("本章只执行工作区中的 simulate.py。")
+    output = Path(workspace) / "runs/simulation"
+    if output.exists():
+        # A rerun replaces only the known simulation output, never another path.
+        if output.is_symlink() or not output.resolve().is_relative_to(Path(workspace).resolve()):
+            raise ValueError("仿真产物路径越界。")
+        shutil.rmtree(output)
+    completed = subprocess.run(
+        [sys.executable, "-I", str(Path(workspace).resolve() / script),
+         "--config", "simulation.json", "--output", "runs/simulation"],
+        cwd=workspace, capture_output=True, text=True, encoding="utf-8", timeout=10,
+        env={key: value for key, value in os.environ.items()
+             if key in ("PATH", "SYSTEMROOT", "WINDIR", "TEMP", "TMP", "LANG")},
+    )
+    return {"exit_code": completed.returncode, "stdout": completed.stdout,
+            "stderr": completed.stderr, "artifacts": "runs/simulation"}
+
+
+def check_simulation(workspace):
+    root = Path(workspace)
+    try:
+        expected_config = Path(__file__).resolve().parents[1] / "simulation.json"
+        if (root / "simulation.json").read_bytes() != expected_config.read_bytes():
+            raise ValueError("仿真配置被修改")
+        core = Path(__file__).resolve().parents[2] / "_shared/simulation_core.py"
+        expected, expected_rows = runpy.run_path(str(core))["compute"](json.loads(expected_config.read_text()))
+        output = root / "runs/simulation"
+        actual = json.loads((output / "metrics.json").read_text())
+        with (output / "samples.csv").open() as stream:
+            rows = list(csv.DictReader(stream))
+        metrics_ok = all(type(actual[k]) is type(v) and
+                         (abs(actual[k] - v) < 1e-10 if isinstance(v, float) else actual[k] == v)
+                         for k, v in expected.items())
+        samples_ok = len(rows) == len(expected_rows) and all(
+            all(abs(float(a[k]) - b[k]) < 1e-10 for k in b)
+            for a, b in zip(rows, expected_rows))
+        hashes_ok = actual["stats_sha256"] == hashlib.sha256((root / "stats.py").read_bytes()).hexdigest()
+        hashes_ok &= actual["config_sha256"] == hashlib.sha256(expected_config.read_bytes()).hexdigest()
+        report = (output / "report.md").read_text(encoding="utf-8")
+        report_ok = all(f"{actual[k]:.6f}" in report for k in ("input_mse", "output_mse"))
+        return {"passed": bool(metrics_ok and samples_ok and hashes_ok and report_ok),
+                "metrics": actual, "checks": {"metrics": metrics_ok, "samples": samples_ok,
+                                                "input_versions": hashes_ok, "report": report_ok}}
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        return {"passed": False, "error": str(exc)}
 
 
 # 子进程只运行本课中展示的代码。接入真实模型时应另外配置执行隔离。
@@ -135,15 +192,20 @@ def check_tests(workspace):
         checks = json.loads(completed.stdout)
     except (subprocess.TimeoutExpired, RuntimeError, json.JSONDecodeError) as exc:
         checks = [{"name": "test_process", "passed": False, "detail": type(exc).__name__ + ": " + str(exc)}]
-    return {"passed": bool(checks) and all(check["passed"] for check in checks), "checks": checks, "source_sha256": digest}
+    simulation = check_simulation(workspace)
+    checks.append({"name": "simulation_artifacts", "passed": simulation["passed"],
+                   "detail": json.dumps(simulation, ensure_ascii=False)})
+    return {"passed": bool(checks) and all(check["passed"] for check in checks), "checks": checks,
+            "source_sha256": digest, "simulation": simulation}
 
 
 def make_registry(workspace):
     """用小字典保持工具说明、参数规则、执行函数的一一对应。"""
     return {
         "read_file": {"description": "读取实验目录内的文本文件", "parameters": {"path": str}, "function": lambda path: read_file(workspace, path)},
-        "write_file": {"description": "写入实验目录内的文本文件", "parameters": {"path": str, "content": str}, "function": lambda path, content: write_file(workspace, path, content)},
-        "check_tests": {"description": "检查当前 stats.py 是否满足本课要求", "parameters": {}, "function": lambda: check_tests(workspace)},
+        "write_file": {"description": "修改本次工作区的 stats.py，修复均值函数", "parameters": {"path": str, "content": str}, "function": lambda path, content: write_file(workspace, path, content)},
+        "run_python": {"description": "运行 simulate.py，返回退出码、标准输出和错误；产物保存在 runs/simulation", "parameters": {"script": str}, "function": lambda script: run_python(workspace, script)},
+        "check_tests": {"description": "检查 mean 函数、仿真指标、波形数据和报告是否符合要求", "parameters": {}, "function": lambda: check_tests(workspace)},
         "finish": {"description": "明确请求结束当前运行；不代表验收通过", "parameters": {"summary": str}, "function": None},
     }
 

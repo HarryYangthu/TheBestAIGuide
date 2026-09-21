@@ -28,7 +28,7 @@
 | `05-*.ipynb` | 沿同一组输入运行并比较实验 |
 | `06-*.md` | 把本文实现映射到固定版本的开源源码 |
 | `code/` | 完整脚本与验证代码 |
-| `notes.txt`、`examples/` | 实际可读取和修改的输入样例 |
+| `notes.txt`、`simulation.json`、`simulate.py`、`examples/` | 仿真提示词、参数、可运行脚本与组件实验输入 |
 | `.env.example`、`requirements.txt` | 模型配置模板和固定依赖 |
 | `sources/` | 固定来源、原始文件、节选及许可证 |
 | `runs/` | 读者本地运行生成的结果，Git 忽略 |

@@ -17,15 +17,15 @@
     "event": "loaded",
     "kind": "input",
     "path": "old.json",
-    "context_bytes": 413,
-    "sha256": "0bcab7f47b56a8d29a06027d1e39fd14687e005c7fff41a23002fbe8c8ffca2d"
+    "context_bytes": 418,
+    "sha256": "17a77e469f5f707ab538950a89bb87bbeaee101d776ef91c98cdc46be6beb7a9"
   },
   {
     "event": "loaded",
     "kind": "input",
     "path": "new.json",
-    "context_bytes": 425,
-    "sha256": "7de6097b5117236bdc5e4154a0acfb756329311cc69d4fe789122043c6aa80c2"
+    "context_bytes": 430,
+    "sha256": "11eadb2acb937880fb1fc04c312172a4ae1d2efbd0001115ae67c11ecaa98fe8"
   },
   {
     "event": "loaded",

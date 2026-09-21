@@ -6,7 +6,7 @@
 
 ```mermaid
 flowchart TD
-    I["任务和笔记内容快照"] --> M["失败后重试"]
+    I["任务和任务字段快照"] --> M["失败后重试"]
     M --> R["重发、冲突和迟到注入"]
     R --> C["记录每条消息的接收决定"]
     I --> H["提出并确认交接"]
@@ -81,7 +81,7 @@ from protocol import Case, LocalBus, exchange, read_fixture
 async def changed_task():
     task = read_fixture("task.json")
     task["required_facts"].append("测试报告")
-    task["instruction"] = "读取笔记，核对四条必需事实并生成报告。"
+    task["instruction"] = "读取仿真任务说明，核对四条必需事实并生成报告。"
     case = Case(task)
     bus = LocalBus(["coordinator", "notes-reader"])
     request = case.delegate("coordinator", "snapshot-ready.json")
@@ -105,7 +105,7 @@ rejected_action
 draft_created
 ```
 
-任务数量变化使缺口从 1 变成 2。负责人正确但任期旧，仍然不能推进；任期正确但请求删除输入，也不能推进。只有允许的动作通过后才生成草稿。可以在最后加 `print(case.draft)` 检查它是否准确写出数量 4、笔记内容 2、缺口 2，并把缺少的两项列为待确认。
+任务数量变化使缺口从 1 变成 2。负责人正确但任期旧，仍然不能推进；任期正确但请求删除输入，也不能推进。只有允许的动作通过后才生成草稿。可以在最后加 `print(case.draft)` 检查它是否准确写出数量 4、已找到字段 2、缺口 2，并把缺少的两项列为待确认。
 
 ## 4. Queue 源码
 

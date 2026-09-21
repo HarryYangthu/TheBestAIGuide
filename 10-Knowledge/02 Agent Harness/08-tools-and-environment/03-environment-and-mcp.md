@@ -34,7 +34,7 @@ flowchart TD
 
 ## 容器配置
 
-[run_container.py](code/run_container.py) 继续执行相同 compute.py、相同 samples.json，结果仍应为样本数 2、均值 3.0。它构造以下容器参数；这是参数说明，完整可运行入口在其后的命令中。
+[run_container.py](code/run_container.py) 使用前一篇最小计算示例中的 compute.py、samples.json，结果仍应为样本数 2、均值 3.0。它构造以下容器参数；这是参数说明，完整可运行入口在其后的命令中。
 
 | 参数 | 具体限制 |
 |---|---|

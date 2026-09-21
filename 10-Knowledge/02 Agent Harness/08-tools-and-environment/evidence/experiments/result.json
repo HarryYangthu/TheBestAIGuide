@@ -12,7 +12,7 @@
           {
             "path": "glossary.md",
             "line": 3,
-            "text": "read_file 读取笔记；run_python 运行统计脚本；write_file 保存报告。"
+            "text": "read_file 读取仿真任务说明；run_python 运行仿真统计脚本；write_file 保存报告。"
           }
         ],
         "total": 4,

@@ -8,12 +8,12 @@ from adapter import ROOT, AdapterError, OpenAIAdapter, assistant_message, parse_
 
 PARAMETERS = {"type": "object", "properties": {"path": {"type": "string", "enum": ["notes.txt"]}},
               "required": ["path"], "additionalProperties": False}
-TOOL = {"type": "function", "function": {"name": "read_file", "description": "读取本周笔记 notes.txt",
+TOOL = {"type": "function", "function": {"name": "read_file", "description": "读取仿真任务说明 notes.txt",
         "strict": True, "parameters": PARAMETERS}}
 SCHEMA = {"type": "object", "properties": {
-    "completed": {"type": "array", "items": {"type": "string"}},
-    "pending": {"type": "array", "items": {"type": "string"}}},
-    "required": ["completed", "pending"], "additionalProperties": False}
+    "commands": {"type": "array", "items": {"type": "string"}},
+    "artifacts": {"type": "array", "items": {"type": "string"}}},
+    "required": ["commands", "artifacts"], "additionalProperties": False}
 
 
 def tool_result(call, notes):
@@ -26,10 +26,12 @@ def tool_result(call, notes):
 
 
 def summary_acceptance(value, notes):
-    expected = {"completed": [], "pending": []}
+    expected = {"commands": [], "artifacts": []}
     for line in notes.splitlines():
-        if line.startswith("完成："): expected["completed"].append(line.removeprefix("完成："))
-        elif line.startswith("待办："): expected["pending"].append(line.removeprefix("待办："))
+        if line.startswith("执行："):
+            expected["commands"].append(line.removeprefix("执行："))
+        elif line.startswith("产物："):
+            expected["artifacts"].extend(line.removeprefix("产物：").split("、"))
     checks = {key: sorted(value[key]) == sorted(expected[key]) for key in expected}
     return {"passed": all(checks.values()), "checks": checks}
 
@@ -47,7 +49,7 @@ def run(mode, output):
     try:
         adapter = OpenAIAdapter.from_env()
         if mode in ("tool", "stream-tools"):
-            messages = [{"role": "user", "content": "读取 notes.txt，用一句话分别说明本周完成项和待办项。"}]
+            messages = [{"role": "user", "content": "读取 notes.txt，提取仿真命令和产物路径；本轮只整理执行计划。"}]
             response = adapter.request(messages, stream=mode == "stream-tools", tools=[TOOL],
                 tool_choice={"type": "function", "function": {"name": "read_file"}}, parallel_tool_calls=False)
             messages.append(assistant_message(response))
@@ -58,10 +60,10 @@ def run(mode, output):
             save(output / "messages.json", messages)
             response = adapter.request(messages, tools=[TOOL], tool_choice="none")
         else:
-            messages = [{"role": "user", "content": "根据下面笔记汇总完成项与待办项。保留事项原文，不加说明。\n" + notes}]
+            messages = [{"role": "user", "content": "根据下面任务说明提取 commands 和 artifacts 两个字符串数组。逐字保留执行命令与完整产物路径，不执行命令。\n" + notes}]
             options = {}
             if mode == "structured":
-                options["response_format"] = {"type": "json_schema", "json_schema": {"name": "weekly_summary", "strict": True, "schema": SCHEMA}}
+                options["response_format"] = {"type": "json_schema", "json_schema": {"name": "simulation_plan", "strict": True, "schema": SCHEMA}}
             response = adapter.request(messages, stream=mode == "stream", on_text=lambda text: print(text, end="", flush=True), **options)
             if mode == "stream": print()
         (output / "answer.txt").write_text(response["content"] or "", encoding="utf-8")
@@ -71,7 +73,7 @@ def run(mode, output):
             saved = json.loads((output / "summary.json").read_text(encoding="utf-8"))
             result["acceptance"] = summary_acceptance(saved, notes)
             if not result["acceptance"]["passed"]:
-                raise AdapterError("acceptance_failed", "事项与笔记原文不一致")
+                raise AdapterError("acceptance_failed", "命令或产物路径与任务说明不一致")
         result["status"] = "completed"
     except AdapterError as exc:
         result["error"] = exc.record()
